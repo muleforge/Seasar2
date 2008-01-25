@@ -23,7 +23,6 @@ public class MethodInvocationInterceptor extends AbstractInterceptor {
 		Method method = methodInvocation.getMethod();
 		if(MethodUtil.isAbstract(method)) {
 			Object payload = methodInvocation.getArguments();
-			//String payload = "Hello";
 			String methodName = method.getName();
 			sender.setProperty("method", methodName);
 			return sender.send(payload);
