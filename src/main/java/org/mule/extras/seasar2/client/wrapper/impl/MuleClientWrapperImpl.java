@@ -38,8 +38,8 @@ public class MuleClientWrapperImpl extends MuleClient implements
 	/**  マネジメントコンテキスト */
 	private UMOManagementContext managementContext;
 
-	  /** loggerの設定 */
-    private static Log logger = LogFactory.getLog(MuleClientWrapperImpl.class);
+	/** loggerの設定 */
+	private static Log logger = LogFactory.getLog(MuleClientWrapperImpl.class);
 	
 	private MuleCredentials user;
 
