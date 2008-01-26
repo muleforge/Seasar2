@@ -13,7 +13,7 @@ public class JmsConnectorConfigTest extends S2TestCase {
 	}
 	
 	public void setUp() throws Exception {
-		include("org/mule/extras/seasar2/config/Impl/JmsConnectorConfigTest.dicon");
+		include("JmsConnectorConfigTest.dicon");
 	}
 
 	public void testGetConnector() throws Exception {
