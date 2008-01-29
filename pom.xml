@@ -43,35 +43,35 @@
 					<appendAssemblyId>false</appendAssemblyId>
 				</configuration>
 			</plugin>
-                        <plugin>
-                                <groupId>org.apache.maven.plugins</groupId>
-                                <artifactId>maven-compiler-plugin</artifactId>
-                                <configuration>
-                                        <source>1.5</source>
-                                        <target>1.5</target>
-                                </configuration>
-                        </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 	<name>Seasar2</name>
 	<description>The Seasar2 framework is an open source framework similar to the Spring Framework.</description>
 	<dependencies>
-                <dependency>
-                        <groupId>org.mule</groupId>
-                        <artifactId>mule-core</artifactId>
-		        <version>${muleVersion}</version>
-                </dependency>
+		<dependency>
+			<groupId>org.mule</groupId>
+			<artifactId>mule-core</artifactId>
+			<version>${muleVersion}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.mule.modules</groupId>
 			<artifactId>mule-module-client</artifactId>
 			<version>${muleVersion}</version>
 		</dependency>
-                <dependency>
-                        <groupId>org.mule.tests</groupId>
-                        <artifactId>mule-tests-functional</artifactId>
-		        <version>${muleVersion}</version>
-                        <scope>test</scope>
-                </dependency>
+		<dependency>
+			<groupId>org.mule.tests</groupId>
+			<artifactId>mule-tests-functional</artifactId>
+			<version>${muleVersion}</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.mule.transports</groupId>
 			<artifactId>mule-transport-vm</artifactId>
@@ -87,13 +87,14 @@
 			<artifactId>mule-transport-file</artifactId>
 			<version>${muleVersion}</version>
 		</dependency>
-                <!--
+
+		<!--
 		<dependency>
 			<groupId>org.mule.transports</groupId>
 			<artifactId>mule-transport-stream</artifactId>
 			<version>${muleVersion}</version>
 		</dependency>
-                -->
+		-->
 
 		<dependency>
 			<groupId>org.mule.transports</groupId>
@@ -127,25 +128,26 @@
 			<version>${muleVersion}</version>
 		</dependency>
 
-                <dependency>
-                        <groupId>org.seasar.container</groupId>
-                        <artifactId>s2-framework</artifactId>
-		        <version>2.4.17</version>
-                </dependency>
-                <dependency>
-                        <groupId>org.seasar.container</groupId>
-                        <artifactId>s2-extension</artifactId>
-		        <version>2.4.17</version>
-                </dependency>
-
+		<dependency>
+			<groupId>org.seasar.container</groupId>
+			<artifactId>s2-framework</artifactId>
+			<version>2.4.17</version>
+		</dependency>
+		<dependency>
+			<groupId>org.seasar.container</groupId>
+			<artifactId>s2-extension</artifactId>
+			<version>2.4.17</version>
+		</dependency>
 	</dependencies>
 
-        <repositories>
-                <repository>
-                        <id>maven.seasar.org</id>
-                        <name>The Seasar Foundation Maven2 Repository</name>
-                        <url>http://maven.seasar.org/maven2</url>
-                </repository>
-        </repositories>
+	<repositories>
+		<repository>
+			<id>maven.seasar.org</id>
+				<name>The Seasar Foundation Maven2 Repository</name>
+				<url>http://maven.seasar.org/maven2</url>
+		</repository>
+	</repositories>
 
 </project>
+
+
