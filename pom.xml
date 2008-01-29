@@ -6,7 +6,7 @@
 	<groupId>org.mule.modules</groupId>
 	<artifactId>mule-module-seasar2</artifactId>
 	<packaging>jar</packaging>
-	<version>0.5</version>
+	<version>0.6</version>
 	<properties>
 		<muleVersion>2.0-M1</muleVersion>
 	</properties>

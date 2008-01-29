@@ -7,7 +7,9 @@ package org.mule.extras.seasar2.exception;
  *
  */
 public class ProprtyNotFoundException extends SMuleConfigurationException {
-	
+
+	private static final long serialVersionUID = 7448310817447042432L;
+
 	/**
 	 * インスタンスを生成します
 	 * 

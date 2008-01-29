@@ -4,12 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.mule.impl.endpoint.MuleEndpoint;
-import org.mule.impl.endpoint.MuleEndpointURI;
-import org.mule.umo.UMODescriptor;
 import org.mule.umo.UMOException;
 import org.mule.umo.endpoint.UMOEndpoint;
-import org.mule.util.object.ObjectFactory;
-import org.mule.util.object.SimpleObjectFactory;
 
 /**
  * 

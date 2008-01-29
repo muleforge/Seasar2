@@ -10,6 +10,8 @@ import org.seasar.framework.exception.SRuntimeException;
  */
 public class SMuleRuntimeException extends SRuntimeException {
 	
+	private static final long serialVersionUID = -331466760857177938L;
+
 	/**
 	 * インスタンスを構築します
 	 * 

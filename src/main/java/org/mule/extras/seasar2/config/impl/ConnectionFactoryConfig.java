@@ -1,8 +1,5 @@
 package org.mule.extras.seasar2.config.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.mule.extras.seasar2.config.ComponentConfig;
 import org.mule.util.object.SimpleObjectFactory;
 

@@ -1,7 +1,5 @@
 package org.mule.extras.seasar2.reciver.builder;
 
-import javax.security.auth.Destroyable;
-
 import org.mule.umo.UMOException;
 import org.mule.umo.UMOManagementContext;
 

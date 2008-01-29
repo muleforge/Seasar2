@@ -5,10 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.mule.extras.seasar2.client.wrapper.MuleClientWrapper;
-import org.mule.extras.seasar2.client.wrapper.impl.MuleClientWrapperImpl;
+import org.mule.extras.client.MuleClient;
 import org.mule.extras.seasar2.config.ComponentConfig;
-import org.mule.extras.seasar2.config.ConnectorConfig;
 import org.mule.extras.seasar2.exception.SMuleConfigurationException;
 import org.mule.extras.seasar2.exception.SMuleRuntimeException;
 import org.mule.extras.seasar2.sender.S2MuleSender;
@@ -18,25 +16,25 @@ import org.mule.umo.provider.UMOConnector;
 import org.mule.umo.transformer.UMOTransformer;
 
 /**
- * {@link S2MuleSender}の実装クラスです。
+ * {@link S2MuleSender} の実装クラスです。
  * @author Saito_Shinya@ogis-ri.co.jp
  */
 public class S2MuleSenderImpl implements S2MuleSender {
 	
-	/** Connectorの構成情報*/
+	/** Connector の構成情報*/
 	private ComponentConfig connectorConfig;
 	
 	/** Transformer */
 	private List transformers;
 	
-	/** 送信先のEndpoint URI*/
+	/** 送信先の Endpoint URI*/
 	private String outboundUri;
 	
-	/** 送信先Endpointのプロパティ */
+	/** 送信先 Endpointのプロパティ */
 	private Map properties = new HashMap();
 	
 	/** MuleClient*/
-	private MuleClientWrapper muleClient;
+	private MuleClient muleClient;
 	
 	/**
 	 * インスタンスを生成します
@@ -49,18 +47,19 @@ public class S2MuleSenderImpl implements S2MuleSender {
 	 */
 	public void init() {
 		try {
-			muleClient = new MuleClientWrapperImpl();
-			if (connectorConfig!=null) {
-				//Connectorの設定
-				muleClient.registerConnector((UMOConnector)connectorConfig.builtComponent());
+			muleClient = new MuleClient(true);
+			
+			if (connectorConfig != null) {
+				// Connector の設定
+				muleClient.getManagementContext().getRegistry().registerConnector((UMOConnector)connectorConfig.builtComponent());
 			}
-			if(transformers!=null) {
-				//Transformerの設定
+			if(transformers != null) {
+				// Transformer の設定
 				setProperty("transformer", transformers.get(0));
 			}
 		} catch (UMOException e) {
-			// TODO exception処理 2007/12/11
-			throw new SMuleRuntimeException("ESML0000",new Object[]{e},e);
+			// TODO exception 処理 2007/12/11
+			throw new SMuleRuntimeException("ESML0000", new Object[]{e},e);
 		}
 	}
 	
@@ -70,11 +69,18 @@ public class S2MuleSenderImpl implements S2MuleSender {
 	public void dispatch(Object payload) {
 		//TODO muleClientのdispatch or send
 		if(outboundUri != null) {
-			//TODO propertiesにMULE_REMOTE_SYNC=falseをセットするコードが必要?
-			setProperty("MULE_REMOTE_SYNC", false);
-			muleClient.send(outboundUri, payload,properties);
+			try {
+				//TODO propertiesにMULE_REMOTE_SYNC=falseをセットするコードが必要?
+				setProperty("MULE_REMOTE_SYNC", false);
+				// muleClient.send(outboundUri, payload, properties);
+				muleClient.dispatch(outboundUri, payload, properties);
+			} catch ( UMOException e ) {
+				throw new SMuleRuntimeException("ESML0000", new Object[]{e}, e);
+			} catch ( Exception e ){
+				throw new SMuleRuntimeException("ESML0000", new Object[]{e}, e);
+			}
 		} else {
-			throw new SMuleConfigurationException("ESML0002",new Object[]{"outboundUri"});
+			throw new SMuleConfigurationException("ESML0002", new Object[]{"outboundUri"});
 		}
 	}
 	
@@ -84,12 +90,18 @@ public class S2MuleSenderImpl implements S2MuleSender {
 	public Object send(Object payload) {
 		Object responseMessage = null;
 		if(outboundUri != null) {
-			UMOMessage umoResponseMessage 
-				= muleClient.send(outboundUri,payload,properties);
-			responseMessage = umoResponseMessage.getPayload();
+			try {
+				UMOMessage umoResponseMessage 
+					= muleClient.send(outboundUri, payload, properties);
+				responseMessage = umoResponseMessage.getPayload();
+			} catch ( UMOException e ) {
+				throw new SMuleRuntimeException("ESML0000", new Object[]{e}, e);
+			} catch ( Exception e ){
+				throw new SMuleRuntimeException("ESML0000", new Object[]{e}, e);
+			}
 			return responseMessage;
 		} else {
-			throw new SMuleConfigurationException("ESML0002",new Object[]{"outboundUri"});
+			throw new SMuleConfigurationException("ESML0002", new Object[]{"outboundUri"});
 		}
 	}
 	

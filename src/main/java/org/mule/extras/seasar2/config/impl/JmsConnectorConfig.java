@@ -2,16 +2,10 @@ package org.mule.extras.seasar2.config.impl;
 
 import java.util.Map;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.mule.extras.seasar2.config.ComponentConfig;
-import org.mule.extras.seasar2.config.ConnectorConfig;
-import org.mule.extras.seasar2.exception.ProprtyNotFoundException;
 import org.mule.extras.seasar2.exception.SMuleConfigurationException;
-import org.mule.extras.seasar2.exception.SMuleRuntimeException;
 import org.mule.providers.jms.JmsConnector;
-import org.mule.umo.provider.UMOConnector;
 import org.mule.util.object.SimpleObjectFactory;
-import org.seasar.framework.beans.PropertyNotFoundRuntimeException;
 
 /**
  * JmsConnectorの構成情報を保持するクラスです。

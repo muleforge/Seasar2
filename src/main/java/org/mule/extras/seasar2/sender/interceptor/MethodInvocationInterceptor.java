@@ -14,8 +14,9 @@ import org.seasar.framework.util.MethodUtil;
  * TODO implimentation
  */
 public class MethodInvocationInterceptor extends AbstractInterceptor {
-	//TODO define serialVersionUID
 
+	private static final long serialVersionUID = -9223020020060206825L;
+	
 	/** S2MuleSender */
 	private S2MuleSender sender;
 

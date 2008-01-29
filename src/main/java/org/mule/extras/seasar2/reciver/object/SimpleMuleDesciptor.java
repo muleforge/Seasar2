@@ -5,21 +5,21 @@ import org.mule.umo.endpoint.UMOEndpoint;
 public class SimpleMuleDesciptor {
 	
 	/**
-	 * inboundのEndpoint
+	 * inbound の Endpoint
 	 * 暫定的
-	 * 将来的にはinboundEndpointsになるかも
+	 * 将来的には inboundEndpoints になるかも
 	 */
 	private UMOEndpoint inboundEndpoit;
 	
 	/**
-	 * outboundのEndpoiint
+	 * outbound の Endpoiint
 	 * 暫定的
 	 * 将来的にはoutboundEndpointsになるかも
 	 */
 	private UMOEndpoint outboundEndpoint;
 
 	/**
-	 * UMOの実装クラス
+	 * UMO の実装クラス
 	 * POJO
 	 * 
 	 */
