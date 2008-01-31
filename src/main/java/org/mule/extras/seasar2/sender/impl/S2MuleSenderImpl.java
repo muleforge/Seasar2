@@ -7,8 +7,8 @@ import java.util.Map;
 
 import org.mule.extras.client.MuleClient;
 import org.mule.extras.seasar2.config.ComponentConfig;
-import org.mule.extras.seasar2.exception.SMuleConfigurationException;
-import org.mule.extras.seasar2.exception.SMuleRuntimeException;
+import org.mule.extras.seasar2.exception.MuleConfigurationException;
+import org.mule.extras.seasar2.exception.MuleRuntimeException;
 import org.mule.extras.seasar2.sender.S2MuleSender;
 import org.mule.umo.UMOException;
 import org.mule.umo.UMOMessage;
@@ -59,7 +59,7 @@ public class S2MuleSenderImpl implements S2MuleSender {
 			}
 		} catch (UMOException e) {
 			// TODO exception èàóù 2007/12/11
-			throw new SMuleRuntimeException("ESML0000", new Object[]{e},e);
+			throw new MuleRuntimeException("ESML0000", new Object[]{e},e);
 		}
 	}
 	
@@ -75,12 +75,12 @@ public class S2MuleSenderImpl implements S2MuleSender {
 				// muleClient.send(outboundUri, payload, properties);
 				muleClient.dispatch(outboundUri, payload, properties);
 			} catch ( UMOException e ) {
-				throw new SMuleRuntimeException("ESML0000", new Object[]{e}, e);
+				throw new MuleRuntimeException("ESML0000", new Object[]{e}, e);
 			} catch ( Exception e ){
-				throw new SMuleRuntimeException("ESML0000", new Object[]{e}, e);
+				throw new MuleRuntimeException("ESML0000", new Object[]{e}, e);
 			}
 		} else {
-			throw new SMuleConfigurationException("ESML0002", new Object[]{"outboundUri"});
+			throw new MuleConfigurationException("ESML0002", new Object[]{"outboundUri"});
 		}
 	}
 	
@@ -95,13 +95,13 @@ public class S2MuleSenderImpl implements S2MuleSender {
 					= muleClient.send(outboundUri, payload, properties);
 				responseMessage = umoResponseMessage.getPayload();
 			} catch ( UMOException e ) {
-				throw new SMuleRuntimeException("ESML0000", new Object[]{e}, e);
+				throw new MuleRuntimeException("ESML0000", new Object[]{e}, e);
 			} catch ( Exception e ){
-				throw new SMuleRuntimeException("ESML0000", new Object[]{e}, e);
+				throw new MuleRuntimeException("ESML0000", new Object[]{e}, e);
 			}
 			return responseMessage;
 		} else {
-			throw new SMuleConfigurationException("ESML0002", new Object[]{"outboundUri"});
+			throw new MuleConfigurationException("ESML0002", new Object[]{"outboundUri"});
 		}
 	}
 	

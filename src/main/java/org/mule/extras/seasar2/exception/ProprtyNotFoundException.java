@@ -6,7 +6,7 @@ package org.mule.extras.seasar2.exception;
  * @author Saito_Shinya@ogis-ri.co.jp
  *
  */
-public class ProprtyNotFoundException extends SMuleConfigurationException {
+public class ProprtyNotFoundException extends MuleConfigurationException {
 
 	private static final long serialVersionUID = 7448310817447042432L;
 
