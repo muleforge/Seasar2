@@ -3,7 +3,7 @@ package org.mule.extras.seasar2.config.impl;
 import java.util.Map;
 
 import org.mule.extras.seasar2.config.ComponentConfig;
-import org.mule.extras.seasar2.exception.MuleConfigurationException;
+import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
 import org.mule.providers.jms.JmsConnector;
 import org.mule.util.object.SimpleObjectFactory;
 
@@ -37,7 +37,7 @@ public class JmsConnectorConfig extends AbstractConfig implements ComponentConfi
 			properties.put("connectionFactory", 
 					new SimpleObjectFactory(factoryClassName,factoryProperties));
 		} else {
-			throw new MuleConfigurationException("ESML0002",new Object[]{"connectionFactoryConfig"});
+			throw new S2MuleConfigurationException("ESML0002",new Object[]{"connectionFactoryConfig"});
 		}
 		//name‚Ævalue‚ÌMapŒ^‚Å‚ ‚éproperties‚ðbean‚É”½‰f‚³‚¹‚é
 		populate(connector, properties);

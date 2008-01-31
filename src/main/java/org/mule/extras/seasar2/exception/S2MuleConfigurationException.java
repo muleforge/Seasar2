@@ -4,12 +4,12 @@ import org.seasar.framework.exception.SRuntimeException;
 import org.seasar.framework.message.MessageFormatter;
 
 /**
- * diconファイルから構成を作成するときに発生したエラーを通知するための例外
+ * dicon ファイルから構成を作成するときに発生したエラーを通知するための例外
  * 
  * @author Saito_Shinya@ogis-ri.co.jp
  *
  */
-public class SMuleConfigurationException extends SRuntimeException {
+public class S2MuleConfigurationException extends SRuntimeException {
 	
 	private static final long serialVersionUID = -1235115149163252649L;
 	
@@ -28,7 +28,7 @@ public class SMuleConfigurationException extends SRuntimeException {
 	 * 
 	 * @param messageCode メッセージコード
 	 */
-	public SMuleConfigurationException(String messageCode) {
+	public S2MuleConfigurationException(String messageCode) {
 		this(messageCode,null,null);
 	}
 	
@@ -38,7 +38,7 @@ public class SMuleConfigurationException extends SRuntimeException {
 	 * @param messageCode メッセージコード
 	 * @param args メッセージに埋め込まれる引数
 	 */
-	public SMuleConfigurationException(String messageCode,Object[] args) {
+	public S2MuleConfigurationException(String messageCode,Object[] args) {
 		this(messageCode,args,null);
 	}
 	
@@ -50,7 +50,7 @@ public class SMuleConfigurationException extends SRuntimeException {
 	 * @param cause 原因となった例外
 	 *
 	 */
-	public SMuleConfigurationException(String messageCode, Object[] args,Throwable cause) {
+	public S2MuleConfigurationException(String messageCode, Object[] args,Throwable cause) {
 		super(MessageFormatter.getMessage(messageCode, args));
 		this.messageCode = messageCode;
 		this.args = args;

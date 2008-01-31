@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
-import org.mule.extras.seasar2.exception.MuleConfigurationException;
+import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
 import org.seasar.framework.beans.PropertyNotFoundRuntimeException;
 
 /**
@@ -69,7 +69,7 @@ public abstract class AbstractConfig {
 			throw e;
 		} catch(Exception e) {
 			//TODO Error Message Code
-			throw new MuleConfigurationException(null,null,e);
+			throw new S2MuleConfigurationException(null,null,e);
 		} 
 	}
 }
