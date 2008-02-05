@@ -15,8 +15,6 @@ import org.mule.util.object.SimpleObjectFactory;
  */
 public class JmsConnectorConfig extends AbstractConfig implements ComponentConfig {
 	
-	private final String JMS_CONNECTOR_CLASS_NAME = "org.mule.providers.jms.JmsConnector";
-	
 	/** ConnectionFactory‚ÌƒNƒ‰ƒX–¼ */
 	private ConnectionFactoryConfig connectionFactoryConfig;
 
