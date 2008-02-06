@@ -9,8 +9,9 @@ File プロバイダのサンプル
 	<!-- File Connectorの設定-->
 	<component class="org.mule.extras.seasar2.config.impl.FileConnectorConfig">
 		<initMethod name="setProperty" >
+			<!-- 出力するファイル名のパターンを指定-->
 			<arg>"outputPattern"</arg>
-			<arg>"S2Mule-HelloWorldFile.txt"</arg>
+			<arg>"S2Mule-HelloWorldFile${DATE:yyyyMMdd}.txt"</arg>
 		</initMethod>
 	</component>
 
