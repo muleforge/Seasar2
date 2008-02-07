@@ -1,5 +1,8 @@
 package org.mule.extras.seasar2.config.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.mule.extras.seasar2.config.ComponentConfig;
 import org.mule.providers.soap.axis.AxisConnector;
 
@@ -11,6 +14,8 @@ import org.mule.providers.soap.axis.AxisConnector;
  */
 public class AxisConnectorConfig extends AbstractConfig implements
 		ComponentConfig {
+	
+	private List beanTypes;
 	
 	/**
 	 * インスタンスを生成する
@@ -25,8 +30,18 @@ public class AxisConnectorConfig extends AbstractConfig implements
 	 */
 	public Object builtComponent() {
 		AxisConnector connector = new AxisConnector();
+		if(beanTypes != null) {
+			setProperty("beanTypes", beanTypes);
+		}
 		populate(connector, properties);
 		return connector;
+	}
+	
+	public void addBeanType(Object beanType) {
+		if(beanTypes == null ) {
+			beanTypes = new ArrayList();
+		}
+		beanTypes.add(beanType);
 	}
 
 }
