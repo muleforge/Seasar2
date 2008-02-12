@@ -1,4 +1,4 @@
-package org.mule.extras.seasar2.reciver.object;
+package org.mule.extras.seasar2.receiver.object;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package org.mule.extras.seasar2.reciver;
+package org.mule.extras.seasar2.receiver;
 
 /**
  * Seasar2を使用してMuleのComponentを構築する機能のインターフェースです。

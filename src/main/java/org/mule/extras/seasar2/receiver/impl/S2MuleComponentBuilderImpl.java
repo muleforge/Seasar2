@@ -1,9 +1,9 @@
-package org.mule.extras.seasar2.reciver.impl;
+package org.mule.extras.seasar2.receiver.impl;
 
 import org.mule.config.builders.QuickConfigurationBuilder;
-import org.mule.extras.seasar2.reciver.S2MuleComponentBuilder;
-import org.mule.extras.seasar2.reciver.object.S2MuleConfiguration;
-import org.mule.extras.seasar2.reciver.object.S2MuleSimpleObjectFactory;
+import org.mule.extras.seasar2.receiver.S2MuleComponentBuilder;
+import org.mule.extras.seasar2.receiver.object.S2MuleConfiguration;
+import org.mule.extras.seasar2.receiver.object.S2MuleSimpleObjectFactory;
 import org.mule.impl.MuleDescriptor;
 import org.mule.routing.inbound.InboundRouterCollection;
 import org.mule.routing.outbound.OutboundPassThroughRouter;

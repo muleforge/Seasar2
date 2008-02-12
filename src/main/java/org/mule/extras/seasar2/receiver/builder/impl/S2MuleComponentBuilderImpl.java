@@ -1,4 +1,4 @@
-package org.mule.extras.seasar2.reciver.builder.impl;
+package org.mule.extras.seasar2.receiver.builder.impl;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Set;
 
 import org.mule.config.builders.QuickConfigurationBuilder;
-import org.mule.extras.seasar2.reciver.builder.S2MuleComponentBuilder;
-import org.mule.extras.seasar2.reciver.object.S2MuleConfiguration;
-import org.mule.extras.seasar2.reciver.object.S2MuleSimpleObjectFactory;
+import org.mule.extras.seasar2.receiver.builder.S2MuleComponentBuilder;
+import org.mule.extras.seasar2.receiver.object.S2MuleConfiguration;
+import org.mule.extras.seasar2.receiver.object.S2MuleSimpleObjectFactory;
 import org.mule.impl.MuleDescriptor;
 import org.mule.impl.endpoint.MuleEndpoint;
 import org.mule.routing.inbound.InboundRouterCollection;

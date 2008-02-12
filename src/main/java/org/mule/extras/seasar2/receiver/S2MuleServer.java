@@ -1,4 +1,4 @@
-package org.mule.extras.seasar2.reciver;
+package org.mule.extras.seasar2.receiver;
 
 import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
@@ -6,7 +6,7 @@ import java.util.concurrent.CountDownLatch;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.mule.extras.seasar2.reciver.builder.S2MuleComponentBuilder;
+import org.mule.extras.seasar2.receiver.builder.S2MuleComponentBuilder;
 import org.mule.umo.UMOException;
 import org.mule.umo.UMOManagementContext;
 import org.seasar.framework.container.S2Container;

@@ -1,4 +1,4 @@
-package org.mule.extras.seasar2.reciver.builder;
+package org.mule.extras.seasar2.receiver.builder;
 
 import org.mule.umo.UMOException;
 import org.mule.umo.UMOManagementContext;
