@@ -6,11 +6,6 @@
 -->
 <components>
 
-	<!-- Axis connectorの設定-->
-	<component class="org.mule.extras.seasar2.config.impl.AxisConnectorConfig">
-	</component>
-
-
 	<!-- インターセプタコンポーネントの定義-->
 	<component name="interceptor" 
 		class="org.mule.extras.seasar2.sender.interceptor.MethodInvocationInterceptor" />

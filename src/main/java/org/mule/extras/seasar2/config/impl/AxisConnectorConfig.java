@@ -37,11 +37,15 @@ public class AxisConnectorConfig extends AbstractConfig implements
 		return connector;
 	}
 	
-	public void addBeanType(Object beanType) {
+	/**
+	 * Axis TypeMappingRegistry‚É“o˜^‚·‚é
+	 * 
+	 * @param beanType “o˜^‚·‚éƒNƒ‰ƒX–¼
+	 */
+	public void addBeanType(String beanTypeName) {
 		if(beanTypes == null ) {
 			beanTypes = new ArrayList();
 		}
-		beanTypes.add(beanType);
+		beanTypes.add(beanTypeName);
 	}
-
 }
