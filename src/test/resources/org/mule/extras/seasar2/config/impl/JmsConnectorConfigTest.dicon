@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<components>
+	<!-- Jms connectorの設定 -->
+	<component class="org.mule.extras.seasar2.config.impl.JmsConnectorConfig" >
+		<!-- connectionFactoryの設定 -->
+		<property name="connectionFactoryConfig">
+			<component class="org.mule.extras.seasar2.config.impl.ConnectionFactoryConfig" >
+				<property name="factoryClassName">
+					"org.apache.activemq.ActiveMQConnectionFactory"
+				</property>
+				<!-- -ActiveMQConnectionFactory のプロパティ-->
+				<initMethod name="setProperty" >
+					<arg>"brokerURL"</arg>
+					<arg>"tcp://localhost:61616"</arg>
+				</initMethod>
+			</component>
+		</property>
+	</component>
+</components>
