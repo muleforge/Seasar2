@@ -1,6 +1,6 @@
 package org.mule.extras.seasar2.receiver.object;
 
-import org.mule.umo.lifecycle.InitialisationException;
+import org.mule.api.lifecycle.InitialisationException;
 import org.mule.util.object.ObjectFactory;
 import org.seasar.framework.container.S2Container;
 
@@ -22,32 +22,60 @@ public class S2MuleObjectFactory implements ObjectFactory {
 	 * 作成するクラス名
 	 */
 	private Object objectClassName;
-
+	
+	/**
+	 * コンストラクタ
+	 * 
+	 * @param container
+	 * @param objectClassName
+	 */
 	public S2MuleObjectFactory( S2Container container, Object objectClassName ){
 		this.container = container;
 		this.objectClassName = objectClassName;
 	}
 	
 	/**
+	 * TODO 実装
+	 */
+	public void initialise() throws InitialisationException {
+		
+	}
+	
+	
+	/**
 	 * Seasar2からコンポーネントを取り出す。
 	 */
-	public Object create() throws Exception {
+	public Object getOrCreate() throws Exception {
 		Object component = container.getComponent(objectClassName.getClass());
 		return component;
 	}
 
 	/**
-	 * Seasar2側でintialiseされるため不要
+	 * TODO 実装
 	 */
-	public void initialise() throws InitialisationException {
-		//No implement
-	}
+    public Class getObjectClass() throws Exception {
+    	return null;
+    }
+    
+    /**
+     * TODO 実装
+     */
+    public Object lookup(String id) throws Exception {
+    	return null;
+    }
 
-	/**
-	 * Seasar2側でdisposeされるため不要
-	 */
+    /**
+     * Seasar2側でdisposeされるので不要
+     */
+    public void release(Object object) throws Exception {
+    	
+    }
+	
+    /**
+     * Seasar2側でdisposeされるので不要
+     */
 	public void dispose() {
-		//No implement
+		
 	}
 
 }

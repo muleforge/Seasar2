@@ -3,9 +3,11 @@ package org.mule.extras.seasar2.receiver.object;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.mule.impl.endpoint.MuleEndpoint;
-import org.mule.umo.UMOException;
-import org.mule.umo.endpoint.UMOEndpoint;
+import org.mule.endpoint.InboundEndpoint;
+import org.mule.endpoint.OutboundEndpoint;
+import org.mule.endpoint.URIBuilder;
+import org.mule.endpoint.MuleEndpoint;
+import org.mule.api.MuleException;
 
 /**
  * 
@@ -22,7 +24,7 @@ public class S2MuleConfiguration {
 	 * TODO 暫定的
 	 * 将来的にはinboundEndpointsになるかも
 	 */
-	private UMOEndpoint inboundEndpoint;
+	private InboundEndpoint inboundEndpoint;
 	
 	/**
 	 * 複数のinboundのEndpoint
@@ -35,7 +37,7 @@ public class S2MuleConfiguration {
 	 * TODO 暫定的 将来的にはoutboundEndpointsになるかも
 	 * 
 	 */
-	private UMOEndpoint outboundEndpoint;
+	private OutboundEndpoint outboundEndpoint;
 
 	/**
 	 * inboundのEndpointUri
@@ -70,7 +72,9 @@ public class S2MuleConfiguration {
 	 * デフォルトコンストラクタ
 	 * @throws UMOException
 	 */
-	public S2MuleConfiguration() throws UMOException { }
+	public S2MuleConfiguration() throws MuleException {
+		
+	}
 	
 	/**
 	 * Endpointをクラスで指定された場合のコンストラクタ
@@ -79,8 +83,8 @@ public class S2MuleConfiguration {
 	 * @param outboundEndpoint
 	 * @param umoImpl
 	 */
-	public S2MuleConfiguration(UMOEndpoint inboundEndpoint, UMOEndpoint outboundEndpoint
-			,Object umoImpl) throws UMOException {
+	public S2MuleConfiguration(InboundEndpoint inboundEndpoint, OutboundEndpoint outboundEndpoint
+			,Object umoImpl) throws MuleException {
 		this.inboundEndpoint = inboundEndpoint;
 		this.outboundEndpoint = outboundEndpoint;
 		this.umoImpl = umoImpl;
@@ -96,7 +100,7 @@ public class S2MuleConfiguration {
 	 * @throws UMOException
 	 */
 	public S2MuleConfiguration(String inboundEndpointUri, String outboundEndpointUri
-			,Object umoImpl) throws UMOException {
+			,Object umoImpl) throws MuleException {
 		this.inboundEndpointUri = inboundEndpointUri;
 		this.outboundEndpointUri = outboundEndpointUri;
 		this.umoImpl = umoImpl;
@@ -106,14 +110,16 @@ public class S2MuleConfiguration {
 	/**
 	 * 初期化処理
 	 */
-	public void initialize() throws UMOException {
+	public void initialize() throws MuleException {
 		//inboundがnullのときはException処理が必要
 		if ( inboundEndpoint == null && inboundEndpointUri == null ) {
 			//TODO Exception処理
 			//throw Exceptin();
 		} else if( inboundEndpoint == null && inboundEndpointUri != null ) {
 			//inboundUriからinboundを生成
-			inboundEndpoint = new MuleEndpoint(inboundEndpointUri,INBOUND);
+			URIBuilder uriBuilder = new URIBuilder(inboundEndpointUri);
+			inboundEndpoint = new InboundEndpoint();
+			inboundEndpoint.setEndpointURI(uriBuilder.getEndpoint());
 		}
 		if(inboundEndpoint != null) {
 			inboundEndpoints.add(inboundEndpoint);
@@ -121,33 +127,35 @@ public class S2MuleConfiguration {
 		
 		//outbondUriからoutboundを生成
 		if ( outboundEndpoint == null && outboundEndpointUri != null ) {
-			outboundEndpoint = new MuleEndpoint(outboundEndpointUri,OUTBOUND);
+			URIBuilder uriBuilder = new URIBuilder(outboundEndpointUri);
+			outboundEndpoint = new OutboundEndpoint();
+			outboundEndpoint.setEndpointURI(uriBuilder.getEndpoint());
 		}
 		
 		isInitalize = true;
 	}
 	
 	/**
-	 * 
+	 *TODO 検討 不要かも 
 	 */
-	public void addEndpoint(UMOEndpoint endpoint) {
-		//Inboundの場合
-		if(endpoint.getType().equals(UMOEndpoint.ENDPOINT_TYPE_RECEIVER)){
-			inboundEndpoints.add(endpoint);
-		} else {
-			//TODO outboundの場合の処理
-		}
+	public void addEndpoint(MuleEndpoint endpoint) {
+//		//Inboundの場合
+//		if(endpoint.getType().equals(UMOEndpoint.ENDPOINT_TYPE_RECEIVER)){
+//			inboundEndpoints.add(endpoint);
+//		} else {
+//			
+//		}
 	}
 	
 	public boolean isInitalize() {
 		return isInitalize;
 	}
 	
-	public UMOEndpoint getInboundEndpoint() {
+	public InboundEndpoint getInboundEndpoint() {
 		return inboundEndpoint;
 	}
 
-	public void setInboundEndpoint(UMOEndpoint inboundEndpoint) {
+	public void setInboundEndpoint(InboundEndpoint inboundEndpoint) {
 		this.inboundEndpoint = inboundEndpoint;
 	}
 
@@ -159,11 +167,11 @@ public class S2MuleConfiguration {
 		this.inboundEndpointUri = inboundEndpointUri;
 	}
 
-	public UMOEndpoint getOutboundEndpoint() {
+	public OutboundEndpoint getOutboundEndpoint() {
 		return outboundEndpoint;
 	}
 
-	public void setOutboundEndpoint(UMOEndpoint outboundEndpoint) {
+	public void setOutboundEndpoint(OutboundEndpoint outboundEndpoint) {
 		this.outboundEndpoint = outboundEndpoint;
 	}
 
