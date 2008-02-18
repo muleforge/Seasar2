@@ -1,6 +1,7 @@
 package org.mule.extras.seasar2.receiver.object;
 
-import org.mule.umo.endpoint.UMOEndpoint;
+import org.mule.endpoint.InboundEndpoint;
+import org.mule.endpoint.OutboundEndpoint;
 
 public class SimpleMuleDesciptor {
 	
@@ -9,14 +10,14 @@ public class SimpleMuleDesciptor {
 	 * 暫定的
 	 * 将来的には inboundEndpoints になるかも
 	 */
-	private UMOEndpoint inboundEndpoit;
+	private InboundEndpoint inboundEndpoit;
 	
 	/**
 	 * outbound の Endpoiint
 	 * 暫定的
 	 * 将来的にはoutboundEndpointsになるかも
 	 */
-	private UMOEndpoint outboundEndpoint;
+	private OutboundEndpoint outboundEndpoint;
 
 	/**
 	 * UMO の実装クラス
@@ -25,7 +26,7 @@ public class SimpleMuleDesciptor {
 	 */
 	private Object umoImpl;
 	
-	public SimpleMuleDesciptor(UMOEndpoint inboundEndpoint, UMOEndpoint outboundEndpoint
+	public SimpleMuleDesciptor(InboundEndpoint inboundEndpoint, OutboundEndpoint outboundEndpoint
 			,Object umoImpl){
 		
 	}
