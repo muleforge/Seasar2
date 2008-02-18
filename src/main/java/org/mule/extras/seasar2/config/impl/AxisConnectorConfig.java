@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.mule.extras.seasar2.config.ComponentConfig;
-import org.mule.providers.soap.axis.AxisConnector;
+import org.mule.transport.soap.axis.AxisConnector;
 
 /**
  * AxisConnectorの構成情報を保持するクラスです。

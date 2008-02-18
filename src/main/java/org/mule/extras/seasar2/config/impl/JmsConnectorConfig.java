@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.mule.extras.seasar2.config.ComponentConfig;
 import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
-import org.mule.providers.jms.JmsConnector;
+import org.mule.transport.jms.JmsConnector;
 import org.mule.util.object.SimpleObjectFactory;
 
 /**

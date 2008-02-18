@@ -1,7 +1,7 @@
 package org.mule.extras.seasar2.receiver.builder;
 
-import org.mule.umo.UMOException;
-import org.mule.umo.UMOManagementContext;
+import org.mule.api.MuleContext;
+import org.mule.api.MuleException;
 
 /**
  * Seasar2を使用してMuleのComponentを構築する機能のインターフェースです。
@@ -17,7 +17,7 @@ public interface S2MuleComponentBuilder {
 	 * 
 	 * @return managementContexts
 	 */
-	UMOManagementContext configure()  throws UMOException;
+	MuleContext configure()  throws MuleException;
 	
 	void destroy() ;
 }

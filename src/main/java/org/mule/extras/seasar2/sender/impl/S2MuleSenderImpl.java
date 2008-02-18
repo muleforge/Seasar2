@@ -10,10 +10,12 @@ import org.mule.extras.seasar2.config.ComponentConfig;
 import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
 import org.mule.extras.seasar2.exception.S2MuleRuntimeException;
 import org.mule.extras.seasar2.sender.S2MuleSender;
-import org.mule.umo.UMOException;
-import org.mule.umo.UMOMessage;
-import org.mule.umo.provider.UMOConnector;
-import org.mule.umo.transformer.UMOTransformer;
+import org.mule.transformer.AbstractTransformer;
+
+import org.mule.api.MuleException;
+import org.mule.api.MuleMessage;
+import org.mule.api.transport.Connector;
+import org.mule.api.transformer.Transformer;
 
 /**
  * {@link S2MuleSender} の実装クラスです。
@@ -51,14 +53,13 @@ public class S2MuleSenderImpl implements S2MuleSender {
 			
 			if (connectorConfig != null) {
 				// Connector の設定
-				muleClient.getManagementContext().getRegistry().registerConnector((UMOConnector)connectorConfig.builtComponent());
+				muleClient.getMuleContext().getRegistry().registerConnector((Connector)connectorConfig.builtComponent());
 			}
 			if(transformers != null) {
 				// Transformer の設定
 				setProperty("transformer", transformers.get(0));
 			}
-		} catch (UMOException e) {
-			// TODO exception 処理 2007/12/11
+		} catch (MuleException e) {
 			throw new S2MuleRuntimeException("ESML0000", new Object[]{e},e);
 		}
 	}
@@ -72,9 +73,8 @@ public class S2MuleSenderImpl implements S2MuleSender {
 			try {
 				//TODO propertiesにMULE_REMOTE_SYNC=falseをセットするコードが必要?
 				setProperty("MULE_REMOTE_SYNC", false);
-				// muleClient.send(outboundUri, payload, properties);
 				muleClient.dispatch(outboundUri, payload, properties);
-			} catch ( UMOException e ) {
+			} catch ( MuleException e ) {
 				throw new S2MuleRuntimeException("ESML0000", new Object[]{e}, e);
 			} catch ( Exception e ){
 				throw new S2MuleRuntimeException("ESML0000", new Object[]{e}, e);
@@ -91,10 +91,10 @@ public class S2MuleSenderImpl implements S2MuleSender {
 		Object responseMessage = null;
 		if(outboundUri != null) {
 			try {
-				UMOMessage umoResponseMessage 
+				MuleMessage umoResponseMessage 
 					= muleClient.send(outboundUri, payload, properties);
 				responseMessage = umoResponseMessage.getPayload();
-			} catch ( UMOException e ) {
+			} catch ( MuleException e ) {
 				throw new S2MuleRuntimeException("ESML0000", new Object[]{e}, e);
 			} catch ( Exception e ){
 				throw new S2MuleRuntimeException("ESML0000", new Object[]{e}, e);
@@ -114,18 +114,19 @@ public class S2MuleSenderImpl implements S2MuleSender {
 	
 	/**
 	 * トランスフォーマを追加する
+	 * TODO nextTransformerの設定
 	 * 
 	 * @param newTransformer
 	 */
-	public void addTransformer(UMOTransformer newTransformer) {
+	public void addTransformer(Transformer newTransformer) {
 		if(transformers == null) {
 			transformers = new ArrayList();
 			transformers.add(newTransformer);
 		} else {
 			int index = transformers.size()-1;
-			UMOTransformer currentTransformer 
-				= (UMOTransformer)transformers.get(index);
-			currentTransformer.setNextTransformer(newTransformer);
+			AbstractTransformer currentTransformer 
+				= (AbstractTransformer)transformers.get(index);
+			//currentTransformer.(newTransformer);
 			transformers.add(newTransformer);
 		}
 	}

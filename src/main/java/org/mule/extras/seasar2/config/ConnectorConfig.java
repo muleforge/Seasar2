@@ -1,7 +1,6 @@
 package org.mule.extras.seasar2.config;
 
-import org.mule.umo.provider.UMOConnector;
-
+import org.mule.api.transport.Connector;
 /**
  * Connectorの構成情報を保持するクラスのインタフェース
  * 
@@ -14,5 +13,5 @@ public interface ConnectorConfig {
 	 * 
 	 * @return UMOConnector
 	 */
-	UMOConnector getConnector();
+	Connector getConnector();
 }

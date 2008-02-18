@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.mule.api.MuleContext;
+import org.mule.api.MuleException;
 import org.mule.config.builders.QuickConfigurationBuilder;
 import org.mule.extras.seasar2.receiver.builder.S2MuleComponentBuilder;
 import org.mule.extras.seasar2.receiver.object.S2MuleConfiguration;
@@ -75,9 +77,9 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder {
 	
 	/**
 	 * 
-	 * @throws UMOException
+	 * @throws MuleException
 	 */
-	public S2MuleComponentBuilderImpl() throws UMOException {
+	public S2MuleComponentBuilderImpl() throws MuleException {
 		//QuickConfigurationBuilder�̍쐬
 		qcBuilder = new QuickConfigurationBuilder(false);
 	}
@@ -105,7 +107,7 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder {
 	 * @return managementContext
 	 * 
 	 */
-	public UMOManagementContext configure()  throws UMOException {
+	public MuleContext configure()  throws MuleException {
 		
 		s2MuleConfigs = getS2MuleConfigs(container);
 		
