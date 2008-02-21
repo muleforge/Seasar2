@@ -12,6 +12,6 @@ public interface ComponentConfig {
 	 * 
 	 * @return Object Mule Component
 	 */
-	Object builtComponent();
+	Object buildComponent();
 
 }
