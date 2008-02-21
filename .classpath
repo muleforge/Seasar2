@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/main/resources"/>
+	<classpathentry kind="src" path="src/test/java"/>
+	<classpathentry kind="src" path="src/test/resources"/>
+	<classpathentry kind="src" path="examples/src/main/java"/>
+	<classpathentry kind="src" path="examples/src/main/resources"/>
+	<classpathentry kind="src" path="examples/src/test/java"/>
+	<classpathentry kind="src" path="examples/src/test/resources"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/mule-2.0-M1/lib/mule/mule-core-2.0-M1.jar"/>
+	<classpathentry kind="lib" path="/mule-2.0-M1/lib/mule/mule-module-client-2.0-M1.jar"/>
+	<classpathentry kind="lib" path="/mule-2.0-M1/lib/mule/mule-transport-axis-2.0-M1.jar"/>
+	<classpathentry kind="lib" path="/mule-2.0-M1/lib/mule/mule-transport-file-2.0-M1.jar"/>
+	<classpathentry kind="lib" path="/mule-2.0-M1/lib/mule/mule-transport-jms-2.0-M1.jar"/>
+	<classpathentry kind="lib" path="/mule-2.0-M1/lib/mule/mule-transport-soap-2.0-M1.jar"/>
+	<classpathentry kind="lib" path="/mule-2.0-M1/lib/opt/activation-1.1.jar"/>
+	<classpathentry kind="lib" path="/mule-2.0-M1/lib/opt/axis-1.4.jar"/>
+	<classpathentry kind="lib" path="/mule-2.0-M1/lib/opt/axis-jaxrpc-1.4.jar"/>
+	<classpathentry kind="lib" path="/mule-2.0-M1/lib/opt/axis-saaj-1.4.jar"/>
+	<classpathentry kind="lib" path="/mule-2.0-M1/lib/opt/axis-wsdl4j-1.5.1.jar"/>
+	<classpathentry kind="lib" path="/mule-2.0-M1/lib/opt/backport-util-concurrent-3.0.jar"/>
+	<classpathentry kind="lib" path="/mule-2.0-M1/lib/opt/commons-beanutils-1.7.0.jar"/>
+	<classpathentry kind="lib" path="/mule-2.0-M1/lib/opt/commons-codec-1.3.jar"/>
+	<classpathentry kind="lib" path="/mule-2.0-M1/lib/opt/commons-collections-3.2.jar"/>
+	<classpathentry kind="lib" path="/mule-2.0-M1/lib/opt/commons-discovery-0.2.jar"/>
+	<classpathentry kind="lib" path="/mule-2.0-M1/lib/opt/commons-httpclient-3.0.1.jar"/>
+	<classpathentry kind="lib" path="/mule-2.0-M1/lib/opt/commons-io-1.3.1.jar"/>
+	<classpathentry kind="lib" path="/mule-2.0-M1/lib/opt/commons-lang-2.3.jar"/>
+	<classpathentry kind="lib" path="/mule-2.0-M1/lib/opt/commons-pool-1.3.jar"/>
+	<classpathentry kind="lib" path="/mule-2.0-M1/lib/opt/geronimo-j2ee-connector_1.5_spec-1.0.1.jar"/>
+	<classpathentry kind="lib" path="/mule-2.0-M1/lib/opt/geronimo-jaxrpc_1.1_spec-1.0.1.jar"/>
+	<classpathentry kind="lib" path="/mule-2.0-M1/lib/opt/geronimo-jms_1.1_spec-1.0.1.jar"/>
+	<classpathentry kind="lib" path="/mule-2.0-M1/lib/opt/geronimo-saaj_1.1_spec-1.0.1.jar"/>
+	<classpathentry kind="lib" path="/mule-2.0-M1/lib/opt/jug-2.0.0-asl.jar"/>
+	<classpathentry kind="lib" path="/mule-2.0-M1/lib/opt/spring-beans-2.0.6.jar"/>
+	<classpathentry kind="lib" path="/mule-2.0-M1/lib/opt/spring-context-2.0.6.jar"/>
+	<classpathentry kind="lib" path="/mule-2.0-M1/lib/opt/spring-core-2.0.6.jar"/>
+	<classpathentry kind="lib" path="/seasar2/lib/aopalliance-1.0.jar" sourcepath="/seasar2/lib/sources/aopalliance-1.0-sources.jar"/>
+	<classpathentry kind="lib" path="/seasar2/lib/commons-logging-1.1.jar"/>
+	<classpathentry kind="lib" path="/seasar2/lib/log4j-1.2.13.jar"/>
+	<classpathentry kind="lib" path="/seasar2/lib/junit-3.8.2.jar"/>
+	<classpathentry kind="lib" path="/seasar2/lib/ognl-2.6.9-patch-20070908.jar" sourcepath="/seasar2/lib/sources/ognl-2.6.9-patch-20070908-sources.jar"/>
+	<classpathentry kind="lib" path="/seasar2/lib/javassist-3.4.ga.jar" sourcepath="/seasar2/lib/sources/javassist-3.4.ga-sources.jar"/>
+	<classpathentry kind="lib" path="/seasar2/lib/s2-extension-2.4.22.jar"/>
+	<classpathentry kind="lib" path="/seasar2/lib/s2-framework-2.4.22.jar"/>
+	<classpathentry kind="lib" path="/seasar2/lib/junit-addons-1.4.jar"/>
+	<classpathentry kind="lib" path="/seasar2/lib/geronimo-j2ee_1.4_spec-1.0.jar"/>
+	<classpathentry kind="lib" path="C:/lib/apache-activemq-5.0.0/lib/geronimo-j2ee-management_1.0_spec-1.0.jar"/>
+	<classpathentry kind="lib" path="C:/lib/apache-activemq-5.0.0/lib/activemq-core-5.0.0.jar"/>
+	<classpathentry kind="con" path="org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
