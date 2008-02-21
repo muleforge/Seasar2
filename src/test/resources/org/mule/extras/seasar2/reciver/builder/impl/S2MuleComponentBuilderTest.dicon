@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.3//EN"
+	"http://www.seasar.org/dtd/components23.dtd">
+<components>
+
+	<component 
+		class="org.mule.extras.seasar2.receiver.builder.impl.S2MuleComponentBuilderImpl"/>
+	
+	<!-- MuleConfig -->
+	<component class="org.mule.extras.seasar2.receiver.object.S2MuleConfiguration" >
+		<property name="inboundEndpointUri">"stdio://System.in"</property>
+		<property name="umoImpl">
+			<component name="echoUMO" 
+				class="org.mule.extras.seasar2.reciver.builder.impl.Echo" />
+		</property>
+		
+		<initMethod name="initialize" />
+	</component>
+
+</components>

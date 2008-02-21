@@ -5,23 +5,18 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.mule.MuleServer;
 import org.mule.api.MuleContext;
 import org.mule.api.MuleException;
-import org.mule.config.builders.QuickConfigurationBuilder;
+import org.mule.endpoint.InboundEndpoint;
 import org.mule.extras.seasar2.receiver.builder.S2MuleComponentBuilder;
 import org.mule.extras.seasar2.receiver.object.S2MuleConfiguration;
-import org.mule.extras.seasar2.receiver.object.S2MuleSimpleObjectFactory;
-import org.mule.impl.MuleDescriptor;
-import org.mule.impl.endpoint.MuleEndpoint;
-import org.mule.routing.inbound.InboundRouterCollection;
-import org.mule.routing.outbound.OutboundPassThroughRouter;
-import org.mule.routing.outbound.OutboundRouterCollection;
-import org.mule.umo.UMODescriptor;
-import org.mule.umo.UMOException;
-import org.mule.umo.UMOManagementContext;
-import org.mule.umo.endpoint.UMOEndpoint;
+import org.mule.extras.seasar2.receiver.object.S2MuleObjectFactory;
+import org.mule.api.service.Service;
+import org.mule.api.routing.InboundRouterCollection;
+import org.mule.model.seda.SedaService;
+import org.mule.routing.inbound.DefaultInboundRouterCollection;
 import org.mule.util.object.ObjectFactory;
-import org.mule.util.object.SimpleObjectFactory;
 import org.seasar.framework.container.ComponentDef;
 import org.seasar.framework.container.S2Container;
 
@@ -68,7 +63,8 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder {
 	/**
 	 * MuleのquickConfigurationBuilderを利用
 	 */
-	private QuickConfigurationBuilder qcBuilder;
+	//private QuickConfigurationBuilder qcBuilder;
+	private MuleContext context;
 	
 	/**
 	 * diconファイルに記述されている全てのコンポーネント
@@ -81,7 +77,10 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder {
 	 */
 	public S2MuleComponentBuilderImpl() throws MuleException {
 		//QuickConfigurationBuilderの作成
-		qcBuilder = new QuickConfigurationBuilder(false);
+		//qcBuilder = new QuickConfigurationBuilder(false);
+		
+		//MuleContextの作成
+		context = MuleServer.getMuleContext();
 	}
 
 	/**
@@ -101,7 +100,7 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder {
 	}
 	
 	/**
-	 * MuleDescriptorをregistryに登録する。
+	 * Serviceをregistryに登録する。
 	 * TODO Connectorをregistryに登録する。
 	 * 
 	 * @return managementContext
@@ -115,81 +114,82 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder {
 			for( int i = 0; i < s2MuleConfigs.size(); i++) {
 				S2MuleConfiguration s2MuleConfig = 
 					(S2MuleConfiguration) s2MuleConfigs.get(i);
-				UMODescriptor descriptor = createDescriptor( s2MuleConfig );
-				//MuleDescriptorを登録する
-				qcBuilder.registerComponent(descriptor);
+				Service service = createService( s2MuleConfig );
+				
+				//Serviceを登録する
+				context.getRegistry().registerService(service);
 			}
 		} else {
-			//TODO 例外を投げる
+			//TODO 例外処理
 		}
 		// test configureの中でmuleServerをスタートさせてしまう
-		qcBuilder.getManagementContext().start();
+		context.start();
 		
-		
-		return qcBuilder.getManagementContext();
+		return context;
 	}
 	
 	/**
 	 * MuleDescriptorを作成する
 	 * @return
 	 */
-	private UMODescriptor createDescriptor(S2MuleConfiguration s2MuleConfig) throws UMOException {
+	private Service createService(S2MuleConfiguration s2MuleConfig) throws MuleException {
 		
 		if(!s2MuleConfig.isInitalize()){
 			s2MuleConfig.initialize();
 		}
 		
-		UMODescriptor descriptor = new MuleDescriptor();
+		//MuleのDefaultであるSedaServiceを作成
+		Service service = new SedaService();
 		
 		//InboundRouterCollectionの作成
-		InboundRouterCollection iRouterCollection = new InboundRouterCollection();
+		InboundRouterCollection iRouterCollection = new DefaultInboundRouterCollection();
 		
 		//InboundEndpoitsの数だけ行う
 		List inboundEndpoints = s2MuleConfig.getInboundEndpoints();
 		for(int i =0;i<inboundEndpoints.size();i++) {
-			UMOEndpoint endpoint = (UMOEndpoint)inboundEndpoints.get(i);
+			InboundEndpoint endpoint = (InboundEndpoint)inboundEndpoints.get(i);
 			iRouterCollection.addEndpoint(endpoint);
 		}
-		descriptor.setInboundRouter(iRouterCollection);
+		service.setInboundRouter(iRouterCollection);
 		
-		//outboundRouterCollectionの作成
-		OutboundRouterCollection oRouterCollection = new OutboundRouterCollection();
-		//TODO diconで指定されたRouterを扱えるようにしたい。
-		//デフォルトはPassThroughRouter
-		OutboundPassThroughRouter oPassThroughRouter = new OutboundPassThroughRouter();
-		MuleEndpoint outbound = (MuleEndpoint)s2MuleConfig.getOutboundEndpoint();
-		outbound.setManagementContext(qcBuilder.getManagementContext());
+//		//outboundRouterCollectionの作成
+//		OutboundRouterCollection oRouterCollection = new OutboundRouterCollection();
+//		//TODO diconで指定されたRouterを扱えるようにしたい。
+//		//デフォルトはPassThroughRouter
+//		OutboundPassThroughRouter oPassThroughRouter = new OutboundPassThroughRouter();
+//		MuleEndpoint outbound = (MuleEndpoint)s2MuleConfig.getOutboundEndpoint();
+//		outbound.setManagementContext(qcBuilder.getManagementContext());
+//		
+//		oPassThroughRouter.addEndpoint(outbound);
+//		oRouterCollection.addRouter(oPassThroughRouter);
+//		
+//		descriptor.setOutboundRouter(oRouterCollection);
 		
-		oPassThroughRouter.addEndpoint(outbound);
-		oRouterCollection.addRouter(oPassThroughRouter);
-		
-		descriptor.setOutboundRouter(oRouterCollection);
-		
-		// modelNameの作成
-		String modelName = DEFAULT_MODEL_NAME;
-		descriptor.setModelName(modelName);
+//		// modelNameの作成
+//		String modelName = DEFAULT_MODEL_NAME;
+//		descriptor.setModelName(modelName);
 		
 		//descriptorNameの作成
-		String descriptorName;
-		if (s2MuleConfig.getName() != null) {
-			descriptorName = s2MuleConfig.getName();
-		} else {
-			descriptorName = DEFAULT_DESCRIPTOR_NAME;
-		}
-		descriptor.setName(descriptorName);
+//		String descriptorName;
+//		if (s2MuleConfig.getName() != null) {
+//			descriptorName = s2MuleConfig.getName();
+//		} else {
+//			descriptorName = DEFAULT_DESCRIPTOR_NAME;
+//		}
+//		descriptor.setName(descriptorName);
 		
 		//ObjectFactoryの作成
 		ObjectFactory factory = null;
 		//umoがdiconに設定されていた場合、S2MuleSimpleObjectFactoryを設定する。
 		if( s2MuleConfig.getUmoImpl() != null ) {
-			factory = new S2MuleSimpleObjectFactory(s2MuleConfig.getUmoImpl()); 
+			factory = new S2MuleObjectFactory(container,s2MuleConfig.getUmoImpl()); 
 		} else {
 			//umoがdiconに設定されていない場合、BridgeComponentを設定する。
-			factory = new SimpleObjectFactory(DEFAULT_UMO_NAME);
+			factory = new S2MuleObjectFactory(container,s2MuleConfig.getUmoImpl());
 		}
-		descriptor.setServiceFactory(factory);
+		service.setServiceFactory(factory);
 		
-		return descriptor;
+		return service;
 	}
 	
 	/**
@@ -213,7 +213,6 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder {
 				configs.add(s2mConfig);
 			}
 		}
-		
 		return configs;
 	}
 	
@@ -254,10 +253,7 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder {
 	 *
 	 */
 	public void destroy() {
-		qcBuilder.getManagementContext().getNotificationManager().dispose();
-		qcBuilder.getManagementContext().getWorkManager().dispose();
-		qcBuilder.getManagementContext().getRegistry().dispose();
-		qcBuilder.getManagementContext().dispose();
+		
 	}
 	
 	public void setContainer(S2Container container) {

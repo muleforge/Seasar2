@@ -16,8 +16,8 @@ import org.mule.api.MuleException;
  */
 public class S2MuleConfiguration {
 	
-	private final boolean INBOUND = true;
-	private final boolean OUTBOUND = false;
+//	private final boolean INBOUND = true;
+//	private final boolean OUTBOUND = false;
 	
 	/**
 	 * inboundのEndpoint
@@ -37,7 +37,7 @@ public class S2MuleConfiguration {
 	 * TODO 暫定的 将来的にはoutboundEndpointsになるかも
 	 * 
 	 */
-	private OutboundEndpoint outboundEndpoint;
+	//private OutboundEndpoint outboundEndpoint;
 
 	/**
 	 * inboundのEndpointUri
@@ -51,7 +51,7 @@ public class S2MuleConfiguration {
 	 * outboundのEndpoiintUri
 	 * TODO 暫定的 将来的にはoutboundEndpointUrisになるかも
 	 */
-	private String outboundEndpointUri;
+	//private String outboundEndpointUri;
 	
 	/**
 	 * UMOの実装クラス
@@ -86,7 +86,7 @@ public class S2MuleConfiguration {
 	public S2MuleConfiguration(InboundEndpoint inboundEndpoint, OutboundEndpoint outboundEndpoint
 			,Object umoImpl) throws MuleException {
 		this.inboundEndpoint = inboundEndpoint;
-		this.outboundEndpoint = outboundEndpoint;
+		//this.outboundEndpoint = outboundEndpoint;
 		this.umoImpl = umoImpl;
 		initialize();
 	}
@@ -102,7 +102,7 @@ public class S2MuleConfiguration {
 	public S2MuleConfiguration(String inboundEndpointUri, String outboundEndpointUri
 			,Object umoImpl) throws MuleException {
 		this.inboundEndpointUri = inboundEndpointUri;
-		this.outboundEndpointUri = outboundEndpointUri;
+		//this.outboundEndpointUri = outboundEndpointUri;
 		this.umoImpl = umoImpl;
 		initialize();
 	}
@@ -126,11 +126,11 @@ public class S2MuleConfiguration {
 		}
 		
 		//outbondUriからoutboundを生成
-		if ( outboundEndpoint == null && outboundEndpointUri != null ) {
-			URIBuilder uriBuilder = new URIBuilder(outboundEndpointUri);
-			outboundEndpoint = new OutboundEndpoint();
-			outboundEndpoint.setEndpointURI(uriBuilder.getEndpoint());
-		}
+//		if ( outboundEndpoint == null && outboundEndpointUri != null ) {
+//			URIBuilder uriBuilder = new URIBuilder(outboundEndpointUri);
+//			outboundEndpoint = new OutboundEndpoint();
+//			outboundEndpoint.setEndpointURI(uriBuilder.getEndpoint());
+//		}
 		
 		isInitalize = true;
 	}
@@ -167,21 +167,21 @@ public class S2MuleConfiguration {
 		this.inboundEndpointUri = inboundEndpointUri;
 	}
 
-	public OutboundEndpoint getOutboundEndpoint() {
-		return outboundEndpoint;
-	}
-
-	public void setOutboundEndpoint(OutboundEndpoint outboundEndpoint) {
-		this.outboundEndpoint = outboundEndpoint;
-	}
-
-	public String getOutboundEndpointUri() {
-		return outboundEndpointUri;
-	}
-
-	public void setOutboundEndpointUri(String outboundEndpointUri) {
-		this.outboundEndpointUri = outboundEndpointUri;
-	}
+//	public OutboundEndpoint getOutboundEndpoint() {
+//		return outboundEndpoint;
+//	}
+//
+//	public void setOutboundEndpoint(OutboundEndpoint outboundEndpoint) {
+//		this.outboundEndpoint = outboundEndpoint;
+//	}
+//
+//	public String getOutboundEndpointUri() {
+//		return outboundEndpointUri;
+//	}
+//
+//	public void setOutboundEndpointUri(String outboundEndpointUri) {
+//		this.outboundEndpointUri = outboundEndpointUri;
+//	}
 
 	public Object getUmoImpl() {
 		return umoImpl;
