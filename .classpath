@@ -9,6 +9,7 @@
 	<classpathentry kind="src" path="examples/src/test/java"/>
 	<classpathentry kind="src" path="examples/src/test/resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER"/>
 	<classpathentry kind="lib" path="/mule-2.0-M1/lib/mule/mule-core-2.0-M1.jar"/>
 	<classpathentry kind="lib" path="/mule-2.0-M1/lib/mule/mule-module-client-2.0-M1.jar"/>
 	<classpathentry kind="lib" path="/mule-2.0-M1/lib/mule/mule-transport-axis-2.0-M1.jar"/>
@@ -37,6 +38,8 @@
 	<classpathentry kind="lib" path="/mule-2.0-M1/lib/opt/spring-beans-2.0.6.jar"/>
 	<classpathentry kind="lib" path="/mule-2.0-M1/lib/opt/spring-context-2.0.6.jar"/>
 	<classpathentry kind="lib" path="/mule-2.0-M1/lib/opt/spring-core-2.0.6.jar"/>
+	<classpathentry kind="lib" path="/mule-2.0-M1/lib/opt/geronimo-j2ee-management_1.0_spec-1.0.jar"/>
+	<classpathentry kind="lib" path="/mule-2.0-M1/lib/opt/activemq-core-5.0.0.jar"/>
 	<classpathentry kind="lib" path="/seasar2/lib/aopalliance-1.0.jar" sourcepath="/seasar2/lib/sources/aopalliance-1.0-sources.jar"/>
 	<classpathentry kind="lib" path="/seasar2/lib/commons-logging-1.1.jar"/>
 	<classpathentry kind="lib" path="/seasar2/lib/log4j-1.2.13.jar"/>
@@ -47,8 +50,5 @@
 	<classpathentry kind="lib" path="/seasar2/lib/s2-framework-2.4.22.jar"/>
 	<classpathentry kind="lib" path="/seasar2/lib/junit-addons-1.4.jar"/>
 	<classpathentry kind="lib" path="/seasar2/lib/geronimo-j2ee_1.4_spec-1.0.jar"/>
-	<classpathentry kind="lib" path="C:/lib/apache-activemq-5.0.0/lib/geronimo-j2ee-management_1.0_spec-1.0.jar"/>
-	<classpathentry kind="lib" path="C:/lib/apache-activemq-5.0.0/lib/activemq-core-5.0.0.jar"/>
-	<classpathentry kind="con" path="org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
