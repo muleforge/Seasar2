@@ -25,7 +25,7 @@ public class ActiveMQJmsConnectorConfig extends AbstractConfig implements
 	/**
 	 * @see org.mule.extras.seasar2.config.ConnectorConfig#getConnector()
 	 */
-	public Object builtComponent() {
+	public Object buildComponent() {
 		ActiveMQJmsConnector connector = new ActiveMQJmsConnector();
 		if(brokerURL != null) {
 			properties.put("brokerURL", brokerURL);

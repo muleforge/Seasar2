@@ -53,7 +53,7 @@ public class S2MuleSenderImpl implements S2MuleSender {
 			
 			if (connectorConfig != null) {
 				// Connector ÇÃê›íË
-				muleClient.getMuleContext().getRegistry().registerConnector((Connector)connectorConfig.builtComponent());
+				muleClient.getMuleContext().getRegistry().registerConnector((Connector)connectorConfig.buildComponent());
 			}
 			if(transformers != null) {
 				// Transformer ÇÃê›íË

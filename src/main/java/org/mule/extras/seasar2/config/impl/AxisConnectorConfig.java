@@ -28,7 +28,7 @@ public class AxisConnectorConfig extends AbstractConfig implements
 	/**
 	 * @see org.mule.extras.seasar2.config.ConnectorConfig#getConnector()
 	 */
-	public Object builtComponent() {
+	public Object buildComponent() {
 		AxisConnector connector = new AxisConnector();
 		if(beanTypes != null) {
 			setProperty("beanTypes", beanTypes);

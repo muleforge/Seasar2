@@ -23,7 +23,7 @@ public class FileConnectorConfig extends AbstractConfig implements
 	/**
 	 * @see org.mule.extras.seasar2.config.ConnectorConfig#getConnector()
 	 */
-	public Object builtComponent() {
+	public Object buildComponent() {
 		FileConnector connector = new FileConnector();
 		populate(connector,properties); 
 		return connector;
