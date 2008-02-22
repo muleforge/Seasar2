@@ -8,13 +8,13 @@
 	
 	<!-- MuleConfig -->
 	<component class="org.mule.extras.seasar2.receiver.object.S2MuleConfiguration" >
-		<property name="inboundEndpointUri">"stdio://System.in"</property>
+		<initMethod name="addInboundEndpointUri">
+			<arg>"stdio://System.in"</arg>
+		</initMethod>
 		<property name="umoImpl">
 			<component name="echoUMO" 
 				class="org.mule.extras.seasar2.reciver.builder.impl.Echo" />
 		</property>
-		
-		<initMethod name="initialize" />
 	</component>
 
 </components>

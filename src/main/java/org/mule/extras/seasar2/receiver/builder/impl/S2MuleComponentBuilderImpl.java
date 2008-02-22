@@ -5,19 +5,18 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.mule.MuleServer;
-import org.mule.RegistryContext;
 import org.mule.api.MuleContext;
 import org.mule.api.MuleException;
+import org.mule.endpoint.EndpointURIEndpointBuilder;
 import org.mule.endpoint.InboundEndpoint;
 import org.mule.endpoint.URIBuilder;
 import org.mule.extras.seasar2.receiver.builder.S2MuleComponentBuilder;
 import org.mule.extras.seasar2.receiver.object.S2MuleConfiguration;
 import org.mule.extras.seasar2.receiver.object.S2MuleObjectFactory;
 import org.mule.api.service.Service;
+import org.mule.api.endpoint.EndpointBuilder;
 import org.mule.api.model.Model;
 import org.mule.api.routing.InboundRouterCollection;
-import org.mule.context.DefaultMuleContextBuilder;
 import org.mule.context.DefaultMuleContextFactory;
 import org.mule.model.seda.SedaModel;
 import org.mule.model.seda.SedaService;
@@ -25,7 +24,6 @@ import org.mule.routing.inbound.DefaultInboundRouterCollection;
 import org.mule.util.object.ObjectFactory;
 import org.seasar.framework.container.ComponentDef;
 import org.seasar.framework.container.S2Container;
-
 
 
 /**
@@ -67,9 +65,8 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder {
 	private List s2MuleConfigs;
 	
 	/**
-	 * MuleのquickConfigurationBuilderを利用
+	 * MuleContext
 	 */
-	//private QuickConfigurationBuilder qcBuilder;
 	private MuleContext context;
 	
 	/**
@@ -82,13 +79,10 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder {
 	 * @throws MuleException
 	 */
 	public S2MuleComponentBuilderImpl() throws MuleException {
-		//QuickConfigurationBuilderの作成
-		//qcBuilder = new QuickConfigurationBuilder(false);
 		
 		//MuleContextの作成
 		DefaultMuleContextFactory factory = new DefaultMuleContextFactory();
 		context = factory.createMuleContext();
-		
 	}
 
 	/**
@@ -150,6 +144,7 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder {
 		Service service = new SedaService();
 		
 		Model model = new SedaModel();
+		model.initialise();
 		service.setModel(model);
 		
 		InboundRouterCollection iRouterCollection = new DefaultInboundRouterCollection();
@@ -159,30 +154,14 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder {
 		for(int i =0;i<endpointUris.size();i++) {
 			//InboundEndpointの作成
 			URIBuilder uriBuilder = new URIBuilder((String)endpointUris.get(i));
-			InboundEndpoint endpoint = new InboundEndpoint();
-			endpoint.setEndpointURI(uriBuilder.getEndpoint());
+			EndpointBuilder endpointBuilder = new EndpointURIEndpointBuilder(uriBuilder,context);
+			InboundEndpoint endpoint = (InboundEndpoint)endpointBuilder.buildInboundEndpoint();
+			
 			iRouterCollection.addEndpoint(endpoint);
 		}
 		service.setInboundRouter(iRouterCollection);
 		
-//		//outboundRouterCollectionの作成
-//		OutboundRouterCollection oRouterCollection = new OutboundRouterCollection();
-//		//TODO diconで指定されたRouterを扱えるようにしたい。
-//		//デフォルトはPassThroughRouter
-//		OutboundPassThroughRouter oPassThroughRouter = new OutboundPassThroughRouter();
-//		MuleEndpoint outbound = (MuleEndpoint)s2MuleConfig.getOutboundEndpoint();
-//		outbound.setManagementContext(qcBuilder.getManagementContext());
-//		
-//		oPassThroughRouter.addEndpoint(outbound);
-//		oRouterCollection.addRouter(oPassThroughRouter);
-//		
-//		descriptor.setOutboundRouter(oRouterCollection);
-		
-//		// modelNameの作成
-//		String modelName = DEFAULT_MODEL_NAME;
-//		descriptor.setModelName(modelName);
-		
-		//descriptorNameの作成
+		//ServiceNameの作成
 		String serviceName;
 		if (s2MuleConfig.getName() != null) {
 			serviceName = s2MuleConfig.getName();

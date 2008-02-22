@@ -17,7 +17,7 @@ public class S2MuleComponentBuilderImplTest extends S2TestCase {
 		include("S2MuleComponentBuilderTest.dicon");
 	}
 
-	public void testCreateDescriptor() throws Exception {
-		
+	public void testConfigure() throws Exception {
+		builder_.configure();
 	}
 }
