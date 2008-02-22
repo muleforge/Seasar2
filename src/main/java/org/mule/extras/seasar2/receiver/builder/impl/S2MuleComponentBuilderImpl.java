@@ -6,14 +6,20 @@ import java.util.List;
 import java.util.Set;
 
 import org.mule.MuleServer;
+import org.mule.RegistryContext;
 import org.mule.api.MuleContext;
 import org.mule.api.MuleException;
 import org.mule.endpoint.InboundEndpoint;
+import org.mule.endpoint.URIBuilder;
 import org.mule.extras.seasar2.receiver.builder.S2MuleComponentBuilder;
 import org.mule.extras.seasar2.receiver.object.S2MuleConfiguration;
 import org.mule.extras.seasar2.receiver.object.S2MuleObjectFactory;
 import org.mule.api.service.Service;
+import org.mule.api.model.Model;
 import org.mule.api.routing.InboundRouterCollection;
+import org.mule.context.DefaultMuleContextBuilder;
+import org.mule.context.DefaultMuleContextFactory;
+import org.mule.model.seda.SedaModel;
 import org.mule.model.seda.SedaService;
 import org.mule.routing.inbound.DefaultInboundRouterCollection;
 import org.mule.util.object.ObjectFactory;
@@ -80,7 +86,9 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder {
 		//qcBuilder = new QuickConfigurationBuilder(false);
 		
 		//MuleContextÇÃçÏê¨
-		context = MuleServer.getMuleContext();
+		DefaultMuleContextFactory factory = new DefaultMuleContextFactory();
+		context = factory.createMuleContext();
+		
 	}
 
 	/**
@@ -134,20 +142,25 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder {
 	 */
 	private Service createService(S2MuleConfiguration s2MuleConfig) throws MuleException {
 		
-		if(!s2MuleConfig.isInitalize()){
-			s2MuleConfig.initialize();
-		}
+//		if(!s2MuleConfig.isInitalize()){
+//			s2MuleConfig.initialize();
+//		}
 		
 		//MuleÇÃDefaultÇ≈Ç†ÇÈSedaServiceÇçÏê¨
 		Service service = new SedaService();
 		
-		//InboundRouterCollectionÇÃçÏê¨
+		Model model = new SedaModel();
+		service.setModel(model);
+		
 		InboundRouterCollection iRouterCollection = new DefaultInboundRouterCollection();
 		
 		//InboundEndpoitsÇÃêîÇæÇØçsÇ§
-		List inboundEndpoints = s2MuleConfig.getInboundEndpoints();
-		for(int i =0;i<inboundEndpoints.size();i++) {
-			InboundEndpoint endpoint = (InboundEndpoint)inboundEndpoints.get(i);
+		List endpointUris = s2MuleConfig.getInboundEndpoints();
+		for(int i =0;i<endpointUris.size();i++) {
+			//InboundEndpointÇÃçÏê¨
+			URIBuilder uriBuilder = new URIBuilder((String)endpointUris.get(i));
+			InboundEndpoint endpoint = new InboundEndpoint();
+			endpoint.setEndpointURI(uriBuilder.getEndpoint());
 			iRouterCollection.addEndpoint(endpoint);
 		}
 		service.setInboundRouter(iRouterCollection);
@@ -170,13 +183,13 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder {
 //		descriptor.setModelName(modelName);
 		
 		//descriptorNameÇÃçÏê¨
-//		String descriptorName;
-//		if (s2MuleConfig.getName() != null) {
-//			descriptorName = s2MuleConfig.getName();
-//		} else {
-//			descriptorName = DEFAULT_DESCRIPTOR_NAME;
-//		}
-//		descriptor.setName(descriptorName);
+		String serviceName;
+		if (s2MuleConfig.getName() != null) {
+			serviceName = s2MuleConfig.getName();
+		} else {
+			serviceName = DEFAULT_DESCRIPTOR_NAME;
+		}
+		service.setName(serviceName);
 		
 		//ObjectFactoryÇÃçÏê¨
 		ObjectFactory factory = null;
