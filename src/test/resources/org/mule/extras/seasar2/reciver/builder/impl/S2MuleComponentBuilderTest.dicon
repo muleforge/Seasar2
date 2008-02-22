@@ -7,7 +7,7 @@
 		class="org.mule.extras.seasar2.receiver.builder.impl.S2MuleComponentBuilderImpl"/>
 	
 	<!-- MuleConfig -->
-	<component class="org.mule.extras.seasar2.receiver.object.S2MuleConfiguration" >
+	<component class="org.mule.extras.seasar2.receiver.impl.S2MuleConfiguration" >
 		<initMethod name="addInboundEndpointUri">
 			<arg>"stdio://System.in"</arg>
 		</initMethod>

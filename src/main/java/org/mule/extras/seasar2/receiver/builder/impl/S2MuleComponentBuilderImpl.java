@@ -11,7 +11,7 @@ import org.mule.endpoint.EndpointURIEndpointBuilder;
 import org.mule.endpoint.InboundEndpoint;
 import org.mule.endpoint.URIBuilder;
 import org.mule.extras.seasar2.receiver.builder.S2MuleComponentBuilder;
-import org.mule.extras.seasar2.receiver.object.S2MuleConfiguration;
+import org.mule.extras.seasar2.receiver.impl.S2MuleConfiguration;
 import org.mule.extras.seasar2.receiver.object.S2MuleObjectFactory;
 import org.mule.api.service.Service;
 import org.mule.api.endpoint.EndpointBuilder;

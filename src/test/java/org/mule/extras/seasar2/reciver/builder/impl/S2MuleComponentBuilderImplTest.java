@@ -1,7 +1,7 @@
 package org.mule.extras.seasar2.reciver.builder.impl;
 
 import org.mule.extras.seasar2.receiver.builder.impl.S2MuleComponentBuilderImpl;
-import org.mule.extras.seasar2.receiver.object.S2MuleConfiguration;
+import org.mule.extras.seasar2.receiver.impl.S2MuleConfiguration;
 import org.seasar.extension.unit.S2TestCase;
 
 public class S2MuleComponentBuilderImplTest extends S2TestCase {
