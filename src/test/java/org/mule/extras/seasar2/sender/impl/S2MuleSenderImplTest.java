@@ -53,6 +53,8 @@ public class S2MuleSenderImplTest extends S2TestCase {
 	
 	public void testDispatch() throws Exception {
 		sender_.dispatch("Hello World Test!");
+		//別スレッドでメッセージが投げられるので、1秒停止
+		Thread.sleep(1000);
 		assertTrue("Output file doesn't exist.", outputFile.exists());
 		
 		BufferedReader reader = new BufferedReader(new FileReader(outputFile));

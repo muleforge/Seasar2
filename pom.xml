@@ -10,6 +10,9 @@
 	<properties>
 		<muleVersion>2.0.0-RC2</muleVersion>
 	</properties>
+	<modules>
+		<module>examples</module>
+	</modules>
 	<distributionManagement>
 		<repository>
 			<id>muleforge.webdav.releases</id>
@@ -17,7 +20,9 @@
 		</repository>
 		<snapshotRepository>
 			<id>muleforge.webdav.snapshots</id>
-			<url>dav:https://dav.muleforge.org/snapshots.repository/seasar2/</url>
+			<url>
+				dav:https://dav.muleforge.org/snapshots.repository/seasar2/
+			</url>
 		</snapshotRepository>
 		<site>
 			<id>muleforge.webdav.sites</id>
@@ -54,8 +59,16 @@
 		</plugins>
 	</build>
 	<name>Seasar2</name>
-	<description>The Seasar2 framework is an open source framework similar to the Spring Framework.</description>
+	<description>
+		The Seasar2 framework is an open source framework similar to the
+		Spring Framework.
+	</description>
 	<dependencies>
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-jta_1.1_spec</artifactId>
+			<version>1.0</version>
+		</dependency>
 		<dependency>
 			<groupId>org.seasar.container</groupId>
 			<artifactId>s2-framework</artifactId>
@@ -104,11 +117,11 @@
 		</dependency>
 
 		<!--
-		<dependency>
+			<dependency>
 			<groupId>org.mule.transports</groupId>
 			<artifactId>mule-transport-stream</artifactId>
 			<version>${muleVersion}</version>
-		</dependency>
+			</dependency>
 		-->
 
 		<dependency>
@@ -143,20 +156,20 @@
 			<version>${muleVersion}</version>
 		</dependency>
 
-		
+
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>activemq-core</artifactId>
 			<version>5.0.0</version>
 		</dependency>
-		
+
 	</dependencies>
 
 	<repositories>
 		<repository>
 			<id>maven.seasar.org</id>
-				<name>The Seasar Foundation Maven2 Repository</name>
-				<url>http://maven.seasar.org/maven2</url>
+			<name>The Seasar Foundation Maven2 Repository</name>
+			<url>http://maven.seasar.org/maven2</url>
 		</repository>
 	</repositories>
 

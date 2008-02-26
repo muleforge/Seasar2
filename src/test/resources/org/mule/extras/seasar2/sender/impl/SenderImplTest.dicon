@@ -5,7 +5,7 @@
   Fileを使ったユニットテスト
 -->
 <components>
-	<include path="j2ee.dicon"/>
+	<include path="jta.dicon"/>
 	
 	<!-- FileConnectorの設定-->
 	<component class="org.mule.extras.seasar2.config.impl.FileConnectorConfig" >

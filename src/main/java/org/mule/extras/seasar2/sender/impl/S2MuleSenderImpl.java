@@ -7,6 +7,8 @@ import java.util.Map;
 
 import javax.transaction.TransactionManager;
 
+import org.mule.endpoint.EndpointURIEndpointBuilder;
+import org.mule.endpoint.URIBuilder;
 import org.mule.extras.client.MuleClient;
 import org.mule.extras.seasar2.config.ComponentConfig;
 import org.mule.extras.seasar2.config.TransactionConnector;
@@ -17,6 +19,8 @@ import org.mule.transformer.AbstractTransformer;
 
 import org.mule.api.MuleException;
 import org.mule.api.MuleMessage;
+import org.mule.api.config.MuleProperties;
+import org.mule.api.endpoint.EndpointBuilder;
 import org.mule.api.transport.Connector;
 import org.mule.api.transformer.Transformer;
 
@@ -61,6 +65,8 @@ public class S2MuleSenderImpl implements S2MuleSender {
 	public void init() {
 		try {
 			muleClient = new MuleClient(true);
+			EndpointURIEndpointBuilder endpointBuilder 
+				= new EndpointURIEndpointBuilder(new URIBuilder(outboundUri),muleClient.getMuleContext());
 			
 			if (connectorConfig != null) {
 				// Connector の設定
@@ -68,7 +74,8 @@ public class S2MuleSenderImpl implements S2MuleSender {
 			}
 			if(transformers != null) {
 				// Transformer の設定
-				setProperty("transformer", transformers.get(0));
+				//setProperty("transformer", transformers.get(0));
+				endpointBuilder.setTransformers(transformers);
 			}
 			if(deliveryTransacted) {
 				if (connectorConfig != null && 
@@ -76,9 +83,10 @@ public class S2MuleSenderImpl implements S2MuleSender {
 					//TODO エラーコード
 					throw new S2MuleConfigurationException("");
 				} else {
-					
+					//TODO トランザクション設定
 				}
 			}
+//			muleClient.getMuleContext().getRegistry().registerEndpointBuilder(outboundUri, endpointBuilder);
 		} catch (MuleException e) {
 			throw new S2MuleRuntimeException("ESML0000", new Object[]{e},e);
 		}
@@ -88,11 +96,8 @@ public class S2MuleSenderImpl implements S2MuleSender {
 	 * @see org.mule.extras.seasar2.sender.S2MuleSender#dispatch(Object)
 	 */
 	public void dispatch(Object payload) {
-		//TODO muleClientのdispatch or send
 		if(outboundUri != null) {
 			try {
-				//TODO propertiesにMULE_REMOTE_SYNC=falseをセットするコードが必要?
-				setProperty("MULE_REMOTE_SYNC", false);
 				muleClient.dispatch(outboundUri, payload, properties);
 			} catch ( MuleException e ) {
 				throw new S2MuleRuntimeException("ESML0000", new Object[]{e}, e);
@@ -134,7 +139,6 @@ public class S2MuleSenderImpl implements S2MuleSender {
 	
 	/**
 	 * トランスフォーマを追加する
-	 * TODO nextTransformerの設定
 	 * 
 	 * @param newTransformer
 	 */
