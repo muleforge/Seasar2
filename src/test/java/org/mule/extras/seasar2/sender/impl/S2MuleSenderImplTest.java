@@ -6,6 +6,9 @@ import java.io.FileReader;
 import java.lang.reflect.Field;
 import java.util.Map;
 
+import javax.transaction.TransactionManager;
+
+import org.mule.extras.seasar2.config.ComponentConfig;
 import org.mule.extras.seasar2.sender.S2MuleSender;
 import org.seasar.extension.unit.S2TestCase;
 
@@ -31,12 +34,21 @@ public class S2MuleSenderImplTest extends S2TestCase {
 
 		assertEquals("Outbound URI isn't set correctly.", "file:///C:/temp", outboundUri);
 		
-		Field propField = c.getDeclaredField("properties");
-		propField.setAccessible(true);
-		Map prop = (Map)propField.get(sender_);
+//		Field propField = c.getDeclaredField("properties");
+//		propField.setAccessible(true);
+//		Map prop = (Map)propField.get(sender_);
+//		
+//		assertEquals("Output file isn't named correctly.", "S2Mule-HelloWorldTestFile.txt", prop.get("filename"));
 		
-		assertEquals("Output file isn't named correctly.", "S2Mule-HelloWorldTestFile.txt", prop.get("filename"));
+		Field transactionManagerField = c.getDeclaredField("transactionManager");
+		transactionManagerField.setAccessible(true);
+		TransactionManager transactionManager = (TransactionManager)transactionManagerField.get(sender_);
+		assertNotNull(transactionManager);
 		
+		Field connectorConfigField = c.getDeclaredField("connectorConfig");
+		connectorConfigField.setAccessible(true);
+		ComponentConfig connectionConfig = (ComponentConfig)connectorConfigField.get(sender_);
+		assertNotNull(connectionConfig);
 	}
 	
 	public void testDispatch() throws Exception {

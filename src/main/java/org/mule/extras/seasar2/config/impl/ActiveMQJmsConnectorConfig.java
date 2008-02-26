@@ -14,7 +14,7 @@ import org.mule.transport.jms.activemq.ActiveMQJmsConnector;
 public class ActiveMQJmsConnectorConfig extends AbstractConfig implements
 		ComponentConfig {
 	
-	private String brokerURL;
+	protected String brokerURL;
 
 	/**
 	 * インスタンスを生成する

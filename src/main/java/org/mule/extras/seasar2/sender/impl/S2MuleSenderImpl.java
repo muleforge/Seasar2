@@ -5,8 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.transaction.TransactionManager;
+
 import org.mule.extras.client.MuleClient;
 import org.mule.extras.seasar2.config.ComponentConfig;
+import org.mule.extras.seasar2.config.TransactionConnector;
 import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
 import org.mule.extras.seasar2.exception.S2MuleRuntimeException;
 import org.mule.extras.seasar2.sender.S2MuleSender;
@@ -35,13 +38,21 @@ public class S2MuleSenderImpl implements S2MuleSender {
 	/** 送信先 Endpointのプロパティ */
 	private Map properties = new HashMap();
 	
+	/** トランザクション*/
+	private boolean deliveryTransacted = false;
+	
+	private TransactionManager transactionManager;
+	
 	/** MuleClient*/
 	private MuleClient muleClient;
 	
 	/**
 	 * インスタンスを生成します
 	 */
-	public S2MuleSenderImpl() {
+	public S2MuleSenderImpl(final ComponentConfig connectorConfig,
+			final TransactionManager transactionManager) {
+		this.connectorConfig = connectorConfig;
+		this.transactionManager = transactionManager;
 	}
 	
 	/**
@@ -58,6 +69,15 @@ public class S2MuleSenderImpl implements S2MuleSender {
 			if(transformers != null) {
 				// Transformer の設定
 				setProperty("transformer", transformers.get(0));
+			}
+			if(deliveryTransacted) {
+				if (connectorConfig != null && 
+						(connectorConfig instanceof TransactionConnector)) {
+					//TODO エラーコード
+					throw new S2MuleConfigurationException("");
+				} else {
+					
+				}
 			}
 		} catch (MuleException e) {
 			throw new S2MuleRuntimeException("ESML0000", new Object[]{e},e);
@@ -141,5 +161,13 @@ public class S2MuleSenderImpl implements S2MuleSender {
 
 	public void setOutboundUri(String outboundUri) {
 		this.outboundUri = outboundUri;
+	}
+
+	public boolean isDeliveryTransacted() {
+		return deliveryTransacted;
+	}
+
+	public void setDeliveryTransacted(boolean deliveryTransacted) {
+		this.deliveryTransacted = deliveryTransacted;
 	}
 }
