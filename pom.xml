@@ -10,9 +10,6 @@
 	<properties>
 		<muleVersion>2.0.0-RC2</muleVersion>
 	</properties>
-	<modules>
-		<module>examples</module>
-	</modules>
 	<distributionManagement>
 		<repository>
 			<id>muleforge.webdav.releases</id>

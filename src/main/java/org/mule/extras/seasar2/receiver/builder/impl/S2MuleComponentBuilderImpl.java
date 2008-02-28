@@ -58,16 +58,14 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder {
 	private S2Container container;
 	
 	/**
-	 * TODO 将来的には複数のs2MuleConfigを扱えるようにしたい。
 	 * diconに記述されていたMuleインスタンスの情報
-	 * 暫定的
 	 */
 	private List s2MuleConfigs;
 	
 	/**
 	 * MuleContext
 	 */
-	private MuleContext context;
+	private MuleContext muleContext;
 	
 	/**
 	 * diconファイルに記述されている全てのコンポーネント
@@ -75,31 +73,31 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder {
 	private List allDiconComponentDefs = new ArrayList();
 	
 	/**
-	 * 
-	 * @throws MuleException
+	 * インスタンスの作成 
+	 * @throws MuleException MuleContext作成時の例外
 	 */
 	public S2MuleComponentBuilderImpl() throws MuleException {
 		
 		//MuleContextの作成
 		DefaultMuleContextFactory factory = new DefaultMuleContextFactory();
-		context = factory.createMuleContext();
+		muleContext = factory.createMuleContext();
 	}
 
-	/**
-	 * MuleConfigurationFileを指定した場合、Mule-configからMuleを起動する
-	 * @param muleConfigPass
-	 */
-	public S2MuleComponentBuilderImpl( String muleConfigPass) {
-		
-	}
-	
-	/**
-	 * 
-	 * @param smDeciptor
-	 */
-	public S2MuleComponentBuilderImpl( S2MuleConfiguration smDecriptor) {
-		
-	}
+//	/**
+//	 * MuleConfigurationFileを指定した場合、Mule-configからMuleを起動する
+//	 * @param muleConfigPass
+//	 */
+//	public S2MuleComponentBuilderImpl( String muleConfigPass) {
+//		
+//	}
+//	
+//	/**
+//	 * 
+//	 * @param smDeciptor
+//	 */
+//	public S2MuleComponentBuilderImpl( S2MuleConfiguration smDecriptor) {
+//		
+//	}
 	
 	/**
 	 * Serviceをregistryに登録する。
@@ -119,26 +117,22 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder {
 				Service service = createService( s2MuleConfig );
 				
 				//Serviceを登録する
-				context.getRegistry().registerService(service);
+				muleContext.getRegistry().registerService(service);
 			}
 		} else {
 			//TODO 例外処理
 		}
 		// test configureの中でmuleServerをスタートさせてしまう
-		context.start();
+		muleContext.start();
 		
-		return context;
+		return muleContext;
 	}
 	
 	/**
-	 * MuleDescriptorを作成する
+	 * Serviceを作成する
 	 * @return
 	 */
 	private Service createService(S2MuleConfiguration s2MuleConfig) throws MuleException {
-		
-//		if(!s2MuleConfig.isInitalize()){
-//			s2MuleConfig.initialize();
-//		}
 		
 		//MuleのDefaultであるSedaServiceを作成
 		Service service = new SedaService();
@@ -154,7 +148,7 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder {
 		for(int i =0;i<endpointUris.size();i++) {
 			//InboundEndpointの作成
 			URIBuilder uriBuilder = new URIBuilder((String)endpointUris.get(i));
-			EndpointBuilder endpointBuilder = new EndpointURIEndpointBuilder(uriBuilder,context);
+			EndpointBuilder endpointBuilder = new EndpointURIEndpointBuilder(uriBuilder,muleContext);
 			InboundEndpoint endpoint = (InboundEndpoint)endpointBuilder.buildInboundEndpoint();
 			
 			iRouterCollection.addEndpoint(endpoint);
@@ -175,10 +169,7 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder {
 		//umoがdiconに設定されていた場合、S2MuleSimpleObjectFactoryを設定する。
 		if( s2MuleConfig.getUmoImpl() != null ) {
 			factory = new S2MuleObjectFactory(container,s2MuleConfig.getUmoImpl()); 
-		} else {
-			//umoがdiconに設定されていない場合、BridgeComponentを設定する。
-			factory = new S2MuleObjectFactory(container,s2MuleConfig.getUmoImpl());
-		}
+		} 
 		service.setServiceFactory(factory);
 		
 		return service;
@@ -240,12 +231,12 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder {
 	}
 	
 	/**
-	 * MuleServerを停止させる
+	 * Muleを停止させる
 	 * Registryに登録されていたコンポーネントは全て破棄される
 	 *
 	 */
 	public void destroy() {
-		
+		muleContext.dispose();
 	}
 	
 	public void setContainer(S2Container container) {

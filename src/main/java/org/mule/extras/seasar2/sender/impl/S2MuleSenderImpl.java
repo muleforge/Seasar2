@@ -8,20 +8,40 @@ import java.util.Map;
 import javax.transaction.TransactionManager;
 
 import org.mule.endpoint.EndpointURIEndpointBuilder;
+import org.mule.endpoint.InboundEndpoint;
+import org.mule.endpoint.OutboundEndpoint;
 import org.mule.endpoint.URIBuilder;
 import org.mule.extras.client.MuleClient;
 import org.mule.extras.seasar2.config.ComponentConfig;
 import org.mule.extras.seasar2.config.TransactionConnector;
 import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
 import org.mule.extras.seasar2.exception.S2MuleRuntimeException;
+import org.mule.extras.seasar2.receiver.impl.S2MuleConfiguration;
+import org.mule.extras.seasar2.receiver.object.S2MuleObjectFactory;
 import org.mule.extras.seasar2.sender.S2MuleSender;
+import org.mule.model.seda.SedaModel;
+import org.mule.model.seda.SedaService;
+import org.mule.routing.inbound.DefaultInboundRouterCollection;
+import org.mule.routing.outbound.DefaultOutboundRouterCollection;
+import org.mule.routing.outbound.OutboundPassThroughRouter;
+import org.mule.transaction.MuleTransactionConfig;
+import org.mule.transaction.XaTransactionFactory;
 import org.mule.transformer.AbstractTransformer;
+import org.mule.util.object.ObjectFactory;
+import org.mule.util.object.SingletonObjectFactory;
 
+import org.mule.api.MuleContext;
 import org.mule.api.MuleException;
 import org.mule.api.MuleMessage;
 import org.mule.api.config.MuleProperties;
 import org.mule.api.endpoint.EndpointBuilder;
+import org.mule.api.model.Model;
+import org.mule.api.routing.InboundRouterCollection;
+import org.mule.api.routing.OutboundRouter;
+import org.mule.api.routing.OutboundRouterCollection;
+import org.mule.api.service.Service;
 import org.mule.api.transport.Connector;
+import org.mule.api.transaction.TransactionConfig;
 import org.mule.api.transformer.Transformer;
 
 /**
@@ -50,6 +70,17 @@ public class S2MuleSenderImpl implements S2MuleSender {
 	/** MuleClient*/
 	private MuleClient muleClient;
 	
+	/** デフォルトのInboundEndpointURI*/
+	private final String DEFAULT_INBUNDENDPOINT_URI
+		= "vm://s2mule-sender";
+	
+	/** デフォルトのUMO名 */
+	private final String DEFAULT_UMO 
+		= "org.mule.component.simple.BridgeComponent";
+	
+	/** 固定のサービス名 */
+	public static final String SERVICE_NAME = "bridge";
+	
 	/**
 	 * インスタンスを生成します
 	 */
@@ -62,34 +93,110 @@ public class S2MuleSenderImpl implements S2MuleSender {
 	/**
 	 * 送信の準備を行います
 	 */
+//	public void init() {
+//		try {
+//			muleClient = new MuleClient(false);
+//			EndpointURIEndpointBuilder endpointBuilder 
+//				= new EndpointURIEndpointBuilder(new URIBuilder(outboundUri),muleClient.getMuleContext());
+//			
+//			if (connectorConfig != null) {
+//				// Connector の設定
+//				muleClient.getMuleContext().getRegistry().registerConnector((Connector)connectorConfig.buildComponent());
+//				
+//				//TODO トランザクション設定
+//				if(deliveryTransacted) {
+//					if ((connectorConfig instanceof TransactionConnector)) {
+//						muleClient.getMuleContext().setTransactionManager(transactionManager);
+//						TransactionConfig transactionConfig = new MuleTransactionConfig();
+//						transactionConfig.setFactory(new XaTransactionFactory());
+//						//テストコード
+//						transactionConfig.setAction(TransactionConfig.ACTION_ALWAYS_BEGIN);
+//						endpointBuilder.setTransactionConfig(transactionConfig);
+//					} else {
+//						//TODO エラーコード
+//						throw new S2MuleConfigurationException("");
+//					}
+//				}
+//			}
+//			if(transformers != null) {
+//				// Transformer の設定
+//				endpointBuilder.setTransformers(transformers);
+//			}
+//			muleClient.getMuleContext().getRegistry().registerEndpointBuilder(outboundUri, endpointBuilder);
+//		//TODO 検討 Exceptionでよいのか
+//		} catch (Exception e) {
+//			throw new S2MuleRuntimeException("ESML0000", new Object[]{e},e);
+//		}
+//	}
+	
 	public void init() {
 		try {
-			muleClient = new MuleClient(true);
-			EndpointURIEndpointBuilder endpointBuilder 
-				= new EndpointURIEndpointBuilder(new URIBuilder(outboundUri),muleClient.getMuleContext());
-			
-			if (connectorConfig != null) {
-				// Connector の設定
-				muleClient.getMuleContext().getRegistry().registerConnector((Connector)connectorConfig.buildComponent());
-			}
-			if(transformers != null) {
-				// Transformer の設定
-				//setProperty("transformer", transformers.get(0));
-				endpointBuilder.setTransformers(transformers);
-			}
-			if(deliveryTransacted) {
-				if (connectorConfig != null && 
-						(connectorConfig instanceof TransactionConnector)) {
-					//TODO エラーコード
-					throw new S2MuleConfigurationException("");
-				} else {
-					//TODO トランザクション設定
-				}
-			}
-//			muleClient.getMuleContext().getRegistry().registerEndpointBuilder(outboundUri, endpointBuilder);
-		} catch (MuleException e) {
+			muleClient = new MuleClient(false);
+			muleClient.getMuleContext().getRegistry().
+				registerService(createService(muleClient.getMuleContext()));
+			muleClient.getMuleContext().start();
+		} catch(Exception e) {
 			throw new S2MuleRuntimeException("ESML0000", new Object[]{e},e);
 		}
+	}
+	
+	/**
+	 * Serviceを作成する
+	 * @return
+	 */
+	private Service createService(MuleContext context) throws Exception {
+		
+		//MuleのDefaultであるSedaServiceを作成
+		Service service = new SedaService();
+		
+		Model model = new SedaModel();
+		model.initialise();
+		service.setModel(model);
+		
+		// Connector の設定
+		muleClient.getMuleContext().getRegistry().registerConnector((Connector)connectorConfig.buildComponent());
+		
+		//InboundEndpointの作成
+		InboundRouterCollection iRouterCollection = new DefaultInboundRouterCollection();
+		URIBuilder iUriBuilder= new URIBuilder(DEFAULT_INBUNDENDPOINT_URI);
+		EndpointBuilder iEndpointBuilder = new EndpointURIEndpointBuilder(iUriBuilder,context);
+		InboundEndpoint inboundEndpoint = (InboundEndpoint)iEndpointBuilder.buildInboundEndpoint();
+		iRouterCollection.addEndpoint(inboundEndpoint);
+		service.setInboundRouter(iRouterCollection);
+		
+		//ServiceNameの作成
+		service.setName(SERVICE_NAME);
+		
+		//UMOの作成
+		//service.setServiceFactory(new SingletonObjectFactory(DEFAULT_UMO));
+		
+		//OutboundEndpoointの作成
+		OutboundRouterCollection oRouterCollection = new DefaultOutboundRouterCollection();
+		OutboundRouter router = new OutboundPassThroughRouter();
+		if(deliveryTransacted) {
+			if ((connectorConfig instanceof TransactionConnector)) {
+				//トランザクションマネージャーの設定
+				muleClient.getMuleContext().setTransactionManager(transactionManager);
+				
+				TransactionConfig transactionConfig = new MuleTransactionConfig();
+				transactionConfig.setFactory(new XaTransactionFactory());
+				//テストコード
+				transactionConfig.setAction(TransactionConfig.ACTION_ALWAYS_BEGIN);
+				router.setTransactionConfig(transactionConfig);
+			} else {
+				//TODO エラーコード
+				throw new S2MuleConfigurationException("");
+			}
+		}
+		URIBuilder oUriBuilder = new URIBuilder(outboundUri);
+		EndpointBuilder oEndpointBuilder = new EndpointURIEndpointBuilder(oUriBuilder,context);
+		OutboundEndpoint outboundEndpoint = (OutboundEndpoint)oEndpointBuilder.buildOutboundEndpoint();
+		router.addEndpoint(outboundEndpoint);
+		oRouterCollection.addRouter(router);
+		muleClient.getMuleContext().getRegistry().registerObject("oRouterCollection",oRouterCollection,"META");
+		service.setOutboundRouter(oRouterCollection);
+		
+		return service;
 	}
 	
 	/**
@@ -98,7 +205,8 @@ public class S2MuleSenderImpl implements S2MuleSender {
 	public void dispatch(Object payload) {
 		if(outboundUri != null) {
 			try {
-				muleClient.dispatch(outboundUri, payload, properties);
+				//muleClient.dispatch(outboundUri, payload, properties);
+				muleClient.dispatchDirect(SERVICE_NAME, payload,properties);
 			} catch ( MuleException e ) {
 				throw new S2MuleRuntimeException("ESML0000", new Object[]{e}, e);
 			} catch ( Exception e ){
