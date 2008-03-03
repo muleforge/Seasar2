@@ -25,8 +25,11 @@ import org.mule.routing.inbound.DefaultInboundRouterCollection;
 import org.mule.routing.outbound.DefaultOutboundRouterCollection;
 import org.mule.routing.outbound.OutboundPassThroughRouter;
 import org.mule.transaction.MuleTransactionConfig;
+import org.mule.transaction.TransactionCoordination;
+import org.mule.transaction.XaTransaction;
 import org.mule.transaction.XaTransactionFactory;
 import org.mule.transformer.AbstractTransformer;
+import org.mule.transport.vm.VMConnector;
 import org.mule.util.object.ObjectFactory;
 import org.mule.util.object.SingletonObjectFactory;
 
@@ -41,7 +44,7 @@ import org.mule.api.routing.OutboundRouter;
 import org.mule.api.routing.OutboundRouterCollection;
 import org.mule.api.service.Service;
 import org.mule.api.transport.Connector;
-import org.mule.api.transaction.TransactionConfig;
+import org.mule.extras.seasar2.config.impl.TransactionConfig;
 import org.mule.api.transformer.Transformer;
 
 /**
@@ -63,8 +66,9 @@ public class S2MuleSenderImpl implements S2MuleSender {
 	private Map properties = new HashMap();
 	
 	/** トランザクション*/
-	private boolean deliveryTransacted = false;
+	private TransactionConfig transactionConfig;
 	
+	/** トランザクションマネージャ*/
 	private TransactionManager transactionManager;
 	
 	/** MuleClient*/
@@ -73,10 +77,6 @@ public class S2MuleSenderImpl implements S2MuleSender {
 	/** デフォルトのInboundEndpointURI*/
 	private final String DEFAULT_INBUNDENDPOINT_URI
 		= "vm://s2mule-sender";
-	
-	/** デフォルトのUMO名 */
-	private final String DEFAULT_UMO 
-		= "org.mule.component.simple.BridgeComponent";
 	
 	/** 固定のサービス名 */
 	public static final String SERVICE_NAME = "bridge";
@@ -153,41 +153,44 @@ public class S2MuleSenderImpl implements S2MuleSender {
 		model.initialise();
 		service.setModel(model);
 		
-		// Connector の設定
-		muleClient.getMuleContext().getRegistry().registerConnector((Connector)connectorConfig.buildComponent());
+		//Connector の設定
+		//TODO diconに記述
+		VMConnector vmConnector = new VMConnector();
+		vmConnector.setQueueEvents(true);
+		muleClient.getMuleContext().getRegistry().registerConnector(vmConnector);
 		
 		//InboundEndpointの作成
 		InboundRouterCollection iRouterCollection = new DefaultInboundRouterCollection();
 		URIBuilder iUriBuilder= new URIBuilder(DEFAULT_INBUNDENDPOINT_URI);
 		EndpointBuilder iEndpointBuilder = new EndpointURIEndpointBuilder(iUriBuilder,context);
 		InboundEndpoint inboundEndpoint = (InboundEndpoint)iEndpointBuilder.buildInboundEndpoint();
+		if(transactionConfig != null) {
+			if ((connectorConfig instanceof TransactionConnector)) {
+				//トランザクションマネージャーの設定
+				muleClient.getMuleContext().setTransactionManager(transactionManager);
+				
+				org.mule.api.transaction.TransactionConfig transactionConfig = new MuleTransactionConfig();
+				transactionConfig.setFactory(new XaTransactionFactory());
+				transactionConfig.setAction(this.transactionConfig.getAction());
+				inboundEndpoint.setTransactionConfig(transactionConfig);
+			} else {
+				//TODO エラーコード
+				throw new S2MuleConfigurationException("");
+			}
+		}
 		iRouterCollection.addEndpoint(inboundEndpoint);
 		service.setInboundRouter(iRouterCollection);
 		
 		//ServiceNameの作成
 		service.setName(SERVICE_NAME);
 		
-		//UMOの作成
-		//service.setServiceFactory(new SingletonObjectFactory(DEFAULT_UMO));
+		//Connector の設定
+		muleClient.getMuleContext().getRegistry().registerConnector((Connector)connectorConfig.buildComponent());
 		
 		//OutboundEndpoointの作成
 		OutboundRouterCollection oRouterCollection = new DefaultOutboundRouterCollection();
 		OutboundRouter router = new OutboundPassThroughRouter();
-		if(deliveryTransacted) {
-			if ((connectorConfig instanceof TransactionConnector)) {
-				//トランザクションマネージャーの設定
-				muleClient.getMuleContext().setTransactionManager(transactionManager);
-				
-				TransactionConfig transactionConfig = new MuleTransactionConfig();
-				transactionConfig.setFactory(new XaTransactionFactory());
-				//テストコード
-				transactionConfig.setAction(TransactionConfig.ACTION_ALWAYS_BEGIN);
-				router.setTransactionConfig(transactionConfig);
-			} else {
-				//TODO エラーコード
-				throw new S2MuleConfigurationException("");
-			}
-		}
+		
 		URIBuilder oUriBuilder = new URIBuilder(outboundUri);
 		EndpointBuilder oEndpointBuilder = new EndpointURIEndpointBuilder(oUriBuilder,context);
 		OutboundEndpoint outboundEndpoint = (OutboundEndpoint)oEndpointBuilder.buildOutboundEndpoint();
@@ -195,6 +198,7 @@ public class S2MuleSenderImpl implements S2MuleSender {
 		oRouterCollection.addRouter(router);
 		muleClient.getMuleContext().getRegistry().registerObject("oRouterCollection",oRouterCollection,"META");
 		service.setOutboundRouter(oRouterCollection);
+		
 		
 		return service;
 	}
@@ -205,8 +209,18 @@ public class S2MuleSenderImpl implements S2MuleSender {
 	public void dispatch(Object payload) {
 		if(outboundUri != null) {
 			try {
+				if(transactionConfig!=null) {
+					//test
+					System.out.println("\n\n Transaction:" + transactionManager.getTransaction() + "\n\n");
+					XaTransaction xat = new XaTransaction(transactionManager);
+					xat.suspend();
+					System.out.println("\n\n Transaction:" + xat.isBegun() + "\n\n");
+					TransactionCoordination.getInstance().bindTransaction(xat);
+				}
 				//muleClient.dispatch(outboundUri, payload, properties);
+				
 				muleClient.dispatchDirect(SERVICE_NAME, payload,properties);
+				Thread.sleep(2000);
 			} catch ( MuleException e ) {
 				throw new S2MuleRuntimeException("ESML0000", new Object[]{e}, e);
 			} catch ( Exception e ){
@@ -275,11 +289,11 @@ public class S2MuleSenderImpl implements S2MuleSender {
 		this.outboundUri = outboundUri;
 	}
 
-	public boolean isDeliveryTransacted() {
-		return deliveryTransacted;
+	public TransactionConfig getTransactionConfig() {
+		return transactionConfig;
 	}
 
-	public void setDeliveryTransacted(boolean deliveryTransacted) {
-		this.deliveryTransacted = deliveryTransacted;
+	public void setTransactionConfig(TransactionConfig transactionConfig) {
+		this.transactionConfig = transactionConfig;
 	}
 }

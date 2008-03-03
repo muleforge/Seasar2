@@ -5,8 +5,8 @@
 ActiveMQ を利用した JMS 送信のサンプル
 -->
 <components>
-	<include path="jta.dicon"/>
-
+	<include path="j2ee.dicon"/>
+	
 	<!-- ActiveMQ Jms connectorの設定 -->
 	<component class="org.mule.extras.seasar2.config.impl.ActiveMQXAJmsConnectorConfig" >
 		<!-- brokerURLの設定 -->
@@ -25,7 +25,14 @@ ActiveMQ を利用した JMS 送信のサンプル
 	<!-- S2MuleSender の設定-->
 	<component class="org.mule.extras.seasar2.sender.impl.S2MuleSenderImpl" >
 		<property name="outboundUri">"jms://Foo"</property>
-		<property name="deliveryTransacted">true</property>
+		<property name="transactionConfig">
+			<component class="org.mule.extras.seasar2.config.impl.TransactionConfig" >
+				<arg>"ALWAYS_JOIN"</arg>
+			</component>
+		</property>
+		<aspect pointcut="dispatch" >
+			j2ee.requiredTx
+		</aspect>
 		<initMethod name="init"/>
 	</component>
 

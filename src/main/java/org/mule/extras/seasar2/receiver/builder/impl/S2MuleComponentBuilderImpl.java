@@ -35,22 +35,10 @@ import org.seasar.framework.container.S2Container;
 public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder {
 	
 	/**
-	 * デフォルトのmodleName
-	 * Mule-configの<modle name="">タグに対応
+	 * デフォルトのServiceName
+	 * Mule-configの<service name="">タグに対応
 	 */
-	private final String DEFAULT_MODEL_NAME = "default-qbuilder";
-	
-	/**
-	 * デフォルトのdescriptorName
-	 * Mule-configの<mule-descriptor name="">タグに対応
-	 */
-	private final String DEFAULT_DESCRIPTOR_NAME = "S2MuleUMO";
-	
-	/**
-	 * デフォルトのUMOName
-	 */
-	private final String DEFAULT_UMO_NAME 
-		= "org.mule.components.simple.BridgeComponent";
+	private final String DEFAULT_SERVICE_NAME = "S2MuleUMO";
 	
 	/**
 	 * オートバインディングによってS2Containerが設定される
@@ -160,7 +148,7 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder {
 		if (s2MuleConfig.getName() != null) {
 			serviceName = s2MuleConfig.getName();
 		} else {
-			serviceName = DEFAULT_DESCRIPTOR_NAME;
+			serviceName = DEFAULT_SERVICE_NAME;
 		}
 		service.setName(serviceName);
 		
@@ -169,7 +157,9 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder {
 		//umoがdiconに設定されていた場合、S2MuleSimpleObjectFactoryを設定する。
 		if( s2MuleConfig.getUmoImpl() != null ) {
 			factory = new S2MuleObjectFactory(container,s2MuleConfig.getUmoImpl()); 
-		} 
+		} else {
+			//TODO 例外
+		}
 		service.setServiceFactory(factory);
 		
 		return service;
