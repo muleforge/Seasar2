@@ -6,6 +6,7 @@ ActiveMQ を利用した JMS 送信のサンプル
 -->
 <components>
 	<include path="j2ee.dicon"/>
+	<include path="s2mule-sender.dicon"/>
 	
 	<!-- ActiveMQ Jms connectorの設定 -->
 	<component class="org.mule.extras.seasar2.config.impl.ActiveMQXAJmsConnectorConfig" >
@@ -34,6 +35,7 @@ ActiveMQ を利用した JMS 送信のサンプル
 			j2ee.requiredTx
 		</aspect>
 		<initMethod name="init"/>
+		<destroyMethod name="dispose" />
 	</component>
 
 </components>

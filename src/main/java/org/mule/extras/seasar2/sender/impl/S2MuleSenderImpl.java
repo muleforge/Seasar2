@@ -46,6 +46,8 @@ import org.mule.api.service.Service;
 import org.mule.api.transport.Connector;
 import org.mule.extras.seasar2.config.impl.TransactionConfig;
 import org.mule.api.transformer.Transformer;
+import org.seasar.framework.container.S2Container;
+import org.seasar.framework.exception.SRuntimeException;
 
 /**
  * {@link S2MuleSender} の実装クラスです。
@@ -81,13 +83,15 @@ public class S2MuleSenderImpl implements S2MuleSender {
 	/** 固定のサービス名 */
 	public static final String SERVICE_NAME = "bridge";
 	
+	private S2Container container;
+
 	/**
 	 * インスタンスを生成します
 	 */
-	public S2MuleSenderImpl(final ComponentConfig connectorConfig,
-			final TransactionManager transactionManager) {
+	public S2MuleSenderImpl(final ComponentConfig connectorConfig
+			/*,final TransactionManager transactionManager*/) {
 		this.connectorConfig = connectorConfig;
-		this.transactionManager = transactionManager;
+		//this.transactionManager = transactionManager;
 	}
 	
 	/**
@@ -131,10 +135,13 @@ public class S2MuleSenderImpl implements S2MuleSender {
 	
 	public void init() {
 		try {
-			muleClient = new MuleClient(false);
+			transactionManager = (TransactionManager)container.getComponent(TransactionManager.class);
+			muleClient = (MuleClient)container.getComponent(MuleClient.class);
 			muleClient.getMuleContext().getRegistry().
 				registerService(createService(muleClient.getMuleContext()));
-			muleClient.getMuleContext().start();
+			//muleClient.getMuleContext().start();
+		} catch(SRuntimeException e) {
+			throw e;
 		} catch(Exception e) {
 			throw new S2MuleRuntimeException("ESML0000", new Object[]{e},e);
 		}
@@ -209,18 +216,18 @@ public class S2MuleSenderImpl implements S2MuleSender {
 	public void dispatch(Object payload) {
 		if(outboundUri != null) {
 			try {
-				if(transactionConfig!=null) {
+				if(transactionConfig!=null && 
+						transactionManager.getTransaction()!=null) {
 					//test
 					System.out.println("\n\n Transaction:" + transactionManager.getTransaction() + "\n\n");
 					XaTransaction xat = new XaTransaction(transactionManager);
-					xat.suspend();
 					System.out.println("\n\n Transaction:" + xat.isBegun() + "\n\n");
 					TransactionCoordination.getInstance().bindTransaction(xat);
 				}
 				//muleClient.dispatch(outboundUri, payload, properties);
-				
-				muleClient.dispatchDirect(SERVICE_NAME, payload,properties);
-				Thread.sleep(2000);
+				//muleClient.dispatchDirect(SERVICE_NAME, payload,properties);
+				muleClient.sendNoReceive(outboundUri, payload, properties);
+				//Thread.sleep(2000);
 			} catch ( MuleException e ) {
 				throw new S2MuleRuntimeException("ESML0000", new Object[]{e}, e);
 			} catch ( Exception e ){
@@ -277,6 +284,11 @@ public class S2MuleSenderImpl implements S2MuleSender {
 		}
 	}
 	
+	public void dispose() {
+		muleClient.dispose();
+	}
+	
+	
 	public void setConnectorConfig(ComponentConfig connectorConfig) {
 		this.connectorConfig = connectorConfig;
 	}
@@ -296,4 +308,13 @@ public class S2MuleSenderImpl implements S2MuleSender {
 	public void setTransactionConfig(TransactionConfig transactionConfig) {
 		this.transactionConfig = transactionConfig;
 	}
+	
+	public S2Container getContainer() {
+		return container;
+	}
+
+	public void setContainer(S2Container container) {
+		this.container = container;
+	}
+	
 }

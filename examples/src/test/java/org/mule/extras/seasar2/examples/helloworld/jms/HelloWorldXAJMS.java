@@ -26,7 +26,6 @@ public class HelloWorldXAJMS {
 			
 			// 成功
 			System.out.println("The message is sent successfully.");
-			
 		} catch (ResourceNotFoundRuntimeException e){
 			System.out.println("dicon ファイルが見つかりません： " + CONFIGURE_PATH);
 		}

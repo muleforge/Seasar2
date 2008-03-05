@@ -6,6 +6,8 @@ File プロバイダのサンプル
 -->
 <components>
 
+	<include path="s2mule-sender.dicon"/>
+
 	<!-- File Connectorの設定-->
 	<component class="org.mule.extras.seasar2.config.impl.FileConnectorConfig">
 		<initMethod name="setProperty" >
