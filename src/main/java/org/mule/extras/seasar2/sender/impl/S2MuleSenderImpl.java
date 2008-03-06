@@ -26,49 +26,49 @@ import org.seasar.framework.container.S2Container;
 import org.seasar.framework.exception.SRuntimeException;
 
 /**
- * {@link S2MuleSender} ‚ÌÀ‘•ƒNƒ‰ƒX‚Å‚·B
+ * {@link S2MuleSender} ã®å®Ÿè£…ã‚¯ãƒ©ã‚¹ã§ã™
  * @author Saito_Shinya@ogis-ri.co.jp
  */
 public class S2MuleSenderImpl implements S2MuleSender {
 	
-	/** Connector ‚Ì\¬î•ñ*/
+	/** Connector ã®æ§‹æˆæƒ…å ±*/
 	private ComponentConfig connectorConfig;
 	
 	/** Transformer */
 	private List transformers;
 	
-	/** ‘—Mæ‚Ì Endpoint URI*/
+	/** é€ä¿¡å…ˆã® Endpoint URI*/
 	private String outboundUri;
 	
-	/** ‘—Mæ Endpoint‚ÌƒvƒƒpƒeƒB */
+	/** é€ä¿¡å…ˆ Endpointã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ */
 	private Map properties = new HashMap();
 	
-	/** ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“*/
+	/** ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³*/
 	private TransactionConfig transactionConfig;
 	
-	/** ƒgƒ‰ƒ“ƒUƒNƒVƒ‡ƒ“ƒ}ƒl[ƒWƒƒ*/
+	/** ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³ãƒãƒãƒ¼ã‚¸ãƒ£*/
 	private TransactionManager transactionManager;
 	
 	/** MuleClient*/
 	private MuleClient muleClient;
 	
-	/** S2ƒRƒ“ƒeƒi */
+	/** S2ã‚³ãƒ³ãƒ†ãƒŠ */
 	private S2Container container;
 
 	/**
-	 * ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚µ‚Ü‚·
+	 * ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã—ã¾ã™
 	 */
 	public S2MuleSenderImpl(final ComponentConfig connectorConfig) {
 		this.connectorConfig = connectorConfig;
 	}
 	
 	/**
-	 * ‘—M‚Ì€”õ‚ğs‚¢‚Ü‚·
+	 * é€ä¿¡ã®æº–å‚™ã‚’è¡Œã„ã¾ã™
 	 */
 	public void init() {
 		try {
 			muleClient = (MuleClient)container.getComponent(MuleClient.class);
-			//Connector ‚Ìİ’è
+			//Connector ã®è¨­å®š
 			muleClient.getMuleContext().getRegistry().
 				registerConnector((Connector)connectorConfig.buildComponent());
 			if(transactionConfig != null && connectorConfig instanceof TransactionConnector) {
@@ -128,14 +128,14 @@ public class S2MuleSenderImpl implements S2MuleSender {
 	}
 	
 	/**
-	 * ƒvƒƒpƒeƒB‚ğ’Ç‰Á‚·‚é
+	 * ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è¿½åŠ ã™ã‚‹
 	 */
 	public void setProperty(String key, Object value) {
 		properties.put(key, value);
 	}
 	
 	/**
-	 * ƒgƒ‰ƒ“ƒXƒtƒH[ƒ}‚ğ’Ç‰Á‚·‚é
+	 * ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒã‚’è¿½åŠ ã™ã‚‹
 	 * 
 	 * @param newTransformer
 	 */
