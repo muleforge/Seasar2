@@ -6,26 +6,27 @@ import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
 
 public class HelloWorldSOAP {
 	
-	// dicon ƒtƒ@ƒCƒ‹
+	// dicon ãƒ•ã‚¡ã‚¤ãƒ«
 	private static final String CONFIGURE_PATH = "helloworld-soap-axis.dicon";
 
 	public static void main(String[] args) {
 		try {
-			// dicon ƒtƒ@ƒCƒ‹‚ğw’è‚µ‚Ä S2 ƒRƒ“ƒeƒi‚ğ¶¬‚·‚é
+			
+			// dicon ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æŒ‡å®šã—ã¦ S2 ã‚³ãƒ³ãƒ†ãƒŠã‚’ç”Ÿæˆã™ã‚‹
 			S2Container container = S2ContainerFactory.create(CONFIGURE_PATH);
 		
-			// S2MuleSender ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğæ“¾‚·‚é
+			// S2MuleSender ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å–å¾—ã™ã‚‹
 			Echo echo = (Echo) container.getComponent(Echo.class);
 		
-			// ƒƒbƒZ[ƒW‚ğ‘—M‚·‚é
+			// ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’é€ä¿¡ã™ã‚‹
 			String rtn = echo.echo("Hello World!");
 		
-			// ¬Œ÷
+			// æˆåŠŸ
 			System.out.println("The message is sent successfully.");
 			System.out.println("The Returned message is: \"" + rtn + "\"");
 		
 		} catch (ResourceNotFoundRuntimeException e){
-			System.out.println("dicon ƒtƒ@ƒCƒ‹‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñF " + CONFIGURE_PATH);
+			System.out.println("dicon ãƒ•ã‚¡ã‚¤ãƒ«ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ï¼š " + CONFIGURE_PATH);
 		}
 	}
 

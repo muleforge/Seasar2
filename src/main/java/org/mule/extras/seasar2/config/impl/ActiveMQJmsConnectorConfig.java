@@ -6,7 +6,7 @@ import org.mule.transport.jms.activemq.ActiveMQJmsConnector;
 
 
 /**
- * ActiveMQJmsConnector‚Ì\¬î•ñ‚ğ•Û‚·‚éƒNƒ‰ƒX‚Å‚·B
+ * ActiveMQJmsConnectorã®æ§‹æˆæƒ…å ±ã‚’ä¿æŒã™ã‚‹ã‚¯ãƒ©ã‚¹ã§ã™ã€‚
  * 
  * @author Saito_Shinya@ogis-ri.co.jp
  *
@@ -14,10 +14,11 @@ import org.mule.transport.jms.activemq.ActiveMQJmsConnector;
 public class ActiveMQJmsConnectorConfig extends AbstractConfig implements
 		ComponentConfig {
 	
+	/** MQã®ãƒ–ãƒ­ãƒ¼ã‚«ãƒ¼URL*/
 	protected String brokerURL;
 
 	/**
-	 * ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚·‚é
+	 * ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã™ã‚‹
 	 */
 	public ActiveMQJmsConnectorConfig() {
 	}
@@ -32,7 +33,7 @@ public class ActiveMQJmsConnectorConfig extends AbstractConfig implements
 		} else {
 			throw new S2MuleConfigurationException("ESML0002",new Object[]{"brokerUrl"});
 		}
-		//name‚Ævalue‚ÌMapŒ^‚Å‚ ‚éproperties‚ğbean‚É”½‰f‚³‚¹‚é
+		//nameã¨valueã®Mapå‹ã§ã‚ã‚‹propertiesã‚’beanã«åæ˜ ã•ã›ã‚‹
 		populate(connector, properties);
 		
 		return connector;

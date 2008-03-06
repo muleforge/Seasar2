@@ -8,10 +8,9 @@ import org.seasar.framework.aop.interceptors.AbstractInterceptor;
 import org.seasar.framework.util.MethodUtil;
 
 /**
- * S2Mule‚Ì“¯Šú’ÊM‚ğs‚¤‚Æ‚«‚ÌƒCƒ“ƒ^[ƒZƒvƒ^‚Å‚·B
+ * S2Muleã®åŒæœŸé€šä¿¡ã‚’è¡Œã†ã¨ãã®ã‚¤ãƒ³ã‚¿ãƒ¼ã‚»ãƒ—ã‚¿ã§ã™
  * 
  * @author Saito_Shinya@ogis-ri.co.jp
- * TODO implimentation
  */
 public class MethodInvocationInterceptor extends AbstractInterceptor {
 

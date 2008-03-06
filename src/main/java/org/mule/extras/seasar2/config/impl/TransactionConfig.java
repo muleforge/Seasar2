@@ -3,33 +3,33 @@ package org.mule.extras.seasar2.config.impl;
 import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
 
 /**
- * S2Mule�̃g�����U�N�V�����̍\�����
+ * S2Muleのトランザクションの構成情報
  * 
  * @author Saito_Shinya@ogis-ri.co.jp
  */
 public class TransactionConfig {
 	
-	/** �g�����U�N�V�����ɎQ�����Ȃ�*/
+	/** トランザクションに参加しない*/
     public static final String NONE_STRING = "NONE";
     
-    /** ��Ƀg�����U�N�V�������J�n����B���łɃg�����U�N�V����������ꍇ�͗�O�𓊂���*/
+    /** 常にトランザクションを開始する。すでにトランザクションがある場合は例外を投げる*/
     public static final String ALWAYS_BEGIN_STRING = "ALWAYS_BEGIN";
     
-    /** ���łɃg�����U�N�V����������ꍇ�͂���ɎQ������B����ȊO�̏ꍇ�̓g�����U�N�V�������J�n����*/
+    /** すでにトランザクションがある場合はそれに参加する。それ以外の場合はトランザクションを開始する*/
     public static final String BEGIN_OR_JOIN_STRING = "BEGIN_OR_JOIN";
     
-    /** ���łɃg�����U�N�V����������ꍇ�͂���ɎQ������B����ȊO�̏ꍇ�͗�O�𓊂���*/
+    /** すでにトランザクションがある場合はそれに参加する。それ以外の場合は例外を投げる*/
     public static final String ALWAYS_JOIN_STRING = "ALWAYS_JOIN";
     
-    /** ���łɃg�����U�N�V����������ꍇ�͂���ɎQ������B����ȊO�̏ꍇ�͂Ȃɂ����Ȃ�*/
+    /** すでにトランザクションがある場合はそれに参加する。それ以外の場合はなにもしない　*/
     public static final String JOIN_IF_POSSIBLE_STRING = "JOIN_IF_POSSIBLE";
 
 	
-	/** �g�����U�N�V���������̐ݒ�*/
+	/** トランザクション処理の設定*/
 	private String action;
 
 	/**
-	 * �C���X�^���X�̐���
+	 * インスタンスの生成
 	 * 
 	 * @param action
 	 */

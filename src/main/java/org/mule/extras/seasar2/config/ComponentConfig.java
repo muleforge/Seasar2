@@ -1,14 +1,14 @@
 package org.mule.extras.seasar2.config;
 
 /**
- * Mule Componentの構成情報を保持するクラスのインタフェース
+ * Mule Component縺ｮ讒区�先ュ蝣ｱ繧剃ｿ晄戟縺吶ｋ繧ｯ繝ｩ繧ｹ縺ｮ繧､繝ｳ繧ｿ繝輔ぉ繝ｼ繧ｹ縺ｮ讒区�先ュ蝣ｱ繧剃ｿ晄戟縺吶ｋ繧ｯ繝ｩ繧ｹ縺ｮ繧､繝ｳ繧ｿ繝輔ぉ繝ｼ繧ｹ
  * 
  * @author Saito_Shinya@ogis-ri.co.jp
  *
  */
 public interface ComponentConfig {
 	/**
-	 * Mule Componentを返す
+	 * Mule Componen繧定ｿ斐☆
 	 * 
 	 * @return Object Mule Component
 	 */

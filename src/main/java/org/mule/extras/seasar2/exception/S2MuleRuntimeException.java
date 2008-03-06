@@ -3,30 +3,29 @@ package org.mule.extras.seasar2.exception;
 import org.seasar.framework.exception.SRuntimeException;
 
 /**
- * S2Mule ‚Å”­¶‚µ‚½ƒGƒ‰[‚ğ’Ê’m‚·‚é‚½‚ß‚ÌÀs—áŠO
+ * S2Mule ã§ç™ºç”Ÿã—ãŸã‚¨ãƒ©ãƒ¼ã‚’é€šçŸ¥ã™ã‚‹ãŸã‚ã®å®Ÿè¡Œæ™‚ä¾‹å¤–
  * 
  * @author Shinya_Saito@ogis-ri.co.jp
- *
  */
 public class S2MuleRuntimeException extends SRuntimeException {
 	
 	private static final long serialVersionUID = -331466760857177938L;
 
 	/**
-	 * ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ\’z‚µ‚Ü‚·
+	 * ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’æ§‹ç¯‰ã—ã¾ã™
 	 * 
-	 * @param cause Œ´ˆö‚Æ‚È‚Á‚½—áŠO
+	 * @param cause åŸå› ã¨ãªã£ãŸä¾‹å¤–
 	 */
 	public S2MuleRuntimeException(Throwable cause) {
 		this(null,null,cause);
 	}
 	
 	/**
-	 * ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ\’z‚µ‚Ü‚·
+	 * ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’æ§‹ç¯‰ã—ã¾ã™
 	 * 
-	 * @param messageCode ƒƒbƒZ[ƒWƒR[ƒh
-	 * @param args ƒƒbƒZ[ƒW‚É–„‚ß‚Ü‚ê‚éˆø”
-	 * @param cause Œ´ˆö‚Æ‚È‚Á‚½—áŠO
+	 * @param messageCode ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚³ãƒ¼ãƒ‰
+	 * @param args ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã«åŸ‹ã‚è¾¼ã¾ã‚Œã‚‹å¼•æ•°
+	 * @param cause åŸå› ã¨ãªã£ãŸä¾‹å¤–
 	 */
 	public S2MuleRuntimeException(String messageCode, Object[] args, Throwable cause) {
 		super(messageCode,args,cause);

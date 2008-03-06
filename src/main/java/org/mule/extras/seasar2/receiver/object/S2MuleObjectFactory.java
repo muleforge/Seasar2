@@ -5,8 +5,8 @@ import org.mule.util.object.ObjectFactory;
 import org.seasar.framework.container.S2Container;
 
 /**
- * {@link ObjectFactory}‚ÌÀ‘•ƒNƒ‰ƒX
- * Seasar2‚ğg‚Á‚ÄUMO‚ÌƒNƒ‰ƒX‚ğ¶¬‚·‚éB
+ * {@link ObjectFactory}ã®å®Ÿè£…ã‚¯ãƒ©ã‚¹
+ * Seasar2ã‚’ä½¿ã£ã¦UMOã®ã‚¯ãƒ©ã‚¹ã‚’ç”Ÿæˆã™ã‚‹
  * 
  * @author Saito_Shinya@ogis-ri.co.jp
  *
@@ -19,12 +19,12 @@ public class S2MuleObjectFactory implements ObjectFactory {
 	private S2Container container;
 	
 	/**
-	 * ì¬‚·‚éƒNƒ‰ƒX–¼
+	 * ä½œæˆã™ã‚‹ã‚¯ãƒ©ã‚¹å
 	 */
 	private Object objectClassName;
 	
 	/**
-	 * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	 * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	 * 
 	 * @param container
 	 * @param objectClassName
@@ -35,7 +35,7 @@ public class S2MuleObjectFactory implements ObjectFactory {
 	}
 	
 	/**
-	 * TODO À‘•
+	 * TODO å®Ÿè£…
 	 */
 	public void initialise() throws InitialisationException {
 		
@@ -43,37 +43,37 @@ public class S2MuleObjectFactory implements ObjectFactory {
 	
 	
 	/**
-	 * Seasar2‚©‚çƒRƒ“ƒ|[ƒlƒ“ƒg‚ğæ‚èo‚·B
+	 * Seasar2ã‹ã‚‰ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’å–ã‚Šå‡ºã™
 	 */
 	public Object getOrCreate() throws Exception {
-		//TODO umo‚ªdicon‚Ì‚Ç‚±‚É‘‚¢‚Ä‚ ‚Á‚Ä‚àæ“¾‚Å‚«‚é‚æ‚¤‚É‚·‚é
+		//TODO umoãŒdiconã®ã©ã“ã«æ›¸ã„ã¦ã‚ã£ã¦ã‚‚å–å¾—ã§ãã‚‹ã‚ˆã†ã«ã™ã‚‹
 		Object component = container.getComponent(objectClassName.getClass());
 		return component;
 	}
 
 	/**
-	 * TODO À‘•
+	 * TODO å®Ÿè£…
 	 */
     public Class getObjectClass() throws Exception {
     	return null;
     }
     
     /**
-     * TODO À‘•
+     * TODO å®Ÿè£…
      */
     public Object lookup(String id) throws Exception {
     	return null;
     }
 
     /**
-     * Seasar2‘¤‚Ådispose‚³‚ê‚é‚Ì‚Å•s—v
+     * Seasar2å´ã§disposeã•ã‚Œã‚‹ã®ã§ä¸è¦
      */
     public void release(Object object) throws Exception {
     	
     }
 	
     /**
-     * Seasar2‘¤‚Ådispose‚³‚ê‚é‚Ì‚Å•s—v
+     * Seasar2å´ã§disposeã•ã‚Œã‚‹ã®ã§ä¸è¦
      */
 	public void dispose() {
 		

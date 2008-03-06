@@ -6,23 +6,22 @@ import org.mule.endpoint.OutboundEndpoint;
 public class SimpleMuleDesciptor {
 	
 	/**
-	 * inbound ‚Ì Endpoint
-	 * b’è“I
-	 * «—ˆ“I‚É‚Í inboundEndpoints ‚É‚È‚é‚©‚à
+	 * inbound ã® Endpoint
+	 * æš«å®šçš„
+	 * å°†æ¥çš„ã«ã¯ inboundEndpoints ã«ãªã‚‹ã‹ã‚‚
 	 */
 	private InboundEndpoint inboundEndpoit;
 	
 	/**
-	 * outbound ‚Ì Endpoiint
-	 * b’è“I
-	 * «—ˆ“I‚É‚ÍoutboundEndpoints‚É‚È‚é‚©‚à
+	 * outbound ã® Endpoiint
+	 * æš«å®šçš„
+	 * å°†æ¥çš„ã«ã¯outboundEndpointsã«ãªã‚‹ã‹ã‚‚
 	 */
 	private OutboundEndpoint outboundEndpoint;
 
 	/**
-	 * UMO ‚ÌÀ‘•ƒNƒ‰ƒX
+	 * UMO ã®å®Ÿè£…ã‚¯ãƒ©ã‚¹
 	 * POJO
-	 * 
 	 */
 	private Object umoImpl;
 	

@@ -31,7 +31,7 @@ public class TransactionConfigTest extends S2TestCase {
 		config_.setAction("JOIN_IF_POSSIBLE");
 		assertEquals(org.mule.api.transaction.TransactionConfig.ACTION_JOIN_IF_POSSIBLE, config_.getAction());
 		
-		//—áŠO‚ÌƒeƒXƒg
+		//ä¾‹å¤–ã®ãƒ†ã‚¹ãƒˆ
 		config_.setAction("aaa");
 		try {
 			config_.getAction();

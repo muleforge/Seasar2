@@ -17,26 +17,25 @@ import org.mule.api.MuleException;
 public class S2MuleConfiguration {
 	
 	/**
-	 * •¡”‚Ìinbound‚ÌEndpoint
+	 * è¤‡æ•°ã®inboundã®Endpoint
 	 * 
 	 */
 	private List inboundEndpoints = new ArrayList();
 			
 	/**
-	 * Message‚ğó‚¯æ‚éƒNƒ‰ƒX
-	 * 
+	 * Messageã‚’å—ã‘å–ã‚‹ã‚¯ãƒ©ã‚¹
 	 */
 	private Object umoImpl;
 	
 	/**
-	 * MuleDesciptor‚Ì–¼‘O‚É‚È‚é
+	 * MuleDesciptorã®åå‰ã«ãªã‚‹
 	 */
 	private String name;
 	
 	private boolean isInitalize = false;
 	
 	/**
-	 * ƒfƒtƒHƒ‹ƒgƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	 * ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	 * @throws UMOException
 	 */
 	public S2MuleConfiguration() throws MuleException {
@@ -44,7 +43,7 @@ public class S2MuleConfiguration {
 	}
 		
 	/**
-	 * InboundEndpoint‚ğ’Ç‰Á‚·‚é
+	 * InboundEndpointã‚’è¿½åŠ ã™ã‚‹
 	 */
 	public void addInboundEndpointUri(String uri) {
 		inboundEndpoints.add(uri);

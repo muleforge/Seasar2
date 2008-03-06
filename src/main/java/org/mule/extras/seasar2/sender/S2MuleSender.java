@@ -1,7 +1,7 @@
 package org.mule.extras.seasar2.sender;
 
 /**
- * Mule‚ğ—˜—p‚µ‚ÄƒƒbƒZ[ƒW‚ğ‘—M‚·‚éƒRƒ“ƒ|[ƒlƒ“ƒg‚ÌƒCƒ“ƒ^ƒtƒF[ƒX‚Å‚·B
+ * Muleã‚’åˆ©ç”¨ã—ã¦ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’é€ä¿¡ã™ã‚‹ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®ã‚¤ãƒ³ã‚¿ãƒ•ã‚§ãƒ¼ã‚¹ã§ã™ã€‚
  * 
  * @author Shinya_Saito@ogis-ri.co.jp
  *
@@ -9,34 +9,34 @@ package org.mule.extras.seasar2.sender;
 public interface S2MuleSender {
 	
 	/**
-	 * ”ñ“¯ŠúƒƒbƒZ[ƒW‚ğ‘—M‚µ‚Ü‚·B
+	 * éåŒæœŸãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’é€ä¿¡ã—ã¾ã™ã€‚
 	 * 
-	 * @param payload ƒƒbƒZ[ƒW‚Ì–{•¶
+	 * @param payload ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®æœ¬æ–‡
 	 */
 	void dispatch(Object payload);
 	
 //	/**
-//	 * ”ñ“¯ŠúƒƒbƒZ[ƒW‚ğ‘—M‚µ‚Ü‚·BƒvƒƒpƒeƒB‚É‚æ‚Á‚Ä‘—MƒƒbƒZ[ƒW‚Ìİ’è‚ğ•Ï‚¦‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·B
-//	 * ƒƒCƒ“ƒXƒŒƒbƒh‚Æ‘—M‚Ì‚½‚ß‚ÌƒXƒŒƒbƒh‚ªˆá‚¢A
-//	 * ‘—Mˆ—‚ªI‚í‚é‘O‚ÉƒƒCƒ“ƒXƒŒƒbƒh‚ªI—¹‚·‚é‰Â”\«‚ª‚ ‚é‚Ì‚Å„§‚³‚ê‚Ü‚¹‚ñB
+//	 * éåŒæœŸãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’é€ä¿¡ã—ã¾ã™ã€‚ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã«ã‚ˆã£ã¦é€ä¿¡ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®è¨­å®šã‚’å¤‰ãˆã‚‹ã“ã¨ãŒã§ãã¾ã™ã€‚
+//	 * ãƒ¡ã‚¤ãƒ³ã‚¹ãƒ¬ãƒƒãƒ‰ã¨é€ä¿¡ã®ãŸã‚ã®ã‚¹ãƒ¬ãƒƒãƒ‰ãŒé•ã„ã€
+//	 * é€ä¿¡å‡¦ç†ãŒçµ‚ã‚ã‚‹å‰ã«ãƒ¡ã‚¤ãƒ³ã‚¹ãƒ¬ãƒƒãƒ‰ãŒçµ‚äº†ã™ã‚‹å¯èƒ½æ€§ãŒã‚ã‚‹ã®ã§æ¨å¥¨ã•ã‚Œã¾ã›ã‚“ã€‚
 //	 * 
-//	 * @param payload ƒƒbƒZ[ƒW‚Ì–{•¶
-//	 * @param messageProperties ƒƒbƒZ[ƒW‚ÌƒvƒƒpƒeƒB
-//	 */
+//	 * @param payload ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®æœ¬æ–‡
+//	 * @param messageProperties ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
+//
 //	void dispatch(Object payload, Map messageProperties);
 	
 	/**
-	 * “¯ŠúƒƒbƒZ[ƒW‚ğ‘—M‚µ‚Ü‚·
+	 * åŒæœŸãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’é€ä¿¡ã—ã¾ã™
 	 * 
-	 * @param payload ƒƒbƒZ[ƒW‚Ì–{•¶
+	 * @param payload ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®æœ¬æ–‡
 	 */
 	Object send(Object payload);
 	
 	/**
-	 * ƒvƒƒpƒeƒB‚ğİ’è‚·‚é
+	 * ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è¨­å®šã™ã‚‹
 	 * 
-	 * @param key ƒvƒƒpƒeƒB‚ÌƒL[
-	 * @param value ƒvƒƒpƒeƒB‚Ì’l
+	 * @param key ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã®ã‚­ãƒ¼
+	 * @param value ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã®å€¤
 	 */
 	void setProperty(String key, Object value);
 	

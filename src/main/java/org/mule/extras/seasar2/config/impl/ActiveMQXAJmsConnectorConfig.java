@@ -17,7 +17,8 @@ public class ActiveMQXAJmsConnectorConfig
 		} else {
 			throw new S2MuleConfigurationException("ESML0002",new Object[]{"brokerUrl"});
 		}
-		//name‚Ævalue‚ÌMapŒ^‚Å‚ ‚éproperties‚ğbean‚É”½‰f‚³‚¹‚é
+		
+		//nameã¨valueã®Mapå‹ã§ã‚ã‚‹propertiesã‚’beanã«åæ˜ ã•ã›ã‚‹
 		populate(connector, properties);
 		
 		return connector;
