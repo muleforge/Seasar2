@@ -1,6 +1,5 @@
 package org.mule.extras.seasar2.config.impl;
 
-import org.mule.extras.seasar2.config.impl.ActiveMQJmsConnectorConfig;
 import org.mule.transport.jms.activemq.ActiveMQJmsConnector;
 import org.seasar.extension.unit.S2TestCase;
 

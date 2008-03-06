@@ -2,16 +2,18 @@
 <!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
 	"http://www.seasar.org/dtd/components24.dtd">
 <!--
-  Fileを使ったユニットテスト
+File プロバイダのサンプル
 -->
 <components>
+
 	<include path="s2mule-sender.dicon"/>
-	
-	<!-- FileConnectorの設定-->
-	<component class="org.mule.extras.seasar2.config.impl.FileConnectorConfig" >
+
+	<!-- File Connectorの設定-->
+	<component class="org.mule.extras.seasar2.config.impl.FileConnectorConfig">
 		<initMethod name="setProperty" >
+			<!-- 出力するファイル名のパターンを指定-->
 			<arg>"outputPattern"</arg>
-			<arg>"S2Mule-HelloWorldTestFile.txt"</arg>
+			<arg>"S2Mule-Test${DATE:yyyyMMdd}.txt"</arg>
 		</initMethod>
 	</component>
 

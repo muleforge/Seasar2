@@ -31,19 +31,7 @@ public class S2MuleSenderImplTest extends S2TestCase {
 		Field outboundUriField = c.getDeclaredField("outboundUri");
 		outboundUriField.setAccessible(true);
 		String outboundUri = (String)outboundUriField.get(sender_);
-
 		assertEquals("Outbound URI isn't set correctly.", "file:///C:/temp", outboundUri);
-		
-//		Field propField = c.getDeclaredField("properties");
-//		propField.setAccessible(true);
-//		Map prop = (Map)propField.get(sender_);
-//		
-//		assertEquals("Output file isn't named correctly.", "S2Mule-HelloWorldTestFile.txt", prop.get("filename"));
-		
-		Field transactionManagerField = c.getDeclaredField("transactionManager");
-		transactionManagerField.setAccessible(true);
-		TransactionManager transactionManager = (TransactionManager)transactionManagerField.get(sender_);
-		assertNotNull(transactionManager);
 		
 		Field connectorConfigField = c.getDeclaredField("connectorConfig");
 		connectorConfigField.setAccessible(true);
@@ -53,8 +41,6 @@ public class S2MuleSenderImplTest extends S2TestCase {
 	
 	public void testDispatch() throws Exception {
 		sender_.dispatch("Hello World Test!");
-		//別スレッドでメッセージが投げられるので、1秒停止
-		Thread.sleep(1000);
 		assertTrue("Output file doesn't exist.", outputFile.exists());
 		
 		BufferedReader reader = new BufferedReader(new FileReader(outputFile));
