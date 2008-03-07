@@ -12,7 +12,8 @@
 	<!-- MuleConfig -->
 	<component class="org.mule.extras.seasar2.receiver.impl.S2MuleConfiguration" >
 		<initMethod name="addInboundEndpointUri">
-			<arg>"stdio://System.in"</arg>
+			<!--<arg>"stdio://System.in"</arg>-->
+			<arg>"file:///C:/temp/receiver"</arg>
 		</initMethod>
 		<property name="umoImpl">echoUMO</property>
 	</component>

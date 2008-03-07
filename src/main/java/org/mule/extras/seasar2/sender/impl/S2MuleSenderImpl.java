@@ -16,6 +16,7 @@ import org.mule.extras.seasar2.sender.S2MuleSender;
 import org.mule.transaction.TransactionCoordination;
 import org.mule.transaction.XaTransaction;
 import org.mule.transformer.AbstractTransformer;
+import org.mule.util.ObjectNameHelper;
 
 import org.mule.api.MuleException;
 import org.mule.api.MuleMessage;
@@ -67,13 +68,25 @@ public class S2MuleSenderImpl implements S2MuleSender {
 	 */
 	public void init() {
 		try {
+			
 			muleClient = (MuleClient)container.getComponent(MuleClient.class);
-			//Connector の設定
-			muleClient.getMuleContext().getRegistry().
-				registerConnector((Connector)connectorConfig.buildComponent());
+			
+			if(connectorConfig != null) {
+				//Connector の設定
+				Connector connector = (Connector)connectorConfig.buildComponent();
+				connector.setName(ObjectNameHelper.getConnectorName(connector));
+				muleClient.getMuleContext().getRegistry().
+					registerConnector(connector);
+			}
+			
+			//Transactionの設定
 			if(transactionConfig != null && connectorConfig instanceof TransactionConnector) {
 				transactionManager = (TransactionManager)container.getComponent(TransactionManager.class);
 				muleClient.getMuleContext().setTransactionManager(transactionManager);
+			}
+			
+			if(transformers != null) {
+				setProperty("transformers", transformers);
 			}
 		} catch(SRuntimeException e) {
 			throw e;
@@ -90,7 +103,7 @@ public class S2MuleSenderImpl implements S2MuleSender {
 			try {
 				if(transactionConfig!=null && 
 						transactionManager.getTransaction()!=null) {
-					//test
+					//TODO logger
 					System.out.println("\n\n Transaction:" + transactionManager.getTransaction() + "\n\n");
 					XaTransaction xat = new XaTransaction(transactionManager);
 					TransactionCoordination.getInstance().bindTransaction(xat);

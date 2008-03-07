@@ -15,6 +15,7 @@ import org.seasar.framework.beans.PropertyNotFoundRuntimeException;
  *
  */
 public abstract class AbstractConfig {
+	
 	/** Connector�のプロパティ */
 	protected Map properties = new HashMap();
 	
@@ -46,6 +47,7 @@ public abstract class AbstractConfig {
 		if ((bean == null) || (properties == null)) {
 			return;
 		}
+		
 		BeanUtilsBean beanUtils = BeanUtilsBean.getInstance();
 		try {
 			Iterator names = properties.keySet().iterator();
