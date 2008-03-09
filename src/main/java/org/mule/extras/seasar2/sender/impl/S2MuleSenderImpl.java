@@ -7,6 +7,9 @@ import java.util.Map;
 
 import javax.transaction.TransactionManager;
 
+import org.mule.endpoint.EndpointURIEndpointBuilder;
+import org.mule.endpoint.OutboundEndpoint;
+import org.mule.endpoint.URIBuilder;
 import org.mule.extras.client.MuleClient;
 import org.mule.extras.seasar2.config.ComponentConfig;
 import org.mule.extras.seasar2.config.TransactionConnector;
@@ -20,6 +23,7 @@ import org.mule.util.ObjectNameHelper;
 
 import org.mule.api.MuleException;
 import org.mule.api.MuleMessage;
+import org.mule.api.endpoint.EndpointBuilder;
 import org.mule.api.transport.Connector;
 import org.mule.extras.seasar2.config.impl.TransactionConfig;
 import org.mule.api.transformer.Transformer;
@@ -71,12 +75,24 @@ public class S2MuleSenderImpl implements S2MuleSender {
 			
 			muleClient = (MuleClient)container.getComponent(MuleClient.class);
 			
+			EndpointBuilder endpointBuilder = null;
+			if(outboundUri!=null) {
+				URIBuilder uriBuilder = new URIBuilder(outboundUri);
+				endpointBuilder = new EndpointURIEndpointBuilder(uriBuilder,muleClient.getMuleContext());
+				muleClient.getMuleContext().getRegistry().registerEndpointBuilder(outboundUri, endpointBuilder);
+			} else {
+				//TODO Erorr Message Code
+				throw new S2MuleConfigurationException("");
+			}
+			
+			
 			if(connectorConfig != null) {
 				//Connector の設定
 				Connector connector = (Connector)connectorConfig.buildComponent();
 				connector.setName(ObjectNameHelper.getConnectorName(connector));
 				muleClient.getMuleContext().getRegistry().
 					registerConnector(connector);
+				endpointBuilder.setConnector(connector);
 			}
 			
 			//Transactionの設定
@@ -86,7 +102,8 @@ public class S2MuleSenderImpl implements S2MuleSender {
 			}
 			
 			if(transformers != null) {
-				setProperty("transformers", transformers);
+				//setProperty("transformers", transformers);
+				endpointBuilder.setTransformers(transformers);
 			}
 		} catch(SRuntimeException e) {
 			throw e;
