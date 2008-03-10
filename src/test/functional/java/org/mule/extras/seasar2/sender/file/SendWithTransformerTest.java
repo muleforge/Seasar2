@@ -1,9 +1,16 @@
 package org.mule.extras.seasar2.sender.file;
 
 import org.mule.extras.seasar2.sender.S2MuleSender;
+import org.mule.extras.seasar2.sender.common.Customer;
 import org.seasar.extension.unit.S2TestCase;
 
-public class SendWithTransformer extends S2TestCase {
+/**
+ * ID:FILE-O-005
+ * 
+ * トランスフォーマを設定して、メッセージを送信する。
+ *
+ */
+public class SendWithTransformerTest extends S2TestCase {
 
 	private S2MuleSender sender_;
 	

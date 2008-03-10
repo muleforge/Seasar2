@@ -11,16 +11,10 @@
 		<property name="brokerURL">
 				"tcp://localhost:61616"
 		</property>
-		
-		<!-- その他のプロパティの設定 -->
-		<initMethod name="setProperty" >
-			<arg>"maxRedelivery"</arg>
-			<arg>5</arg>
-		</initMethod>
 	</component>
 
 	<!-- S2MuleSender の設定-->
-	<component name="seder_1"
+	<component 
 		class="org.mule.extras.seasar2.sender.impl.S2MuleSenderImpl" >
 		<property name="outboundUri">"jms://Foo"</property>
 		<initMethod name="init"/>

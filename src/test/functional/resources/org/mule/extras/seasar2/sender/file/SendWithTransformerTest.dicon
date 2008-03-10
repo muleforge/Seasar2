@@ -19,7 +19,7 @@
 		<property name="outboundUri">"file:///C:/temp"</property>
 		<initMethod name="addTransformer" >
 			<arg>
-				<component class="org.mule.extras.seasar2.sender.file.ObjectToStringTransformer" />
+				<component class="org.mule.extras.seasar2.sender.common.ObjectToStringTransformer" />
 			</arg>
 		</initMethod>
 		<initMethod name="init"/>

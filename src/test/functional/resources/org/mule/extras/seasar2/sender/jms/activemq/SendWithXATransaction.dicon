@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<!--
+ActiveMQ を利用した JMS 送信のサンプル
+-->
+<components>
+	<include path="j2ee.dicon"/>
+	<include path="org/mule/extras/seasar2/sender/jms/activemq/jms-sender_1.dicon"/>
+	<include path="org/mule/extras/seasar2/sender/jms/activemq/jms-sender_2.dicon"/>
+	
+	<component class="org.mule.extras.seasar2.sender.jms.activemq.MlutiDispatcherImpl" >
+		<!-- S2Txの設定 -->
+		<aspect>j2ee.requiredTx</aspect>
+	</component>
+
+</components>

@@ -1,6 +1,7 @@
 package org.mule.extras.seasar2.sender.file;
 
 import org.mule.extras.seasar2.sender.S2MuleSender;
+import org.mule.extras.seasar2.sender.common.Customer;
 import org.seasar.extension.unit.S2TestCase;
 
 /**

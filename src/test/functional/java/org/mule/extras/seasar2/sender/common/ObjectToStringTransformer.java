@@ -1,4 +1,4 @@
-package org.mule.extras.seasar2.sender.file;
+package org.mule.extras.seasar2.sender.common;
 
 import org.mule.api.transformer.TransformerException;
 import org.mule.transformer.AbstractTransformer;

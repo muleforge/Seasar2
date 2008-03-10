@@ -1,7 +1,11 @@
-package org.mule.extras.seasar2.sender.file;
+package org.mule.extras.seasar2.sender.common;
 
-public class Customer {
+import java.io.Serializable;
 
+public class Customer implements Serializable {
+
+	//public static final long serialVersionUID = 
+	
 	public static final boolean MAN = true;
 	
 	public final boolean WEMAN = false;

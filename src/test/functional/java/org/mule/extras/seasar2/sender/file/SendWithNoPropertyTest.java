@@ -10,12 +10,12 @@ import org.seasar.extension.unit.S2TestCase;
  * メッセージを送信する。
  *
  */
-public class NoPropertySendTest extends S2TestCase {
+public class SendWithNoPropertyTest extends S2TestCase {
 	
 	private S2MuleSender sender_;
 	
 	public void setUp() throws Exception {
-		include("NoPropertySendTest.dicon");
+		include("SendWithNoPropertyTest.dicon");
 	}
 	
 	public void testDispatch() throws Exception {

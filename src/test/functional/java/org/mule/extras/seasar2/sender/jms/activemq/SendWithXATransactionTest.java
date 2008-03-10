@@ -1,4 +1,4 @@
-package org.mule.extras.seasar2.sender.jms;
+package org.mule.extras.seasar2.sender.jms.activemq;
 
 import org.seasar.extension.unit.S2TestCase;
 
@@ -7,7 +7,7 @@ import org.seasar.extension.unit.S2TestCase;
  * XA Transactionalなメッセージを送信する
  *
  */
-public class SendWithXATransaction extends S2TestCase {
+public class SendWithXATransactionTest extends S2TestCase {
 	
 	private MlutiDispatcher dispatcher_;
 	

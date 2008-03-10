@@ -48,9 +48,6 @@ public class S2MuleSenderImpl implements S2MuleSender {
 	/** 送信先 Endpointのプロパティ */
 	private Map properties = new HashMap();
 	
-	/** トランザクション*/
-	private TransactionConfig transactionConfig;
-	
 	/** トランザクションマネージャ*/
 	private TransactionManager transactionManager;
 	
@@ -96,8 +93,8 @@ public class S2MuleSenderImpl implements S2MuleSender {
 			}
 			
 			//Transactionの設定
-			if(transactionConfig != null && connectorConfig instanceof TransactionConnector) {
-				transactionManager = (TransactionManager)container.getComponent(TransactionManager.class);
+			if(connectorConfig instanceof TransactionConnector) {
+				transactionManager = (TransactionManager)container.getRoot().getComponent(TransactionManager.class);
 				muleClient.getMuleContext().setTransactionManager(transactionManager);
 			}
 			
@@ -118,12 +115,14 @@ public class S2MuleSenderImpl implements S2MuleSender {
 	public void dispatch(Object payload) {
 		if(outboundUri != null) {
 			try {
-				if(transactionConfig!=null && 
-						transactionManager.getTransaction()!=null) {
+				if(transactionManager!=null && transactionManager.getTransaction()!=null) {
 					//TODO logger
 					System.out.println("\n\n Transaction:" + transactionManager.getTransaction() + "\n\n");
-					XaTransaction xat = new XaTransaction(transactionManager);
-					TransactionCoordination.getInstance().bindTransaction(xat);
+					
+					if(TransactionCoordination.getInstance().getTransaction()==null) {
+						XaTransaction xat = new XaTransaction(transactionManager);
+						TransactionCoordination.getInstance().bindTransaction(xat);
+					} 
 				}
 				muleClient.sendNoReceive(outboundUri, payload, properties);
 			} catch ( MuleException e ) {
@@ -197,14 +196,6 @@ public class S2MuleSenderImpl implements S2MuleSender {
 
 	public void setOutboundUri(String outboundUri) {
 		this.outboundUri = outboundUri;
-	}
-
-	public TransactionConfig getTransactionConfig() {
-		return transactionConfig;
-	}
-
-	public void setTransactionConfig(TransactionConfig transactionConfig) {
-		this.transactionConfig = transactionConfig;
 	}
 	
 	public S2Container getContainer() {
