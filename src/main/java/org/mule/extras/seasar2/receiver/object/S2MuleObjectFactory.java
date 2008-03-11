@@ -46,8 +46,7 @@ public class S2MuleObjectFactory implements ObjectFactory {
 	 * Seasar2からコンポーネントを取り出す
 	 */
 	public Object getOrCreate() throws Exception {
-		//TODO umoがdiconのどこに書いてあっても取得できるようにする
-		Object component = container.getComponent(objectClassName.getClass());
+		Object component = container.getRoot().getComponent(objectClassName.getClass());
 		return component;
 	}
 

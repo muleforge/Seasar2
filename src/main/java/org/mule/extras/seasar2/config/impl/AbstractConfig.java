@@ -70,8 +70,7 @@ public abstract class AbstractConfig {
 		} catch(PropertyNotFoundRuntimeException e) {
 			throw e;
 		} catch(Exception e) {
-			//TODO Error Message Code
-			throw new S2MuleConfigurationException(null,null,e);
+			throw new S2MuleConfigurationException("ESML0000", new Object[]{e},e);
 		} 
 	}
 }

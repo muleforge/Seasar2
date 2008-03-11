@@ -15,12 +15,12 @@
 	<!-- Senderの設定-->
 	<component class="org.mule.extras.seasar2.sender.impl.S2MuleSenderImpl" >
 		<!-- Serviceのuri-->
-		<property name="outboundUri">"axis:http://localhost:8082/services/EchoUMO"</property>
+		<property name="outboundUri">"axis:http://localhost:65082/services/CustomerUMO"</property>
 		<initMethod name="init" />
 	</component>
 	
 	<!-- interceptorを適応するインタフェースの設定-->
-	<component class="org.mule.extras.seasar2.examples.helloworld.soap.axis.Echo" >
+	<component class="org.mule.extras.seasar2.sender.axis.CustomerService" >
 		<aspect>interceptor</aspect>
 	</component>
 </components>

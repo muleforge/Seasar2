@@ -28,13 +28,17 @@ import org.mule.api.transport.Connector;
 import org.mule.extras.seasar2.config.impl.TransactionConfig;
 import org.mule.api.transformer.Transformer;
 import org.seasar.framework.container.S2Container;
+import org.seasar.framework.container.impl.S2ContainerImpl;
 import org.seasar.framework.exception.SRuntimeException;
+import org.seasar.framework.log.Logger;
 
 /**
  * {@link S2MuleSender} の実装クラスです
  * @author Saito_Shinya@ogis-ri.co.jp
  */
 public class S2MuleSenderImpl implements S2MuleSender {
+	 private static final Logger logger = Logger
+     	.getLogger(S2MuleSenderImpl.class);
 	
 	/** Connector の構成情報*/
 	private ComponentConfig connectorConfig;
@@ -78,10 +82,8 @@ public class S2MuleSenderImpl implements S2MuleSender {
 				endpointBuilder = new EndpointURIEndpointBuilder(uriBuilder,muleClient.getMuleContext());
 				muleClient.getMuleContext().getRegistry().registerEndpointBuilder(outboundUri, endpointBuilder);
 			} else {
-				//TODO Erorr Message Code
-				throw new S2MuleConfigurationException("");
+				throw new S2MuleConfigurationException("ESML0002",new Object[]{"outboundUri"});
 			}
-			
 			
 			if(connectorConfig != null) {
 				//Connector の設定
@@ -90,6 +92,7 @@ public class S2MuleSenderImpl implements S2MuleSender {
 				muleClient.getMuleContext().getRegistry().
 					registerConnector(connector);
 				endpointBuilder.setConnector(connector);
+				logger.debug("Connectorを作成しました" + connector);
 			}
 			
 			//Transactionの設定
@@ -99,7 +102,6 @@ public class S2MuleSenderImpl implements S2MuleSender {
 			}
 			
 			if(transformers != null) {
-				//setProperty("transformers", transformers);
 				endpointBuilder.setTransformers(transformers);
 			}
 		} catch(SRuntimeException e) {
@@ -115,16 +117,16 @@ public class S2MuleSenderImpl implements S2MuleSender {
 	public void dispatch(Object payload) {
 		if(outboundUri != null) {
 			try {
+				logger.debug("メッセージを" + outboundUri + "へ送信します");
 				if(transactionManager!=null && transactionManager.getTransaction()!=null) {
-					//TODO logger
-					System.out.println("\n\n Transaction:" + transactionManager.getTransaction() + "\n\n");
-					
+					logger.debug("トランザクション:" + transactionManager.getTransaction() );
 					if(TransactionCoordination.getInstance().getTransaction()==null) {
 						XaTransaction xat = new XaTransaction(transactionManager);
 						TransactionCoordination.getInstance().bindTransaction(xat);
 					} 
 				}
 				muleClient.sendNoReceive(outboundUri, payload, properties);
+				logger.debug("メッセージを" + outboundUri + "へ送信しました");
 			} catch ( MuleException e ) {
 				throw new S2MuleRuntimeException("ESML0000", new Object[]{e}, e);
 			} catch ( Exception e ){
