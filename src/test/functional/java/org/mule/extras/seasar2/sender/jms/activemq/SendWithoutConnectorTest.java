@@ -4,21 +4,25 @@ import org.mule.extras.seasar2.sender.S2MuleSender;
 import org.seasar.extension.unit.S2TestCase;
 
 /**
- * ID-JMS-O-005
+ * ID-JMS-E-002
  * 
- * プロパティpersistentDeliveryを設定し、メッセージを送信する
+ * Connectorの設定をせずに、メッセージを送信する
  *
  */
-public class SendWithPropertyPersistentDeliveryTest extends S2TestCase {
+public class SendWithoutConnectorTest extends S2TestCase {
 	
 	private S2MuleSender sender_;
 	
 	public void setUp() throws Exception {
-		include("SendWithPropertyPersistentDeliveryTest.dicon");
+		include("SendWithoutConnectorTest.dicon");
 	}
 	
 	public void testDispatch() throws Exception {
-		sender_.dispatch("SendWithPropertyPersistentDeliveryTest.dicon : OK");
+		try {
+			sender_.dispatch("SendWithoutConnector : OK");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

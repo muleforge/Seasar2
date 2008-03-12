@@ -1,8 +1,13 @@
-package org.mule.extras.seasar2.sender.jms.activemq;
+package org.mule.extras.seasar2.sender.common;
 
 import org.mule.extras.seasar2.sender.S2MuleSender;
 import org.seasar.framework.container.annotation.tiger.Binding;
 
+/**
+ * 
+ *  {@link MlutiDispatch} の実装クラスです
+ *
+ */
 public class MlutiDispatcherImpl implements MlutiDispatcher {
 
 	@Binding("sender_1")

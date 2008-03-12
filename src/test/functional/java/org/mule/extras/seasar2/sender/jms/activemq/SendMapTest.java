@@ -7,6 +7,13 @@ import org.mule.extras.seasar2.sender.S2MuleSender;
 import org.mule.extras.seasar2.sender.common.Customer;
 import org.seasar.extension.unit.S2TestCase;
 
+/**
+ * 
+ * ID-JMS-O-004
+ * 
+ * Map型のメッセージを送信する
+ *
+ */
 public class SendMapTest extends S2TestCase {
 	
 	private S2MuleSender sender_;

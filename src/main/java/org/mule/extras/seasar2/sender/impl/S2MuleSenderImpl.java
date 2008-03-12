@@ -37,6 +37,7 @@ import org.seasar.framework.log.Logger;
  * @author Saito_Shinya@ogis-ri.co.jp
  */
 public class S2MuleSenderImpl implements S2MuleSender {
+	
 	 private static final Logger logger = Logger
      	.getLogger(S2MuleSenderImpl.class);
 	

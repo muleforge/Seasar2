@@ -9,7 +9,7 @@ ActiveMQ を利用した JMS 送信のサンプル
 	<include path="org/mule/extras/seasar2/sender/jms/activemq/jms-sender_1.dicon"/>
 	<include path="org/mule/extras/seasar2/sender/jms/activemq/jms-sender_2.dicon"/>
 	
-	<component class="org.mule.extras.seasar2.sender.jms.activemq.MlutiDispatcherImpl" >
+	<component class="org.mule.extras.seasar2.sender.common.MlutiDispatcherImpl" >
 		<!-- S2Txの設定 -->
 		<aspect>j2ee.requiredTx</aspect>
 	</component>
