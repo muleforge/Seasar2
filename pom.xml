@@ -176,7 +176,8 @@
 			<url>http://maven.seasar.org/maven2</url>
 		</repository>
 	</repositories>
-
+	
+	
 </project>
 
 
