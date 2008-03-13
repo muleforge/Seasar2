@@ -159,13 +159,14 @@
 			<version>${muleVersion}</version>
 		</dependency>
 
-
+		<!--  
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>activemq-core</artifactId>
 			<version>5.0.0</version>
 		</dependency>
-
+		-->
+		
 	</dependencies>
 
 	<repositories>

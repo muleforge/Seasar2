@@ -16,7 +16,7 @@
 
 	<!-- S2MuleSender の設定-->
 	<component class="org.mule.extras.seasar2.sender.impl.S2MuleSenderImpl" >
-		<property name="outboundUri">"file:////158.201.101.231/"</property>
+		<property name="outboundUri">"file:////sishbackup.tk-bay.ogis-ri.co.jp/share"</property>
 		<initMethod name="init"/>
 	</component>
 	

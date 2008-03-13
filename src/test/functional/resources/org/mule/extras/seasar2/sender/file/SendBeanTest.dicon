@@ -12,6 +12,11 @@
 			<arg>"outputPattern"</arg>
 			<arg>"S2Mule-Test-FILE-O-004-${DATE:yyyyMMdd}.txt"</arg>
 		</initMethod>
+		
+		<initMethod name="setProperty" >
+			<arg>"serialiseObjects"</arg>
+			<arg>true</arg>
+		</initMethod>
 	</component>
 
 	<!-- S2MuleSender の設定-->

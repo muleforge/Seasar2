@@ -1,8 +1,6 @@
 package org.mule.extras.seasar2.sender.jms.activemq;
 
-
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 
 import org.mule.extras.seasar2.sender.S2MuleSender;
 import org.seasar.extension.unit.S2TestCase;
@@ -19,7 +17,7 @@ public class SendStreamTest extends S2TestCase {
 	private S2MuleSender sender_;
 	
 	public void setUp() throws Exception {
-		include("NoPropertySendTest.dicon");
+		include("SendWithNoPropertyTest.dicon");
 	}
 	
 	public void testDispatch() throws Exception {
