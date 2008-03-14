@@ -158,12 +158,18 @@
 			<artifactId>mule-example-hello</artifactId>
 			<version>${muleVersion}</version>
 		</dependency>
-
+		
 		<!--  
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>activemq-core</artifactId>
 			<version>5.0.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-j2ee-management_1.0_spec.jar</artifactId>
+			<version>1.0</version>
 		</dependency>
 		-->
 		
