@@ -9,23 +9,22 @@ import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
  */
 public class TransactionConfig {
 	
-	/** トランザクションに参加しない*/
+	/** トランザクションに参加しない */
     public static final String NONE_STRING = "NONE";
     
-    /** 常にトランザクションを開始する。すでにトランザクションがある場合は例外を投げる*/
+    /** 常にトランザクションを開始する。すでにトランザクションがある場合は例外を投げる */
     public static final String ALWAYS_BEGIN_STRING = "ALWAYS_BEGIN";
     
-    /** すでにトランザクションがある場合はそれに参加する。それ以外の場合はトランザクションを開始する*/
+    /** すでにトランザクションがある場合はそれに参加する。それ以外の場合はトランザクションを開始する */
     public static final String BEGIN_OR_JOIN_STRING = "BEGIN_OR_JOIN";
     
-    /** すでにトランザクションがある場合はそれに参加する。それ以外の場合は例外を投げる*/
+    /** すでにトランザクションがある場合はそれに参加する。それ以外の場合は例外を投げる */
     public static final String ALWAYS_JOIN_STRING = "ALWAYS_JOIN";
     
     /** すでにトランザクションがある場合はそれに参加する。それ以外の場合はなにもしない　*/
     public static final String JOIN_IF_POSSIBLE_STRING = "JOIN_IF_POSSIBLE";
 
-	
-	/** トランザクション処理の設定*/
+	/** トランザクション処理の設定 */
 	private String action;
 
 	/**

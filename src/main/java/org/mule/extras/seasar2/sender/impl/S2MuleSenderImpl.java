@@ -41,22 +41,22 @@ public class S2MuleSenderImpl implements S2MuleSender {
 	 private static final Logger logger = Logger
      	.getLogger(S2MuleSenderImpl.class);
 	
-	/** Connector の構成情報*/
+	/** Connector の構成情報 */
 	private ComponentConfig connectorConfig;
 	
 	/** Transformer */
 	private List transformers;
 	
-	/** 送信先の Endpoint URI*/
+	/** 送信先の Endpoint URI */
 	private String outboundUri;
 	
 	/** 送信先 Endpointのプロパティ */
 	private Map properties = new HashMap();
 	
-	/** トランザクションマネージャ*/
+	/** トランザクションマネージャ */
 	private TransactionManager transactionManager;
 	
-	/** MuleClient*/
+	/** MuleClient */
 	private MuleClient muleClient;
 	
 	/** S2コンテナ */
