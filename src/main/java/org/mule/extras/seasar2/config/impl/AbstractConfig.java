@@ -1,7 +1,9 @@
 package org.mule.extras.seasar2.config.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
@@ -51,6 +53,8 @@ public abstract class AbstractConfig {
 		BeanUtilsBean beanUtils = BeanUtilsBean.getInstance();
 		try {
 			Iterator names = properties.keySet().iterator();
+			List removeNames = new ArrayList();
+			
 			while (names.hasNext()) {
 
 				// Identify the property name and value(s) to be assigned
@@ -63,10 +67,16 @@ public abstract class AbstractConfig {
 				//diconに記述されたプロパティが存在するかチェック
 				if(beanUtils.getPropertyUtils().getPropertyDescriptor(bean, name)!=null){
 					beanUtils.setProperty(bean, name, value);
-				} else {
+					removeNames.add(name);
+				} else if(!(this instanceof AxisConnectorConfig)){
 					throw new PropertyNotFoundRuntimeException(bean.getClass(),name);
 				}
 			}
+			
+			for(int i = 0; i < removeNames.size();i++ ) {
+				properties.remove((String)removeNames.get(i));
+			}
+			
 		} catch(PropertyNotFoundRuntimeException e) {
 			throw e;
 		} catch(Exception e) {

@@ -25,6 +25,7 @@ import org.mule.api.MuleException;
 import org.mule.api.MuleMessage;
 import org.mule.api.endpoint.EndpointBuilder;
 import org.mule.api.transport.Connector;
+import org.mule.extras.seasar2.config.impl.AxisConnectorConfig;
 import org.mule.extras.seasar2.config.impl.TransactionConfig;
 import org.mule.api.transformer.Transformer;
 import org.seasar.framework.container.S2Container;
@@ -90,10 +91,12 @@ public class S2MuleSenderImpl implements S2MuleSender {
 				//Connector の設定
 				Connector connector = (Connector)connectorConfig.buildComponent();
 				connector.setName(ObjectNameHelper.getConnectorName(connector));
-				muleClient.getMuleContext().getRegistry().
-					registerConnector(connector);
+				muleClient.getMuleContext().getRegistry().registerConnector(connector);
 				endpointBuilder.setConnector(connector);
-				logger.debug("Connectorを作成しました" + connector);
+				if(connectorConfig instanceof AxisConnectorConfig){
+					properties.putAll(connectorConfig.getProperties());
+				}
+				logger.debug("Connectorを作成しました:" + connector);
 			}
 			
 			//Transactionの設定

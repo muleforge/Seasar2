@@ -20,7 +20,7 @@
 	</component>
 	
 	<!-- interceptorを適応するインタフェースの設定-->
-	<component class="org.mule.extras.seasar2.sender.axis.CustomerService" >
+	<component class="org.mule.extras.seasar2.sender.common.CustomerService" >
 		<aspect>interceptor</aspect>
 	</component>
 </components>

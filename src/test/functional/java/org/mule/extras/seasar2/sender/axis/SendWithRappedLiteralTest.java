@@ -1,21 +1,22 @@
 package org.mule.extras.seasar2.sender.axis;
 
+import org.mule.extras.seasar2.sender.axis.Echo;
 import org.mule.extras.seasar2.sender.common.Customer;
 import org.mule.extras.seasar2.sender.common.CustomerService;
 import org.seasar.extension.unit.S2TestCase;
 
 /**
- * ID:AXIS-O-001
+ * ID:AXIS-O-003
  * 
- * プロパティをなにも設定せず、メッセージを送信する。
+ * rapped/literalパターンのSOAPスタイルでメッセージを送信する
  *
  */
-public class SendBeanTest extends S2TestCase {
+public class SendWithRappedLiteralTest extends S2TestCase {
 	
 	private CustomerService customerService_;
 	
 	public void setUp() throws Exception {
-		include("SendBeanTest.dicon");
+		include("SendWithRappedLiteralTest.dicon");
 		customerService_ = (CustomerService)getComponent(CustomerService.class);
 	}
 	
@@ -32,5 +33,4 @@ public class SendBeanTest extends S2TestCase {
 		
 		assertEquals("どこか", newAddress);
 	}
-	
 }
