@@ -7,23 +7,23 @@ import java.util.concurrent.CountDownLatch;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.mule.extras.seasar2.receiver.builder.S2MuleComponentBuilder;
-import org.mule.umo.UMOException;
-import org.mule.umo.UMOManagementContext;
+import org.mule.api.MuleException;
+import org.mule.api.MuleContext;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.S2ContainerFactory;
 
 /**
- * ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“ˆø”--dicon diconfile‚ğw’è‚·‚é‚ÆA
- * diocnƒtƒ@ƒCƒ‹‚É‘‚©‚ê‚Ä‚¢‚éMuleComponent‚Ìî•ñ‚ğŒ³‚É
- * MuleServer‚ğ‹N“®‚·‚éƒNƒ‰ƒX‚Å‚·B
- * ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“ˆø”‚ğÈ—ª‚·‚é‚Æapp.dicon‚É‚È‚è‚Ü‚·B
+ * ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³å¼•æ•°--dicon diconfileã‚’æŒ‡å®šã™ã‚‹ã¨ã€
+ * diocnãƒ•ã‚¡ã‚¤ãƒ«ã«æ›¸ã‹ã‚Œã¦ã„ã‚‹MuleComponentã®æƒ…å ±ã‚’å…ƒã«
+ * MuleServerã‚’èµ·å‹•ã™ã‚‹ã‚¯ãƒ©ã‚¹ã§ã™ã€‚
+ * ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³å¼•æ•°ã‚’çœç•¥ã™ã‚‹ã¨app.diconã«ãªã‚Šã¾ã™
  * 
  * @author Saito_Shinya@ogis-ri.co.jp
  *
  */
 public class S2MuleServer {
 	/**
-	 * ƒfƒtƒHƒ‹ƒg‚Ìdiconƒtƒ@ƒCƒ‹–¼
+	 * ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®diconãƒ•ã‚¡ã‚¤ãƒ«å
 	 */
 	private static final String DEFAULT_DICON_FILE = "app.dicon";
 	
@@ -35,12 +35,12 @@ public class S2MuleServer {
 	private S2Container container;
 	
 	/**
-	 * Mule‚Ìƒ}ƒlƒWƒƒ“ƒgƒRƒ“ƒeƒLƒXƒg
+	 * Muleã®ãƒãƒã‚¸ãƒ¡ãƒ³ãƒˆã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
 	 */
-	private UMOManagementContext managementContext;
+	private MuleContext muleContext;
 	
 	 /**
-	  *  ƒVƒƒƒbƒgƒ_ƒEƒ“ƒtƒbƒN‚Æ“¯Šú‚ğæ‚é‚½‚ß‚Ìƒ‰ƒbƒ`
+	  *  ã‚·ãƒ£ãƒƒãƒˆãƒ€ã‚¦ãƒ³ãƒ•ãƒƒã‚¯ã¨åŒæœŸã‚’å–ã‚‹ãŸã‚ã®ãƒ©ãƒƒãƒ
 	  */
     protected static CountDownLatch latch = new CountDownLatch(1);
 
@@ -58,7 +58,7 @@ public class S2MuleServer {
 	}
 	
 	/**
-	 * ‰Šú‰»‚ğs‚¤
+	 * åˆæœŸåŒ–ã‚’è¡Œã†
 	 * 
 	 * @param args
 	 */
@@ -69,11 +69,11 @@ public class S2MuleServer {
 	}
 	
 	/**
-	 * MuleServer‚ğ‹N“®‚µ‚Ü‚·B
+	 * MuleServerã‚’èµ·å‹•ã—ã¾ã™ã€‚
 	 *
 	 */
-	public void run() throws UMOException {
-		//S2ComponentBuilder‚ğæ“¾‚·‚é
+	public void run() throws MuleException {
+		//S2ComponentBuilderã‚’å–å¾—ã™ã‚‹
 		S2MuleComponentBuilder builder = 
 			(S2MuleComponentBuilder)container.getComponent(S2MuleComponentBuilder.class);
 //		 managementContext = builder.configure();
@@ -89,14 +89,14 @@ public class S2MuleServer {
 	        });
 		    
 		    try {
-		    	//ƒeƒXƒg
+		    	//ãƒ†ã‚¹ãƒˆ
 //		    	Thread.sleep(3000);
 //		    	try {
 //		    		builder.destroy();
 //		    	} catch (Exception e) {
 //		    		
 //		    	}
-		    	//ƒeƒXƒgI‚í‚è
+		    	//ãƒ†ã‚¹ãƒˆçµ‚ã‚ã‚Š
 		    	latch.await();
 		    } catch( InterruptedException e ) {
 	            destoryS2Container();
@@ -104,8 +104,8 @@ public class S2MuleServer {
 	}
 	
 	/**
-	 *  S2Container‚ğì¬‚µ‚Ü‚·B
-	 * @param dicon diconƒtƒ@ƒCƒ‹–¼
+	 *  S2Containerã‚’ä½œæˆã—ã¾ã™ã€‚
+	 * @param dicon diconãƒ•ã‚¡ã‚¤ãƒ«å
 	 * @return
 	 */
 	private S2Container createS2Container( String dicon ) {
@@ -114,7 +114,7 @@ public class S2MuleServer {
 	}
 	
 	/**
-	 * S2Container‚ğ”jŠü‚µ‚Ü‚·B
+	 * S2Containerã‚’ç ´æ£„ã—ã¾ã™ã€‚
 	 */
 	private void destoryS2Container() {
 		this.container.destroy();
@@ -122,18 +122,18 @@ public class S2MuleServer {
 	
 	
     /**
-     * ƒRƒs[ org.seasar.jms.server.Main#getDicon
+     * ã‚³ãƒ”ãƒ¼ org.seasar.jms.server.Main#getDicon
      * 
-     * ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“ˆø”‚Åw’è‚³‚ê‚½diconƒtƒ@ƒCƒ‹‚ÌƒpƒX–¼‚ğ•Ô‚µ‚Ü‚·B
+     * ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³å¼•æ•°ã§æŒ‡å®šã•ã‚ŒãŸdiconãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ‘ã‚¹åã‚’è¿”ã—ã¾ã™ã€‚
      * <p>
-     * ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“ˆø”‚ÅƒpƒX‚ªw’è‚³‚ê‚È‚©‚Á‚½ê‡‚ÍƒfƒtƒHƒ‹ƒg‚Ì<code>app.dicon</code>‚ğ•Ô‚µ‚Ü‚·B
+     * ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³å¼•æ•°ã§ãƒ‘ã‚¹ãŒæŒ‡å®šã•ã‚Œãªã‹ã£ãŸå ´åˆã¯ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®<code>app.dicon</code>ã‚’è¿”ã—ã¾ã™ã€‚
      * </p>
      * 
      * @param args
-     *            ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“ˆø”
-     * @return diconƒtƒ@ƒCƒ‹‚ÌƒpƒX–¼
+     *            ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³å¼•æ•°
+     * @return diconãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ‘ã‚¹å
      * @throws IllegalArgumentException
-     *             ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“ˆø”‚ª•s³‚Ìê‡‚ÉƒXƒ[‚³‚ê‚Ü‚·
+     *             ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³å¼•æ•°ãŒä¸æ­£ã®å ´åˆã«ã‚¹ãƒ­ãƒ¼ã•ã‚Œã¾ã™
      */
     private String getDicon(final String[] args) throws IllegalArgumentException {
         final String dicon = getArg("--dicon", args);
@@ -141,15 +141,15 @@ public class S2MuleServer {
     }
 	
 	 /**
-	  * ƒRƒs[ org.seasar.jms.server.Main#getArg
+	  * ã‚³ãƒ”ãƒ¼ org.seasar.jms.server.Main#getArg
 	  * 
-     * ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“ˆø”‚©‚çw’è‚³‚ê‚½ƒL[‚É‘Î‰‚·‚é’l‚ğ•Ô‚µ‚Ü‚·B
+     * ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³å¼•æ•°ã‹ã‚‰æŒ‡å®šã•ã‚ŒãŸã‚­ãƒ¼ã«å¯¾å¿œã™ã‚‹å€¤ã‚’è¿”ã—ã¾ã™ã€‚
      * 
      * @param name
-     *            ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“ˆø”‚Ì–¼‘O
+     *            ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³å¼•æ•°ã®åå‰
      * @param args
-     *            ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“ˆø”
-     * @return ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“ˆø”
+     *            ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³å¼•æ•°
+     * @return ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³å¼•æ•°
      */
     private String getArg(final String name, final String[] args) {
         for (int i = 0; i < args.length; i++) {

@@ -4,50 +4,49 @@ import org.seasar.framework.exception.SRuntimeException;
 import org.seasar.framework.message.MessageFormatter;
 
 /**
- * dicon ƒtƒ@ƒCƒ‹‚©‚ç\¬‚ğì¬‚·‚é‚Æ‚«‚É”­¶‚µ‚½ƒGƒ‰[‚ğ’Ê’m‚·‚é‚½‚ß‚Ì—áŠO
+ * dicon ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰æ§‹æˆã‚’ä½œæˆã™ã‚‹ã¨ãã«ç™ºç”Ÿã—ãŸã‚¨ãƒ©ãƒ¼ã‚’é€šçŸ¥ã™ã‚‹ãŸã‚ã®ä¾‹å¤–
  * 
  * @author Saito_Shinya@ogis-ri.co.jp
- *
  */
 public class S2MuleConfigurationException extends SRuntimeException {
 	
 	private static final long serialVersionUID = -1235115149163252649L;
 	
 	/**
-	 * ƒƒbƒZ[ƒWƒR[ƒh
+	 * ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚³ãƒ¼ãƒ‰
 	 */
 	protected String messageCode;
 	
 	/**
-	 * ƒƒbƒZ[ƒW‚É–„‚ß‚Ü‚ê‚éˆø”
+	 * ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã«åŸ‹ã‚è¾¼ã¾ã‚Œã‚‹å¼•æ•°
 	 */
 	protected Object[] args;
 
 	/**
-	 * ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚µ‚Ü‚·B
+	 * ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã—ã¾ã™ã€‚
 	 * 
-	 * @param messageCode ƒƒbƒZ[ƒWƒR[ƒh
+	 * @param messageCode ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚³ãƒ¼ãƒ‰
 	 */
 	public S2MuleConfigurationException(String messageCode) {
 		this(messageCode,null,null);
 	}
 	
 	/**
-	 * ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚µ‚Ü‚·
+	 * ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã—ã¾ã™
 	 * 
-	 * @param messageCode ƒƒbƒZ[ƒWƒR[ƒh
-	 * @param args ƒƒbƒZ[ƒW‚É–„‚ß‚Ü‚ê‚éˆø”
+	 * @param messageCode ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚³ãƒ¼ãƒ‰
+	 * @param args ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã«åŸ‹ã‚è¾¼ã¾ã‚Œã‚‹å¼•æ•°
 	 */
 	public S2MuleConfigurationException(String messageCode,Object[] args) {
 		this(messageCode,args,null);
 	}
 	
 	/**
-	 * ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚µ‚Ü‚·B
+	 * ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã—ã¾ã™ã€‚
 	 * 
-	 * @param messageCode ƒƒbƒZ[ƒWƒR[ƒh
-	 * @param args ƒƒbƒZ[ƒW‚É–„‚ß‚Ü‚ê‚éˆø”
-	 * @param cause Œ´ˆö‚Æ‚È‚Á‚½—áŠO
+	 * @param messageCode ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚³ãƒ¼ãƒ‰
+	 * @param args ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã«åŸ‹ã‚è¾¼ã¾ã‚Œã‚‹å¼•æ•°
+	 * @param cause åŸå› ã¨ãªã£ãŸä¾‹å¤–
 	 *
 	 */
 	public S2MuleConfigurationException(String messageCode, Object[] args,Throwable cause) {

@@ -1,7 +1,9 @@
 package org.mule.extras.seasar2.config.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
@@ -9,24 +11,25 @@ import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
 import org.seasar.framework.beans.PropertyNotFoundRuntimeException;
 
 /**
- * Config‚Ì’ŠÛƒNƒ‰ƒX‚Å‚·B
+ * Configã®æŠ½è±¡ã‚¯ãƒ©ã‚¹ã§ã™
  * 
  * @author Shinya_Saito@ogis-ri.co.jp
  *
  */
 public abstract class AbstractConfig {
-	/** Connector‚ÌƒvƒƒpƒeƒB */
+	
+	/** Connectorï¿½ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ */
 	protected Map properties = new HashMap();
 	
 	/**
-	 * ƒvƒƒpƒeƒB‚ğ’Ç‰Á‚·‚é
+	 * ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è¨­å®šã™ã‚‹
 	 */
 	public void setProperty(String key, Object value) {
 		properties.put(key, value);
 	}
 	
 	/**
-	 * ƒvƒƒpƒeƒB‚Ì’l‚ğæ“¾‚·‚é
+	 * ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã®å€¤ã‚’å–å¾—ã™ã‚‹
 	 */
 	public Object getProperty(String key) {
 		return properties.get(key);
@@ -37,7 +40,7 @@ public abstract class AbstractConfig {
 	}
 	
 	/**
-	 * {@link org.apache.commons.beanutils.BeanUtilsBean#populate(Object, Map)}‚Ìƒ‰ƒbƒvƒƒ\ƒbƒh
+	 * {@link org.apache.commons.beanutils.BeanUtilsBean#populate(Object, Map)}ã‚’ãƒ©ãƒƒãƒ—ã—ãŸãƒ¡ã‚½ãƒƒãƒ‰
 	 * 
 	 * @param bean
 	 * @param properties
@@ -46,9 +49,12 @@ public abstract class AbstractConfig {
 		if ((bean == null) || (properties == null)) {
 			return;
 		}
+		
 		BeanUtilsBean beanUtils = BeanUtilsBean.getInstance();
 		try {
 			Iterator names = properties.keySet().iterator();
+			List removeNames = new ArrayList();
+			
 			while (names.hasNext()) {
 
 				// Identify the property name and value(s) to be assigned
@@ -58,18 +64,23 @@ public abstract class AbstractConfig {
 				}
 				Object value = properties.get(name);
 				
-				//dicon‚É‹Lq‚³‚ê‚½ƒvƒƒpƒeƒB‚ª‘¶İ‚·‚é‚©ƒ`ƒFƒbƒN
+				//diconã«è¨˜è¿°ã•ã‚ŒãŸãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ãŒå­˜åœ¨ã™ã‚‹ã‹ãƒã‚§ãƒƒã‚¯
 				if(beanUtils.getPropertyUtils().getPropertyDescriptor(bean, name)!=null){
 					beanUtils.setProperty(bean, name, value);
-				} else {
+					removeNames.add(name);
+				} else if(!(this instanceof AxisConnectorConfig)){
 					throw new PropertyNotFoundRuntimeException(bean.getClass(),name);
 				}
 			}
+			
+			for(int i = 0; i < removeNames.size();i++ ) {
+				properties.remove((String)removeNames.get(i));
+			}
+			
 		} catch(PropertyNotFoundRuntimeException e) {
 			throw e;
 		} catch(Exception e) {
-			//TODO Error Message Code
-			throw new S2MuleConfigurationException(null,null,e);
+			throw new S2MuleConfigurationException("ESML0000", new Object[]{e},e);
 		} 
 	}
 }

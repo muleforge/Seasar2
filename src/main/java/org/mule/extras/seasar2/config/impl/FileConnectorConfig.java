@@ -1,12 +1,10 @@
 package org.mule.extras.seasar2.config.impl;
 
 import org.mule.extras.seasar2.config.ComponentConfig;
-import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
-import org.mule.providers.file.FileConnector;
-import org.mule.util.object.SimpleObjectFactory;
+import org.mule.transport.file.FileConnector;
 
 /**
- * FileConnector‚Ì\¬î•ñ‚ğ•Û‚·‚éƒNƒ‰ƒX‚Å‚·B
+ * FileConnectorã®æ§‹æˆæƒ…å ±ã‚’ä¿æŒã™ã‚‹ã‚¯ãƒ©ã‚¹ã§ã™ã€‚
  * 
  * @author Saito_Shinya@ogis-ri.co.jp
  *
@@ -15,17 +13,16 @@ public class FileConnectorConfig extends AbstractConfig implements
 		ComponentConfig {
 	
 	/**
-	 * ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚·‚é
+	 * ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã™ã‚‹
 	 */
 	public FileConnectorConfig() {
 		
 	}
 	
-	
 	/**
 	 * @see org.mule.extras.seasar2.config.ConnectorConfig#getConnector()
 	 */
-	public Object builtComponent() {
+	public Object buildComponent() {
 		FileConnector connector = new FileConnector();
 		populate(connector,properties); 
 		return connector;

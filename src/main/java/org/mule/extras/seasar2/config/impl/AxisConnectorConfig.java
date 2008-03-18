@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.mule.extras.seasar2.config.ComponentConfig;
-import org.mule.providers.soap.axis.AxisConnector;
+import org.mule.transport.soap.axis.AxisConnector;
 
 /**
- * AxisConnector‚Ì\¬î•ñ‚ğ•Û‚·‚éƒNƒ‰ƒX‚Å‚·B
+ * AxisConnectorã®æ§‹æˆæƒ…å ±ã‚’ä¿æŒã™ã‚‹ã‚¯ãƒ©ã‚¹ã§ã™ã€‚
  * 
  * @author Administrator
  *
@@ -15,10 +15,11 @@ import org.mule.providers.soap.axis.AxisConnector;
 public class AxisConnectorConfig extends AbstractConfig implements
 		ComponentConfig {
 	
+	/** ãƒ“ãƒ¼ãƒ³ã‚¿ã‚¤ãƒ— */
 	private List beanTypes;
 	
 	/**
-	 * ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚·‚é
+	 * ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã™ã‚‹
 	 */
 	public AxisConnectorConfig() {
 		
@@ -28,7 +29,7 @@ public class AxisConnectorConfig extends AbstractConfig implements
 	/**
 	 * @see org.mule.extras.seasar2.config.ConnectorConfig#getConnector()
 	 */
-	public Object builtComponent() {
+	public Object buildComponent() {
 		AxisConnector connector = new AxisConnector();
 		if(beanTypes != null) {
 			setProperty("beanTypes", beanTypes);
@@ -38,9 +39,9 @@ public class AxisConnectorConfig extends AbstractConfig implements
 	}
 	
 	/**
-	 * Axis TypeMappingRegistry‚É“o˜^‚·‚é
+	 * Axis TypeMappingRegistryã«ç™»éŒ²ã™ã‚‹
 	 * 
-	 * @param beanType “o˜^‚·‚éƒNƒ‰ƒX–¼
+	 * @param beanType ç™»éŒ²ã™ã‚‹ã‚¯ãƒ©ã‚¹å
 	 */
 	public void addBeanType(String beanTypeName) {
 		if(beanTypes == null ) {

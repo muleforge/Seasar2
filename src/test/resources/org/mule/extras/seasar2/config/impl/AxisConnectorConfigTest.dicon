@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.3//EN"
+	"http://www.seasar.org/dtd/components23.dtd">
+<components>
+	<include path="s2mule-sender.dicon"/>
+	
+	<component class="org.mule.extras.seasar2.config.impl.AxisConnectorConfig" >
+		<initMethod name="addBeanType">
+			<arg>"org.mule.extras.seasar2.config.impl.MyClass"</arg>
+		</initMethod>
+	</component>
+
+</components>

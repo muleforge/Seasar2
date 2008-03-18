@@ -1,20 +1,19 @@
 package org.mule.extras.seasar2.exception;
 
 /**
- * •K—v‚ÈProprty‚ªŒ©‚Â‚©‚ç‚È‚¢‚±‚Æ‚ğ’Ê’m‚·‚éÀs—áŠO
+ * å¿…è¦ãªProprtyãŒè¦‹ã¤ã‹ã‚‰ãªã„ã“ã¨ã‚’é€šçŸ¥ã™ã‚‹å®Ÿè¡Œæ™‚ä¾‹å¤–
  * 
  * @author Saito_Shinya@ogis-ri.co.jp
- *
  */
 public class ProprtyNotFoundException extends S2MuleConfigurationException {
 
 	private static final long serialVersionUID = 7448310817447042432L;
 
 	/**
-	 * ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚µ‚Ü‚·
+	 * ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã—ã¾ã™
 	 * 
-	 * @param messageCode ƒƒbƒZ[ƒWƒR[ƒh
-	 * @param args ƒƒbƒZ[ƒW‚É–„‚ß‚Ü‚ê‚éˆø”
+	 * @param messageCode ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚³ãƒ¼ãƒ‰
+	 * @param args ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã«åŸ‹ã‚è¾¼ã¾ã‚Œã‚‹å¼•æ•°
 	 */
 	public ProprtyNotFoundException(String messageCode,Object[] args) {
 		super(messageCode,args);

@@ -1,31 +1,31 @@
 package org.mule.extras.seasar2.receiver.object;
 
-import org.mule.umo.endpoint.UMOEndpoint;
+import org.mule.endpoint.InboundEndpoint;
+import org.mule.endpoint.OutboundEndpoint;
 
 public class SimpleMuleDesciptor {
 	
 	/**
-	 * inbound ‚Ì Endpoint
-	 * b’è“I
-	 * «—ˆ“I‚É‚Í inboundEndpoints ‚É‚È‚é‚©‚à
+	 * inbound ã® Endpoint
+	 * æš«å®šçš„
+	 * å°†æ¥çš„ã«ã¯ inboundEndpoints ã«ãªã‚‹ã‹ã‚‚
 	 */
-	private UMOEndpoint inboundEndpoit;
+	private InboundEndpoint inboundEndpoit;
 	
 	/**
-	 * outbound ‚Ì Endpoiint
-	 * b’è“I
-	 * «—ˆ“I‚É‚ÍoutboundEndpoints‚É‚È‚é‚©‚à
+	 * outbound ã® Endpoiint
+	 * æš«å®šçš„
+	 * å°†æ¥çš„ã«ã¯outboundEndpointsã«ãªã‚‹ã‹ã‚‚
 	 */
-	private UMOEndpoint outboundEndpoint;
+	private OutboundEndpoint outboundEndpoint;
 
 	/**
-	 * UMO ‚ÌÀ‘•ƒNƒ‰ƒX
+	 * UMO ã®å®Ÿè£…ã‚¯ãƒ©ã‚¹
 	 * POJO
-	 * 
 	 */
 	private Object umoImpl;
 	
-	public SimpleMuleDesciptor(UMOEndpoint inboundEndpoint, UMOEndpoint outboundEndpoint
+	public SimpleMuleDesciptor(InboundEndpoint inboundEndpoint, OutboundEndpoint outboundEndpoint
 			,Object umoImpl){
 		
 	}

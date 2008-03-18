@@ -5,28 +5,29 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.mule.config.builders.QuickConfigurationBuilder;
+import org.mule.api.MuleContext;
+import org.mule.api.MuleException;
+import org.mule.endpoint.EndpointURIEndpointBuilder;
+import org.mule.endpoint.InboundEndpoint;
+import org.mule.endpoint.URIBuilder;
 import org.mule.extras.seasar2.receiver.builder.S2MuleComponentBuilder;
-import org.mule.extras.seasar2.receiver.object.S2MuleConfiguration;
-import org.mule.extras.seasar2.receiver.object.S2MuleSimpleObjectFactory;
-import org.mule.impl.MuleDescriptor;
-import org.mule.impl.endpoint.MuleEndpoint;
-import org.mule.routing.inbound.InboundRouterCollection;
-import org.mule.routing.outbound.OutboundPassThroughRouter;
-import org.mule.routing.outbound.OutboundRouterCollection;
-import org.mule.umo.UMODescriptor;
-import org.mule.umo.UMOException;
-import org.mule.umo.UMOManagementContext;
-import org.mule.umo.endpoint.UMOEndpoint;
+import org.mule.extras.seasar2.receiver.impl.S2MuleConfiguration;
+import org.mule.extras.seasar2.receiver.object.S2MuleObjectFactory;
+import org.mule.api.service.Service;
+import org.mule.api.endpoint.EndpointBuilder;
+import org.mule.api.model.Model;
+import org.mule.api.routing.InboundRouterCollection;
+import org.mule.context.DefaultMuleContextFactory;
+import org.mule.model.seda.SedaModel;
+import org.mule.model.seda.SedaService;
+import org.mule.routing.inbound.DefaultInboundRouterCollection;
 import org.mule.util.object.ObjectFactory;
-import org.mule.util.object.SimpleObjectFactory;
 import org.seasar.framework.container.ComponentDef;
 import org.seasar.framework.container.S2Container;
 
 
-
 /**
- * {@link S2MuleComponentBuilder}‚ÌÀ‘•ƒNƒ‰ƒX
+ * {@link S2MuleComponentBuilder}ã®å®Ÿè£…ã‚¯ãƒ©ã‚¹
  * 
  * @author Saito_Shinya@ogis-ri.co.jp
  *
@@ -34,78 +35,66 @@ import org.seasar.framework.container.S2Container;
 public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder {
 	
 	/**
-	 * ƒfƒtƒHƒ‹ƒg‚ÌmodleName
-	 * Mule-config‚Ì<modle name="">ƒ^ƒO‚É‘Î‰
+	 * ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ServiceName
+	 * Mule-configã®<service name="">ã‚¿ã‚°ã«å¯¾å¿œ
 	 */
-	private final String DEFAULT_MODEL_NAME = "default-qbuilder";
+	private final String DEFAULT_SERVICE_NAME = "S2MuleUMO";
 	
 	/**
-	 * ƒfƒtƒHƒ‹ƒg‚ÌdescriptorName
-	 * Mule-config‚Ì<mule-descriptor name="">ƒ^ƒO‚É‘Î‰
-	 */
-	private final String DEFAULT_DESCRIPTOR_NAME = "S2MuleUMO";
-	
-	/**
-	 * ƒfƒtƒHƒ‹ƒg‚ÌUMOName
-	 */
-	private final String DEFAULT_UMO_NAME 
-		= "org.mule.components.simple.BridgeComponent";
-	
-	/**
-	 * ƒI[ƒgƒoƒCƒ“ƒfƒBƒ“ƒO‚É‚æ‚Á‚ÄS2Container‚ªİ’è‚³‚ê‚é
+	 * ã‚ªãƒ¼ãƒˆãƒã‚¤ãƒ³ãƒ‡ã‚£ãƒ³ã‚°ã«ã‚ˆã£ã¦S2ContainerãŒè¨­å®šã•ã‚Œã‚‹
 	 */
 	private S2Container container;
 	
 	/**
-	 * TODO «—ˆ“I‚É‚Í•¡”‚Ìs2MuleConfig‚ğˆµ‚¦‚é‚æ‚¤‚É‚µ‚½‚¢B
-	 * dicon‚É‹Lq‚³‚ê‚Ä‚¢‚½MuleƒCƒ“ƒXƒ^ƒ“ƒX‚Ìî•ñ
-	 * b’è“I
+	 * diconã«è¨˜è¿°ã•ã‚Œã¦ã„ãŸMuleã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®æƒ…å ±
 	 */
 	private List s2MuleConfigs;
 	
 	/**
-	 * Mule‚ÌquickConfigurationBuilder‚ğ—˜—p
+	 * MuleContext
 	 */
-	private QuickConfigurationBuilder qcBuilder;
+	private MuleContext muleContext;
 	
 	/**
-	 * diconƒtƒ@ƒCƒ‹‚É‹Lq‚³‚ê‚Ä‚¢‚é‘S‚Ä‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg
+	 * diconãƒ•ã‚¡ã‚¤ãƒ«ã«è¨˜è¿°ã•ã‚Œã¦ã„ã‚‹å…¨ã¦ã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
 	 */
 	private List allDiconComponentDefs = new ArrayList();
 	
 	/**
-	 * 
-	 * @throws UMOException
+	 * ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ä½œæˆ 
+	 * @throws MuleException MuleContextä½œæˆæ™‚ã®ä¾‹å¤–
 	 */
-	public S2MuleComponentBuilderImpl() throws UMOException {
-		//QuickConfigurationBuilder‚Ìì¬
-		qcBuilder = new QuickConfigurationBuilder(false);
+	public S2MuleComponentBuilderImpl() throws MuleException {
+		
+		//MuleContextã®ä½œæˆ
+		DefaultMuleContextFactory factory = new DefaultMuleContextFactory();
+		muleContext = factory.createMuleContext();
 	}
 
-	/**
-	 * MuleConfigurationFile‚ğw’è‚µ‚½ê‡AMule-config‚©‚çMule‚ğ‹N“®‚·‚é
-	 * @param muleConfigPass
-	 */
-	public S2MuleComponentBuilderImpl( String muleConfigPass) {
-		
-	}
+//	/**
+//	 * MuleConfigurationFileã‚’æŒ‡å®šã—ãŸå ´åˆã€Mule-configã‹ã‚‰Muleã‚’èµ·å‹•ã™ã‚‹
+//	 * @param muleConfigPass
+//	 */
+//	public S2MuleComponentBuilderImpl( String muleConfigPass) {
+//		
+//	}
+//	
+//	/**
+//	 * 
+//	 * @param smDeciptor
+//	 */
+//	public S2MuleComponentBuilderImpl( S2MuleConfiguration smDecriptor) {
+//		
+//	}
 	
 	/**
-	 * 
-	 * @param smDeciptor
-	 */
-	public S2MuleComponentBuilderImpl( S2MuleConfiguration smDecriptor) {
-		
-	}
-	
-	/**
-	 * MuleDescriptor‚ğregistry‚É“o˜^‚·‚éB
-	 * TODO Connector‚ğregistry‚É“o˜^‚·‚éB
+	 * Serviceã‚’registryã«ç™»éŒ²ã™ã‚‹
+	 * TODO Connectorã‚’registryã«ç™»éŒ²ã™ã‚‹
 	 * 
 	 * @return managementContext
 	 * 
 	 */
-	public UMOManagementContext configure()  throws UMOException {
+	public MuleContext configure()  throws MuleException {
 		
 		s2MuleConfigs = getS2MuleConfigs(container);
 		
@@ -113,85 +102,71 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder {
 			for( int i = 0; i < s2MuleConfigs.size(); i++) {
 				S2MuleConfiguration s2MuleConfig = 
 					(S2MuleConfiguration) s2MuleConfigs.get(i);
-				UMODescriptor descriptor = createDescriptor( s2MuleConfig );
-				//MuleDescriptor‚ğ“o˜^‚·‚é
-				qcBuilder.registerComponent(descriptor);
+				Service service = createService( s2MuleConfig );
+				
+				//Serviceã‚’ç™»éŒ²ã™ã‚‹
+				muleContext.getRegistry().registerService(service);
 			}
 		} else {
-			//TODO —áŠO‚ğ“Š‚°‚é
+			//TODO ä¾‹å¤–å‡¦ç†
 		}
-		// test configure‚Ì’†‚ÅmuleServer‚ğƒXƒ^[ƒg‚³‚¹‚Ä‚µ‚Ü‚¤
-		qcBuilder.getManagementContext().start();
+		// test configureã®ä¸­ã§muleServerã‚’ã‚¹ã‚¿ãƒ¼ãƒˆã•ã›ã¦ã—ã¾ã†
+		muleContext.start();
 		
-		
-		return qcBuilder.getManagementContext();
+		return muleContext;
 	}
 	
 	/**
-	 * MuleDescriptor‚ğì¬‚·‚é
+	 * Serviceã‚’ä½œæˆã™ã‚‹
 	 * @return
 	 */
-	private UMODescriptor createDescriptor(S2MuleConfiguration s2MuleConfig) throws UMOException {
+	private Service createService(S2MuleConfiguration s2MuleConfig) throws MuleException {
 		
-		if(!s2MuleConfig.isInitalize()){
-			s2MuleConfig.initialize();
-		}
+		//Muleã®Defaultã§ã‚ã‚‹SedaServiceã‚’ä½œæˆ
+		Service service = new SedaService();
 		
-		UMODescriptor descriptor = new MuleDescriptor();
+		Model model = new SedaModel();
+		model.initialise();
+		service.setModel(model);
 		
-		//InboundRouterCollection‚Ìì¬
-		InboundRouterCollection iRouterCollection = new InboundRouterCollection();
+		InboundRouterCollection iRouterCollection = new DefaultInboundRouterCollection();
 		
-		//InboundEndpoits‚Ì”‚¾‚¯s‚¤
-		List inboundEndpoints = s2MuleConfig.getInboundEndpoints();
-		for(int i =0;i<inboundEndpoints.size();i++) {
-			UMOEndpoint endpoint = (UMOEndpoint)inboundEndpoints.get(i);
+		//InboundEndpoitsã®æ•°ã ã‘è¡Œã†
+		List endpointUris = s2MuleConfig.getInboundEndpoints();
+		for(int i =0;i<endpointUris.size();i++) {
+			//InboundEndpointã®ä½œæˆ
+			URIBuilder uriBuilder = new URIBuilder((String)endpointUris.get(i));
+			EndpointBuilder endpointBuilder = new EndpointURIEndpointBuilder(uriBuilder,muleContext);
+			InboundEndpoint endpoint = (InboundEndpoint)endpointBuilder.buildInboundEndpoint();
+			
 			iRouterCollection.addEndpoint(endpoint);
 		}
-		descriptor.setInboundRouter(iRouterCollection);
+		service.setInboundRouter(iRouterCollection);
 		
-		//outboundRouterCollection‚Ìì¬
-		OutboundRouterCollection oRouterCollection = new OutboundRouterCollection();
-		//TODO dicon‚Åw’è‚³‚ê‚½Router‚ğˆµ‚¦‚é‚æ‚¤‚É‚µ‚½‚¢B
-		//ƒfƒtƒHƒ‹ƒg‚ÍPassThroughRouter
-		OutboundPassThroughRouter oPassThroughRouter = new OutboundPassThroughRouter();
-		MuleEndpoint outbound = (MuleEndpoint)s2MuleConfig.getOutboundEndpoint();
-		outbound.setManagementContext(qcBuilder.getManagementContext());
-		
-		oPassThroughRouter.addEndpoint(outbound);
-		oRouterCollection.addRouter(oPassThroughRouter);
-		
-		descriptor.setOutboundRouter(oRouterCollection);
-		
-		// modelName‚Ìì¬
-		String modelName = DEFAULT_MODEL_NAME;
-		descriptor.setModelName(modelName);
-		
-		//descriptorName‚Ìì¬
-		String descriptorName;
+		//ServiceNameã®ä½œæˆ
+		String serviceName;
 		if (s2MuleConfig.getName() != null) {
-			descriptorName = s2MuleConfig.getName();
+			serviceName = s2MuleConfig.getName();
 		} else {
-			descriptorName = DEFAULT_DESCRIPTOR_NAME;
+			serviceName = DEFAULT_SERVICE_NAME;
 		}
-		descriptor.setName(descriptorName);
+		service.setName(serviceName);
 		
-		//ObjectFactory‚Ìì¬
+		//ObjectFactoryã®ä½œæˆ
 		ObjectFactory factory = null;
-		//umo‚ªdicon‚Éİ’è‚³‚ê‚Ä‚¢‚½ê‡AS2MuleSimpleObjectFactory‚ğİ’è‚·‚éB
+		//umoãŒdiconã«è¨­å®šã•ã‚Œã¦ã„ãŸå ´åˆã€S2MuleSimpleObjectFactoryã‚’è¨­å®šã™ã‚‹ã€‚
 		if( s2MuleConfig.getUmoImpl() != null ) {
-			factory = new S2MuleSimpleObjectFactory(s2MuleConfig.getUmoImpl()); 
+			factory = new S2MuleObjectFactory(container,s2MuleConfig.getUmoImpl()); 
 		} else {
-			//umo‚ªdicon‚Éİ’è‚³‚ê‚Ä‚¢‚È‚¢ê‡ABridgeComponent‚ğİ’è‚·‚éB
-			factory = new SimpleObjectFactory(DEFAULT_UMO_NAME);
+			//TODO ä¾‹å¤–
 		}
-		descriptor.setServiceFactory(factory);
+		service.setServiceFactory(factory);
 		
-		return descriptor;
+		return service;
 	}
 	
 	/**
-	 * S2cotainer‚©‚çS2MuleConfigration‚ğ’Tõ‚µAƒŠƒXƒg‚ÉŠi”[‚·‚é
+	 * S2cotainerã‹ã‚‰S2MuleConfigrationã‚’æ¢ç´¢ã—ã€ãƒªã‚¹ãƒˆã«æ ¼ç´ã™ã‚‹
 	 * @param container
 	 * @return
 	 */
@@ -201,27 +176,26 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder {
 		for( int i = 0; i < allDiconComponentDefs.size(); i++ ) {
 			ComponentDef cd = (ComponentDef)allDiconComponentDefs.get(i);
 			
-			//S2MuleConfigurationƒNƒ‰ƒX‚Ìê‡AƒŠƒXƒg‚É’Ç‰Á‚·‚é
+			//S2MuleConfigurationã‚¯ãƒ©ã‚¹ã®å ´åˆã€ãƒªã‚¹ãƒˆã«è¿½åŠ ã™ã‚‹
 			if ( cd.getComponentClass().equals(S2MuleConfiguration.class) ) {
 				S2MuleConfiguration s2mConfig 
 					= (S2MuleConfiguration)cd.getComponent();
-				//S2MuleConfig‚Ì–¼‘O‚Ì“o˜^
+				//S2MuleConfigã®åå‰ã®ç™»éŒ²
 				s2mConfig.setName(cd.getComponentName());
 				
 				configs.add(s2mConfig);
 			}
 		}
-		
 		return configs;
 	}
 	
 	
 	/**
-	 * diconƒtƒ@ƒCƒ‹‚É‹Lq‚³‚ê‚Ä‚¢‚é‘S‚Ä‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg‚ğæ“¾‚·‚é
-	 * Ä‹A‚ğ—˜—p‚µA‘S‚Ä‚Ìdiconƒtƒ@ƒCƒ‹‚ğŒŸõ‚·‚é
+	 * diconãƒ•ã‚¡ã‚¤ãƒ«ã«è¨˜è¿°ã•ã‚Œã¦ã„ã‚‹å…¨ã¦ã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’å–å¾—ã™ã‚‹
+	 * å†å¸°ã‚’åˆ©ç”¨ã—ã€å…¨ã¦ã®diconãƒ•ã‚¡ã‚¤ãƒ«ã‚’æ¤œç´¢ã™ã‚‹
 	 * 
 	 * @param container S2Container
-	 * @param set S2Container‚ªŠi”[‚³‚ê‚éì‹Æ—p
+	 * @param set S2ContainerãŒæ ¼ç´ã•ã‚Œã‚‹ä½œæ¥­ç”¨
 	 * @return
 	 */
 	private void createAllDiconComponents(S2Container container, Set set) {
@@ -229,14 +203,14 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder {
 		if (set == null){
 			set = new HashSet();
 		}
-		 //Œ»İ‚ÌS2ƒRƒ“ƒeƒi‚Æ‚¨‚È‚¶S2ƒRƒ“ƒeƒi‚ªset‚É“o˜^‚³‚ê‚Ä‚¢‚éê‡
-		//Ä‹A‚ğI—¹‚³‚¹‚é
+		 //ç¾åœ¨ã®S2ã‚³ãƒ³ãƒ†ãƒŠã¨ãŠãªã˜S2ã‚³ãƒ³ãƒ†ãƒŠãŒsetã«ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹å ´åˆ
+		//å†å¸°ã‚’çµ‚äº†ã•ã›ã‚‹
 	     if (set.contains(container)) {
 	    	 return;
 	     }
 	     set.add(container);
 
-	     // qƒRƒ“ƒeƒi‚Ö‚à‚®‚é
+	     // å­ã‚³ãƒ³ãƒ†ãƒŠã¸ã‚‚ãã‚‹
 	     for (int i = 0; i <  container.getChildSize(); i++) {
 	    	 createAllDiconComponents(container.getChild(i), set);
 	     }
@@ -247,15 +221,12 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder {
 	}
 	
 	/**
-	 * MuleServer‚ğ’â~‚³‚¹‚é
-	 * Registry‚É“o˜^‚³‚ê‚Ä‚¢‚½ƒRƒ“ƒ|[ƒlƒ“ƒg‚Í‘S‚Ä”jŠü‚³‚ê‚é
+	 * Muleã‚’åœæ­¢ã•ã›ã‚‹
+	 * Registryã«ç™»éŒ²ã•ã‚Œã¦ã„ãŸã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã¯å…¨ã¦ç ´æ£„ã•ã‚Œã‚‹
 	 *
 	 */
 	public void destroy() {
-		qcBuilder.getManagementContext().getNotificationManager().dispose();
-		qcBuilder.getManagementContext().getWorkManager().dispose();
-		qcBuilder.getManagementContext().getRegistry().dispose();
-		qcBuilder.getManagementContext().dispose();
+		muleContext.dispose();
 	}
 	
 	public void setContainer(S2Container container) {

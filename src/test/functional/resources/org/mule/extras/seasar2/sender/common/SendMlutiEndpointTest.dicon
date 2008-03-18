@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<!--
+複数のEndpointにメッセージを送信する
+-->
+<components>
+	<include path="j2ee.dicon"/>
+	<include path="org/mule/extras/seasar2/sender/common/jms-sender.dicon"/>
+	<include path="org/mule/extras/seasar2/sender/common/file-sender.dicon"/>
+
+	<component class="org.mule.extras.seasar2.sender.common.MlutiDispatcherImpl" />
+</components>

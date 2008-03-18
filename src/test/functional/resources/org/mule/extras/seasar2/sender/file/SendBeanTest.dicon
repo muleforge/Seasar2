@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<components>
+	
+	<include path="s2mule-sender.dicon"/>
+
+	<!-- File Connectorの設定-->
+	<component class="org.mule.extras.seasar2.config.impl.FileConnectorConfig">
+		<initMethod name="setProperty" >
+			<!-- 出力するファイル名のパターンを指定-->
+			<arg>"outputPattern"</arg>
+			<arg>"S2Mule-Test-FILE-O-004-${DATE:yyyyMMdd}.txt"</arg>
+		</initMethod>
+		
+		<initMethod name="setProperty" >
+			<arg>"serialiseObjects"</arg>
+			<arg>true</arg>
+		</initMethod>
+	</component>
+
+	<!-- S2MuleSender の設定-->
+	<component class="org.mule.extras.seasar2.sender.impl.S2MuleSenderImpl" >
+		<property name="outboundUri">"file:///C:/temp"</property>
+		<initMethod name="init"/>
+	</component>
+	
+</components>
+

@@ -5,60 +5,112 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.transaction.TransactionManager;
+
+import org.mule.endpoint.EndpointURIEndpointBuilder;
+import org.mule.endpoint.OutboundEndpoint;
+import org.mule.endpoint.URIBuilder;
 import org.mule.extras.client.MuleClient;
 import org.mule.extras.seasar2.config.ComponentConfig;
+import org.mule.extras.seasar2.config.TransactionConnector;
 import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
 import org.mule.extras.seasar2.exception.S2MuleRuntimeException;
 import org.mule.extras.seasar2.sender.S2MuleSender;
-import org.mule.umo.UMOException;
-import org.mule.umo.UMOMessage;
-import org.mule.umo.provider.UMOConnector;
-import org.mule.umo.transformer.UMOTransformer;
+import org.mule.transaction.TransactionCoordination;
+import org.mule.transaction.XaTransaction;
+import org.mule.transformer.AbstractTransformer;
+import org.mule.util.ObjectNameHelper;
+
+import org.mule.api.MuleException;
+import org.mule.api.MuleMessage;
+import org.mule.api.endpoint.EndpointBuilder;
+import org.mule.api.transport.Connector;
+import org.mule.extras.seasar2.config.impl.AxisConnectorConfig;
+import org.mule.extras.seasar2.config.impl.TransactionConfig;
+import org.mule.api.transformer.Transformer;
+import org.seasar.framework.container.S2Container;
+import org.seasar.framework.container.impl.S2ContainerImpl;
+import org.seasar.framework.exception.SRuntimeException;
+import org.seasar.framework.log.Logger;
 
 /**
- * {@link S2MuleSender} ‚ÌÀ‘•ƒNƒ‰ƒX‚Å‚·B
+ * {@link S2MuleSender} ã®å®Ÿè£…ã‚¯ãƒ©ã‚¹ã§ã™
  * @author Saito_Shinya@ogis-ri.co.jp
  */
 public class S2MuleSenderImpl implements S2MuleSender {
 	
-	/** Connector ‚Ì\¬î•ñ*/
+	 private static final Logger logger = Logger
+     	.getLogger(S2MuleSenderImpl.class);
+	
+	/** Connector ã®æ§‹æˆæƒ…å ± */
 	private ComponentConfig connectorConfig;
 	
 	/** Transformer */
 	private List transformers;
 	
-	/** ‘—Mæ‚Ì Endpoint URI*/
+	/** é€ä¿¡å…ˆã® Endpoint URI */
 	private String outboundUri;
 	
-	/** ‘—Mæ Endpoint‚ÌƒvƒƒpƒeƒB */
+	/** é€ä¿¡å…ˆ Endpointã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ */
 	private Map properties = new HashMap();
 	
-	/** MuleClient*/
+	/** ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³ãƒãƒãƒ¼ã‚¸ãƒ£ */
+	private TransactionManager transactionManager;
+	
+	/** MuleClient */
 	private MuleClient muleClient;
 	
+	/** S2ã‚³ãƒ³ãƒ†ãƒŠ */
+	private S2Container container;
+
 	/**
-	 * ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚µ‚Ü‚·
+	 * ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã—ã¾ã™
 	 */
-	public S2MuleSenderImpl() {
+	public S2MuleSenderImpl(final ComponentConfig connectorConfig) {
+		this.connectorConfig = connectorConfig;
 	}
 	
 	/**
-	 * ‘—M‚Ì€”õ‚ğs‚¢‚Ü‚·
+	 * é€ä¿¡ã®æº–å‚™ã‚’è¡Œã„ã¾ã™
 	 */
 	public void init() {
 		try {
-			muleClient = new MuleClient(true);
 			
-			if (connectorConfig != null) {
-				// Connector ‚Ìİ’è
-				muleClient.getManagementContext().getRegistry().registerConnector((UMOConnector)connectorConfig.builtComponent());
+			muleClient = (MuleClient)container.getComponent(MuleClient.class);
+			
+			EndpointBuilder endpointBuilder = null;
+			if(outboundUri!=null) {
+				URIBuilder uriBuilder = new URIBuilder(outboundUri);
+				endpointBuilder = new EndpointURIEndpointBuilder(uriBuilder,muleClient.getMuleContext());
+				muleClient.getMuleContext().getRegistry().registerEndpointBuilder(outboundUri, endpointBuilder);
+			} else {
+				throw new S2MuleConfigurationException("ESML0002",new Object[]{"outboundUri"});
 			}
+			
+			if(connectorConfig != null) {
+				//Connector ã®è¨­å®š
+				Connector connector = (Connector)connectorConfig.buildComponent();
+				connector.setName(ObjectNameHelper.getConnectorName(connector));
+				muleClient.getMuleContext().getRegistry().registerConnector(connector);
+				endpointBuilder.setConnector(connector);
+				if(connectorConfig instanceof AxisConnectorConfig){
+					properties.putAll(connectorConfig.getProperties());
+				}
+				logger.debug("Connectorã‚’ä½œæˆã—ã¾ã—ãŸ:" + connector);
+			}
+			
+			//Transactionã®è¨­å®š
+			if(connectorConfig instanceof TransactionConnector) {
+				transactionManager = (TransactionManager)container.getRoot().getComponent(TransactionManager.class);
+				muleClient.getMuleContext().setTransactionManager(transactionManager);
+			}
+			
 			if(transformers != null) {
-				// Transformer ‚Ìİ’è
-				setProperty("transformer", transformers.get(0));
+				endpointBuilder.setTransformers(transformers);
 			}
-		} catch (UMOException e) {
-			// TODO exception ˆ— 2007/12/11
+		} catch(SRuntimeException e) {
+			throw e;
+		} catch(Exception e) {
 			throw new S2MuleRuntimeException("ESML0000", new Object[]{e},e);
 		}
 	}
@@ -67,14 +119,19 @@ public class S2MuleSenderImpl implements S2MuleSender {
 	 * @see org.mule.extras.seasar2.sender.S2MuleSender#dispatch(Object)
 	 */
 	public void dispatch(Object payload) {
-		//TODO muleClient‚Ìdispatch or send
 		if(outboundUri != null) {
 			try {
-				//TODO properties‚ÉMULE_REMOTE_SYNC=false‚ğƒZƒbƒg‚·‚éƒR[ƒh‚ª•K—v?
-				setProperty("MULE_REMOTE_SYNC", false);
-				// muleClient.send(outboundUri, payload, properties);
-				muleClient.dispatch(outboundUri, payload, properties);
-			} catch ( UMOException e ) {
+				logger.debug("ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’" + outboundUri + "ã¸é€ä¿¡ã—ã¾ã™");
+				if(transactionManager!=null && transactionManager.getTransaction()!=null) {
+					logger.debug("ãƒˆãƒ©ãƒ³ã‚¶ã‚¯ã‚·ãƒ§ãƒ³:" + transactionManager.getTransaction() );
+					if(TransactionCoordination.getInstance().getTransaction()==null) {
+						XaTransaction xat = new XaTransaction(transactionManager);
+						TransactionCoordination.getInstance().bindTransaction(xat);
+					} 
+				}
+				muleClient.sendNoReceive(outboundUri, payload, properties);
+				logger.debug("ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’" + outboundUri + "ã¸é€ä¿¡ã—ã¾ã—ãŸ");
+			} catch ( MuleException e ) {
 				throw new S2MuleRuntimeException("ESML0000", new Object[]{e}, e);
 			} catch ( Exception e ){
 				throw new S2MuleRuntimeException("ESML0000", new Object[]{e}, e);
@@ -91,10 +148,10 @@ public class S2MuleSenderImpl implements S2MuleSender {
 		Object responseMessage = null;
 		if(outboundUri != null) {
 			try {
-				UMOMessage umoResponseMessage 
+				MuleMessage umoResponseMessage 
 					= muleClient.send(outboundUri, payload, properties);
 				responseMessage = umoResponseMessage.getPayload();
-			} catch ( UMOException e ) {
+			} catch ( MuleException e ) {
 				throw new S2MuleRuntimeException("ESML0000", new Object[]{e}, e);
 			} catch ( Exception e ){
 				throw new S2MuleRuntimeException("ESML0000", new Object[]{e}, e);
@@ -106,29 +163,34 @@ public class S2MuleSenderImpl implements S2MuleSender {
 	}
 	
 	/**
-	 * ƒvƒƒpƒeƒB‚ğ’Ç‰Á‚·‚é
+	 * ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’è¿½åŠ ã™ã‚‹
 	 */
 	public void setProperty(String key, Object value) {
 		properties.put(key, value);
 	}
 	
 	/**
-	 * ƒgƒ‰ƒ“ƒXƒtƒH[ƒ}‚ğ’Ç‰Á‚·‚é
+	 * ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒã‚’è¿½åŠ ã™ã‚‹
 	 * 
 	 * @param newTransformer
 	 */
-	public void addTransformer(UMOTransformer newTransformer) {
+	public void addTransformer(Transformer newTransformer) {
 		if(transformers == null) {
 			transformers = new ArrayList();
 			transformers.add(newTransformer);
 		} else {
 			int index = transformers.size()-1;
-			UMOTransformer currentTransformer 
-				= (UMOTransformer)transformers.get(index);
-			currentTransformer.setNextTransformer(newTransformer);
+			AbstractTransformer currentTransformer 
+				= (AbstractTransformer)transformers.get(index);
+			//currentTransformer.(newTransformer);
 			transformers.add(newTransformer);
 		}
 	}
+	
+	public void dispose() {
+		muleClient.dispose();
+	}
+	
 	
 	public void setConnectorConfig(ComponentConfig connectorConfig) {
 		this.connectorConfig = connectorConfig;
@@ -141,4 +203,13 @@ public class S2MuleSenderImpl implements S2MuleSender {
 	public void setOutboundUri(String outboundUri) {
 		this.outboundUri = outboundUri;
 	}
+	
+	public S2Container getContainer() {
+		return container;
+	}
+
+	public void setContainer(S2Container container) {
+		this.container = container;
+	}
+	
 }

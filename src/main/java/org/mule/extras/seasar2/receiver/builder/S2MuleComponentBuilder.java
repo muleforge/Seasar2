@@ -1,11 +1,11 @@
 package org.mule.extras.seasar2.receiver.builder;
 
-import org.mule.umo.UMOException;
-import org.mule.umo.UMOManagementContext;
+import org.mule.api.MuleContext;
+import org.mule.api.MuleException;
 
 /**
- * Seasar2‚ğg—p‚µ‚ÄMule‚ÌComponent‚ğ\’z‚·‚é‹@”\‚ÌƒCƒ“ƒ^[ƒtƒF[ƒX‚Å‚·B
- * TODO ŒŸ“¢ ConfigurationBuliderƒCƒ“ƒ^[ƒtƒF[ƒX‚É‚·‚é‚×‚«‚©H
+ * Seasar2ã‚’ä½¿ç”¨ã—ã¦Muleã®Componentã‚’æ§‹ç¯‰ã™ã‚‹æ©Ÿèƒ½ã®ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã§ã™
+ * TODO æ¤œè¨ ConfigurationBuliderã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã«ã™ã‚‹ã¹ãã‹ï¼Ÿ
  * 
  * @author Saito_Shinya@ogis-ri.co.jp
  *
@@ -13,11 +13,11 @@ import org.mule.umo.UMOManagementContext;
 public interface S2MuleComponentBuilder {
 	
 	/**
-	 * MuleDescriptor‚ğregistry‚É“o˜^‚·‚éB
+	 * MuleDescriptorã‚’registryã«ç™»éŒ²ã™ã‚‹ã€‚
 	 * 
 	 * @return managementContexts
 	 */
-	UMOManagementContext configure()  throws UMOException;
+	MuleContext configure()  throws MuleException;
 	
 	void destroy() ;
 }

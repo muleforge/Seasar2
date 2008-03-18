@@ -6,6 +6,8 @@
 -->
 <components>
 
+	<include path="s2mule-sender.dicon"/>
+
 	<!-- インターセプタコンポーネントの定義-->
 	<component name="interceptor" 
 		class="org.mule.extras.seasar2.sender.interceptor.MethodInvocationInterceptor" />

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<!--
+ SOAP-Axisを利用したテスト
+-->
+<components>
+
+	<include path="s2mule-sender.dicon"/>
+	
+	<!-- SOAPのスタイルをwrapped/literalに設定-->
+	<component class="org.mule.extras.seasar2.config.impl.AxisConnectorConfig" >
+		<initMethod name="setProperty" >
+			<arg>"style"</arg>
+			<arg>"wrapped"</arg>	
+		</initMethod>
+		<initMethod name="setProperty" >
+			<arg>"use"</arg>
+			<arg>"literal"</arg>	
+		</initMethod>
+	</component>
+	
+	<!-- インターセプタコンポーネントの定義-->
+	<component name="interceptor" 
+		class="org.mule.extras.seasar2.sender.interceptor.MethodInvocationInterceptor" />
+
+	<!-- Senderの設定-->
+	<component class="org.mule.extras.seasar2.sender.impl.S2MuleSenderImpl" >
+		<!-- Serviceのuri-->
+		<property name="outboundUri">"axis:http://localhost:65082/services/CustomerUMO"</property>
+		<initMethod name="init" />
+	</component>
+	
+	<!-- interceptorを適応するインタフェースの設定-->
+	<component class="org.mule.extras.seasar2.sender.common.CustomerService" >
+		<aspect>interceptor</aspect>
+	</component>
+
+</components>
