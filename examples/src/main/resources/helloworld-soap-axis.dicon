@@ -15,7 +15,7 @@
 	<!-- Senderの設定-->
 	<component class="org.mule.extras.seasar2.sender.impl.S2MuleSenderImpl" >
 		<!-- Serviceのuri-->
-		<property name="outboundUri">"axis:http://localhost:8082/services/EchoUMO"</property>
+		<property name="outboundUri">"axis:http://localhost:65082/services/EchoUMO"</property>
 		<initMethod name="init" />
 	</component>
 	
