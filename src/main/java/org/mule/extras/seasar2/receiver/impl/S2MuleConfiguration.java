@@ -3,10 +3,10 @@ package org.mule.extras.seasar2.receiver.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.mule.endpoint.InboundEndpoint;
-import org.mule.endpoint.OutboundEndpoint;
+import org.mule.endpoint.DefaultInboundEndpoint;
+import org.mule.endpoint.DefaultOutboundEndpoint;
 import org.mule.endpoint.URIBuilder;
-import org.mule.endpoint.MuleEndpoint;
+//import org.mule.endpoint.MuleEndpoint;
 import org.mule.api.MuleException;
 
 /**

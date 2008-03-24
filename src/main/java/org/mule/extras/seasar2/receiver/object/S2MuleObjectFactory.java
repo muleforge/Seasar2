@@ -1,7 +1,9 @@
 package org.mule.extras.seasar2.receiver.object;
 
+import org.mule.api.lifecycle.InitialisationCallback;
 import org.mule.api.lifecycle.InitialisationException;
-import org.mule.util.object.ObjectFactory;
+import org.mule.api.lifecycle.LifecycleTransitionResult;
+import org.mule.api.object.ObjectFactory;
 import org.seasar.framework.container.S2Container;
 
 /**
@@ -34,13 +36,31 @@ public class S2MuleObjectFactory implements ObjectFactory {
 		this.objectClassName = objectClassName;
 	}
 	
-	/**
-	 * TODO 実装
-	 */
-	public void initialise() throws InitialisationException {
+	public Object getInstance() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public void addObjectInitialisationCallback(InitialisationCallback callback) {
+		// TODO Auto-generated method stub
 		
 	}
 	
+	public Class getObjectClass() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public LifecycleTransitionResult initialise()
+			throws InitialisationException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public boolean isSingleton() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 	/**
 	 * Seasar2からコンポーネントを取り出す
@@ -49,13 +69,6 @@ public class S2MuleObjectFactory implements ObjectFactory {
 		Object component = container.getRoot().getComponent(objectClassName.getClass());
 		return component;
 	}
-
-	/**
-	 * TODO 実装
-	 */
-    public Class getObjectClass() throws Exception {
-    	return null;
-    }
     
     /**
      * TODO 実装

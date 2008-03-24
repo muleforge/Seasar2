@@ -8,9 +8,9 @@ import java.util.Map;
 import javax.transaction.TransactionManager;
 
 import org.mule.endpoint.EndpointURIEndpointBuilder;
-import org.mule.endpoint.OutboundEndpoint;
+import org.mule.endpoint.DefaultOutboundEndpoint;
 import org.mule.endpoint.URIBuilder;
-import org.mule.extras.client.MuleClient;
+import org.mule.module.client.MuleClient;
 import org.mule.extras.seasar2.config.ComponentConfig;
 import org.mule.extras.seasar2.config.TransactionConnector;
 import org.mule.extras.seasar2.exception.S2MuleConfigurationException;

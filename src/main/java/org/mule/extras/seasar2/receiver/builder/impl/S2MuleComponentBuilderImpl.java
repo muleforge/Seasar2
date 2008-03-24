@@ -8,7 +8,7 @@ import java.util.Set;
 import org.mule.api.MuleContext;
 import org.mule.api.MuleException;
 import org.mule.endpoint.EndpointURIEndpointBuilder;
-import org.mule.endpoint.InboundEndpoint;
+import org.mule.endpoint.DefaultInboundEndpoint;
 import org.mule.endpoint.URIBuilder;
 import org.mule.extras.seasar2.receiver.builder.S2MuleComponentBuilder;
 import org.mule.extras.seasar2.receiver.impl.S2MuleConfiguration;
@@ -21,7 +21,7 @@ import org.mule.context.DefaultMuleContextFactory;
 import org.mule.model.seda.SedaModel;
 import org.mule.model.seda.SedaService;
 import org.mule.routing.inbound.DefaultInboundRouterCollection;
-import org.mule.util.object.ObjectFactory;
+import org.mule.api.object.ObjectFactory;
 import org.seasar.framework.container.ComponentDef;
 import org.seasar.framework.container.S2Container;
 
@@ -137,7 +137,7 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder {
 			//InboundEndpointの作成
 			URIBuilder uriBuilder = new URIBuilder((String)endpointUris.get(i));
 			EndpointBuilder endpointBuilder = new EndpointURIEndpointBuilder(uriBuilder,muleContext);
-			InboundEndpoint endpoint = (InboundEndpoint)endpointBuilder.buildInboundEndpoint();
+			DefaultInboundEndpoint endpoint = (DefaultInboundEndpoint)endpointBuilder.buildInboundEndpoint();
 			
 			iRouterCollection.addEndpoint(endpoint);
 		}
@@ -156,11 +156,12 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder {
 		ObjectFactory factory = null;
 		//umoがdiconに設定されていた場合、S2MuleSimpleObjectFactoryを設定する。
 		if( s2MuleConfig.getUmoImpl() != null ) {
-			factory = new S2MuleObjectFactory(container,s2MuleConfig.getUmoImpl()); 
+			//TODO set Component
+			//factory = new S2MuleObjectFactory(container,s2MuleConfig.getUmoImpl()); 
 		} else {
 			//TODO 例外
 		}
-		service.setServiceFactory(factory);
+		//service.setServiceFactory(factory);
 		
 		return service;
 	}
