@@ -17,70 +17,92 @@ import org.seasar.framework.beans.PropertyNotFoundRuntimeException;
  *
  */
 public abstract class AbstractConfig {
-	
-	/** Connector�のプロパティ */
-	protected Map properties = new HashMap();
-	
-	/**
-	 * プロパティを設定する
-	 */
-	public void setProperty(String key, Object value) {
-		properties.put(key, value);
-	}
-	
-	/**
-	 * プロパティの値を取得する
-	 */
-	public Object getProperty(String key) {
-		return properties.get(key);
-	}
-	
-	public Map getProperties(){
-		return properties;
-	}
-	
-	/**
-	 * {@link org.apache.commons.beanutils.BeanUtilsBean#populate(Object, Map)}をラップしたメソッド
-	 * 
-	 * @param bean
-	 * @param properties
-	 */
-	protected void populate(Object bean, Map properties) {
-		if ((bean == null) || (properties == null)) {
-			return;
-		}
-		
-		BeanUtilsBean beanUtils = BeanUtilsBean.getInstance();
-		try {
-			Iterator names = properties.keySet().iterator();
-			List removeNames = new ArrayList();
-			
-			while (names.hasNext()) {
+    
+    /** Connector�のプロパティ */
+    protected Map properties = new HashMap();
+    
+    /**
+     * プロパティを設定する
+     * @param key プロパティの名前
+     * @param value プロパティの値
+     */
+    public void setProperty(String key, Object value)
+    {
+        properties.put(key, value);
+    }
+    
+    /**
+     * プロパティの値を取得する
+     * @param key プロパティの名前
+     */
+    public Object getProperty(String key)
+    {
+        return properties.get(key);
+    }
+    
+    /**
+     * プロパティを取得する
+     * @return プロパティのMap
+     */
+    public Map getProperties()
+    {
+        return properties;
+    }
+    
+    /**
+     * {@link org.apache.commons.beanutils.BeanUtilsBean#populate(Object, Map)}をラップしたメソッド
+     * 
+     * @param bean プロパティを設定するオブジェクト
+     * @param properties プロパティ
+     */
+    protected void populate(Object bean, Map properties)
+    {
+        if ((bean == null) || (properties == null)) {
+            return;
+        }
+        
+        BeanUtilsBean beanUtils = BeanUtilsBean.getInstance();
+        try
+        {
+            Iterator names = properties.keySet().iterator();
+            List removeNames = new ArrayList();
+            
+            while (names.hasNext())
+            {
 
-				// Identify the property name and value(s) to be assigned
-				String name = (String) names.next();
-				if (name == null) {
-					continue;
-				}
-				Object value = properties.get(name);
-				
-				//diconに記述されたプロパティが存在するかチェック
-				if(beanUtils.getPropertyUtils().getPropertyDescriptor(bean, name)!=null){
-					beanUtils.setProperty(bean, name, value);
-					removeNames.add(name);
-				} else if(!(this instanceof AxisConnectorConfig)){
-					throw new PropertyNotFoundRuntimeException(bean.getClass(),name);
-				}
-			}
-			
-			for(int i = 0; i < removeNames.size();i++ ) {
-				properties.remove((String)removeNames.get(i));
-			}
-			
-		} catch(PropertyNotFoundRuntimeException e) {
-			throw e;
-		} catch(Exception e) {
-			throw new S2MuleConfigurationException("ESML0000", new Object[]{e},e);
-		} 
-	}
+                // Identify the property name and value(s) to be assigned
+                String name = (String) names.next();
+                if (name == null) 
+                {
+                    continue;
+                }
+                Object value = properties.get(name);
+                
+                //diconに記述されたプロパティが存在するかチェック
+                if (beanUtils.getPropertyUtils().getPropertyDescriptor(bean, name) != null)
+                {
+                    beanUtils.setProperty(bean, name, value);
+                    removeNames.add(name);
+                }
+                else if (!(this instanceof AxisConnectorConfig))
+                {
+                    throw new PropertyNotFoundRuntimeException(bean.getClass(), name);
+                }
+            }
+            
+            for (int i = 0; i < removeNames.size(); i++ ) 
+            {
+                properties.remove((String) removeNames.get(i));
+            }
+            
+        }
+        catch (PropertyNotFoundRuntimeException e)
+        {
+            throw e;
+        }
+        catch (Exception e)
+        {
+            throw new S2MuleConfigurationException("ESML0000", new Object[]{e}, e);
+        } 
+    }
 }

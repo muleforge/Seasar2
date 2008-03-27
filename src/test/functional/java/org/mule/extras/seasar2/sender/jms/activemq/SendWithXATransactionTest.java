@@ -9,14 +9,16 @@ import org.seasar.extension.unit.S2TestCase;
  *
  */
 public class SendWithXATransactionTest extends S2TestCase {
-	
-	private MlutiDispatcher dispatcher_;
-	
-	public void setUp() throws Exception {
-		include("SendWithXATransactionTest.dicon");
-	}
-	
-	public void testMlutiDispatch() throws Exception {
-		dispatcher_.mlutiDispatch();
-	}
+    
+    private MlutiDispatcher dispatcher_;
+    
+    public void setUp() throws Exception 
+    {
+        include("SendWithXATransactionTest.dicon");
+    }
+    
+    public void testMlutiDispatch() throws Exception 
+    {
+        dispatcher_.mlutiDispatch();
+    }
 }

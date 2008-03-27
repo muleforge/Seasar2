@@ -6,6 +6,7 @@ package org.mule.extras.seasar2.sender.common;
  * 定義されたインターフェース
  *
  */
-public interface MlutiDispatcher {
+public interface MlutiDispatcher 
+{
 	void mlutiDispatch();
 }

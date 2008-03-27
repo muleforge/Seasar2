@@ -12,40 +12,47 @@ import org.mule.transport.jms.activemq.ActiveMQJmsConnector;
  *
  */
 public class ActiveMQJmsConnectorConfig extends AbstractConfig implements
-		ComponentConfig {
-	
-	/** MQのブローカーURL */
-	protected String brokerURL;
+        ComponentConfig 
+        {
+    
+    /** MQのブローカーURL */
+    protected String brokerURL;
 
-	/**
-	 * インスタンスを生成する
-	 */
-	public ActiveMQJmsConnectorConfig() {
-	}
-	
-	/**
-	 * @see org.mule.extras.seasar2.config.ConnectorConfig#getConnector()
-	 */
-	public Object buildComponent() {
-		ActiveMQJmsConnector connector = new ActiveMQJmsConnector();
-		if(brokerURL != null) {
-			properties.put("brokerURL", brokerURL);
-		} else {
-			throw new S2MuleConfigurationException("ESML0002",new Object[]{"brokerUrl"});
-		}
-		//nameとvalueのMap型であるpropertiesをbeanに反映させる
-		populate(connector, properties);
-		
-		return connector;
-	}
+    /**
+     * インスタンスを生成する
+     */
+    public ActiveMQJmsConnectorConfig() {
+    }
+    
+    /**
+     * @see org.mule.extras.seasar2.config.ConnectorConfig#getConnector()
+     */
+    public Object buildComponent() 
+    {
+        ActiveMQJmsConnector connector = new ActiveMQJmsConnector();
+        if (brokerURL != null) 
+        {
+            properties.put("brokerURL", brokerURL);
+        } 
+        else
+        {
+            throw new S2MuleConfigurationException("ESML0002", new Object[]{"brokerUrl"});
+        }
+        //nameとvalueのMap型であるpropertiesをbeanに反映させる
+        populate(connector, properties);
+        
+        return connector;
+    }
 
-	public String getBrokerURL() {
-		return brokerURL;
-	}
+    public String getBrokerURL()
+    {
+        return brokerURL;
+    }
 
-	public void setBrokerURL(String brokerURL) {
-		this.brokerURL = brokerURL;
-	}
-	
-	
+    public void setBrokerURL(String brokerURL)
+    {
+        this.brokerURL = brokerURL;
+    }
+    
+    
 }

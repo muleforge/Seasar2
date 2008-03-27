@@ -9,18 +9,21 @@ import org.seasar.extension.unit.S2TestCase;
  * byte配列型のメッセージを送信する
  *
  */
-public class SendByteTest extends S2TestCase {
-	
-	private S2MuleSender sender_;
-	
-	public void setUp() throws Exception {
-		include("SendWithNoPropertyTest.dicon");
-	}
-	
-	public void testDispatch() throws Exception {
-		String str = "Send byte: OK";
-		byte[] payload = str.getBytes();
-		sender_.dispatch(payload);		
-	}
+public class SendByteTest extends S2TestCase 
+{
+    
+    private S2MuleSender sender_;
+    
+    public void setUp() throws Exception
+    {
+        include("SendWithNoPropertyTest.dicon");
+    }
+    
+    public void testDispatch() throws Exception 
+    {
+        String str = "Send byte: OK";
+        byte[] payload = str.getBytes();
+        sender_.dispatch(payload);        
+    }
 
 }

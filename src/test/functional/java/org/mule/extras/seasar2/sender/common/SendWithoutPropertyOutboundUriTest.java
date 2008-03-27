@@ -12,19 +12,23 @@ import org.seasar.extension.unit.S2TestCase;
  *
  */
 public class SendWithoutPropertyOutboundUriTest extends S2TestCase {
-	
-	private S2MuleSender sender_;
-	
-	public void setUp() throws Exception {
-		include("SendWithoutPropertyOutboundUriTest.dicon");
-	}
-	
-	public void testDispatch() throws Exception {
-		try {
-			sender_.dispatch("SendWithoutPropertyOutboundUriTest : OK");
-		} catch (S2MuleConfigurationException e) {
-			e.printStackTrace();
-		}
-	}
-	
+    
+    private S2MuleSender sender_;
+    
+    public void setUp() throws Exception 
+    {
+        include("SendWithoutPropertyOutboundUriTest.dicon");
+    }
+    
+    public void testDispatch() throws Exception 
+    {
+        try {
+            sender_.dispatch("SendWithoutPropertyOutboundUriTest : OK");
+        }
+        catch (S2MuleConfigurationException e) 
+        {
+            e.printStackTrace();
+        }
+    }
+    
 }

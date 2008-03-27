@@ -10,22 +10,24 @@ import org.mule.transport.file.FileConnector;
  *
  */
 public class FileConnectorConfig extends AbstractConfig implements
-		ComponentConfig {
-	
-	/**
-	 * インスタンスを生成する
-	 */
-	public FileConnectorConfig() {
-		
-	}
-	
-	/**
-	 * @see org.mule.extras.seasar2.config.ConnectorConfig#getConnector()
-	 */
-	public Object buildComponent() {
-		FileConnector connector = new FileConnector();
-		populate(connector,properties); 
-		return connector;
-	}
+        ComponentConfig {
+    
+    /**
+     * インスタンスを生成する
+     */
+    public FileConnectorConfig() 
+    {
+        
+    }
+    
+    /**
+     * @see org.mule.extras.seasar2.config.ConnectorConfig#getConnector()
+     */
+    public Object buildComponent() 
+    {
+        FileConnector connector = new FileConnector();
+        populate(connector, properties); 
+        return connector;
+    }
 
 }

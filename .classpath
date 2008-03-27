@@ -6,7 +6,11 @@
 	<classpathentry excluding="**/*.java" kind="src" output="target/test-classes" path="src/test/resources"/>
 	<classpathentry kind="src" path="src/test/functional/java"/>
 	<classpathentry kind="src" path="src/test/functional/resources"/>
-	<classpathentry excluding="src/main/java/|src/main/resources/|src/test/java/|src/test/resources/|src/test/functional/java/|src/test/functional/resources/|examples/src/main/java/org/mule/extras/seasar2/examples/|examples/src/main/java/org/mule/extras/seasar2/examples/helloworld/file/|examples/src/main/java/org/mule/extras/seasar2/examples/helloworld/jms/|examples/src/main/java/org/mule/extras/seasar2/examples/helloworld/soap/|examples/src/main/java/org/mule/extras/seasar2/examples/helloworld/soap/axis/|examples/src/main/resources/|examples/src/test/java/org/mule/extras/seasar2/examples/|examples/src/test/java/org/mule/extras/seasar2/examples/helloworld/jms/|examples/src/test/resources/|src/main/|src/test/functional/|target/|examples/src/main/|src/|examples/src/|examples/" kind="src" path=""/>
+	<classpathentry excluding="src/main/java/|src/main/resources/|src/test/java/|src/test/resources/|src/test/functional/java/|src/test/functional/resources/|examples/src/main/java/org/mule/extras/seasar2/examples/|examples/src/main/java/org/mule/extras/seasar2/examples/helloworld/file/|examples/src/main/java/org/mule/extras/seasar2/examples/helloworld/jms/|examples/src/main/java/org/mule/extras/seasar2/examples/helloworld/soap/|examples/src/main/java/org/mule/extras/seasar2/examples/helloworld/soap/axis/|examples/src/main/resources/|examples/src/test/java/org/mule/extras/seasar2/examples/|examples/src/test/java/org/mule/extras/seasar2/examples/helloworld/jms/|examples/src/test/resources/|src/main/|src/test/functional/|target/|examples/src/main/|src/|examples/src/|examples/|examples/src/main/java/|examples/src/test/java/|examples/src/main/java/|examples/src/main/resources/|examples/src/test/java/|examples/src/test/resources/" kind="src" path=""/>
+	<classpathentry kind="src" path="examples/src/main/java"/>
+	<classpathentry kind="src" path="examples/src/main/resources"/>
+	<classpathentry kind="src" path="examples/src/test/java"/>
+	<classpathentry kind="src" path="examples/src/test/resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="var" path="M2_REPO/org/apache/geronimo/specs/geronimo-jta_1.1_spec/1.0/geronimo-jta_1.1_spec-1.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/mule/mule-core/2.0.0-RC3/mule-core-2.0.0-RC3.jar" sourcepath="/Mule-2.0.0-RC3"/>
@@ -70,7 +74,7 @@
 	<classpathentry kind="var" path="M2_REPO/org/apache/geronimo/specs/geronimo-servlet_2.4_spec/1.1/geronimo-servlet_2.4_spec-1.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/mule/transports/mule-transport-vm/2.0.0-RC3/mule-transport-vm-2.0.0-RC3.jar"/>
 	<classpathentry kind="var" path="M2_REPO/javax/activation/activation/1.1/activation-1.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/mule/modules/mule-module-client/2.0.0-RC3/mule-module-client-2.0.0-RC3.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/mule/modules/mule-module-client/2.0.0-RC3/mule-module-client-2.0.0-RC3.jar" sourcepath="/Mule-2.0.0-RC3"/>
 	<classpathentry kind="var" path="M2_REPO/org/mule/modules/mule-module-jbossts/2.0.0-RC3/mule-module-jbossts-2.0.0-RC3.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/jboss/jbossts-common/4.2.3-SP5/jbossts-common-4.2.3-SP5.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/jboss/jbossts-jta/4.2.3-SP5-patched/jbossts-jta-4.2.3-SP5-patched.jar"/>

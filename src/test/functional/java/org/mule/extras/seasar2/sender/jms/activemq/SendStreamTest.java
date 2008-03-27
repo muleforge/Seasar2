@@ -12,18 +12,21 @@ import org.seasar.extension.unit.S2TestCase;
  * Stream型のメッセージを送信する
  *
  */
-public class SendStreamTest extends S2TestCase {
-	
-	private S2MuleSender sender_;
-	
-	public void setUp() throws Exception {
-		include("SendWithNoPropertyTest.dicon");
-	}
-	
-	public void testDispatch() throws Exception {
-		String str = "Send byte: OK";
-		ByteArrayInputStream payload = new ByteArrayInputStream(str.getBytes());
-		sender_.dispatch(payload);		
-	}
+public class SendStreamTest extends S2TestCase 
+{
+    
+    private S2MuleSender sender_;
+    
+    public void setUp() throws Exception 
+    {
+        include("SendWithNoPropertyTest.dicon");
+    }
+    
+    public void testDispatch() throws Exception 
+    {
+        String str = "Send byte: OK";
+        ByteArrayInputStream payload = new ByteArrayInputStream(str.getBytes());
+        sender_.dispatch(payload);        
+    }
 
 }

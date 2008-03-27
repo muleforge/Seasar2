@@ -10,14 +10,19 @@ import org.mule.api.MuleException;
  * @author Saito_Shinya@ogis-ri.co.jp
  *
  */
-public interface S2MuleComponentBuilder {
-	
-	/**
-	 * MuleDescriptorをregistryに登録する。
-	 * 
-	 * @return managementContexts
-	 */
-	MuleContext configure()  throws MuleException;
-	
-	void destroy() ;
+public interface S2MuleComponentBuilder 
+{
+
+    /**
+     * MuleDescriptorをregistryに登録する。
+     * 
+     * @return managementContexts
+     * @throws MuleException Muleで発生した例外
+     */
+    MuleContext configure()  throws MuleException;
+   
+    /**
+     * Muleを終了する際、全てのコンポーネントを破棄する
+     */
+    void destroy();
 }

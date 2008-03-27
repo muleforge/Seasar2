@@ -9,18 +9,23 @@ import org.seasar.extension.unit.S2TestCase;
  *
  */
 public class SendWithXATransactionWithoutS2TxTest extends S2TestCase {
-	
-	private S2MuleSender sender_;
-	
-	public void setUp() throws Exception {
-		include("SendWithXATransactionWithoutS2TxTest.dicon");
-	}
-	
-	public void testMlutiDispatch() throws Exception {
-		try {
-		 sender_.dispatch("SendWithXATransactionWithoutS2TxTest : OK");
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
+    
+    private S2MuleSender sender_;
+    
+    public void setUp() throws Exception 
+    {
+        include("SendWithXATransactionWithoutS2TxTest.dicon");
+    }
+    
+    public void testMlutiDispatch() throws Exception 
+    {
+        try 
+        {
+         sender_.dispatch("SendWithXATransactionWithoutS2TxTest : OK");
+        }
+        catch(Exception e) 
+        {
+            e.printStackTrace();
+        }
+    }
 }

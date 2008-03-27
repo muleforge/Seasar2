@@ -22,127 +22,137 @@ import org.seasar.framework.container.factory.S2ContainerFactory;
  *
  */
 public class S2MuleServer {
-	/**
-	 * デフォルトのdiconファイル名
-	 */
-	private static final String DEFAULT_DICON_FILE = "app.dicon";
-	
-	private static final Log logger = LogFactory.getLog( S2MuleServer.class );
-	
-	/**
-	 * S2Container
-	 */
-	private S2Container container;
-	
-	/**
-	 * Muleのマネジメントコンテキスト
-	 */
-	private MuleContext muleContext;
-	
-	 /**
-	  *  シャットダウンフックと同期を取るためのラッチ
-	  */
+    /**
+     * デフォルトのdiconファイル名
+     */
+    private static final String DEFAULT_DICON_FILE = "app.dicon";
+    
+    /**
+     * logger
+     */
+    private static final Log logger = LogFactory.getLog( S2MuleServer.class );
+    
+    /**
+     * S2Container
+     */
+    private S2Container container;
+    
+    /**
+     * Muleのマネジメントコンテキスト
+     */
+    private MuleContext muleContext;
+    
+     /**
+      *  シャットダウンフックと同期を取るためのラッチ
+      */
     protected static CountDownLatch latch = new CountDownLatch(1);
 
-	
-	/**
-	 * Main
-	 */
-	public static void main( String[] args ) throws Exception {
-		S2MuleServer server = new S2MuleServer(args);
-		server.run();
-	}
-	
-	public S2MuleServer( String[] args ) {
-		init(args);
-	}
-	
-	/**
-	 * 初期化を行う
-	 * 
-	 * @param args
-	 */
-	public void init( String[] args ) {
-		String dicon = getDicon(args);
-		S2Container container = createS2Container(dicon);
-		setContainer(container);
-	}
-	
-	/**
-	 * MuleServerを起動します。
-	 *
-	 */
-	public void run() throws MuleException {
-		//S2ComponentBuilderを取得する
-		S2MuleComponentBuilder builder = 
-			(S2MuleComponentBuilder)container.getComponent(S2MuleComponentBuilder.class);
-//		 managementContext = builder.configure();
-//		 
-//		 managementContext.start();		 
-		
-		 Runtime.getRuntime().addShutdownHook(new Thread() {
-	            @Override
-	            public void run() {
-	               destoryS2Container();
-	                latch.countDown();
-	            }
-	        });
-		    
-		    try {
-		    	//テスト
-//		    	Thread.sleep(3000);
-//		    	try {
-//		    		builder.destroy();
-//		    	} catch (Exception e) {
-//		    		
-//		    	}
-		    	//テスト終わり
-		    	latch.await();
-		    } catch( InterruptedException e ) {
-	            destoryS2Container();
-			} 
-	}
-	
-	/**
-	 *  S2Containerを作成します。
-	 * @param dicon diconファイル名
-	 * @return
-	 */
-	private S2Container createS2Container( String dicon ) {
-		S2Container container = S2ContainerFactory.create(dicon);
-		return container;
-	}
-	
-	/**
-	 * S2Containerを破棄します。
-	 */
-	private void destoryS2Container() {
-		this.container.destroy();
-	}
-	
-	
+    
     /**
-     * コピー org.seasar.jms.server.Main#getDicon
+     * Main
+     */
+    public static void main( String[] args ) throws Exception 
+    {
+        S2MuleServer server = new S2MuleServer(args);
+        server.run();
+    }
+    
+    /**
+     * インスタンスを生成する
      * 
+     * @param args コマンドライン引数
+     */
+    public S2MuleServer( String[] args ) 
+    {
+        init(args);
+    }
+    
+    /**
+     * 初期化を行う
+     * 
+     * @param args
+     */
+    public void init( String[] args ) 
+    {
+        String dicon = getDicon(args);
+        S2Container container = createS2Container(dicon);
+        setContainer(container);
+    }
+    
+    /**
+     * MuleServerを起動します。
+     *
+     *@exception MuleException Muleの例外
+     */
+    public void run() throws MuleException 
+    {
+        //S2ComponentBuilderを取得する
+        S2MuleComponentBuilder builder = 
+            (S2MuleComponentBuilder) container.getComponent(S2MuleComponentBuilder.class);
+        
+         Runtime.getRuntime().addShutdownHook(new Thread() {
+                @Override
+                public void run() 
+                {
+                   destoryS2Container();
+                    latch.countDown();
+                }
+            });
+            
+            try 
+            {
+                //テスト
+//                Thread.sleep(3000);
+//                try {
+//                    builder.destroy();
+//                } catch (Exception e) {
+//                    
+//                }
+                //テスト終わり
+                latch.await();
+            }
+            catch (InterruptedException e) 
+            {
+                destoryS2Container();
+            } 
+    }
+    
+    /**
+     *  S2Containerを作成します。
+     * @param dicon diconファイル名
+     * @return S2Container
+     */
+    private S2Container createS2Container(String dicon) 
+    {
+        S2Container container = S2ContainerFactory.create(dicon);
+        return container;
+    }
+    
+    /**
+     * S2Containerを破棄します。
+     */
+    private void destoryS2Container() 
+    {
+        this.container.destroy();
+    }
+    
+    
+    /**
      * コマンドライン引数で指定されたdiconファイルのパス名を返します。
-     * <p>
-     * コマンドライン引数でパスが指定されなかった場合はデフォルトの<code>app.dicon</code>を返します。
-     * </p>
      * 
      * @param args
      *            コマンドライン引数
      * @return diconファイルのパス名
-     * @throws IllegalArgumentException
-     *             コマンドライン引数が不正の場合にスローされます
      */
-    private String getDicon(final String[] args) throws IllegalArgumentException {
+    private String getDicon(final String[] args) 
+    {
         final String dicon = getArg("--dicon", args);
         return dicon.equals("") ? DEFAULT_DICON_FILE : dicon;
     }
-	
-	 /**
-	  * コピー org.seasar.jms.server.Main#getArg
-	  * 
+    
+     /**
+      * コピー org.seasar.jms.server.Main#getArg
+      * 
      * コマンドライン引数から指定されたキーに対応する値を返します。
      * 
      * @param name
@@ -151,10 +161,14 @@ public class S2MuleServer {
      *            コマンドライン引数
      * @return コマンドライン引数
      */
-    private String getArg(final String name, final String[] args) {
-        for (int i = 0; i < args.length; i++) {
-            if (args[i].equals(name)) {
-                if (i + 1 < args.length) {
+    private String getArg(final String name, final String[] args) 
+    {
+        for (int i = 0; i < args.length; i++) 
+        {
+            if (args[i].equals(name)) 
+            {
+                if (i + 1 < args.length) 
+                {
                     return args[i + 1];
                 }
                 throw new IllegalArgumentException(Arrays.toString(args));
@@ -163,9 +177,9 @@ public class S2MuleServer {
         return "";
     }
 
-	public void setContainer(S2Container container) {
-		this.container = container;
-	}
+    public void setContainer(S2Container container) {
+        this.container = container;
+    }
 
-	
+    
 }

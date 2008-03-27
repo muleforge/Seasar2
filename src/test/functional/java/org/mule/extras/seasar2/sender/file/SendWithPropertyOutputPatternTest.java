@@ -11,15 +11,17 @@ import org.seasar.extension.unit.S2TestCase;
  *
  */
 public class SendWithPropertyOutputPatternTest extends S2TestCase {
-	
-	private S2MuleSender sender_;
-	
-	public void setUp() throws Exception {
-		include("SendWithPropertyOutputPatternTest.dicon");
-	}
-	
-	public void testDispatch() throws Exception {
-		sender_.dispatch("SendWithPropertyOutputPatternTest : OK");
-	}
-	
+    
+    private S2MuleSender sender_;
+    
+    public void setUp() throws Exception
+    {
+        include("SendWithPropertyOutputPatternTest.dicon");
+    }
+    
+    public void testDispatch() throws Exception
+    {
+        sender_.dispatch("SendWithPropertyOutputPatternTest : OK");
+    }
+    
 }

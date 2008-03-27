@@ -10,19 +10,24 @@ import org.seasar.extension.unit.S2TestCase;
  *
  */
 public class SendWithoutConnectorTest extends S2TestCase {
-	
-	private S2MuleSender sender_;
-	
-	public void setUp() throws Exception {
-		include("SendWithoutConnectorTest.dicon");
-	}
-	
-	public void testDispatch() throws Exception {
-		try {
-			sender_.dispatch("SendWithoutConnector : OK");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+    
+    private S2MuleSender sender_;
+    
+    public void setUp() throws Exception 
+    {
+        include("SendWithoutConnectorTest.dicon");
+    }
+    
+    public void testDispatch() throws Exception 
+    {
+        try 
+        {
+            sender_.dispatch("SendWithoutConnector : OK");
+        }
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+    }
 
 }
