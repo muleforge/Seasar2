@@ -11,9 +11,8 @@ import org.mule.transport.jms.activemq.ActiveMQJmsConnector;
  * @author Saito_Shinya@ogis-ri.co.jp
  *
  */
-public class ActiveMQJmsConnectorConfig extends AbstractConfig implements
-        ComponentConfig 
-        {
+public class ActiveMQJmsConnectorConfig extends AbstractConfig
+{
     
     /** MQのブローカーURL */
     protected String brokerURL;

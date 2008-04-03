@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.transaction.TransactionManager;
 
 import org.mule.endpoint.EndpointURIEndpointBuilder;
-import org.mule.endpoint.DefaultOutboundEndpoint;
 import org.mule.endpoint.URIBuilder;
 import org.mule.module.client.MuleClient;
 import org.mule.extras.seasar2.config.ComponentConfig;
@@ -26,10 +25,8 @@ import org.mule.api.MuleMessage;
 import org.mule.api.endpoint.EndpointBuilder;
 import org.mule.api.transport.Connector;
 import org.mule.extras.seasar2.config.impl.AxisConnectorConfig;
-import org.mule.extras.seasar2.config.impl.TransactionConfig;
 import org.mule.api.transformer.Transformer;
 import org.seasar.framework.container.S2Container;
-import org.seasar.framework.container.impl.S2ContainerImpl;
 import org.seasar.framework.exception.SRuntimeException;
 import org.seasar.framework.log.Logger;
 
@@ -39,7 +36,7 @@ import org.seasar.framework.log.Logger;
  */
 public class S2MuleSenderImpl implements S2MuleSender 
 {
-    
+    /** logger*/
      private static final Logger logger = Logger
          .getLogger(S2MuleSenderImpl.class);
     

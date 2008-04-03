@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
+import org.mule.api.MuleException;
+import org.mule.extras.seasar2.config.ComponentConfig;
 import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
 import org.seasar.framework.beans.PropertyNotFoundRuntimeException;
 
@@ -16,7 +18,7 @@ import org.seasar.framework.beans.PropertyNotFoundRuntimeException;
  * @author Shinya_Saito@ogis-ri.co.jp
  *
  */
-public abstract class AbstractConfig {
+public abstract class AbstractConfig implements ComponentConfig {
     
     /** Connector�のプロパティ */
     protected Map properties = new HashMap();

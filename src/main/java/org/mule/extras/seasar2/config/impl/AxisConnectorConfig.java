@@ -12,8 +12,8 @@ import org.mule.transport.soap.axis.AxisConnector;
  * @author Administrator
  *
  */
-public class AxisConnectorConfig extends AbstractConfig implements
-        ComponentConfig {
+public class AxisConnectorConfig extends AbstractConfig
+{
     
     /** ビーンタイプ */
     private List beanTypes;

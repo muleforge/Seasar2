@@ -9,8 +9,8 @@ import org.mule.transport.file.FileConnector;
  * @author Saito_Shinya@ogis-ri.co.jp
  *
  */
-public class FileConnectorConfig extends AbstractConfig implements
-        ComponentConfig {
+public class FileConnectorConfig extends AbstractConfig
+{
     
     /**
      * インスタンスを生成する
