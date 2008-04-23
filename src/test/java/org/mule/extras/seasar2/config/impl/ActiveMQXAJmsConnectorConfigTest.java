@@ -6,7 +6,7 @@ import org.seasar.extension.unit.S2TestCase;
 public class ActiveMQXAJmsConnectorConfigTest extends S2TestCase 
 {
     
-    private ActiveMQXAJmsConnectorConfig config_;
+    private ActiveMQXAJmsConnectorConfigImpl config_;
 
     public ActiveMQXAJmsConnectorConfigTest(String name) 
     {
@@ -21,7 +21,7 @@ public class ActiveMQXAJmsConnectorConfigTest extends S2TestCase
     public void testGetConnector() throws Exception 
     {
 
-        Object connector = config_.buildComponent();
+        Object connector = config_.buildConnector();
         assertTrue("Connector isn't ActiveMQXAJmsConnector",
                 connector instanceof ActiveMQXAJmsConnector);
 

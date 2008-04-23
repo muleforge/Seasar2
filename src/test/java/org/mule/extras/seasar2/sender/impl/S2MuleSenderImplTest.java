@@ -8,7 +8,7 @@ import java.util.Map;
 
 import javax.transaction.TransactionManager;
 
-import org.mule.extras.seasar2.config.ComponentConfig;
+import org.mule.extras.seasar2.config.ConnectorConfig;
 import org.mule.extras.seasar2.sender.S2MuleSender;
 import org.seasar.extension.unit.S2TestCase;
 
@@ -40,7 +40,7 @@ public class S2MuleSenderImplTest extends S2TestCase
         
         Field connectorConfigField = c.getDeclaredField("connectorConfig");
         connectorConfigField.setAccessible(true);
-        ComponentConfig connectionConfig = (ComponentConfig) connectorConfigField.get(sender_);
+        ConnectorConfig connectionConfig = (ConnectorConfig) connectorConfigField.get(sender_);
         assertNotNull(connectionConfig);
     }
     

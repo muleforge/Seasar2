@@ -1,6 +1,7 @@
 package org.mule.extras.seasar2.config.impl;
 
-import org.mule.extras.seasar2.config.ComponentConfig;
+import org.mule.api.transport.Connector;
+import org.mule.extras.seasar2.config.ConnectorConfig;
 import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
 import org.mule.transport.jms.activemq.ActiveMQJmsConnector;
 
@@ -11,7 +12,7 @@ import org.mule.transport.jms.activemq.ActiveMQJmsConnector;
  * @author Saito_Shinya@ogis-ri.co.jp
  *
  */
-public class ActiveMQJmsConnectorConfig extends AbstractConfig
+public class ActiveMQJmsConnectorConfigImpl extends AbstractConfig implements ConnectorConfig
 {
     
     /** MQのブローカーURL */
@@ -20,13 +21,13 @@ public class ActiveMQJmsConnectorConfig extends AbstractConfig
     /**
      * インスタンスを生成する
      */
-    public ActiveMQJmsConnectorConfig() {
+    public ActiveMQJmsConnectorConfigImpl() {
     }
     
     /**
      * @see org.mule.extras.seasar2.config.ConnectorConfig#getConnector()
      */
-    public Object buildComponent() 
+    public Connector buildConnector() 
     {
         ActiveMQJmsConnector connector = new ActiveMQJmsConnector();
         if (brokerURL != null) 

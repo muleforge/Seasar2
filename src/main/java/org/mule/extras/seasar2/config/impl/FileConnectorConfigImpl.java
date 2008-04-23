@@ -1,6 +1,7 @@
 package org.mule.extras.seasar2.config.impl;
 
-import org.mule.extras.seasar2.config.ComponentConfig;
+import org.mule.api.transport.Connector;
+import org.mule.extras.seasar2.config.ConnectorConfig;
 import org.mule.transport.file.FileConnector;
 
 /**
@@ -9,13 +10,13 @@ import org.mule.transport.file.FileConnector;
  * @author Saito_Shinya@ogis-ri.co.jp
  *
  */
-public class FileConnectorConfig extends AbstractConfig
+public class FileConnectorConfigImpl extends AbstractConfig implements ConnectorConfig
 {
     
     /**
      * インスタンスを生成する
      */
-    public FileConnectorConfig() 
+    public FileConnectorConfigImpl() 
     {
         
     }
@@ -23,7 +24,7 @@ public class FileConnectorConfig extends AbstractConfig
     /**
      * @see org.mule.extras.seasar2.config.ConnectorConfig#getConnector()
      */
-    public Object buildComponent() 
+    public Connector buildConnector() 
     {
         FileConnector connector = new FileConnector();
         populate(connector, properties); 

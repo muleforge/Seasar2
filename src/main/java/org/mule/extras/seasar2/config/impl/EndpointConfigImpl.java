@@ -3,27 +3,39 @@ package org.mule.extras.seasar2.config.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.mule.api.endpoint.InboundEndpoint;
 import org.mule.api.transformer.Transformer;
-import org.mule.extras.seasar2.config.ComponentConfig;
 import org.mule.transformer.AbstractTransformer;
+import org.mule.extras.seasar2.config.ConnectorConfig;
+import org.mule.extras.seasar2.config.EndpointConfig;
 
-public class EndpointConfig extends AbstractConfig {
+
+/**
+ * Endpointの構成情報を保持するクラスです。
+ * 
+ * @author Saito_Shinya@ogis-ri.co.jp
+ *
+ */
+public class EndpointConfigImpl extends AbstractConfig implements EndpointConfig {
 	
 	/** Endpointのuri*/
 	private String uri;
 
+	/** トランスフォーマ*/
 	private List transformers;
 	
-	private ComponentConfig connectorConfig;
+	/** コネクタ*/
+	private ConnectorConfig connectorConfig;
 	
-	private ComponentConfig filterConfig;
+	/** フィルター*/
+	private Object filterConfig;
 	
-	public Object buildComponent() {
+	public InboundEndpoint buildInboundEndpoint() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public EndpointConfig() {
+	public EndpointConfigImpl() {
 		// TODO Auto-generated constructor stub
 	}
 

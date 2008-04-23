@@ -4,7 +4,7 @@
 <components>
 	<include path="s2mule-sender.dicon"/>
 	
-	<component class="org.mule.extras.seasar2.config.impl.AxisConnectorConfig" >
+	<component class="org.mule.extras.seasar2.config.impl.AxisConnectorConfigImpl" >
 		<initMethod name="addBeanType">
 			<arg>"org.mule.extras.seasar2.config.impl.MyClass"</arg>
 		</initMethod>

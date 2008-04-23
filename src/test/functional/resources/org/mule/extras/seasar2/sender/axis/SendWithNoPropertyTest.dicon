@@ -20,7 +20,7 @@
 	</component>
 	
 	<!-- interceptorを適応するインタフェースの設定-->
-	<component class="org.mule.extras.seasar2.sender.axis.Echo" >
+	<component class="org.mule.extras.seasar2.sender.common.Echo" >
 		<aspect>interceptor</aspect>
 	</component>
 </components>

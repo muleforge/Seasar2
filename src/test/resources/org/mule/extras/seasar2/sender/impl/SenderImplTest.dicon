@@ -8,7 +8,7 @@
 	<include path="s2mule-sender.dicon"/>
 	
 	<!-- FileConnectorの設定-->
-	<component class="org.mule.extras.seasar2.config.impl.FileConnectorConfig" >
+	<component class="org.mule.extras.seasar2.config.impl.FileConnectorConfigImpl" >
 		<initMethod name="setProperty" >
 			<arg>"outputPattern"</arg>
 			<arg>"S2Mule-HelloWorldTestFile.txt"</arg>

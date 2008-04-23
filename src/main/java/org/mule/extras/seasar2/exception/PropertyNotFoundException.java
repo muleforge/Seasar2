@@ -5,7 +5,7 @@ package org.mule.extras.seasar2.exception;
  * 
  * @author Saito_Shinya@ogis-ri.co.jp
  */
-public class ProprtyNotFoundException extends S2MuleConfigurationException 
+public class PropertyNotFoundException extends S2MuleConfigurationException 
 {
 
     private static final long serialVersionUID = 7448310817447042432L;
@@ -16,7 +16,7 @@ public class ProprtyNotFoundException extends S2MuleConfigurationException
      * @param messageCode メッセージコード
      * @param args メッセージに埋め込まれる引数
      */
-    public ProprtyNotFoundException(String messageCode, Object[] args) 
+    public PropertyNotFoundException(String messageCode, Object[] args) 
     {
         super(messageCode, args);
     }

@@ -1,59 +1,66 @@
 package org.mule.extras.seasar2.config.impl;
 
-
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
+import org.mule.api.transport.Connector;
+import org.mule.extras.seasar2.config.ConnectorConfig;
 import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
+import org.mule.transport.soap.axis.AxisConnector;
 import org.seasar.framework.beans.PropertyNotFoundRuntimeException;
 
 /**
- * Configの抽象クラスです
+ * AxisConnectorの構成情報を保持するクラスです。
  * 
- * @author Shinya_Saito@ogis-ri.co.jp
+ * @author Saito_Shinya@ogis-ri.co.jp
  *
  */
-public abstract class AbstractConfig {
+public class AxisConnectorConfigImpl extends AbstractConfig implements ConnectorConfig
+{
     
-    /** Connector�のプロパティ */
-    protected Map properties = new HashMap();
+    /** ビーンタイプ */
+    private List beanTypes;
     
     /**
-     * プロパティを設定する
-     * @param key プロパティの名前
-     * @param value プロパティの値
+     * インスタンスを生成する
      */
-    public void setProperty(String key, Object value)
+    public AxisConnectorConfigImpl() {
+        
+    }
+    
+
+    /**
+     * @see org.mule.extras.seasar2.config.ConnectorConfig#getConnector()
+     */
+    public Connector buildConnector()
     {
-        properties.put(key, value);
+        AxisConnector connector = new AxisConnector();
+        if (beanTypes != null)
+        {
+            setProperty("beanTypes", beanTypes);
+        }
+        populate(connector, properties);
+        return connector;
     }
     
     /**
-     * プロパティの値を取得する
-     * @param key プロパティの名前
-     */
-    public Object getProperty(String key)
-    {
-        return properties.get(key);
-    }
-    
-    /**
-     * プロパティを取得する
-     * @return プロパティのMap
-     */
-    public Map getProperties()
-    {
-        return properties;
-    }
-    
-    /**
-     * {@link org.apache.commons.beanutils.BeanUtilsBean#populate(Object, Map)}をラップしたメソッド
+     * Axis TypeMappingRegistryに登録する
      * 
-     * @param bean プロパティを設定するオブジェクト
-     * @param properties プロパティ
+     * @param beanType 登録するクラス名
      */
+    public void addBeanType(String beanTypeName)
+    {
+        if (beanTypes == null )
+        {
+            beanTypes = new ArrayList();
+        }
+        beanTypes.add(beanTypeName);
+    }
+    
+    @Override
     protected void populate(Object bean, Map properties)
     {
         if ((bean == null) || (properties == null)) {
@@ -64,6 +71,7 @@ public abstract class AbstractConfig {
         try
         {
             Iterator names = properties.keySet().iterator();
+            List removeNames = new ArrayList();
             
             while (names.hasNext())
             {
@@ -80,12 +88,17 @@ public abstract class AbstractConfig {
                 if (beanUtils.getPropertyUtils().getPropertyDescriptor(bean, name) != null)
                 {
                     beanUtils.setProperty(bean, name, value);
-            
+                    removeNames.add(name);
                 }
-                else
+                else if (!(this instanceof AxisConnectorConfigImpl))
                 {
                     throw new PropertyNotFoundRuntimeException(bean.getClass(), name);
                 }
+            }
+            
+            for (int i = 0; i < removeNames.size(); i++ ) 
+            {
+                properties.remove((String) removeNames.get(i));
             }
             
         }

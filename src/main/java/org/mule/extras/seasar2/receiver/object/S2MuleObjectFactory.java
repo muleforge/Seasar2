@@ -55,10 +55,10 @@ public class S2MuleObjectFactory implements ObjectFactory {
         return null;
     }
     
-    public LifecycleTransitionResult initialise() throws InitialisationException 
+    public void initialise() throws InitialisationException 
     {
-        // TODO Auto-generated method stub
-        return null;
+	// TODO Auto-generated method stub
+	
     }
     
     public boolean isSingleton() 

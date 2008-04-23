@@ -5,7 +5,7 @@
 	<include path="s2mule-sender.dicon"/>
 	
 	<!-- Jms connectorの設定 -->
-	<component class="org.mule.extras.seasar2.config.impl.ActiveMQJmsConnectorConfig" >
+	<component class="org.mule.extras.seasar2.config.impl.ActiveMQJmsConnectorConfigImpl" >
 		<!-- brokerURLの設定 -->
 		<property name="brokerURL">
 				"tcp://localhost:61616"

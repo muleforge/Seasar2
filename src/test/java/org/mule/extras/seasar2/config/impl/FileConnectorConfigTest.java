@@ -6,7 +6,7 @@ import org.seasar.extension.unit.S2TestCase;
 public class FileConnectorConfigTest extends S2TestCase 
 {
     
-    private FileConnectorConfig config_;
+    private FileConnectorConfigImpl config_;
     
     public FileConnectorConfigTest(String name) 
     {
@@ -21,7 +21,7 @@ public class FileConnectorConfigTest extends S2TestCase
     public void testGetConnector() throws Exception 
     {
         
-        Object connector = config_.buildComponent();
+        Object connector = config_.buildConnector();
         assertTrue("Connector isn't FileConnector"
                 , connector instanceof FileConnector);
         

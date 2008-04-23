@@ -6,7 +6,7 @@ import org.seasar.extension.unit.S2TestCase;
 public class ActiveMQJmsConnectorConfigTest extends S2TestCase 
 {
     
-    private ActiveMQJmsConnectorConfig config_;
+    private ActiveMQJmsConnectorConfigImpl config_;
     
     public ActiveMQJmsConnectorConfigTest(String name) 
     {
@@ -21,7 +21,7 @@ public class ActiveMQJmsConnectorConfigTest extends S2TestCase
     public void testGetConnector() throws Exception 
     {
         
-        Object connector = config_.buildComponent();
+        Object connector = config_.buildConnector();
         assertTrue("connector isn't ActiveMQJmsConnector", connector instanceof ActiveMQJmsConnector);
         
         String brokerURL = ((ActiveMQJmsConnector) connector).getBrokerURL();

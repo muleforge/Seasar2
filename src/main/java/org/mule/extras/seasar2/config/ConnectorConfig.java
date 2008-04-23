@@ -2,21 +2,23 @@ package org.mule.extras.seasar2.config;
 
 import java.util.Map;
 
+import org.mule.api.transport.Connector;
+
 /**
- * Mule Componentの構成情報を保持するクラスのインタフェースの構成情報を保持するクラスのインタフェース
+ * Mule Connectorの構成情報を保持するクラスのインタフェース
  *  
  * @author Saito_Shinya@ogis-ri.co.jp
  *
  */
-public interface ComponentConfig 
+public interface ConnectorConfig 
 {
     
     /**
-     * Mule Componentを返す
+     * Connectorを返す
      * 
-     * @return Object Mule Component
+     * @return Object MuleConnector
      */
-    Object buildComponent();
+    Connector buildConnector();
     
     /**
      * 全てのプロパティを取得する

@@ -10,7 +10,7 @@ import javax.transaction.TransactionManager;
 import org.mule.endpoint.EndpointURIEndpointBuilder;
 import org.mule.endpoint.URIBuilder;
 import org.mule.module.client.MuleClient;
-import org.mule.extras.seasar2.config.ComponentConfig;
+import org.mule.extras.seasar2.config.ConnectorConfig;
 import org.mule.extras.seasar2.config.TransactionConnector;
 import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
 import org.mule.extras.seasar2.exception.S2MuleRuntimeException;
@@ -24,7 +24,7 @@ import org.mule.api.MuleException;
 import org.mule.api.MuleMessage;
 import org.mule.api.endpoint.EndpointBuilder;
 import org.mule.api.transport.Connector;
-import org.mule.extras.seasar2.config.impl.AxisConnectorConfig;
+import org.mule.extras.seasar2.config.impl.AxisConnectorConfigImpl;
 import org.mule.api.transformer.Transformer;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.exception.SRuntimeException;
@@ -41,7 +41,7 @@ public class S2MuleSenderImpl implements S2MuleSender
          .getLogger(S2MuleSenderImpl.class);
     
     /** Connector の構成情報 */
-    private ComponentConfig connectorConfig;
+    private ConnectorConfig connectorConfig;
     
     /** Transformer */
     private List transformers;
@@ -64,7 +64,7 @@ public class S2MuleSenderImpl implements S2MuleSender
     /**
      * インスタンスを生成します
      */
-    public S2MuleSenderImpl(final ComponentConfig connectorConfig) 
+    public S2MuleSenderImpl(final ConnectorConfig connectorConfig) 
     {
         this.connectorConfig = connectorConfig;
     }
@@ -94,11 +94,11 @@ public class S2MuleSenderImpl implements S2MuleSender
             if (connectorConfig != null) 
             {
                 //Connector の設定
-                Connector connector = (Connector)connectorConfig.buildComponent();
+                Connector connector = (Connector)connectorConfig.buildConnector();
                 connector.setName(ObjectNameHelper.getConnectorName(connector));
                 muleClient.getMuleContext().getRegistry().registerConnector(connector);
                 endpointBuilder.setConnector(connector);
-                if (connectorConfig instanceof AxisConnectorConfig)
+                if (connectorConfig instanceof AxisConnectorConfigImpl)
                 {
                     properties.putAll(connectorConfig.getProperties());
                 }
@@ -228,7 +228,7 @@ public class S2MuleSenderImpl implements S2MuleSender
     }
     
     
-    public void setConnectorConfig(ComponentConfig connectorConfig) 
+    public void setConnectorConfig(ConnectorConfig connectorConfig) 
     {
         this.connectorConfig = connectorConfig;
     }

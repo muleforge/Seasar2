@@ -6,7 +6,7 @@ import org.seasar.extension.unit.S2TestCase;
 public class AxisConnectorConfigTest extends S2TestCase 
 {
     
-    private AxisConnectorConfig config_;
+    private AxisConnectorConfigImpl config_;
     
     public AxisConnectorConfigTest(String name) 
     {
@@ -20,7 +20,7 @@ public class AxisConnectorConfigTest extends S2TestCase
     
     public void testbuildComponent() throws Exception 
     {
-        Object connector = config_.buildComponent();
+        Object connector = config_.buildConnector();
         assertTrue("Connector isn't AxisConnector",
                 connector instanceof AxisConnector);
         

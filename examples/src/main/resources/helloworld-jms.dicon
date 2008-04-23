@@ -9,7 +9,7 @@ ActiveMQ を利用した JMS 送信のサンプル
 	<include path="s2mule-sender.dicon"/>
 	
 	<!-- ActiveMQ Jms connectorの設定 -->
-	<component class="org.mule.extras.seasar2.config.impl.ActiveMQJmsConnectorConfig" >
+	<component class="org.mule.extras.seasar2.config.impl.ActiveMQJmsConnectorConfigImpl" >
 		<!-- brokerURLの設定 -->
 		<property name="brokerURL">
 				"tcp://localhost:61616"
