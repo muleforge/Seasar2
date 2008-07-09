@@ -214,10 +214,6 @@ public class S2MuleSenderImpl implements S2MuleSender
         }
         else
         {
-            int index = transformers.size()-1;
-            AbstractTransformer currentTransformer 
-                = (AbstractTransformer)transformers.get(index);
-            //currentTransformer.(newTransformer);
             transformers.add(newTransformer);
         }
     }

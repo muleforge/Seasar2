@@ -45,7 +45,7 @@ public class S2MuleServer {
      /**
       *  シャットダウンフックと同期を取るためのラッチ
       */
-    protected static CountDownLatch latch = new CountDownLatch(1);
+    protected static final CountDownLatch latch = new CountDownLatch(1);
 
     
     /**
@@ -86,10 +86,7 @@ public class S2MuleServer {
      */
     public void run() throws MuleException 
     {
-        //S2ComponentBuilderを取得する
-        S2MuleComponentBuilder builder = 
-            (S2MuleComponentBuilder) container.getComponent(S2MuleComponentBuilder.class);
-        
+    
          Runtime.getRuntime().addShutdownHook(new Thread() {
                 @Override
                 public void run() 

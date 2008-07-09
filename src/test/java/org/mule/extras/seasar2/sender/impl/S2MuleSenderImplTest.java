@@ -51,6 +51,7 @@ public class S2MuleSenderImplTest extends S2TestCase
         
         BufferedReader reader = new BufferedReader(new FileReader(outputFile));
         assertEquals("Output content isn't correct.", "Hello World Test!", reader.readLine());
+        reader.close();
     }
     
     public void tearDownDispatch() throws Exception 

@@ -3,11 +3,17 @@ package org.mule.extras.seasar2.config.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.mule.api.endpoint.InboundEndpoint;
+import org.mule.api.MuleContext;
+import org.mule.api.endpoint.EndpointBuilder;
 import org.mule.api.transformer.Transformer;
-import org.mule.transformer.AbstractTransformer;
+import org.mule.api.transport.Connector;
+import org.mule.util.ObjectNameHelper;
+import org.mule.endpoint.EndpointURIEndpointBuilder;
+import org.mule.endpoint.URIBuilder;
 import org.mule.extras.seasar2.config.ConnectorConfig;
 import org.mule.extras.seasar2.config.EndpointConfig;
+import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
+import org.seasar.framework.log.Logger;
 
 
 /**
@@ -27,18 +33,51 @@ public class EndpointConfigImpl extends AbstractConfig implements EndpointConfig
 	/** コネクタ*/
 	private ConnectorConfig connectorConfig;
 	
-	/** フィルター*/
-	private Object filterConfig;
+	// TODO Filterの設定
+//	/** フィルター*/
+//	private Object filterConfig;
 	
-	public InboundEndpoint buildInboundEndpoint() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	/** logger*/
+    private static final Logger logger = Logger
+        .getLogger(EndpointConfigImpl.class);
+	
 	public EndpointConfigImpl() {
 		// TODO Auto-generated constructor stub
 	}
 
+	public EndpointBuilder buildEndpointBuilder(MuleContext muleContext) {
+		 EndpointBuilder endpointBuilder = null;
+         if (uri!=null) 
+         {
+             URIBuilder uriBuilder = new URIBuilder(uri);
+             endpointBuilder = new EndpointURIEndpointBuilder(uriBuilder,muleContext);
+         } 
+         else
+         {
+             throw new S2MuleConfigurationException("ESML0002",new Object[]{"outboundUri"});
+         }
+         
+         if (connectorConfig != null) 
+         {
+             //Connector の設定
+             Connector connector = (Connector)connectorConfig.buildConnector();
+             connector.setName(ObjectNameHelper.getConnectorName(connector));
+             endpointBuilder.setConnector(connector);
+             if (connectorConfig instanceof AxisConnectorConfigImpl)
+             {
+                 properties.putAll(connectorConfig.getProperties());
+             }
+             logger.debug("Connectorを作成しました:" + connector);
+         }
+		
+         if (transformers != null) 
+         {
+             endpointBuilder.setTransformers(transformers);
+         }
+		return endpointBuilder;
+	}
+
+	
 	   /**
      * トランスフォーマを追加する
      * 
@@ -53,12 +92,24 @@ public class EndpointConfigImpl extends AbstractConfig implements EndpointConfig
         }
         else
         {
-            int index = transformers.size()-1;
-            AbstractTransformer currentTransformer 
-                = (AbstractTransformer)transformers.get(index);
-            //currentTransformer.(newTransformer);
             transformers.add(newTransformer);
         }
     }
+
+	public String getUri() {
+		return uri;
+	}
+
+	public void setUri(String uri) {
+		this.uri = uri;
+	}
+
+	public ConnectorConfig getConnectorConfig() {
+		return connectorConfig;
+	}
+
+	public void setConnectorConfig(ConnectorConfig connectorConfig) {
+		this.connectorConfig = connectorConfig;
+	}
 	
 }

@@ -70,19 +70,20 @@ public class AxisConnectorConfigImpl extends AbstractConfig implements Connector
         BeanUtilsBean beanUtils = BeanUtilsBean.getInstance();
         try
         {
-            Iterator names = properties.keySet().iterator();
             List removeNames = new ArrayList();
             
-            while (names.hasNext())
+            for (Iterator names = properties.entrySet().iterator();names.hasNext();)
             {
 
+            	
                 // Identify the property name and value(s) to be assigned
-                String name = (String) names.next();
+                Map.Entry entry = (Map.Entry) names.next();
+                String name = (String)entry.getKey();
                 if (name == null) 
                 {
                     continue;
                 }
-                Object value = properties.get(name);
+                Object value = (Object)entry.getValue();
                 
                 //diconに記述されたプロパティが存在するかチェック
                 if (beanUtils.getPropertyUtils().getPropertyDescriptor(bean, name) != null)

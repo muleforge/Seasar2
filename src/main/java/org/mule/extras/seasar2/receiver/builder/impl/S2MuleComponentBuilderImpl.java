@@ -39,7 +39,7 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder
      * デフォルトのServiceName
      * Mule-configの<service name="">タグに対応
      */
-    private final String DEFAULT_SERVICE_NAME = "S2MuleService";
+    private static final String DEFAULT_SERVICE_NAME = "S2MuleService";
     
     /**
      * オートバインディングによってS2Containerが設定される
@@ -120,6 +120,7 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder
         Service service = new SedaService();
         
         Model model = new SedaModel();
+        model.setMuleContext(muleContext);
         model.initialise();
         service.setModel(model);
         
