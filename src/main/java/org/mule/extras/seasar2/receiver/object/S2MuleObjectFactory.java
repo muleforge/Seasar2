@@ -39,8 +39,8 @@ public class S2MuleObjectFactory implements ObjectFactory {
     
     public Object getInstance() throws Exception 
     {
-        // TODO Auto-generated method stub
-        return null;
+    	 Object component = container.getRoot().getComponent(objectClassName.getClass());
+         return component;
     }
     
     public void addObjectInitialisationCallback(InitialisationCallback callback) 

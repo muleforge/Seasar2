@@ -2,18 +2,23 @@
 <!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.3//EN"
 	"http://www.seasar.org/dtd/components23.dtd">
 <components>
-
+    <include path="s2mule-receiver.dicon"/>
+    
 	<component 
 		class="org.mule.extras.seasar2.receiver.builder.impl.S2MuleComponentBuilderImpl"/>
 	
 	<component name="echoUMO" 
 				class="org.mule.extras.seasar2.reciver.builder.impl.Echo" />
-				
+	
+	<component 
+	   name="stream_in" class="org.mule.extras.seasar2.config.impl.EndpointConfigImpl" >
+	 <property name="uri">"stdio://System.in"</property>
+	</component>
+	
 	<!-- MuleConfig -->
 	<component class="org.mule.extras.seasar2.receiver.impl.S2MuleConfiguration" >
-		<initMethod name="addInboundEndpointUri">
-			<!--<arg>"stdio://System.in"</arg>-->
-			<arg>"file:///C:/temp/receiver"</arg>
+		<initMethod name="addInbounEndpoint">
+			<arg>stream_in</arg>
 		</initMethod>
 		<property name="umoImpl">echoUMO</property>
 	</component>

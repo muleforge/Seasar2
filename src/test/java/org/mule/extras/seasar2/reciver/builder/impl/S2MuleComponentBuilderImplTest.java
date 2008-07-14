@@ -22,6 +22,10 @@ public class S2MuleComponentBuilderImplTest extends S2TestCase
 
     public void testConfigure() throws Exception 
     {
-    	builder_.configure();
+    	while (true)
+    	{
+    		
+    	}
+    	//builder_.configure();
     }
 }

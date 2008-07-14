@@ -10,6 +10,7 @@ import org.mule.api.MuleException;
 import org.mule.endpoint.EndpointURIEndpointBuilder;
 import org.mule.endpoint.DefaultInboundEndpoint;
 import org.mule.endpoint.URIBuilder;
+import org.mule.extras.seasar2.config.EndpointConfig;
 import org.mule.extras.seasar2.receiver.builder.S2MuleComponentBuilder;
 import org.mule.extras.seasar2.receiver.impl.S2MuleConfiguration;
 import org.mule.extras.seasar2.receiver.object.S2MuleObjectFactory;
@@ -17,6 +18,7 @@ import org.mule.api.service.Service;
 import org.mule.api.endpoint.EndpointBuilder;
 import org.mule.api.model.Model;
 import org.mule.api.routing.InboundRouterCollection;
+import org.mule.component.DefaultJavaComponent;
 import org.mule.context.DefaultMuleContextFactory;
 import org.mule.model.seda.SedaModel;
 import org.mule.model.seda.SedaService;
@@ -39,7 +41,7 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder
      * デフォルトのServiceName
      * Mule-configの<service name="">タグに対応
      */
-    private static final String DEFAULT_SERVICE_NAME = "S2MuleService";
+    private static final String DEFAULT_SERVICE_NAME = "S2MuleComponent";
     
     /**
      * オートバインディングによってS2Containerが設定される
@@ -68,8 +70,8 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder
     public S2MuleComponentBuilderImpl() throws MuleException 
     {    
         //MuleContextの作成
-        DefaultMuleContextFactory factory = new DefaultMuleContextFactory();
-        muleContext = factory.createMuleContext();
+//        DefaultMuleContextFactory factory = new DefaultMuleContextFactory();
+//        muleContext = factory.createMuleContext();
     }
     
     /**
@@ -130,11 +132,15 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder
         List endpointUris = s2MuleConfig.getInboundEndpoints();
         for (int i = 0; i < endpointUris.size(); i++)
         {
-            //InboundEndpointの作成
-            URIBuilder uriBuilder = new URIBuilder((String) endpointUris.get(i));
-            EndpointBuilder endpointBuilder = new EndpointURIEndpointBuilder(uriBuilder, muleContext);
-            DefaultInboundEndpoint endpoint = (DefaultInboundEndpoint) endpointBuilder.buildInboundEndpoint();
             
+        	//TODO 除去
+//            URIBuilder uriBuilder = new URIBuilder((String) endpointUris.get(i));
+//            EndpointBuilder endpointBuilder = new EndpointURIEndpointBuilder(uriBuilder, muleContext);
+//            DefaultInboundEndpoint endpoint = (DefaultInboundEndpoint) endpointBuilder.buildInboundEndpoint();
+        	
+        	//InboundEndpointの作成
+        	EndpointBuilder endpointBuilder = ((EndpointConfig)endpointUris.get(i)).buildEndpointBuilder(muleContext);
+        	DefaultInboundEndpoint endpoint = (DefaultInboundEndpoint) endpointBuilder.buildInboundEndpoint();
             iRouterCollection.addEndpoint(endpoint);
         }
         service.setInboundRouter(iRouterCollection);
@@ -157,13 +163,13 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder
         if (s2MuleConfig.getUmoImpl() != null )
         {
             //TODO set Component
-            //factory = new S2MuleObjectFactory(container,s2MuleConfig.getUmoImpl()); 
+            factory = new S2MuleObjectFactory(container,s2MuleConfig.getUmoImpl()); 
         }
         else
         {
             //TODO 例外
         }
-        //service.setServiceFactory(factory);
+        service.setComponent(new DefaultJavaComponent(factory));
         
         return service;
     }
@@ -228,7 +234,11 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder
          }
     }
     
-    /**
+    public void setMuleContext(MuleContext muleContext) {
+		this.muleContext = muleContext;
+	}
+
+	/**
      * Muleを停止させる
      * Registryに登録されていたコンポーネントは全て破棄される
      *

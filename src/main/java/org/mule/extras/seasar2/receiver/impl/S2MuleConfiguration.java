@@ -6,6 +6,7 @@ import java.util.List;
 import org.mule.endpoint.DefaultInboundEndpoint;
 import org.mule.endpoint.DefaultOutboundEndpoint;
 import org.mule.endpoint.URIBuilder;
+import org.mule.extras.seasar2.config.EndpointConfig;
 //import org.mule.endpoint.MuleEndpoint;
 import org.mule.api.MuleException;
 
@@ -19,10 +20,10 @@ public class S2MuleConfiguration
     
     /**
      * 複数のinboundのEndpoint
-     * 
      */
     private List inboundEndpoints = new ArrayList();
-            
+	
+	
     /**
      * Messageを受け取るクラス
      */
@@ -50,10 +51,15 @@ public class S2MuleConfiguration
     /**
      * InboundEndpointを追加する
      */
-    public void addInboundEndpointUri(String uri) 
+    public void addInbounEndpoint(EndpointConfig endpoint)
     {
-        inboundEndpoints.add(uri);
+    	inboundEndpoints.add(endpoint);
     }
+// TODO 消去
+//    public void addInboundEndpointUri(String uri) 
+//    {
+//        inboundEndpoints.add(uri);
+//    }
     
     public Object getUmoImpl() 
     {
