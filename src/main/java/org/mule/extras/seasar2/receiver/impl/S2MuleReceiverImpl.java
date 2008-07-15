@@ -1,4 +1,4 @@
-package org.mule.extras.seasar2.receiver.builder.impl;
+package org.mule.extras.seasar2.receiver.impl;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -11,8 +11,7 @@ import org.mule.endpoint.EndpointURIEndpointBuilder;
 import org.mule.endpoint.DefaultInboundEndpoint;
 import org.mule.endpoint.URIBuilder;
 import org.mule.extras.seasar2.config.EndpointConfig;
-import org.mule.extras.seasar2.receiver.builder.S2MuleComponentBuilder;
-import org.mule.extras.seasar2.receiver.impl.S2MuleConfiguration;
+import org.mule.extras.seasar2.receiver.S2MuleReceiver;
 import org.mule.extras.seasar2.receiver.object.S2MuleObjectFactory;
 import org.mule.api.service.Service;
 import org.mule.api.endpoint.EndpointBuilder;
@@ -29,12 +28,12 @@ import org.seasar.framework.container.S2Container;
 
 
 /**
- * {@link S2MuleComponentBuilder}の実装クラス
+ * {@link S2MuleReceiver}の実装クラス
  * 
  * @author Saito_Shinya@ogis-ri.co.jp
  *
  */
-public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder 
+public class S2MuleReceiverImpl implements S2MuleReceiver 
 {
     
     /**
@@ -67,7 +66,7 @@ public class S2MuleComponentBuilderImpl implements S2MuleComponentBuilder
      * インスタンスの作成 
      * @throws MuleException MuleContext作成時の例外
      */
-    public S2MuleComponentBuilderImpl() throws MuleException 
+    public S2MuleReceiverImpl() throws MuleException 
     {    
         //MuleContextの作成
 //        DefaultMuleContextFactory factory = new DefaultMuleContextFactory();

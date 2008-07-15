@@ -1,4 +1,4 @@
-package org.mule.extras.seasar2.receiver.builder;
+package org.mule.extras.seasar2.receiver;
 
 import org.mule.api.MuleContext;
 import org.mule.api.MuleException;
@@ -10,7 +10,7 @@ import org.mule.api.MuleException;
  * @author Saito_Shinya@ogis-ri.co.jp
  *
  */
-public interface S2MuleComponentBuilder 
+public interface S2MuleReceiver 
 {
 
     /**

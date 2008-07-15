@@ -6,7 +6,6 @@ import java.util.concurrent.CountDownLatch;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.mule.extras.seasar2.receiver.builder.S2MuleComponentBuilder;
 import org.mule.api.MuleException;
 import org.mule.api.MuleContext;
 import org.seasar.framework.container.S2Container;
