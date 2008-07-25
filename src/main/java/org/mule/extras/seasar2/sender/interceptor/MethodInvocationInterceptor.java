@@ -21,10 +21,11 @@ public class MethodInvocationInterceptor extends AbstractInterceptor
     private S2MuleSender sender;
 
     /**
-     * メソッドinvoke
+     * カットポイントを設定されたメソッドが起動されたときに呼び出されます。
+     * S2MuleSenderを使ってメッセージを送信します
      * 
      * @return 呼び出したメソッドの返り値
-     * @param methodInvocation メソッド
+     * @param methodInvocation 
      * @exception Throwable 全ての例外
      */
     public Object invoke(MethodInvocation methodInvocation) throws Throwable 
@@ -40,11 +41,12 @@ public class MethodInvocationInterceptor extends AbstractInterceptor
         return methodInvocation.proceed();
     }
     
-    public S2MuleSender getSender() 
-    {
-        return sender;
-    }
-
+    /**
+     * 外部リソースへメッセージ送信を行うS2MuleSenderを設定します。
+     * このプロパティは必須です
+     * 
+     * @param sender
+     */
     public void setSender(S2MuleSender sender) 
     {
         this.sender = sender;

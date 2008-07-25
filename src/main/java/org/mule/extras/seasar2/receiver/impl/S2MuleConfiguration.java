@@ -9,6 +9,7 @@ import org.mule.endpoint.URIBuilder;
 import org.mule.extras.seasar2.config.EndpointConfig;
 //import org.mule.endpoint.MuleEndpoint;
 import org.mule.api.MuleException;
+import org.seasar.framework.util.ClassUtil;
 
 /**
  * 
@@ -35,11 +36,6 @@ public class S2MuleConfiguration
     private String name;
     
     /**
-     * 初期化されたかどうかのフラグ
-     */
-    private boolean isInitalize = false;
-    
-    /**
      * デフォルトコンストラクタ
      * @throws UMOException
      */
@@ -55,11 +51,6 @@ public class S2MuleConfiguration
     {
     	inboundEndpoints.add(endpoint);
     }
-// TODO 消去
-//    public void addInboundEndpointUri(String uri) 
-//    {
-//        inboundEndpoints.add(uri);
-//    }
     
     public Object getUmoImpl() 
     {
@@ -73,7 +64,14 @@ public class S2MuleConfiguration
 
     public String getName() 
     {
-        return name;
+    	if (name == null && umoImpl != null) 
+    	{
+    		return ClassUtil.getShortClassName(umoImpl.getClass());
+    	} 
+    	else 
+    	{
+    		return name;
+    	} 
     }
 
     public void setName(String name) 

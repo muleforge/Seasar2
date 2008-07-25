@@ -16,7 +16,7 @@ import org.seasar.framework.container.S2Container;
 public class S2MuleObjectFactory implements ObjectFactory {
     
     /**
-     * Seasar2
+     * S2コンテナ
      */
     private S2Container container;
     
@@ -24,6 +24,11 @@ public class S2MuleObjectFactory implements ObjectFactory {
      * 作成するクラス名
      */
     private Object objectClassName;
+    
+    /**
+     * シングルトンかどうかを表すフラグ
+     */
+    private boolean singleton;
     
     /**
      * コンストラクタ
@@ -63,8 +68,8 @@ public class S2MuleObjectFactory implements ObjectFactory {
     
     public boolean isSingleton() 
     {
-        // TODO Auto-generated method stub
-        return false;
+        // TODO isSingletonの実装
+        return singleton;
     }
     
     /**

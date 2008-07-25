@@ -3,16 +3,23 @@ package org.mule.extras.seasar2.config.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.TransactionManager;
+
 import org.mule.api.MuleContext;
+import org.mule.api.MuleException;
 import org.mule.api.endpoint.EndpointBuilder;
+import org.mule.api.transaction.TransactionConfig;
 import org.mule.api.transformer.Transformer;
 import org.mule.api.transport.Connector;
+import org.mule.transaction.MuleTransactionConfig;
+import org.mule.transaction.XaTransactionFactory;
 import org.mule.util.ObjectNameHelper;
 import org.mule.endpoint.EndpointURIEndpointBuilder;
 import org.mule.endpoint.URIBuilder;
 import org.mule.extras.seasar2.config.ConnectorConfig;
 import org.mule.extras.seasar2.config.EndpointConfig;
 import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
+import org.mule.extras.seasar2.exception.S2MuleRuntimeException;
 import org.seasar.framework.log.Logger;
 
 
@@ -41,40 +48,58 @@ public class EndpointConfigImpl extends AbstractConfig implements EndpointConfig
     private static final Logger logger = Logger
         .getLogger(EndpointConfigImpl.class);
 	
-	public EndpointConfigImpl() {
-		// TODO Auto-generated constructor stub
+    /** コンストラクタ*/
+	public EndpointConfigImpl() 
+	{
+	
 	}
 
+	/**
+	 * @see org.mule.extras.seasar2.config.EndpointConfig#buildEndpointBuilder() 
+	 */
 	public EndpointBuilder buildEndpointBuilder(MuleContext muleContext) {
-		 EndpointBuilder endpointBuilder = null;
-         if (uri!=null) 
-         {
-             URIBuilder uriBuilder = new URIBuilder(uri);
-             endpointBuilder = new EndpointURIEndpointBuilder(uriBuilder,muleContext);
-         } 
-         else
-         {
-             throw new S2MuleConfigurationException("ESML0002",new Object[]{"outboundUri"});
-         }
-         
-         if (connectorConfig != null) 
-         {
-             //Connector の設定
-             Connector connector = (Connector)connectorConfig.buildConnector();
-             connector.setName(ObjectNameHelper.getConnectorName(connector));
-             endpointBuilder.setConnector(connector);
-             if (connectorConfig instanceof AxisConnectorConfigImpl)
-             {
-                 properties.putAll(connectorConfig.getProperties());
-             }
-             logger.debug("Connectorを作成しました:" + connector);
-         }
-		
-         if (transformers != null) 
-         {
-             endpointBuilder.setTransformers(transformers);
-         }
-		return endpointBuilder;
+		try
+		{
+			 EndpointBuilder endpointBuilder = null;
+	         if (uri!=null) 
+	         {
+	             URIBuilder uriBuilder = new URIBuilder(uri);
+	             endpointBuilder = new EndpointURIEndpointBuilder(uriBuilder,muleContext);
+	         } 
+	         else
+	         {
+	             throw new S2MuleConfigurationException("ESML0002",new Object[]{"outboundUri"});
+	         }
+	         
+	         if (connectorConfig != null) 
+	         {
+	             //Connector の設定
+	             Connector connector = (Connector)connectorConfig.buildConnector();
+	             connector.setName(ObjectNameHelper.getConnectorName(connector));
+	             muleContext.getRegistry().registerConnector(connector);
+	             endpointBuilder.setConnector(connector);
+	             if (connectorConfig instanceof AxisConnectorConfigImpl)
+	             {
+	                 properties.putAll(connectorConfig.getProperties());
+	             } 
+	             else if(connectorConfig instanceof ActiveMQXAJmsConnectorConfigImpl) 
+	             {
+	            	TransactionConfig transactionConfig = new MuleTransactionConfig();
+	            	transactionConfig.setAction(TransactionConfig.ACTION_BEGIN_OR_JOIN);
+	            	transactionConfig.setFactory(new XaTransactionFactory());
+	            	endpointBuilder.setTransactionConfig(transactionConfig);
+	             }
+	             logger.debug("Connectorを作成しました:" + connector);
+	         }
+			
+	         if (transformers != null) 
+	         {
+	             endpointBuilder.setTransformers(transformers);
+	         }
+			return endpointBuilder;
+		} catch(MuleException e) {
+			   throw new S2MuleRuntimeException("ESML0003", new Object[]{e}, e);
+		}
 	}
 
 	

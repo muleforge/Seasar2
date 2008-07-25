@@ -5,6 +5,6 @@
     <include path="s2mule-core.dicon"/>
 	<component class="org.mule.extras.seasar2.receiver.impl.S2MuleReceiverImpl" >
 	   <property name="muleContext">s2MuleContext.getMuleContext()</property>
-	   <initMethod name="configure" />
+	   <initMethod name="start" />
 	</component>
 </components>

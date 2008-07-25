@@ -1,5 +1,7 @@
 package org.mule.extras.seasar2.config;
 
+import javax.transaction.TransactionManager;
+
 import org.mule.api.MuleContext;
 import org.mule.api.endpoint.EndpointBuilder;
 import org.mule.api.endpoint.ImmutableEndpoint;
@@ -14,21 +16,6 @@ import org.mule.api.endpoint.OutboundEndpoint;
  */
 public interface EndpointConfig {
 
-	/**
-	 * InboundEndpointを作成する
-	 * 
-	 * @return InboundEndpoint InboundEndpoint
-	 */
-	//InboundEndpoint buildInboundEndpoint();
-	
-	
-	/**
-	 * OutboundEndpointを作成する
-	 * 
-	 * @return OutboundEndpoint OutboundEndpoint
-	 */
-	//OutboundEndpoint buildOutboundEndpoint();
-	
 	/**
 	 * EndpointBuilderを作成する
 	 * 

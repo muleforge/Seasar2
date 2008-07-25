@@ -5,12 +5,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.transaction.TransactionManager;
+
 import org.mule.api.MuleContext;
 import org.mule.api.MuleException;
 import org.mule.endpoint.EndpointURIEndpointBuilder;
 import org.mule.endpoint.DefaultInboundEndpoint;
 import org.mule.endpoint.URIBuilder;
 import org.mule.extras.seasar2.config.EndpointConfig;
+import org.mule.extras.seasar2.exception.S2MuleRuntimeException;
 import org.mule.extras.seasar2.receiver.S2MuleReceiver;
 import org.mule.extras.seasar2.receiver.object.S2MuleObjectFactory;
 import org.mule.api.service.Service;
@@ -62,49 +65,52 @@ public class S2MuleReceiverImpl implements S2MuleReceiver
      */
     private List allDiconComponentDefs = new ArrayList();
     
+    /** トランザクションマネージャ */
+    private TransactionManager transactionManager;
+    
     /**
      * インスタンスの作成 
      * @throws MuleException MuleContext作成時の例外
      */
-    public S2MuleReceiverImpl() throws MuleException 
+    public S2MuleReceiverImpl() throws MuleException,Exception
     {    
-        //MuleContextの作成
-//        DefaultMuleContextFactory factory = new DefaultMuleContextFactory();
-//        muleContext = factory.createMuleContext();
+       
     }
     
     /**
-     * Serviceをregistryに登録する
-     * TODO Connectorをregistryに登録する
+     * 
      * 
      * @return managementContext
      * @throws MuleException Muleの例外
      */
-    public final MuleContext configure()  throws MuleException 
+    public final void start()  throws MuleException 
     {
-        
-        s2MuleConfigs = getS2MuleConfigs(container);
-        
-        if ( s2MuleConfigs != null )
-        {
-            for ( int i = 0; i < s2MuleConfigs.size(); i++) 
+    	try
+    	{             
+            s2MuleConfigs = getS2MuleConfigs(container);
+            
+            if ( s2MuleConfigs != null )
             {
-                S2MuleConfiguration s2MuleConfig = 
-                    (S2MuleConfiguration) s2MuleConfigs.get(i);
-                Service service = createService( s2MuleConfig );
-                
-                //Serviceを登録する
-                muleContext.getRegistry().registerService(service);
+                for ( int i = 0; i < s2MuleConfigs.size(); i++) 
+                {
+                    S2MuleConfiguration s2MuleConfig = 
+                        (S2MuleConfiguration) s2MuleConfigs.get(i);
+                    Service service = createService( s2MuleConfig );
+                    
+                    //Serviceを登録する
+                    muleContext.getRegistry().registerService(service);
+                }
+            } 
+            else
+            {
+                //TODO 例外処理
             }
-        } 
-        else
-        {
-            //TODO 例外処理
-        }
-        // test configureの中でmuleServerをスタートさせてしまう
-        muleContext.start();
-        
-        return muleContext;
+            muleContext.start();            
+    	} 
+    	catch (Exception e)
+    	{
+    		throw new S2MuleRuntimeException("ESML0000", new Object[]{e},e);
+    	}
     }
     
     /**
@@ -114,7 +120,7 @@ public class S2MuleReceiverImpl implements S2MuleReceiver
      * @return Muleにおけるサービス
      * @throws MuleException Muleの例外
      */
-    private Service createService(S2MuleConfiguration s2MuleConfig) throws MuleException
+    private Service createService(S2MuleConfiguration s2MuleConfig) throws MuleException,Exception
     {
         
         //MuleのDefaultであるSedaServiceを作成
@@ -128,47 +134,51 @@ public class S2MuleReceiverImpl implements S2MuleReceiver
         InboundRouterCollection iRouterCollection = new DefaultInboundRouterCollection();
         
         //InboundEndpoitsの数だけ行う
-        List endpointUris = s2MuleConfig.getInboundEndpoints();
-        for (int i = 0; i < endpointUris.size(); i++)
+        List endpoints = s2MuleConfig.getInboundEndpoints();
+        for (int i = 0; i < endpoints.size(); i++)
         {
-            
-        	//TODO 除去
-//            URIBuilder uriBuilder = new URIBuilder((String) endpointUris.get(i));
-//            EndpointBuilder endpointBuilder = new EndpointURIEndpointBuilder(uriBuilder, muleContext);
-//            DefaultInboundEndpoint endpoint = (DefaultInboundEndpoint) endpointBuilder.buildInboundEndpoint();
-        	
         	//InboundEndpointの作成
-        	EndpointBuilder endpointBuilder = ((EndpointConfig)endpointUris.get(i)).buildEndpointBuilder(muleContext);
+        	EndpointConfig endpointConfig = (EndpointConfig)endpoints.get(i);
+        	EndpointBuilder endpointBuilder = endpointConfig.buildEndpointBuilder(muleContext);
         	DefaultInboundEndpoint endpoint = (DefaultInboundEndpoint) endpointBuilder.buildInboundEndpoint();
+        	
+        	if(transactionManager==null &&
+        			endpoint.getTransactionConfig().isTransacted())
+        	{
+        		 transactionManager = (TransactionManager)container.getRoot().getComponent(TransactionManager.class);
+                 muleContext.setTransactionManager(transactionManager);
+        	}
+        	
             iRouterCollection.addEndpoint(endpoint);
         }
         service.setInboundRouter(iRouterCollection);
         
         //ServiceNameの作成
-        String serviceName;
-        if (s2MuleConfig.getName() != null)
-        {
-            serviceName = s2MuleConfig.getName();
-        }
-        else
-        {
-            serviceName = DEFAULT_SERVICE_NAME;
-        }
-        service.setName(serviceName);
-        
-        //ObjectFactoryの作成
-        ObjectFactory factory = null;
-        //umoがdiconに設定されていた場合、S2MuleSimpleObjectFactoryを設定する。
+//        String serviceName;
+//        if (s2MuleConfig.getName() != null)
+//        {
+//            serviceName = s2MuleConfig.getName();
+//        }
+//        else
+//        {
+//            serviceName = DEFAULT_SERVICE_NAME;
+//        }
+//        service.setName(serviceName);
+                
+        //S2MuleObjectFactoryを設定
         if (s2MuleConfig.getUmoImpl() != null )
         {
-            //TODO set Component
-            factory = new S2MuleObjectFactory(container,s2MuleConfig.getUmoImpl()); 
+        	ObjectFactory factory = new S2MuleObjectFactory(container,s2MuleConfig.getUmoImpl()); 
+        	service.setComponent(new DefaultJavaComponent(factory));
+        	
+        	//MuleのUMOの名前を設定
+        	service.setName(s2MuleConfig.getName());
         }
         else
         {
             //TODO 例外
         }
-        service.setComponent(new DefaultJavaComponent(factory));
+        
         
         return service;
     }

@@ -40,7 +40,6 @@ public class ActiveMQJmsConnectorConfigImpl extends AbstractConfig implements Co
         }
         //nameとvalueのMap型であるpropertiesをbeanに反映させる
         populate(connector, properties);
-        
         return connector;
     }
 

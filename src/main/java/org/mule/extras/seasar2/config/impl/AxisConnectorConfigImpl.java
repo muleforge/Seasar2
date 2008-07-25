@@ -91,7 +91,7 @@ public class AxisConnectorConfigImpl extends AbstractConfig implements Connector
                     beanUtils.setProperty(bean, name, value);
                     removeNames.add(name);
                 }
-                else if (!(this instanceof AxisConnectorConfigImpl))
+                else
                 {
                     throw new PropertyNotFoundRuntimeException(bean.getClass(), name);
                 }

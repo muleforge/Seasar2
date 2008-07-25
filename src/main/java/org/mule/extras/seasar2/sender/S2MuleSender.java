@@ -16,16 +16,6 @@ public interface S2MuleSender
      */
     void dispatch(Object payload);
     
-//    /**
-//     * 非同期メッセージを送信します。プロパティによって送信メッセージの設定を変えることができます。
-//     * メインスレッドと送信のためのスレッドが違い、
-//     * 送信処理が終わる前にメインスレッドが終了する可能性があるので推奨されません。
-//     * 
-//     * @param payload メッセージの本文
-//     * @param messageProperties メッセージのプロパティ
-//
-//    void dispatch(Object payload, Map messageProperties);
-    
     /**
      * 同期メッセージを送信します
      * 

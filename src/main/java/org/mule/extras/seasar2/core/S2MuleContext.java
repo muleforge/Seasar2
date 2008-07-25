@@ -4,21 +4,28 @@ import org.mule.api.MuleContext;
 import org.mule.api.MuleException;
 import org.mule.context.DefaultMuleContextFactory;
 import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
+import org.mule.extras.seasar2.exception.S2MuleRuntimeException;
 
-//TODO コメント
+/**
+ * MuleContextの保持を行うクラス
+ * 
+ * @author Saito_Shinya@ogis-ri.co.jp
+ */
 public class S2MuleContext 
 {
 	private MuleContext muleContext;
 	
 	public void createMuleContext() 
 	{
-		try{
+		try
+		{
 			DefaultMuleContextFactory muleContextFactory
 				= new DefaultMuleContextFactory();
 			setMuleContext(muleContextFactory.createMuleContext());
-		} catch(MuleException ex) {
-			//TODO 例外メッセージ
-			throw new S2MuleConfigurationException("",null,ex);
+		}
+		catch(MuleException e) 
+		{
+			throw new S2MuleRuntimeException("ESML0000", new Object[]{e},e);
 		}
 	}
 

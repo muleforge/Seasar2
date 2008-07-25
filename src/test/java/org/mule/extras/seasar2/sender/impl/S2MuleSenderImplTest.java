@@ -54,9 +54,4 @@ public class S2MuleSenderImplTest extends S2TestCase
         reader.close();
     }
     
-    public void tearDownDispatch() throws Exception 
-    {
-        outputFile.delete();
-    }
-
 }
