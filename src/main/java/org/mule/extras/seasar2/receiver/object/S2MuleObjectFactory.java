@@ -4,6 +4,8 @@ import org.mule.api.lifecycle.InitialisationCallback;
 import org.mule.api.lifecycle.InitialisationException;
 import org.mule.api.lifecycle.LifecycleTransitionResult;
 import org.mule.api.object.ObjectFactory;
+import org.seasar.framework.container.ComponentDef;
+import org.seasar.framework.container.InstanceDef;
 import org.seasar.framework.container.S2Container;
 
 /**
@@ -13,7 +15,8 @@ import org.seasar.framework.container.S2Container;
  * @author Saito_Shinya@ogis-ri.co.jp
  *
  */
-public class S2MuleObjectFactory implements ObjectFactory {
+public class S2MuleObjectFactory implements ObjectFactory 
+{
     
     /**
      * S2コンテナ
@@ -23,12 +26,7 @@ public class S2MuleObjectFactory implements ObjectFactory {
     /**
      * 作成するクラス名
      */
-    private Object objectClassName;
-    
-    /**
-     * シングルトンかどうかを表すフラグ
-     */
-    private boolean singleton;
+    private ComponentDef componentDef;
     
     /**
      * コンストラクタ
@@ -36,16 +34,15 @@ public class S2MuleObjectFactory implements ObjectFactory {
      * @param container
      * @param objectClassName
      */
-    public S2MuleObjectFactory( S2Container container, Object objectClassName )
+    public S2MuleObjectFactory( S2Container container, Object object )
     {
         this.container = container;
-        this.objectClassName = objectClassName;
+        this.componentDef = container.getRoot().getComponentDef(object.getClass());;
     }
     
     public Object getInstance() throws Exception 
     {
-    	 Object component = container.getRoot().getComponent(objectClassName.getClass());
-         return component;
+         return componentDef.getComponent();
     }
     
     public void addObjectInitialisationCallback(InitialisationCallback callback) 
@@ -56,8 +53,7 @@ public class S2MuleObjectFactory implements ObjectFactory {
     
     public Class getObjectClass() 
     {
-        // TODO Auto-generated method stub
-        return null;
+        return componentDef.getComponentClass();
     }
     
     public void initialise() throws InitialisationException 
@@ -68,17 +64,21 @@ public class S2MuleObjectFactory implements ObjectFactory {
     
     public boolean isSingleton() 
     {
-        // TODO isSingletonの実装
-        return singleton;
+        if(componentDef.getInstanceDef().getName().equals(InstanceDef.SINGLETON_NAME))
+        {
+        	return true;
+        } 
+        else
+        {
+        	return false;
+        }
     }
     
-    /**
-     * Seasar2からコンポーネントを取り出す
-     */
+
     public Object getOrCreate() throws Exception 
     {
-        Object component = container.getRoot().getComponent(objectClassName.getClass());
-        return component;
+    	// TODO Auto-generated method stub
+    	return null;
     }
     
     /**

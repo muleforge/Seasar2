@@ -1,5 +1,7 @@
 package org.mule.extras.seasar2.sender;
 
+import org.mule.extras.seasar2.config.ConnectorConfig;
+
 /**
  * Muleを利用してメッセージを送信するコンポーネントのインタフェースです。
  * 
@@ -32,5 +34,11 @@ public interface S2MuleSender
      */
     void setProperty(String key, Object value);
     
+    /**
+     * コネクタの構成情報を取得する
+     * 
+     * @return connectorConfig コネクタの構成情報
+     */
+  //  ConnectorConfig getConnectorConfig() ;
     
 }

@@ -31,10 +31,14 @@ import org.seasar.framework.log.Logger;
  */
 public class EndpointConfigImpl extends AbstractConfig implements EndpointConfig {
 	
-	/** Endpointのuri*/
+	/** 
+	 * Endpointのuri
+	 */
 	private String uri;
 
-	/** トランスフォーマ*/
+	/** 
+	 * トランスフォーマ
+	 */
 	private List transformers;
 	
 	/** コネクタ*/
@@ -121,19 +125,23 @@ public class EndpointConfigImpl extends AbstractConfig implements EndpointConfig
         }
     }
 
-	public String getUri() {
+	public String getUri() 
+	{
 		return uri;
 	}
 
-	public void setUri(String uri) {
+	public void setUri(String uri) 
+	{
 		this.uri = uri;
 	}
 
-	public ConnectorConfig getConnectorConfig() {
+	public ConnectorConfig getConnectorConfig() 
+	{
 		return connectorConfig;
 	}
 
-	public void setConnectorConfig(ConnectorConfig connectorConfig) {
+	public void setConnectorConfig(ConnectorConfig connectorConfig) 
+	{
 		this.connectorConfig = connectorConfig;
 	}
 	

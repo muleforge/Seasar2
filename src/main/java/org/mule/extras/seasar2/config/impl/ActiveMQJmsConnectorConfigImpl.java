@@ -12,16 +12,14 @@ import org.mule.transport.jms.activemq.ActiveMQJmsConnector;
  * @author Saito_Shinya@ogis-ri.co.jp
  *
  */
-public class ActiveMQJmsConnectorConfigImpl extends AbstractConfig implements ConnectorConfig
+public class ActiveMQJmsConnectorConfigImpl extends JMSConnectorConfig implements ConnectorConfig
 {
     
-    /** MQのブローカーURL */
-    protected String brokerURL;
-
     /**
      * インスタンスを生成する
      */
-    public ActiveMQJmsConnectorConfigImpl() {
+    public ActiveMQJmsConnectorConfigImpl() 
+    {
     }
     
     /**
@@ -43,15 +41,7 @@ public class ActiveMQJmsConnectorConfigImpl extends AbstractConfig implements Co
         return connector;
     }
 
-    public String getBrokerURL()
-    {
-        return brokerURL;
-    }
-
-    public void setBrokerURL(String brokerURL)
-    {
-        this.brokerURL = brokerURL;
-    }
+   
     
     
 }

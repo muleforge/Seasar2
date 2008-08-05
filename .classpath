@@ -64,7 +64,7 @@
 	<classpathentry kind="var" path="M2_REPO/com/yourkit/yjp-controller-api-redist/7.0.10/yjp-controller-api-redist-7.0.10.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/apache/geronimo/specs/geronimo-jms_1.1_spec/1.1/geronimo-jms_1.1_spec-1.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/mule/transports/mule-transport-stdio/2.0.0/mule-transport-stdio-2.0.0.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/mule/transports/mule-transport-http/2.0.0/mule-transport-http-2.0.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/mule/transports/mule-transport-http/2.0.0/mule-transport-http-2.0.0.jar" sourcepath="/Mule2.0.0"/>
 	<classpathentry kind="var" path="M2_REPO/org/mule/transports/mule-transport-ssl/2.0.0/mule-transport-ssl-2.0.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/mule/transports/mule-transport-tcp/2.0.0/mule-transport-tcp-2.0.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/commons-codec/commons-codec/1.3/commons-codec-1.3.jar"/>
@@ -80,7 +80,7 @@
 	<classpathentry kind="var" path="M2_REPO/org/jboss/jbossts-jta-integration/4.2.3-SP5/jbossts-jta-integration-4.2.3-SP5.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/mule/tests/mule-tests-functional/2.0.0/mule-tests-functional-2.0.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/mule/mule-core/2.0.0/mule-core-2.0.0-tests.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/mule/transports/mule-transport-axis/2.0.0/mule-transport-axis-2.0.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/mule/transports/mule-transport-axis/2.0.0/mule-transport-axis-2.0.0.jar" sourcepath="/Mule2.0.0"/>
 	<classpathentry kind="var" path="M2_REPO/org/mule/transports/mule-transport-soap/2.0.0/mule-transport-soap-2.0.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/apache/geronimo/specs/geronimo-jaxrpc_1.1_spec/1.1/geronimo-jaxrpc_1.1_spec-1.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/javax/xml/soap/saaj-api/1.3/saaj-api-1.3.jar"/>

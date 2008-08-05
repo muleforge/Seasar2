@@ -13,6 +13,7 @@ import org.mule.endpoint.EndpointURIEndpointBuilder;
 import org.mule.endpoint.DefaultInboundEndpoint;
 import org.mule.endpoint.URIBuilder;
 import org.mule.extras.seasar2.config.EndpointConfig;
+import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
 import org.mule.extras.seasar2.exception.S2MuleRuntimeException;
 import org.mule.extras.seasar2.receiver.S2MuleReceiver;
 import org.mule.extras.seasar2.receiver.object.S2MuleObjectFactory;
@@ -65,7 +66,9 @@ public class S2MuleReceiverImpl implements S2MuleReceiver
      */
     private List allDiconComponentDefs = new ArrayList();
     
-    /** トランザクションマネージャ */
+    /** 
+     * トランザクションマネージャ 
+     */
     private TransactionManager transactionManager;
     
     /**
@@ -103,7 +106,7 @@ public class S2MuleReceiverImpl implements S2MuleReceiver
             } 
             else
             {
-                //TODO 例外処理
+                throw new S2MuleConfigurationException("ESML0000",null,null);
             }
             muleContext.start();            
     	} 
@@ -176,7 +179,7 @@ public class S2MuleReceiverImpl implements S2MuleReceiver
         }
         else
         {
-            //TODO 例外
+        	 throw new S2MuleConfigurationException("ESML0002", new Object[]{"umoImpl"});
         }
         
         
@@ -197,7 +200,8 @@ public class S2MuleReceiverImpl implements S2MuleReceiver
             ComponentDef cd = (ComponentDef) allDiconComponentDefs.get(i);
             
             //S2MuleConfigurationクラスの場合、リストに追加する
-            if ( cd.getComponentClass().equals(S2MuleConfiguration.class) ) {
+            if ( cd.getComponentClass().equals(S2MuleConfiguration.class) ) 
+            {
                 S2MuleConfiguration s2mConfig 
                     = (S2MuleConfiguration) cd.getComponent();
                 //S2MuleConfigの名前の登録
@@ -231,7 +235,7 @@ public class S2MuleReceiverImpl implements S2MuleReceiver
          }
          set.add(container);
 
-         // 子コンテナへもぐる
+         // 子コンテナ
          for (int i = 0; i <  container.getChildSize(); i++)
          {
              createAllDiconComponents(container.getChild(i), set);
@@ -243,10 +247,6 @@ public class S2MuleReceiverImpl implements S2MuleReceiver
          }
     }
     
-    public void setMuleContext(MuleContext muleContext) {
-		this.muleContext = muleContext;
-	}
-
 	/**
      * Muleを停止させる
      * Registryに登録されていたコンポーネントは全て破棄される
@@ -256,6 +256,12 @@ public class S2MuleReceiverImpl implements S2MuleReceiver
     {
         muleContext.dispose();
     }
+    
+    
+    public void setMuleContext(MuleContext muleContext) 
+    {
+		this.muleContext = muleContext;
+	}
     
     public void setContainer(S2Container container)
     {

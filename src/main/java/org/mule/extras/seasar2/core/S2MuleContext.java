@@ -15,6 +15,9 @@ public class S2MuleContext
 {
 	private MuleContext muleContext;
 	
+	/**
+	 * MuleContextを作成する
+	 */
 	public void createMuleContext() 
 	{
 		try
@@ -29,11 +32,13 @@ public class S2MuleContext
 		}
 	}
 
-	public MuleContext getMuleContext() {
+	public MuleContext getMuleContext() 
+	{
 		return muleContext;
 	}
 
-	public void setMuleContext(MuleContext muleContext) {
+	public void setMuleContext(MuleContext muleContext) 
+	{
 		this.muleContext = muleContext;
 	}
 }

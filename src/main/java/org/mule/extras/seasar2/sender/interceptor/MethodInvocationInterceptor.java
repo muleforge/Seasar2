@@ -3,6 +3,10 @@ package org.mule.extras.seasar2.sender.interceptor;
 import java.lang.reflect.Method;
 
 import org.aopalliance.intercept.MethodInvocation;
+import org.mule.extras.seasar2.config.ConnectorConfig;
+import org.mule.extras.seasar2.config.impl.ActiveMQJmsConnectorConfigImpl;
+import org.mule.extras.seasar2.config.impl.AxisConnectorConfigImpl;
+import org.mule.extras.seasar2.config.impl.JMSConnectorConfig;
 import org.mule.extras.seasar2.sender.S2MuleSender;
 import org.seasar.framework.aop.interceptors.AbstractInterceptor;
 import org.seasar.framework.util.MethodUtil;
@@ -30,7 +34,8 @@ public class MethodInvocationInterceptor extends AbstractInterceptor
      */
     public Object invoke(MethodInvocation methodInvocation) throws Throwable 
     {
-        Method method = methodInvocation.getMethod();
+    	
+    	Method method = methodInvocation.getMethod();
         if (MethodUtil.isAbstract(method)) 
         {
             Object payload = methodInvocation.getArguments();
@@ -39,6 +44,35 @@ public class MethodInvocationInterceptor extends AbstractInterceptor
             return sender.send(payload);
         }
         return methodInvocation.proceed();
+    	
+        //TODO JMS対応
+//    	ConnectorConfig connectorConfig = sender.getConnectorConfig();
+//    	if (connectorConfig == null)
+//    	{
+//    		return methodInvocation.proceed();
+//    	} 
+//    	else
+//    	{
+//    		//Axis
+//    		if (connectorConfig instanceof AxisConnectorConfigImpl)
+//    		{
+//    			Method method = methodInvocation.getMethod();
+//    	        if (MethodUtil.isAbstract(method)) 
+//    	        {
+//    	            Object payload = methodInvocation.getArguments();
+//    	            String methodName = method.getName();
+//    	            sender.setProperty("method", methodName);
+//    	            return sender.send(payload);
+//    	        }
+//    		} 
+//    		//JMS
+//    		else if (connectorConfig instanceof JMSConnectorConfig)
+//    		{
+//    			Object payload = methodInvocation.getArguments();
+//    			
+//    		}
+//    	}
+        
     }
     
     /**
