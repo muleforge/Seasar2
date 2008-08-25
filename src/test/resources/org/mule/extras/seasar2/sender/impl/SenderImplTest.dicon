@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<!--
+  Fileを使ったユニットテスト
+-->
+<components>
+	<include path="s2mule-sender.dicon"/>
+	
+	<!-- FileConnectorの設定-->
+	<component class="org.mule.extras.seasar2.config.impl.FileConnector" >
+	   <property name="outputPattern">"S2Mule-HelloWorldTestFile.txt"</property>
+	</component>
+
+	<!-- S2MuleSender の設定-->
+	<component class="org.mule.extras.seasar2.sender.impl.S2MuleSenderImpl" >
+		<property name="outboundUri">"file:///C:/temp"</property>
+		<initMethod name="init"/>
+	</component>
+
+</components>

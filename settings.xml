@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+
+    <localRepository>C:/s2Mule/.m2/repository</localRepository>
+
+    <!-- Enable this if your machine is behind a firewall.-->
+    <proxies>
+        <proxy>
+            <active>true</active>
+            <protocol>http</protocol>
+            <host>proxy.tokyo.ogis-ri.co.jp</host>
+            <port>8080</port>
+            <nonProxyHosts>localhost,*.ogis-ri.co.jp</nonProxyHosts>
+        </proxy>
+    </proxies>
+   
+  <servers>
+    <server>
+      <id>muleforge.webdav.releases</id>
+      <username>xx</username>
+      <password>yy</password>
+    </server>
+    <server>
+      <id>muleforge.webdav.snapshots</id>
+      <username>xx</username>
+      <password>yy</password>
+    </server>
+    <server>
+      <id>muleforge.webdav.sites</id>
+      <username>xx</username>
+      <password>yy</password>
+    </server>
+  </servers>
+</settings>
+

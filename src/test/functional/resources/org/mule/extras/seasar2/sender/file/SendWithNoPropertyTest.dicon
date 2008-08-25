@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.3//EN"
+	"http://www.seasar.org/dtd/components23.dtd">
+<components>
+
+	<include path="s2mule-sender.dicon"/>
+
+	<!-- S2MuleSender の設定-->
+	<component class="org.mule.extras.seasar2.sender.impl.S2MuleSenderImpl" >
+		<property name="outboundUri">"file:///C:/temp"</property>
+	</component>
+	
+</components>

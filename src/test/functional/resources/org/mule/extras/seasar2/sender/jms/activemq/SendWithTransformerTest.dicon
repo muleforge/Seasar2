@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<components>
+	
+	<include path="s2mule-sender.dicon"/>
+	
+	<!-- ActiveMQ Jms connectorの設定 -->
+	<component class="org.mule.extras.seasar2.config.impl.ActiveMQJmsConnector" >
+		<!-- brokerURLの設定 -->
+		<property name="brokerURL">"tcp://localhost:61616"</property>
+	</component>
+
+	<!-- S2MuleSender の設定-->
+	<component 
+		class="org.mule.extras.seasar2.sender.impl.S2MuleSenderImpl" >
+		<property name="outboundUri">"jms://Foo"</property>
+		<initMethod name="addTransformer" >
+			<arg>
+				<component class="org.mule.extras.seasar2.sender.common.AddStringTransformer" />
+			</arg>
+		</initMethod>
+		<initMethod name="addTransformer" >
+			<arg>
+				<component class="org.mule.transport.jms.transformers.ObjectToJMSMessage" />
+			</arg>
+		</initMethod>
+		<initMethod name="init"/>
+	</component>
+
+</components>
