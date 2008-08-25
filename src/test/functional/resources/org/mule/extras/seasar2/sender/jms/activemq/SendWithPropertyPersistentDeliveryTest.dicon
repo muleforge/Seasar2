@@ -6,15 +6,10 @@
 	<include path="s2mule-sender.dicon"/>
 	
 	<!-- ActiveMQ Jms connectorの設定 -->
-	<component class="org.mule.extras.seasar2.config.impl.ActiveMQJmsConnectorConfigImpl" >
+	<component class="org.mule.extras.seasar2.config.impl.ActiveMQJmsConnector" >
 		<!-- brokerURLの設定 -->
-		<property name="brokerURL">
-				"tcp://localhost:61616"
-		</property>
-		<initMethod name="setProperty" >
-			<arg>"persistentDelivery"</arg>
-			<arg>true</arg>
-		</initMethod>
+		<property name="brokerURL">"tcp://localhost:61616"</property>
+		<property name="persistentDelivery">true</property>
 	</component>
 
 	<!-- S2MuleSender の設定-->

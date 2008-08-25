@@ -7,6 +7,7 @@ import org.mule.endpoint.DefaultInboundEndpoint;
 import org.mule.endpoint.DefaultOutboundEndpoint;
 import org.mule.endpoint.URIBuilder;
 import org.mule.extras.seasar2.config.EndpointConfig;
+import org.mule.extras.seasar2.config.impl.Endpoint;
 //import org.mule.endpoint.MuleEndpoint;
 import org.mule.api.MuleException;
 import org.seasar.framework.util.ClassUtil;
@@ -46,11 +47,22 @@ public class S2MuleConfiguration
         
     /**
      * InboundEndpointを追加する
+     * @param endpoint 
      */
     public void addInbounEndpoint(EndpointConfig endpoint)
     {
     	inboundEndpoints.add(endpoint);
     }
+    
+    /**
+     * InboudEndpointを追加する
+     * @return endpointUri
+     */
+    public void addInboudEndpoint(String endpointUri)
+    {
+    	inboundEndpoints.add(new Endpoint(endpointUri));
+    }
+    
     
     public Object getUmoImpl() 
     {

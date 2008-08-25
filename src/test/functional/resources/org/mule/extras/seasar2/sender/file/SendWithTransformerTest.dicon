@@ -6,12 +6,8 @@
 	<include path="s2mule-sender.dicon"/>
 
 	<!-- File Connectorの設定-->
-	<component class="org.mule.extras.seasar2.config.impl.FileConnectorConfigImpl">
-		<initMethod name="setProperty" >
-			<!-- 出力するファイル名のパターンを指定-->
-			<arg>"outputPattern"</arg>
-			<arg>"S2Mule-Test-FILE-O-005-${DATE:yyyyMMdd}.txt"</arg>
-		</initMethod>
+	<component class="org.mule.extras.seasar2.config.impl.FileConnector">
+	   <property name="outputPattern">"S2Mule-Test-FILE-O-005-${DATE:yyyyMMdd}.txt"</property>
 	</component>
 
 	<!-- S2MuleSender の設定-->

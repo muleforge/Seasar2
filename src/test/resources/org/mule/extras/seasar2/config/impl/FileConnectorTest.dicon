@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<!--
+ File コネクタの単体テスト
+-->
+<components>
+	<include path="s2mule-sender.dicon"/>
+
+	<!-- File Connectorの設定-->
+	<component class="org.mule.extras.seasar2.config.impl.FileConnector">
+	    <!-- 出力するファイル名のパターンを指定-->
+	    <property name="numberOfConcurrentTransactedReceivers">1</property>
+	   <property name="outputPattern">"S2Mule-Test${DATE:yyyyMMdd}.txt"</property>
+	   <property name="pollingFrequency">10</property>
+	   <property name="outputAppend">true</property>
+	</component>
+
+</components>

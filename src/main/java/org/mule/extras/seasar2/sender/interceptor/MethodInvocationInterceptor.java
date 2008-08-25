@@ -4,8 +4,8 @@ import java.lang.reflect.Method;
 
 import org.aopalliance.intercept.MethodInvocation;
 import org.mule.extras.seasar2.config.ConnectorConfig;
-import org.mule.extras.seasar2.config.impl.ActiveMQJmsConnectorConfigImpl;
-import org.mule.extras.seasar2.config.impl.AxisConnectorConfigImpl;
+import org.mule.extras.seasar2.config.impl.ActiveMQJmsConnector;
+import org.mule.extras.seasar2.config.impl.AxisConnector;
 import org.mule.extras.seasar2.config.impl.JMSConnectorConfig;
 import org.mule.extras.seasar2.sender.S2MuleSender;
 import org.seasar.framework.aop.interceptors.AbstractInterceptor;

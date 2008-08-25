@@ -12,6 +12,7 @@
 
 
     <model name="CustomerSample">
+        
         <service name="CustomerUMO">
             <inbound>
                 <inbound-endpoint address="axis:http://localhost:65082/services"/>

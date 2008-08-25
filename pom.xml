@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.mule.modules</groupId>
 	<artifactId>mule-module-seasar2</artifactId>
 	<packaging>jar</packaging>
-	<version>0.9.2</version>
+	<version>0.9.3</version>
 	<properties>
-		<muleVersion>2.0.0</muleVersion>
+		<muleVersion>2.0.2</muleVersion>
 	</properties>
 	<distributionManagement>
 		<repository>
@@ -17,8 +16,7 @@
 		</repository>
 		<snapshotRepository>
 			<id>muleforge.webdav.snapshots</id>
-			<url>
-				dav:https://dav.muleforge.org/snapshots.repository/seasar2/
+			<url> dav:https://dav.muleforge.org/snapshots.repository/seasar2/ 
 			</url>
 		</snapshotRepository>
 		<site>
@@ -49,18 +47,33 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
+				    <!--  
 					<source>1.5</source>
 					<target>1.5</target>
+					-->
+					<configuration>
+						<compilerId>eclipse</compilerId>
+					</configuration>
+					<dependencies>
+						<dependency>
+							<groupId>org.codehaus.plexus</groupId>
+							<artifactId>plexus-compiler-eclipse</artifactId>
+							<version>1.5</version>
+						</dependency>
+					</dependencies>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
 	<name>Seasar2</name>
-	<description>
-		The Seasar2 framework is an open source framework similar to the
-		Spring Framework.
-	</description>
+	<description> The Seasar2 framework is an open source framework similar
+		to the Spring Framework. </description>
 	<dependencies>
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-j2ee_1.4_spec</artifactId>
+			<version>1.0</version>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.geronimo.specs</groupId>
 			<artifactId>geronimo-jta_1.1_spec</artifactId>
@@ -81,7 +94,6 @@
 			<artifactId>s2-tiger</artifactId>
 			<version>2.4.17</version>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.mule</groupId>
 			<artifactId>mule-core</artifactId>
@@ -118,15 +130,11 @@
 			<artifactId>mule-transport-file</artifactId>
 			<version>${muleVersion}</version>
 		</dependency>
-
-		<!--
-			<dependency>
+		<dependency>
 			<groupId>org.mule.transports</groupId>
-			<artifactId>mule-transport-stream</artifactId>
+			<artifactId>mule-transport-stdio</artifactId>
 			<version>${muleVersion}</version>
-			</dependency>
-		-->
-
+		</dependency>
 		<dependency>
 			<groupId>org.mule.transports</groupId>
 			<artifactId>mule-transport-http</artifactId>
@@ -137,13 +145,6 @@
 			<artifactId>mule-transport-soap</artifactId>
 			<version>${muleVersion}</version>
 		</dependency>
-		<!--  
-		<dependency>
-			<groupId>org.mule.transports</groupId>
-			<artifactId>mule-transport-xfire</artifactId>
-			<version>${muleVersion}</version>
-		</dependency>
-		-->
 		<dependency>
 			<groupId>org.mule.transports</groupId>
 			<artifactId>mule-transport-axis</artifactId>
@@ -154,29 +155,12 @@
 			<artifactId>mule-transport-jms</artifactId>
 			<version>${muleVersion}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.mule.examples</groupId>
 			<artifactId>mule-example-hello</artifactId>
 			<version>${muleVersion}</version>
 		</dependency>
-		
-		<!--  
-		<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-core</artifactId>
-			<version>5.0.0</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.apache.geronimo.specs</groupId>
-			<artifactId>geronimo-j2ee-management_1.0_spec.jar</artifactId>
-			<version>1.0</version>
-		</dependency>
-		-->
-		
 	</dependencies>
-
 	<repositories>
 		<repository>
 			<id>maven.seasar.org</id>
@@ -184,8 +168,4 @@
 			<url>http://maven.seasar.org/maven2</url>
 		</repository>
 	</repositories>
-	
-	
 </project>
-
-

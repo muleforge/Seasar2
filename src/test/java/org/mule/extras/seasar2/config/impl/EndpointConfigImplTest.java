@@ -10,7 +10,7 @@ import org.seasar.extension.unit.S2TestCase;
 public class EndpointConfigImplTest extends S2TestCase {
 	
 	private DefaultMuleContextFactory factory_;
-	private EndpointConfigImpl endpointConfig_;
+	private Endpoint endpointConfig_;
 	
 	public EndpointConfigImplTest(String name) 
 	{

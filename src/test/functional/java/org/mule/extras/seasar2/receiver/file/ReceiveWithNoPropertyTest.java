@@ -16,10 +16,7 @@ public class ReceiveWithNoPropertyTest extends S2TestCase
 	
 	public void testConfigure() throws Exception
 	{
-		while (true)
-		{
-			
-		}
+		
 	}
 	
 	

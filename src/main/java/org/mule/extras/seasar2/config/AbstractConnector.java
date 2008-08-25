@@ -1,4 +1,4 @@
-package org.mule.extras.seasar2.config.impl;
+package org.mule.extras.seasar2.config;
 
 
 import java.util.HashMap;
@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
 import org.seasar.framework.beans.PropertyNotFoundRuntimeException;
+import org.seasar.framework.beans.util.BeanUtil;
 
 /**
  * Configの抽象クラスです
@@ -15,8 +16,14 @@ import org.seasar.framework.beans.PropertyNotFoundRuntimeException;
  * @author Shinya_Saito@ogis-ri.co.jp
  *
  */
-public abstract class AbstractConfig {
+public abstract class AbstractConnector implements ConnectorConfig
+{
     
+	 protected volatile int numberOfConcurrentTransactedReceivers 
+	 	= org.mule.transport.AbstractConnector.DEFAULT_NUM_CONCURRENT_TX_RECEIVERS;
+	
+	protected boolean transacted = false;
+	 
     /** Connector�のプロパティ */
     protected Map properties = new HashMap();
     
@@ -47,18 +54,45 @@ public abstract class AbstractConfig {
     {
         return properties;
     }
+
+	public int getNumberOfConcurrentTransactedReceivers() {
+		return numberOfConcurrentTransactedReceivers;
+	}
+
+	public void setNumberOfConcurrentTransactedReceivers(
+			int numberOfConcurrentTransactedReceivers) {
+		this.numberOfConcurrentTransactedReceivers = numberOfConcurrentTransactedReceivers;
+	}
+
+	public boolean isTransacted() 
+	{
+		return transacted;
+	}
+
+	public void setTransacted(boolean transacted) 
+	{
+		this.transacted = transacted;
+	}
     
+   
     /**
-     * {@link org.apache.commons.beanutils.BeanUtilsBean#populate(Object, Map)}をラップしたメソッド
+     * S2MuleのラッパークラスのプロパティをMuleのコンポーネントのプロパティ
+     * にコピーします。
      * 
-     * @param bean プロパティを設定するオブジェクト
+     * 
      * @param properties プロパティ
+     * @param src コピー元のbean
+     * @param bean プロパティを設定するオブジェクト
      */
-    protected void populate(Object bean, Map properties)
+    /*
+    protected void populate(Map properties,Object src, Object bean)
     {
         if ((bean == null) || (properties == null)) {
             return;
         }
+        BeanUtil.copyProperties(src, bean);
+        BeanUtil.copyProperties(properties, bean);
+        
         
         BeanUtilsBean beanUtils = BeanUtilsBean.getInstance();
         try
@@ -67,8 +101,7 @@ public abstract class AbstractConfig {
             for (Iterator names = properties.entrySet().iterator();names.hasNext();)
             {
 
-                // Identify the property name and value(s) to be assigned
-                Map.Entry entry = (Map.Entry) names.next();
+            	Map.Entry entry = (Map.Entry) names.next();
                 String name = (String)entry.getKey();
                 if (name == null) 
                 {
@@ -98,5 +131,6 @@ public abstract class AbstractConfig {
             throw new S2MuleConfigurationException("ESML0000", new Object[]{e}, e);
         } 
     }
+    */
     
 }

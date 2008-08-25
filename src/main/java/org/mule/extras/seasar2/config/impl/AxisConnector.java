@@ -1,16 +1,11 @@
 package org.mule.extras.seasar2.config.impl;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.commons.beanutils.BeanUtilsBean;
 import org.mule.api.transport.Connector;
-import org.mule.extras.seasar2.config.ConnectorConfig;
-import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
-import org.mule.transport.soap.axis.AxisConnector;
-import org.seasar.framework.beans.PropertyNotFoundRuntimeException;
+import org.mule.extras.seasar2.config.AbstractConnector;
+import org.seasar.framework.beans.util.BeanUtil;
 
 /**
  * AxisConnectorの構成情報を保持するクラスです。
@@ -18,16 +13,20 @@ import org.seasar.framework.beans.PropertyNotFoundRuntimeException;
  * @author Saito_Shinya@ogis-ri.co.jp
  *
  */
-public class AxisConnectorConfigImpl extends AbstractConfig implements ConnectorConfig
+public class AxisConnector extends AbstractConnector
 {
     
     /** ビーンタイプ */
-    private List beanTypes;
+    private List beanTypes = null;
+    
+    private String style = null;
+    
+    private String use=null;
     
     /**
      * インスタンスを生成する
      */
-    public AxisConnectorConfigImpl() {
+    public AxisConnector() {
         
     }
     
@@ -37,12 +36,14 @@ public class AxisConnectorConfigImpl extends AbstractConfig implements Connector
      */
     public Connector buildConnector()
     {
-        AxisConnector connector = new AxisConnector();
-        if (beanTypes != null)
-        {
-            setProperty("beanTypes", beanTypes);
-        }
-        populate(connector, properties);
+    	org.mule.transport.soap.axis.AxisConnector connector 
+    		= new org.mule.transport.soap.axis.AxisConnector();
+//        if (beanTypes != null)
+//        {
+//            setProperty("beanTypes", beanTypes);
+//        }
+        
+        BeanUtil.copyProperties(this, connector);
         return connector;
     }
     
@@ -59,7 +60,45 @@ public class AxisConnectorConfigImpl extends AbstractConfig implements Connector
         }
         beanTypes.add(beanTypeName);
     }
+
+
     
+	public List getBeanTypes() {
+		return beanTypes;
+	}
+
+
+	public void setBeanTypes(List beanTypes) {
+		this.beanTypes = beanTypes;
+	}
+
+
+	public String getStyle() 
+	{
+		return style;
+	}
+
+
+	public void setStyle(String style) 
+	{
+		this.style = style;
+	}
+
+
+	public String getUse() 
+	{
+		return use;
+	}
+
+
+	public void setUse(String use) 
+	{
+		this.use = use;
+	}
+
+    
+    
+    /*
     @Override
     protected void populate(Object bean, Map properties)
     {
@@ -112,5 +151,6 @@ public class AxisConnectorConfigImpl extends AbstractConfig implements Connector
             throw new S2MuleConfigurationException("ESML0000", new Object[]{e}, e);
         } 
     }
+    */
     
 }

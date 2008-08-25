@@ -9,7 +9,8 @@ import org.seasar.extension.unit.S2TestCase;
  * Windowsのネットワーク上にあるディレクトリにメッセージを送信する
  *
  */
-public class SendWindowsNetworkDirectoryTest extends S2TestCase {
+public class SendWindowsNetworkDirectoryTest extends S2TestCase 
+{
     
     private S2MuleSender sender_;
     

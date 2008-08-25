@@ -12,6 +12,8 @@
     <component class="org.mule.extras.seasar2.config.impl.ActiveMQJmsConnector" >
         <!-- brokerURLの設定 -->
         <property name="brokerURL">"tcp://localhost:61616"</property>
+        <property name="transacted">true</property>
+        <property name="numberOfConcurrentTransactedReceivers">1</property>
     </component>
     
     <!-- Endpoint-->

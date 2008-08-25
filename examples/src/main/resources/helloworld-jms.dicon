@@ -5,21 +5,13 @@
 ActiveMQ を利用した JMS 送信のサンプル
 -->
 <components>
-	
 	<include path="s2mule-sender.dicon"/>
 	
 	<!-- ActiveMQ Jms connectorの設定 -->
-	<component class="org.mule.extras.seasar2.config.impl.ActiveMQJmsConnectorConfigImpl" >
+	<component class="org.mule.extras.seasar2.config.impl.ActiveMQJmsConnector" >
 		<!-- brokerURLの設定 -->
-		<property name="brokerURL">
-				"tcp://localhost:61616"
-		</property>
-		
-		<!-- その他のプロパティの設定 -->
-		<initMethod name="setProperty" >
-			<arg>"maxRedelivery"</arg>
-			<arg>5</arg>
-		</initMethod>
+		<property name="brokerURL">"tcp://localhost:61616"</property>
+		<property name="maxRedelivery">5</property>
 	</component>
 
 	<!-- S2MuleSender の設定-->

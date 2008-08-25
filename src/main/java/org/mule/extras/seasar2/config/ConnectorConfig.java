@@ -42,4 +42,10 @@ public interface ConnectorConfig
      * @param value 値
      */
     void setProperty(String key, Object value);
+    
+    /**
+     * トランザクションが有効なConnectorかどうか
+     * @return 
+     */
+    boolean isTransacted();
 }

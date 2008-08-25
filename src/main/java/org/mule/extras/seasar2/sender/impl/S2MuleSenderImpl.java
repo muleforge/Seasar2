@@ -11,20 +11,18 @@ import org.mule.endpoint.EndpointURIEndpointBuilder;
 import org.mule.endpoint.URIBuilder;
 import org.mule.module.client.MuleClient;
 import org.mule.extras.seasar2.config.ConnectorConfig;
-import org.mule.extras.seasar2.config.TransactionConnector;
 import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
 import org.mule.extras.seasar2.exception.S2MuleRuntimeException;
 import org.mule.extras.seasar2.sender.S2MuleSender;
 import org.mule.transaction.TransactionCoordination;
 import org.mule.transaction.XaTransaction;
-import org.mule.transformer.AbstractTransformer;
 import org.mule.util.ObjectNameHelper;
 
 import org.mule.api.MuleException;
 import org.mule.api.MuleMessage;
 import org.mule.api.endpoint.EndpointBuilder;
 import org.mule.api.transport.Connector;
-import org.mule.extras.seasar2.config.impl.AxisConnectorConfigImpl;
+import org.mule.extras.seasar2.config.impl.AxisConnector;
 import org.mule.api.transformer.Transformer;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.exception.SRuntimeException;
@@ -61,6 +59,8 @@ public class S2MuleSenderImpl implements S2MuleSender
     /** S2コンテナ */
     private S2Container container;
 
+    private boolean intialized = false;
+    
     /**
      * インスタンスを生成します
      */
@@ -98,24 +98,26 @@ public class S2MuleSenderImpl implements S2MuleSender
                 connector.setName(ObjectNameHelper.getConnectorName(connector));
                 muleClient.getMuleContext().getRegistry().registerConnector(connector);
                 endpointBuilder.setConnector(connector);
-                if (connectorConfig instanceof AxisConnectorConfigImpl)
+                if (connectorConfig instanceof AxisConnector)
                 {
                     properties.putAll(connectorConfig.getProperties());
                 }
                 logger.debug("Connectorを作成しました:" + connector);
-            }
-            
-            //Transactionの設定
-            if (connectorConfig instanceof TransactionConnector) 
-            {
-                transactionManager = (TransactionManager)container.getRoot().getComponent(TransactionManager.class);
-                muleClient.getMuleContext().setTransactionManager(transactionManager);
+             
+                //Transactionの設定
+                if (connectorConfig.isTransacted()) 
+                {
+                    transactionManager = (TransactionManager)container.getRoot().getComponent(TransactionManager.class);
+                    muleClient.getMuleContext().setTransactionManager(transactionManager);
+                }
             }
             
             if (transformers != null) 
             {
                 endpointBuilder.setTransformers(transformers);
             }
+            
+            intialized = true;
         } 
         catch(SRuntimeException e) 
         {
@@ -132,6 +134,11 @@ public class S2MuleSenderImpl implements S2MuleSender
      */
     public void dispatch(Object payload) 
     {
+    	if(!intialized)
+    	{
+    		init();
+    	}
+    	
         if (outboundUri != null) {
             try {
                 logger.debug("メッセージを" + outboundUri + "へ送信します");
@@ -167,6 +174,11 @@ public class S2MuleSenderImpl implements S2MuleSender
      */
     public Object send(Object payload) 
     {
+    	if(!intialized)
+    	{
+    		init();
+    	}
+    	
         Object responseMessage = null;
         if(outboundUri != null) 
         {

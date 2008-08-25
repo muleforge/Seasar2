@@ -10,7 +10,8 @@ import org.seasar.extension.unit.S2TestCase;
  * オブジェクト型のメッセージを送信する
  *
  */
-public class SendBeanTest extends S2TestCase {
+public class SendBeanTest extends S2TestCase 
+{
     
     private S2MuleSender sender_;
     

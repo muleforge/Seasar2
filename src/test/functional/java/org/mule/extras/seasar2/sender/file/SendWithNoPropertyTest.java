@@ -22,7 +22,8 @@ public class SendWithNoPropertyTest extends S2TestCase
     
     public void testDispatch() throws Exception 
     {
-        sender_.dispatch("NoPropertySendTest : OK");
+    	for(int i=0;i < 10; i++)
+    		sender_.dispatch("NoPropertySendTest : OK");
     }
     
 }

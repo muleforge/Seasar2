@@ -4,19 +4,16 @@
 <components>
     <include path="s2mule-receiver.dicon"/>
     <include path="j2ee.dicon"/>
+    <!-- テスト用のメッセージ送信はS2MuleSenderを利用 -->
+    <include path="org/mule/extras/seasar2/sender/axis/SendWithNoPropertyTest.dicon"/>
     
 	 <component name="echoUMO" 
                 class="org.mule.extras.seasar2.receiver.common.EchoUMO" />
     
-    <component 
-       name="axis_in" class="org.mule.extras.seasar2.config.impl.EndpointConfigImpl" >
-     <property name="uri">"axis:http://localhost:65082/services"</property>
-    </component>
-    
     <!-- MuleConfig -->
     <component class="org.mule.extras.seasar2.receiver.impl.S2MuleConfiguration" >
-        <initMethod name="addInbounEndpoint">
-            <arg>axis_in</arg>
+        <initMethod name="addInboudEndpoint">
+            <arg>"axis:http://localhost:65082/services"</arg>
         </initMethod>
         <property name="umoImpl">echoUMO</property>
     </component>

@@ -16,6 +16,7 @@ import org.mule.transaction.XaTransactionFactory;
 import org.mule.util.ObjectNameHelper;
 import org.mule.endpoint.EndpointURIEndpointBuilder;
 import org.mule.endpoint.URIBuilder;
+import org.mule.extras.seasar2.config.AbstractConnector;
 import org.mule.extras.seasar2.config.ConnectorConfig;
 import org.mule.extras.seasar2.config.EndpointConfig;
 import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
@@ -29,7 +30,7 @@ import org.seasar.framework.log.Logger;
  * @author Saito_Shinya@ogis-ri.co.jp
  *
  */
-public class EndpointConfigImpl extends AbstractConfig implements EndpointConfig {
+public class Endpoint implements EndpointConfig {
 	
 	/** 
 	 * Endpointのuri
@@ -50,13 +51,18 @@ public class EndpointConfigImpl extends AbstractConfig implements EndpointConfig
 	
 	/** logger*/
     private static final Logger logger = Logger
-        .getLogger(EndpointConfigImpl.class);
+        .getLogger(Endpoint.class);
 	
-    /** コンストラクタ*/
-	public EndpointConfigImpl() 
+    /** デフォルトコンストラクタ*/
+	public Endpoint() 
 	{
-	
 	}
+	
+	public Endpoint(String uri)
+	{
+		this.uri = uri;
+	}
+	
 
 	/**
 	 * @see org.mule.extras.seasar2.config.EndpointConfig#buildEndpointBuilder() 
@@ -82,11 +88,12 @@ public class EndpointConfigImpl extends AbstractConfig implements EndpointConfig
 	             connector.setName(ObjectNameHelper.getConnectorName(connector));
 	             muleContext.getRegistry().registerConnector(connector);
 	             endpointBuilder.setConnector(connector);
-	             if (connectorConfig instanceof AxisConnectorConfigImpl)
+	             if (connectorConfig instanceof AxisConnector)
 	             {
-	                 properties.putAll(connectorConfig.getProperties());
+	            	 //なくても良い
+	                 //properties.putAll(connectorConfig.getProperties());
 	             } 
-	             else if(connectorConfig instanceof ActiveMQXAJmsConnectorConfigImpl) 
+	             else if(connectorConfig.isTransacted()) 
 	             {
 	            	TransactionConfig transactionConfig = new MuleTransactionConfig();
 	            	transactionConfig.setAction(TransactionConfig.ACTION_BEGIN_OR_JOIN);

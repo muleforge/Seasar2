@@ -8,7 +8,6 @@
 	<!-- S2MuleSender の設定-->
 	<component class="org.mule.extras.seasar2.sender.impl.S2MuleSenderImpl" >
 		<property name="outboundUri">"file:///C:/temp"</property>
-		<initMethod name="init"/>
 	</component>
 	
 </components>

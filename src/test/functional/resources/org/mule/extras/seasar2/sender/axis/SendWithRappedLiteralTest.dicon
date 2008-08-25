@@ -9,7 +9,7 @@
 	<include path="s2mule-sender.dicon"/>
 	
 	<!-- SOAPのスタイルをwrapped/literalに設定-->
-	<component class="org.mule.extras.seasar2.config.impl.AxisConnectorConfigImpl" >
+	<component class="org.mule.extras.seasar2.config.impl.AxisConnector" >
 		<initMethod name="setProperty" >
 			<arg>"style"</arg>
 			<arg>"wrapped"</arg>	
