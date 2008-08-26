@@ -136,7 +136,6 @@ public class S2MuleReceiverImpl implements S2MuleReceiver
         
         InboundRouterCollection iRouterCollection = new DefaultInboundRouterCollection();
         
-        //InboundEndpoitsの数だけ行う
         List endpoints = s2MuleConfig.getInboundEndpoints();
         for (int i = 0; i < endpoints.size(); i++)
         {

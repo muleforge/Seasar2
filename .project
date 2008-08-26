@@ -1,7 +1,7 @@
 <projectDescription>
   <name>mule-module-seasar2</name>
-  <comment>The Seasar2 framework is an open source framework similar to the
-		Spring Framework.</comment>
+  <comment>The Seasar2 framework is an open source framework similar
+		to the Spring Framework.</comment>
   <projects/>
   <buildSpec>
     <buildCommand>

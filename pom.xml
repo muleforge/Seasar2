@@ -156,6 +156,11 @@
 			<version>${muleVersion}</version>
 		</dependency>
 		<dependency>
+            <groupId>org.mule.transports</groupId>
+            <artifactId>mule-transport-cxf</artifactId>
+            <version>${muleVersion}</version>
+        </dependency>
+		<dependency>
 			<groupId>org.mule.examples</groupId>
 			<artifactId>mule-example-hello</artifactId>
 			<version>${muleVersion}</version>

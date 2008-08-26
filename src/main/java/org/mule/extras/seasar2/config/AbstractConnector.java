@@ -55,12 +55,14 @@ public abstract class AbstractConnector implements ConnectorConfig
         return properties;
     }
 
-	public int getNumberOfConcurrentTransactedReceivers() {
+	public int getNumberOfConcurrentTransactedReceivers() 
+	{
 		return numberOfConcurrentTransactedReceivers;
 	}
 
 	public void setNumberOfConcurrentTransactedReceivers(
-			int numberOfConcurrentTransactedReceivers) {
+			int numberOfConcurrentTransactedReceivers) 
+	{
 		this.numberOfConcurrentTransactedReceivers = numberOfConcurrentTransactedReceivers;
 	}
 
