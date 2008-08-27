@@ -32,6 +32,18 @@ public class S2MuleContext
 		}
 	}
 
+	/**
+	 * MuleContextを開放する
+	 */
+	public void dispose()
+	{
+		if(muleContext != null)
+		{
+			muleContext.dispose();
+		}
+	}
+	
+	
 	public MuleContext getMuleContext() 
 	{
 		return muleContext;

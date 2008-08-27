@@ -86,7 +86,7 @@ public class S2MuleReceiverImpl implements S2MuleReceiver
      * @return managementContext
      * @throws MuleException Muleの例外
      */
-    public final void start()  throws MuleException 
+    public final void start() throws MuleException 
     {
     	try
     	{             
@@ -170,7 +170,8 @@ public class S2MuleReceiverImpl implements S2MuleReceiver
         //S2MuleObjectFactoryを設定
         if (s2MuleConfig.getUmoImpl() != null )
         {
-        	ObjectFactory factory = new S2MuleObjectFactory(container,s2MuleConfig.getUmoImpl()); 
+        	ObjectFactory factory 
+        		= new S2MuleObjectFactory(container,s2MuleConfig.getUmoImpl()); 
         	service.setComponent(new DefaultJavaComponent(factory));
         	
         	//MuleのUMOの名前を設定

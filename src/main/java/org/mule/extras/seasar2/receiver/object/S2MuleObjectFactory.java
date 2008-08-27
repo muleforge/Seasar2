@@ -37,7 +37,7 @@ public class S2MuleObjectFactory implements ObjectFactory
     public S2MuleObjectFactory( S2Container container, Object object )
     {
         this.container = container;
-        this.componentDef = container.getRoot().getComponentDef(object.getClass());;
+        this.componentDef = container.getRoot().getComponentDef(object.getClass());
     }
     
     public Object getInstance() throws Exception 

@@ -5,9 +5,6 @@
   <projects/>
   <buildSpec>
     <buildCommand>
-      <name>org.maven.ide.eclipse.maven2Builder</name>
-    </buildCommand>
-    <buildCommand>
       <name>org.eclipse.jdt.core.javabuilder</name>
     </buildCommand>
     <buildCommand>
@@ -19,7 +16,6 @@
   </buildSpec>
   <natures>
     <nature>org.eclipse.jdt.core.javanature</nature>
-    <nature>org.maven.ide.eclipse.maven2Nature</nature>
     <nature>org.seasar.kijimuna.core.nature</nature>
   </natures>
 </projectDescription>

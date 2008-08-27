@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<components>
+    <include path="s2mule-receiver.dicon"/>
+    
+	 <component name="echoUMO" 
+                class="org.mule.extras.seasar2.examples.common.EchoUMO" />
+    
+    <!-- File Connectorの設定-->
+    <component class="org.mule.extras.seasar2.config.impl.FileConnector" >
+    	<!--一度読んだファイルは削除する設定 -->
+    	<property name="autoDelete">true</property>
+    	<property name="streaming">false</property>
+    </component>
+    
+    <!-- Endpointの設定 -->
+    <component 
+       name="file_in" class="org.mule.extras.seasar2.config.impl.Endpoint" >
+      <property name="uri">"file:///C:/temp"</property>
+       <!-- トランスフォーマの設定 -->
+      <initMethod name="addTransformer" >
+        <arg>
+            <component class="org.mule.transport.file.transformers.FileToString" />
+        </arg>
+      </initMethod>
+    </component>
+    
+    <!-- MuleConfigの設定 -->
+    <component class="org.mule.extras.seasar2.receiver.impl.S2MuleConfiguration" >
+        <initMethod name="addInbounEndpoint">
+            <arg>file_in</arg>
+        </initMethod>
+        <!-- メッセージを受け取るクラス -->
+        <property name="umoImpl">
+        	echoUMO
+        </property>
+    </component>
+    
+</components>

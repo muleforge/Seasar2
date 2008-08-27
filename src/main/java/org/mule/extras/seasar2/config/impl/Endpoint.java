@@ -78,7 +78,7 @@ public class Endpoint implements EndpointConfig {
 	         } 
 	         else
 	         {
-	             throw new S2MuleConfigurationException("ESML0002",new Object[]{"outboundUri"});
+	             throw new S2MuleConfigurationException("ESML0002",new Object[]{"uri"});
 	         }
 	         
 	         if (connectorConfig != null) 

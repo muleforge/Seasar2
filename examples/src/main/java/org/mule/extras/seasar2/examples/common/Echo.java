@@ -1,4 +1,4 @@
-package org.mule.extras.seasar2.examples.helloworld.soap.axis;
+package org.mule.extras.seasar2.examples.common;
 
 public interface Echo
 {
