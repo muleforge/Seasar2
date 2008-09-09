@@ -5,19 +5,15 @@
  SOAP-Axisを利用したテスト
 -->
 <components>
-
 	<include path="s2mule-sender.dicon"/>
 	
-	<!-- SOAPのスタイルをwrapped/literalに設定-->
-	<component class="org.mule.extras.seasar2.config.impl.AxisConnector" >
-		<initMethod name="setProperty" >
-			<arg>"style"</arg>
-			<arg>"wrapped"</arg>	
-		</initMethod>
-		<initMethod name="setProperty" >
-			<arg>"use"</arg>
-			<arg>"literal"</arg>	
-		</initMethod>
+	<!-- Endpointの設定 -->
+	<component name="axis_in"
+		class="org.mule.extras.seasar2.endpoint.impl.AxisEndpoint" >
+		<property name="uri">"axis:http://localhost:65082/services/CustomerUMO"</property>
+		<!-- SOAPのスタイルをwrapped/literalに設定-->
+		<property name="style">"wrapped"</property>
+		<property name="use">"literal"</property>
 	</component>
 	
 	<!-- インターセプタコンポーネントの定義-->
@@ -27,8 +23,9 @@
 	<!-- Senderの設定-->
 	<component class="org.mule.extras.seasar2.sender.impl.S2MuleSenderImpl" >
 		<!-- Serviceのuri-->
-		<property name="outboundUri">"axis:http://localhost:65082/services/CustomerUMO"</property>
-		<initMethod name="init" />
+		<initMethod name="addOutboundEndpoint" >
+			<arg>axis_in</arg>
+		</initMethod>
 	</component>
 	
 	<!-- interceptorを適応するインタフェースの設定-->

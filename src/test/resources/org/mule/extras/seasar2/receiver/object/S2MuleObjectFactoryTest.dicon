@@ -5,7 +5,7 @@
 	<!-- -Messageを受信するPOJOの設定 -->
     <component name="echoUMO" instance="singleton"
              class="org.mule.extras.seasar2.receiver.impl.Echo" />
-                
+           
      <component 
         class="org.mule.extras.seasar2.receiver.object.S2MuleObjectFactory">
         <arg>container</arg>

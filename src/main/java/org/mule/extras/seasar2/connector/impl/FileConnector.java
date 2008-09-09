@@ -1,10 +1,11 @@
-package org.mule.extras.seasar2.config.impl;
+package org.mule.extras.seasar2.connector.impl;
 
 import java.io.FileOutputStream;
 
 import org.mule.api.transport.Connector;
-import org.mule.extras.seasar2.config.AbstractConnector;
-import org.mule.extras.seasar2.config.ConnectorConfig;
+import org.mule.extras.seasar2.connector.AbstractConnector;
+import org.mule.extras.seasar2.connector.ConnectorConfig;
+import org.mule.util.ObjectNameHelper;
 import org.seasar.framework.beans.util.BeanUtil;
 
 /**
@@ -46,14 +47,15 @@ public class FileConnector extends AbstractConnector
     }
     
     /**
-     * @see org.mule.extras.seasar2.config.ConnectorConfig#getConnector()
+     * @see org.mule.extras.seasar2.connector.ConnectorConfig#getConnector()
      */
     public Connector buildConnector() 
     {
     	org.mule.transport.file.FileConnector connector 
     		= new org.mule.transport.file.FileConnector();
+    	setName(ObjectNameHelper.getConnectorName(connector));
     	BeanUtil.copyProperties(this, connector);
-     //   populate(properties,connector,this.); 
+
         return connector;
     }
 

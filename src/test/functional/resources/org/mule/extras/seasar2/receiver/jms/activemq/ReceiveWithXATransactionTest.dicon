@@ -5,11 +5,13 @@
     <include path="s2mule-receiver.dicon"/>
     <include path="j2ee.dicon"/>
     
-	 <component name="echoUMO" 
-                class="org.mule.extras.seasar2.receiver.common.EchoUMO" />
+    <!-- UMO -->
+	<component name="echoUMO" 
+         class="org.mule.extras.seasar2.receiver.common.EchoUMO" />
     
     <!-- ActiveMQ Jms connectorの設定 -->
-    <component class="org.mule.extras.seasar2.config.impl.ActiveMQJmsConnector" >
+    <component 
+    	class="org.mule.extras.seasar2.connector.impl.ActiveMQJmsConnector" >
         <!-- brokerURLの設定 -->
         <property name="brokerURL">"tcp://localhost:61616"</property>
         <property name="transacted">true</property>
@@ -17,13 +19,14 @@
     </component>
     
     <!-- Endpoint-->
-    <component 
-       name="jms_in" class="org.mule.extras.seasar2.config.impl.Endpoint" >
+    <component name="jms_in" 
+    	class="org.mule.extras.seasar2.endpoint.impl.JMSEndpoint" >
      <property name="uri">"jms://Foo"</property>
     </component>
     
     <!-- MuleConfig -->
-    <component class="org.mule.extras.seasar2.receiver.impl.S2MuleConfiguration" >
+    <component 
+    	class="org.mule.extras.seasar2.receiver.impl.S2MuleConfiguration" >
         <initMethod name="addInbounEndpoint">
             <arg>jms_in</arg>
         </initMethod>

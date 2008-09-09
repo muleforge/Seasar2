@@ -1,6 +1,8 @@
 package org.mule.extras.seasar2.sender;
 
-import org.mule.extras.seasar2.config.ConnectorConfig;
+import java.util.Map;
+
+import org.mule.extras.seasar2.connector.ConnectorConfig;
 
 /**
  * Muleを利用してメッセージを送信するコンポーネントのインタフェースです。
@@ -25,20 +27,14 @@ public interface S2MuleSender
      * @return レスポンスメッセージ
      */
     Object send(Object payload);
-    
+ 
     /**
-     * プロパティを設定する
+     * プロパティ付きの同期メッセージを送信します。
      * 
-     * @param key プロパティのキー
-     * @param value プロパティの値
+     * @param payload メッセージの本文
+     * @param properties　プロパティ
+     * @return レスポンスメッセージ
      */
-    void setProperty(String key, Object value);
-    
-    /**
-     * コネクタの構成情報を取得する
-     * 
-     * @return connectorConfig コネクタの構成情報
-     */
-  //  ConnectorConfig getConnectorConfig() ;
+    Object send(Object payload, Map properties);
     
 }

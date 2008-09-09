@@ -1,4 +1,4 @@
-package org.mule.extras.seasar2.config;
+package org.mule.extras.seasar2.connector;
 
 import java.util.Map;
 
@@ -48,4 +48,8 @@ public interface ConnectorConfig
      * @return 
      */
     boolean isTransacted();
+    
+    public String getName();
+    
+    public void setName(String name);
 }

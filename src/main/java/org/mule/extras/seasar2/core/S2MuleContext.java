@@ -24,7 +24,7 @@ public class S2MuleContext
 		{
 			DefaultMuleContextFactory muleContextFactory
 				= new DefaultMuleContextFactory();
-			setMuleContext(muleContextFactory.createMuleContext());
+			muleContext = muleContextFactory.createMuleContext();
 		}
 		catch(MuleException e) 
 		{
@@ -49,8 +49,4 @@ public class S2MuleContext
 		return muleContext;
 	}
 
-	public void setMuleContext(MuleContext muleContext) 
-	{
-		this.muleContext = muleContext;
-	}
 }

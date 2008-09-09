@@ -9,12 +9,12 @@
     
     <!-- JMS Connectorの設定-->
     <component name="jms_connector"
-    	class="org.mule.extras.seasar2.config.impl.ActiveMQJmsConnector" >
+    	class="org.mule.extras.seasar2.connector.impl.ActiveMQJmsConnector" >
     	<property name="brokerURL">"tcp://localhost:61616"</property>
     </component>
     
     <component name="jms_in"
-    	class="org.mule.extras.seasar2.config.impl.Endpoint" >
+    	class="org.mule.extras.seasar2.endpoint.impl.FileEndpoint" >
     	<property name="uri">"jms://Foo"</property>
     	<property name="connectorConfig">
     		jms_connector

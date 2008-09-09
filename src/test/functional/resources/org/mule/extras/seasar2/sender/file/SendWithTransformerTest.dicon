@@ -6,18 +6,27 @@
 	<include path="s2mule-sender.dicon"/>
 
 	<!-- File Connectorの設定-->
-	<component class="org.mule.extras.seasar2.config.impl.FileConnector">
+	<component class="org.mule.extras.seasar2.connector.impl.FileConnector">
 	   <property name="outputPattern">"S2Mule-Test-FILE-O-005-${DATE:yyyyMMdd}.txt"</property>
 	</component>
 
-	<!-- S2MuleSender の設定-->
-	<component class="org.mule.extras.seasar2.sender.impl.S2MuleSenderImpl" >
-		<property name="outboundUri">"file:///C:/temp"</property>
+	<component name="file_in"
+		class="org.mule.extras.seasar2.endpoint.impl.FileEndpoint" >
+		<property name="uri">"file:///C:/temp"</property>
 		<initMethod name="addTransformer" >
 			<arg>
-				<component class="org.mule.extras.seasar2.sender.common.ObjectToStringTransformer" />
+				<component 
+					class="org.mule.extras.seasar2.sender.common.ObjectToStringTransformer" />
 			</arg>
 		</initMethod>
-		<initMethod name="init"/>
+
+	</component>
+
+
+	<!-- S2MuleSender の設定-->
+	<component class="org.mule.extras.seasar2.sender.impl.S2MuleSenderImpl" >
+		<initMethod name="addOutboundEndpoint" >
+			<arg>file_in</arg>		
+		</initMethod>
 	</component>
 </components>

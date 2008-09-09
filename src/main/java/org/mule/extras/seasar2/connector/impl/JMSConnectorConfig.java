@@ -1,9 +1,9 @@
-package org.mule.extras.seasar2.config.impl;
+package org.mule.extras.seasar2.connector.impl;
 
 import javax.jms.ConnectionFactory;
 import javax.jms.Session;
 
-import org.mule.extras.seasar2.config.AbstractConnector;
+import org.mule.extras.seasar2.connector.AbstractConnector;
 import org.mule.transport.jms.JmsConstants;
 
 public abstract class JMSConnectorConfig extends AbstractConnector

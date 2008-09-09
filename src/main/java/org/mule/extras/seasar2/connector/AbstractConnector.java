@@ -1,4 +1,4 @@
-package org.mule.extras.seasar2.config;
+package org.mule.extras.seasar2.connector;
 
 
 import java.util.HashMap;
@@ -19,13 +19,16 @@ import org.seasar.framework.beans.util.BeanUtil;
 public abstract class AbstractConnector implements ConnectorConfig
 {
     
-	 protected volatile int numberOfConcurrentTransactedReceivers 
+	protected volatile int numberOfConcurrentTransactedReceivers 
 	 	= org.mule.transport.AbstractConnector.DEFAULT_NUM_CONCURRENT_TX_RECEIVERS;
 	
 	protected boolean transacted = false;
 	 
     /** Connector�のプロパティ */
     protected Map properties = new HashMap();
+    
+    protected String name;
+    
     
     /**
      * プロパティを設定する
@@ -76,6 +79,15 @@ public abstract class AbstractConnector implements ConnectorConfig
 		this.transacted = transacted;
 	}
     
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+	
+	public String getName()
+	{
+		return name;
+	}
    
     /**
      * S2MuleのラッパークラスのプロパティをMuleのコンポーネントのプロパティ

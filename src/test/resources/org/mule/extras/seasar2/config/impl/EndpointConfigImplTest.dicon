@@ -5,12 +5,12 @@
 	<component class="org.mule.context.DefaultMuleContextFactory" />
 	
 	 <!-- ActiveMQ Jms connectorの設定 -->
-    <component class="org.mule.extras.seasar2.config.impl.ActiveMQJmsConnector" >
+    <component class="org.mule.extras.seasar2.connector.impl.ActiveMQJmsConnector" >
         <!-- brokerURLの設定 -->
         <property name="brokerURL">"tcp://localhost:61616"</property>
     </component>
 	
-	<component class="org.mule.extras.seasar2.config.impl.Endpoint" >
+	<component class="org.mule.extras.seasar2.endpoint.impl.JMSEndpoint" >
 	   <property name="uri">"jms://test"</property>
 	</component>
 	

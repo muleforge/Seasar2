@@ -6,7 +6,7 @@
 	<include path="s2mule-sender.dicon"/>
 	
 	<!-- ActiveMQ Jms connectorの設定 -->
-	<component class="org.mule.extras.seasar2.config.impl.ActiveMQJmsConnector" >
+	<component class="org.mule.extras.seasar2.connector.impl.ActiveMQJmsConnector" >
 		<!-- brokerURLの設定 -->
 		<property name="brokerURL">"tcp://localhost:51515"</property>
 		<property name="transacted">true</property>
@@ -15,8 +15,9 @@
 	<!-- S2MuleSender の設定-->
 	<component name="sender_2"
 		class="org.mule.extras.seasar2.sender.impl.S2MuleSenderImpl" >
-		<property name="outboundUri">"jms://Bar"</property>
-		<initMethod name="init"/>
+		<initMethod name="addOutboundEndpoint">
+			<arg>"jms://Bar"</arg>
+		</initMethod>
 	</component>
 
 </components>

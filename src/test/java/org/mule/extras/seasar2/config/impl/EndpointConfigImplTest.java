@@ -4,13 +4,14 @@ import org.mule.api.MuleContext;
 import org.mule.api.endpoint.EndpointBuilder;
 import org.mule.api.endpoint.InboundEndpoint;
 import org.mule.context.DefaultMuleContextFactory;
+import org.mule.extras.seasar2.endpoint.AbstractEndpoint;
 import org.mule.transport.jms.activemq.ActiveMQJmsConnector;
 import org.seasar.extension.unit.S2TestCase;
 
 public class EndpointConfigImplTest extends S2TestCase {
 	
 	private DefaultMuleContextFactory factory_;
-	private Endpoint endpointConfig_;
+	private AbstractEndpoint endpointConfig_;
 	
 	public EndpointConfigImplTest(String name) 
 	{
@@ -31,6 +32,8 @@ public class EndpointConfigImplTest extends S2TestCase {
 		assertEquals("test", inboundEndpoint.getEndpointURI().getAddress());
 		assertEquals(ActiveMQJmsConnector.class, 
 					inboundEndpoint.getConnector().getClass());
+		
+		assertEquals("jms", endpointConfig_.getUriScheme());
 	}
 
 }

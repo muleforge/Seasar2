@@ -1,9 +1,10 @@
-package org.mule.extras.seasar2.config.impl;
+package org.mule.extras.seasar2.connector.impl;
 
 import org.mule.api.transport.Connector;
-import org.mule.extras.seasar2.config.ConnectorConfig;
+import org.mule.extras.seasar2.connector.ConnectorConfig;
 import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
 import org.mule.transport.jms.JmsConstants;
+import org.mule.util.ObjectNameHelper;
 import org.seasar.framework.beans.util.BeanUtil;
 
 
@@ -26,7 +27,7 @@ public class ActiveMQJmsConnector extends JMSConnectorConfig
     }
     
     /**
-     * @see org.mule.extras.seasar2.config.ConnectorConfig#getConnector()
+     * @see org.mule.extras.seasar2.connector.ConnectorConfig#getConnector()
      */
     public Connector buildConnector() 
     {
@@ -40,6 +41,7 @@ public class ActiveMQJmsConnector extends JMSConnectorConfig
          {
              throw new S2MuleConfigurationException("ESML0002", new Object[]{"brokerUrl"});
          }
+    	 
     	 if(transacted)
     	 {
     		 connector = new org.mule.transport.jms.activemq.ActiveMQXAJmsConnector(); 
@@ -49,7 +51,8 @@ public class ActiveMQJmsConnector extends JMSConnectorConfig
     	 {
     		 connector = new org.mule.transport.jms.activemq.ActiveMQJmsConnector();
     	 }
-    		 
+    	
+    	 setName(ObjectNameHelper.getConnectorName(connector));
         //nameとvalueのMap型であるpropertiesをbeanに反映させる
         //populate(connector, properties);
         BeanUtil.copyProperties(this, connector);

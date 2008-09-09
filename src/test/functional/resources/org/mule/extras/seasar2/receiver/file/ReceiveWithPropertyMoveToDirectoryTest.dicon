@@ -12,7 +12,7 @@
                 class="org.mule.extras.seasar2.receiver.common.EchoUMO" />
     
     <!-- File Connectorの設定-->
-    <component class="org.mule.extras.seasar2.config.impl.FileConnector">
+    <component class="org.mule.extras.seasar2.connector.impl.FileConnector">
         <property name="moveToPattern">"Test-処理済み"</property>
         <property name="moveToDirectory">"C:/temp/afterFile"</property>
         <property name="streaming">false</property>
@@ -20,7 +20,7 @@
     
     <!-- Endpointの設定 -->
     <component 
-       name="file_in" class="org.mule.extras.seasar2.config.impl.Endpoint" >
+       name="file_in" class="org.mule.extras.seasar2.endpoint.impl.FileEndpoint" >
       <property name="uri">"file:///C:/temp"</property>
        <!-- トランスフォーマの設定 -->
       <initMethod name="addTransformer" >

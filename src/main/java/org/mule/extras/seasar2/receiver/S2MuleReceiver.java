@@ -18,7 +18,7 @@ public interface S2MuleReceiver
      * @return managementContexts
      * @throws MuleException Muleで発生した例外
      */
-    void start()  throws MuleException;
+    void start() throws MuleException;
    
     /**
      * Muleを終了する際、全てのコンポーネントを破棄する

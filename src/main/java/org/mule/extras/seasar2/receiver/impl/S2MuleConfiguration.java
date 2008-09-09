@@ -3,13 +3,10 @@ package org.mule.extras.seasar2.receiver.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.mule.endpoint.DefaultInboundEndpoint;
-import org.mule.endpoint.DefaultOutboundEndpoint;
-import org.mule.endpoint.URIBuilder;
-import org.mule.extras.seasar2.config.EndpointConfig;
-import org.mule.extras.seasar2.config.impl.Endpoint;
-//import org.mule.endpoint.MuleEndpoint;
+import org.mule.extras.seasar2.endpoint.EndpointConfig;
+import org.mule.extras.seasar2.endpoint.impl.EndpointConfigBuilderImpl;
 import org.mule.api.MuleException;
+import org.mule.extras.seasar2.endpoint.EndpointConfigBuilder;
 import org.seasar.framework.util.ClassUtil;
 
 /**
@@ -60,7 +57,9 @@ public class S2MuleConfiguration
      */
     public void addInboudEndpoint(String endpointUri)
     {
-    	inboundEndpoints.add(new Endpoint(endpointUri));
+    	EndpointConfigBuilder builder 
+    		= new EndpointConfigBuilderImpl(endpointUri);
+    	inboundEndpoints.add(builder.build());
     }
     
     

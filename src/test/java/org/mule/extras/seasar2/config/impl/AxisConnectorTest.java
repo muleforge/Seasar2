@@ -1,6 +1,6 @@
 package org.mule.extras.seasar2.config.impl;
 
-import org.mule.extras.seasar2.config.impl.AxisConnector;
+import org.mule.extras.seasar2.connector.impl.AxisConnector;
 import org.seasar.extension.unit.S2TestCase;
 
 public class AxisConnectorTest extends S2TestCase 
