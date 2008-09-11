@@ -12,12 +12,12 @@ public class ReceiveWithFilterTest extends S2TestCase
 	
 	public void setUp() throws Exception
 	{
-		include("ReceiveFilterTest.dicon");
+		include("ReceiveWithFilterTest.dicon");
 	}
 	
 	public void testConfigure() throws Exception
 	{
-		Thread.sleep(TestProperty.THREAD_SLEEP_TIME);
+		Thread.sleep(TestProperty.THREAD_SLEEP_TIME + 1000000);
 	}
 	
 	

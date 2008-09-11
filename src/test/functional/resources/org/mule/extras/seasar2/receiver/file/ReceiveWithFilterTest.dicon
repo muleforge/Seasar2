@@ -3,25 +3,18 @@
 	"http://www.seasar.org/dtd/components24.dtd">
 <components>
     <include path="s2mule-receiver.dicon"/>
-    <include path="j2ee.dicon"/>
-    
-    <!-- テスト用のメッセージ送信はS2MuleSenderを利用 -->
-    <include path="org/mule/extras/seasar2/sender/file/SendWithNoPropertyTest.dicon"/>
     
 	 <component name="echoUMO" 
                 class="org.mule.extras.seasar2.receiver.common.EchoUMO" />
     
-    <!-- File Connectorの設定-->
-    <component class="org.mule.extras.seasar2.connector.impl.FileConnector">
-        <property name="moveToPattern">"${ORIGINALNAME}-処理済み"</property>
-        <property name="moveToDirectory">"C:/temp/afterFile"</property>
-        <property name="streaming">false</property>
-    </component>
-    
-    <!-- Endpointの設定 -->
     <component 
        name="file_in" class="org.mule.extras.seasar2.endpoint.impl.FileEndpoint" >
       <property name="uri">"file:///C:/temp"</property>
+      <property name="filter">
+      	<component class="org.mule.transport.file.filters.FilenameWildcardFilter" >
+      		<property name="pattern">"*.txt"</property>
+      	</component>
+      </property>
        <!-- トランスフォーマの設定 -->
       <initMethod name="addTransformer" >
         <arg>

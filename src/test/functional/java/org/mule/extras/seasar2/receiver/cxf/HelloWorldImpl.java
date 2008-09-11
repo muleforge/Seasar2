@@ -1,7 +1,3 @@
-/*
-* テストコメント
-*/
-
 package org.mule.extras.seasar2.receiver.cxf;
 
 import javax.jws.WebService;
@@ -12,9 +8,9 @@ import javax.jws.WebService;
 public class HelloWorldImpl implements HelloWorld 
 {
 
-	public String echo(String string) 
+	public String hello(String str) 
 	{
-		return "Hello " + string;
+		return "Hello " + str;
 	}
 
 }

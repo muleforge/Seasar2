@@ -21,11 +21,6 @@ public class ReceiveWithNoPropertyTest extends S2TestCase
 	{
 		 assertEquals("SendWithNoPropertyTest : OK", echo_
 	                .echo("SendWithNoPropertyTest : OK"));
-		
-//		while (true)
-//		{
-//			
-//		}
 	}
 	
 	

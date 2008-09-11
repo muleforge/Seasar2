@@ -10,18 +10,18 @@
 	   <property name="outputPattern">"S2Mule-Test-FILE-O-005-${DATE:yyyyMMdd}.txt"</property>
 	</component>
 
+	<!-- Endpointの設定-->
 	<component name="file_in"
 		class="org.mule.extras.seasar2.endpoint.impl.FileEndpoint" >
 		<property name="uri">"file:///C:/temp"</property>
+		<!-- Transformerの設定 -->
 		<initMethod name="addTransformer" >
 			<arg>
 				<component 
 					class="org.mule.extras.seasar2.sender.common.ObjectToStringTransformer" />
 			</arg>
 		</initMethod>
-
 	</component>
-
 
 	<!-- S2MuleSender の設定-->
 	<component class="org.mule.extras.seasar2.sender.impl.S2MuleSenderImpl" >
@@ -30,3 +30,4 @@
 		</initMethod>
 	</component>
 </components>
+

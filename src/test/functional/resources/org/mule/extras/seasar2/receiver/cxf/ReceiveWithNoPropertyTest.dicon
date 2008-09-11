@@ -3,7 +3,6 @@
 	"http://www.seasar.org/dtd/components24.dtd">
 <components>
     <include path="s2mule-receiver.dicon"/>
-    <include path="j2ee.dicon"/>
     
 	 <component name="helloUMO" 
                 class="org.mule.extras.seasar2.receiver.cxf.HelloWorldImpl" />
@@ -11,7 +10,7 @@
     <!-- MuleConfig -->
     <component class="org.mule.extras.seasar2.receiver.impl.S2MuleConfiguration" >
         <initMethod name="addInboudEndpoint">
-            <arg>"cxf:http://localhost:65082/services"</arg>
+            <arg>"cxf:http://localhost:65082/services/hello"</arg>
         </initMethod>
         <property name="umoImpl">helloUMO</property>
     </component>

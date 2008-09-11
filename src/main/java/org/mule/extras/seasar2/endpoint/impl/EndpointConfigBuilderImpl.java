@@ -46,7 +46,7 @@ public class EndpointConfigBuilderImpl implements EndpointConfigBuilder
 	
 	private String getUriScheme(String uri)
 	{
-		int index = uri.indexOf(":/");
+		int index = uri.indexOf(":");
 		if (index == -1 )
 		{
 			throw new S2MuleConfigurationException("EMSL0006" ,new Object[]{uri});

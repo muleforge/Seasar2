@@ -225,6 +225,7 @@ public class S2MuleSenderImpl implements S2MuleSender
             	Connector connector = null;
             	if(outboundEndpoint.getUriScheme().equals(JmsConnector.JMS))
             	{
+            		//MULE-3654
             		connector = (Connector)muleClient.getMuleContext().getRegistry()
             			.lookupConnector(outboundEndpoint.getConnectorConfig().getName());
             		connector.start();
@@ -236,6 +237,7 @@ public class S2MuleSenderImpl implements S2MuleSender
             	
             	if(outboundEndpoint.getUriScheme().equals(JmsConnector.JMS))
             	{
+            		//MULE-3654
             		connector.stop();
             	}
             	
@@ -263,8 +265,10 @@ public class S2MuleSenderImpl implements S2MuleSender
     {
     	EndpointConfig outboundEndpoint
     		= (EndpointConfig)outboundEndpoints.get(0);
-    	outboundEndpoint.getProperties().putAll(properties);
-    		
+    	if(properties != null)
+    	{
+    		outboundEndpoint.getProperties().putAll(properties);
+    	}
     	return send(payload);
     }
     

@@ -48,7 +48,7 @@ public abstract class AbstractEndpoint implements EndpointConfig {
 	protected ConnectorConfig connectorConfig;
 	
 	/** プロパティ */
-	protected Map properties;
+	protected Map properties = new HashMap();
 	
 	/** フィルター*/
 	protected Filter filter;
@@ -155,10 +155,6 @@ public abstract class AbstractEndpoint implements EndpointConfig {
      */
     public void setProperty(String key, Object value) 
     {
-    	if(properties == null)
-    	{
-    		properties = new HashMap();
-    	} 
 		properties.put(key, value);
     }
     

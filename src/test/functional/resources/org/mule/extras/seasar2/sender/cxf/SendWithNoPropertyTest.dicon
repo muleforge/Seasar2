@@ -11,12 +11,28 @@
 	<!-- インターセプタコンポーネントの定義-->
 	<component name="interceptor" 
 		class="org.mule.extras.seasar2.sender.interceptor.MethodInvocationInterceptor" />
+		
+		
+	<!-- Endpointの設定 -->
+	<component name="cxf_out"
+		class="org.mule.extras.seasar2.endpoint.impl.CxfEndpoint" >
+		<property name="uri">"cxf:http://localhost:65081/services/EchoUMO"</property>
+		<property name="clientClass">"org.mule.example.echo.EchoService"</property>
+		<property name="wsdlPort">"EchoPort"</property>
+		<property name="wsdlLocation">"http://localhost:65082/services/EchoUMO?wsdl"</property>
+		<property name="operation">"echo"</property>
+		<initMethod name="addTransformer" >
+			<arg>
+				<component class="org.mule.example.echo.StringToHolder" />
+			</arg>
+		</initMethod>
+	</component>
 
 	<!-- Senderの設定-->
 	<component class="org.mule.extras.seasar2.sender.impl.S2MuleSenderImpl" >
 		<!-- Serviceのuri-->
 		<initMethod name="addOutboundEndpoint" >
-			<arg>"cxf:http://localhost:65082/services/EchoUMO"</arg>
+			<arg>cxf_out</arg>
 		</initMethod>
 	</component>
 	

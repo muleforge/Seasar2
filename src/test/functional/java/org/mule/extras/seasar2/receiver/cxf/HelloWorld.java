@@ -8,7 +8,7 @@ import javax.jws.WebService;
 public interface HelloWorld
 {
     @WebResult(name="src")
-    public String echo(@WebParam(name="src") String string);
+    public String hello(@WebParam(name="src") String str);
 }
 
 

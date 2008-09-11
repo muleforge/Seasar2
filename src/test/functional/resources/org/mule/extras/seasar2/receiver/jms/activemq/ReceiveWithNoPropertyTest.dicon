@@ -5,7 +5,8 @@
     <include path="s2mule-receiver.dicon"/>
     <include path="j2ee.dicon"/>
     
-	 <component name="echoUMO" 
+    <!-- メッセージを受け取るPOJOの設定 -->
+	<component name="echoUMO" 
                 class="org.mule.extras.seasar2.receiver.common.EchoUMO" />
     
     <!-- ActiveMQ Jms connectorの設定 -->
@@ -27,5 +28,4 @@
         </initMethod>
         <property name="umoImpl">echoUMO</property>
     </component>
-    
 </components>

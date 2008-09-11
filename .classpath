@@ -28,7 +28,7 @@
 	<classpathentry kind="var" path="M2_REPO/commons-lang/commons-lang/2.3/commons-lang-2.3.jar"/>
 	<classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.1/commons-logging-1.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/commons-pool/commons-pool/1.4/commons-pool-1.4.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/apache/cxf/cxf-api/2.0.6/cxf-api-2.0.6.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/cxf/cxf-api/2.0.6/cxf-api-2.0.6.jar" sourcepath="/cxf-2.0.6"/>
 	<classpathentry kind="var" path="M2_REPO/org/apache/cxf/cxf-common-schemas/2.0.6/cxf-common-schemas-2.0.6.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/apache/cxf/cxf-common-utilities/2.0.6/cxf-common-utilities-2.0.6.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/apache/cxf/cxf-rt-bindings-http/2.0.6/cxf-rt-bindings-http-2.0.6.jar"/>
@@ -38,8 +38,8 @@
 	<classpathentry kind="var" path="M2_REPO/org/apache/cxf/cxf-rt-databinding-aegis/2.0.6/cxf-rt-databinding-aegis-2.0.6.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/apache/cxf/cxf-rt-databinding-jaxb/2.0.6/cxf-rt-databinding-jaxb-2.0.6.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/apache/cxf/cxf-rt-frontend-jaxws/2.0.6/cxf-rt-frontend-jaxws-2.0.6.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/apache/cxf/cxf-rt-frontend-simple/2.0.6/cxf-rt-frontend-simple-2.0.6.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/apache/cxf/cxf-rt-transports-http/2.0.6/cxf-rt-transports-http-2.0.6.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/cxf/cxf-rt-frontend-simple/2.0.6/cxf-rt-frontend-simple-2.0.6.jar" sourcepath="/cxf-2.0.6"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/cxf/cxf-rt-transports-http/2.0.6/cxf-rt-transports-http-2.0.6.jar" sourcepath="/cxf-2.0.6"/>
 	<classpathentry kind="var" path="M2_REPO/org/apache/cxf/cxf-rt-transports-local/2.0.6/cxf-rt-transports-local-2.0.6.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/apache/cxf/cxf-tools-common/2.0.6/cxf-tools-common-2.0.6.jar"/>
 	<classpathentry kind="var" path="M2_REPO/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar"/>
