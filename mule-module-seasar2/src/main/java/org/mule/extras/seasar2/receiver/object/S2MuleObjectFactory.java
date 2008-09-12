@@ -19,11 +19,6 @@ public class S2MuleObjectFactory implements ObjectFactory
 {
     
     /**
-     * S2コンテナ
-     */
-    private S2Container container;
-    
-    /**
      * 作成するクラス名
      */
     private ComponentDef componentDef;
@@ -36,7 +31,6 @@ public class S2MuleObjectFactory implements ObjectFactory
      */
     public S2MuleObjectFactory( S2Container container, Object object )
     {
-        this.container = container;
         this.componentDef = container.getRoot().getComponentDef(object.getClass());
     }
     

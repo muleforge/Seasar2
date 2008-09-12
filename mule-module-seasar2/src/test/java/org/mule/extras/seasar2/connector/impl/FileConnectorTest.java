@@ -1,4 +1,4 @@
-package org.mule.extras.seasar2.config.impl;
+package org.mule.extras.seasar2.connector.impl;
 
 import org.mule.extras.seasar2.connector.impl.FileConnector;
 import org.seasar.extension.unit.S2TestCase;

@@ -208,12 +208,4 @@ public abstract class AbstractEndpoint implements EndpointConfig {
 		this.remoteSyncTimeout = remoteSyncTimeout;
 	}
 	
-	
-	
-//	public String getUriScheme()
-//	{
-//		int index = uri.indexOf(":/");
-//		return uri.substring(0,index);
-//	}
-	
 }

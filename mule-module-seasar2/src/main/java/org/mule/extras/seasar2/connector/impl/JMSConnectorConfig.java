@@ -11,16 +11,6 @@ public abstract class JMSConnectorConfig extends AbstractConnector
 	private int acknowledgementMode = Session.AUTO_ACKNOWLEDGE;
 
     private String clientId;
-    
-    /*
-    private boolean durable;
-
-    private boolean noLocal;
-
-    private boolean persistentDelivery;
-
-    private boolean honorQosHeaders;
-	*/
 
     private boolean persistentDelivery = false;
     

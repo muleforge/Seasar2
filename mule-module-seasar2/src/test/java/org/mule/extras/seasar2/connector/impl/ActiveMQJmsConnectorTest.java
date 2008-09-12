@@ -1,6 +1,7 @@
-package org.mule.extras.seasar2.config.impl;
+package org.mule.extras.seasar2.connector.impl;
 
 import org.mule.extras.seasar2.connector.impl.ActiveMQJmsConnector;
+import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
 import org.seasar.extension.unit.S2TestCase;
 
 public class ActiveMQJmsConnectorTest extends S2TestCase 
@@ -18,7 +19,7 @@ public class ActiveMQJmsConnectorTest extends S2TestCase
         include("ActiveMQJmsConnectorTest.dicon");
     }
 
-    public void testGetConnector() throws Exception 
+    public void testBuildConnector() throws Exception 
     {
         
         Object connector = config_.buildConnector();
@@ -31,5 +32,17 @@ public class ActiveMQJmsConnectorTest extends S2TestCase
         
         int maxRedelivery = ((org.mule.transport.jms.activemq.ActiveMQJmsConnector) connector).getMaxRedelivery();
         assertEquals("Property borkerURL isn't correct", maxRedelivery, 5);
+        
+        config_.setBrokerURL(null);
+        try
+        {
+        	config_.buildConnector();
+        	fail("brokerURL is null");
+        }
+        catch(S2MuleConfigurationException ex)
+        {
+        	assertNotNull(ex.getMessage());
+        }
+        
     }
 }

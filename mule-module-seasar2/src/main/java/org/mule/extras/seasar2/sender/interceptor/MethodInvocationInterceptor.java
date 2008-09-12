@@ -40,7 +40,6 @@ public class MethodInvocationInterceptor extends AbstractInterceptor
             String methodName = method.getName();
             Map properties = new HashMap();
             properties.put("method", methodName);
-            Object tme = sender.send(payload,properties);
             return sender.send(payload,properties);
         }
         return methodInvocation.proceed();
