@@ -1,7 +1,5 @@
 package org.mule.extras.seasar2.receiver.file;
 
-import java.io.File;
-
 import org.mule.extras.seasar2.receiver.common.TestProperty;
 import org.mule.extras.seasar2.sender.S2MuleSender;
 import org.seasar.extension.unit.S2TestCase;

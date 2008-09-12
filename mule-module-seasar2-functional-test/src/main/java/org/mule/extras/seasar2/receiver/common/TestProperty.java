@@ -7,5 +7,5 @@ package org.mule.extras.seasar2.receiver.common;
  */
 public class TestProperty 
 {
-	public static final long THREAD_SLEEP_TIME = 3000;
+	public static final long THREAD_SLEEP_TIME = 5000;
 }

@@ -1,5 +1,6 @@
 package org.mule.extras.seasar2.sender.common;
 
+import org.mule.extras.seasar2.sender.S2MuleSender;
 import org.seasar.extension.unit.S2TestCase;
 
 /**
@@ -9,7 +10,7 @@ import org.seasar.extension.unit.S2TestCase;
  */
 public class SendMlutiEndpointTest extends S2TestCase {
     
-    private MlutiDispatcher dispatcher_;
+    private S2MuleSender sender_;
     
     public void setUp() throws Exception 
     {
@@ -18,6 +19,6 @@ public class SendMlutiEndpointTest extends S2TestCase {
     
     public void testMlutiDispatch() throws Exception 
     {
-        dispatcher_.mlutiDispatch();
+    	sender_.dispatch("MlutiEndpointTest : OK");
     }
 }

@@ -17,7 +17,7 @@ public class ReceiveWithFilterTest extends S2TestCase
 	
 	public void testConfigure() throws Exception
 	{
-		Thread.sleep(TestProperty.THREAD_SLEEP_TIME + 1000000);
+		Thread.sleep(TestProperty.THREAD_SLEEP_TIME);
 	}
 	
 	

@@ -3,11 +3,13 @@
 	"http://www.seasar.org/dtd/components24.dtd">
 <components>
     <include path="s2mule-receiver.dicon"/>
-    <include path="j2ee.dicon"/>
+ 	
+ 	 <!-- テスト用のメッセージ送信はS2MuleSenderを利用 -->
+    <include path="org/mule/extras/seasar2/sender/jms/activemq/SendWithNoPropertyTest.dicon"/>
     
     <!-- メッセージを受け取るPOJOの設定 -->
 	<component name="echoUMO" 
-                class="org.mule.extras.seasar2.receiver.common.EchoUMO" />
+                class="org.mule.extras.seasar2.receiver.jms.activemq.JmsTestComponent" />
     
     <!-- ActiveMQ Jms connectorの設定 -->
     <component class="org.mule.extras.seasar2.connector.impl.ActiveMQJmsConnector" >

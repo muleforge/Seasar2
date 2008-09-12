@@ -8,7 +8,7 @@
 	<include path="s2mule-sender.dicon"/>
 	
 	<!-- Endpointの設定 -->
-	<component name="axis_in"
+	<component name="axis_out"
 		class="org.mule.extras.seasar2.endpoint.impl.AxisEndpoint" >
 		<property name="uri">"axis:http://localhost:65082/services/CustomerUMO"</property>
 		<!-- SOAPのスタイルをwrapped/literalに設定-->
@@ -24,7 +24,7 @@
 	<component class="org.mule.extras.seasar2.sender.impl.S2MuleSenderImpl" >
 		<!-- Serviceのuri-->
 		<initMethod name="addOutboundEndpoint" >
-			<arg>axis_in</arg>
+			<arg>axis_out</arg>
 		</initMethod>
 	</component>
 	
