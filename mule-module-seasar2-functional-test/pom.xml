@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.mule.modules</groupId>
-	<artifactId>mule-module-seasar2-functional-text</artifactId>
+	<artifactId>mule-module-seasar2-functional-test</artifactId>
 	<packaging>jar</packaging>
 	<version>0.9.3</version>
 	<properties>
@@ -76,9 +76,107 @@
 		to the Spring Framework. </description>
 	<dependencies>
 		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-j2ee_1.4_spec</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-jta_1.1_spec</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.seasar.container</groupId>
+			<artifactId>s2-framework</artifactId>
+			<version>2.4.17</version>
+		</dependency>
+		<dependency>
+			<groupId>org.seasar.container</groupId>
+			<artifactId>s2-extension</artifactId>
+			<version>2.4.17</version>
+		</dependency>
+		<dependency>
+			<groupId>org.seasar.container</groupId>
+			<artifactId>s2-tiger</artifactId>
+			<version>2.4.17</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mule</groupId>
+			<artifactId>mule-core</artifactId>
+			<version>${muleVersion}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.mule.modules</groupId>
-			<artifactId>mule-module-seasar2</artifactId>
-			<version>0.9.3</version>
+			<artifactId>mule-module-client</artifactId>
+			<version>${muleVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.modules</groupId>
+			<artifactId>mule-module-jbossts</artifactId>
+			<version>${muleVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.tests</groupId>
+			<artifactId>mule-tests-functional</artifactId>
+			<version>${muleVersion}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.transports</groupId>
+			<artifactId>mule-transport-vm</artifactId>
+			<version>${muleVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.transports</groupId>
+			<artifactId>mule-transport-tcp</artifactId>
+			<version>${muleVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.transports</groupId>
+			<artifactId>mule-transport-file</artifactId>
+			<version>${muleVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.transports</groupId>
+			<artifactId>mule-transport-stdio</artifactId>
+			<version>${muleVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.transports</groupId>
+			<artifactId>mule-transport-http</artifactId>
+			<version>${muleVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.transports</groupId>
+			<artifactId>mule-transport-soap</artifactId>
+			<version>${muleVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.transports</groupId>
+			<artifactId>mule-transport-axis</artifactId>
+			<version>${muleVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.transports</groupId>
+			<artifactId>mule-transport-jms</artifactId>
+			<version>${muleVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.transports</groupId>
+			<artifactId>mule-transport-cxf</artifactId>
+			<version>${muleVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.examples</groupId>
+			<artifactId>mule-example-hello</artifactId>
+			<version>${muleVersion}</version>
 		</dependency>
 	</dependencies>
+	<repositories>
+		<repository>
+			<id>maven.seasar.org</id>
+			<name>The Seasar Foundation Maven2 Repository</name>
+			<url>http://maven.seasar.org/maven2</url>
+		</repository>
+	</repositories>
 </project>
