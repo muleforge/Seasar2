@@ -9,6 +9,12 @@
 	<properties>
 		<muleVersion>2.0.2</muleVersion>
 	</properties>
+	<parent>
+		<groupId>org.mule.modules</groupId>
+		<artifactId>s2mule</artifactId>
+		<version>0.9.3</version>
+	</parent>
+
 	<distributionManagement>
 		<repository>
 			<id>muleforge.webdav.releases</id>
@@ -171,6 +177,12 @@
 			<artifactId>mule-example-hello</artifactId>
 			<version>${muleVersion}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.mule.modules</groupId>
+			<artifactId>mule-module-seasar2<</artifactId>
+			<version>0.9.3</version>
+		</dependency>
+
 	</dependencies>
 	<repositories>
 		<repository>

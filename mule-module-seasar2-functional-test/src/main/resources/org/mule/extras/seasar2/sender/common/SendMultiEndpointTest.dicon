@@ -7,7 +7,7 @@
 <components>
 	<include path="s2mule-sender.dicon"/>
 	
-	<component name="jms_in"
+	<component name="jms_out"
 		class="org.mule.extras.seasar2.endpoint.impl.JMSEndpoint" >
 		<property name="uri">"jms://Foo"</property>
 		<property name="connectorConfig">
@@ -24,7 +24,7 @@
 	<component 
 		class="org.mule.extras.seasar2.sender.impl.S2MuleSenderImpl" >
 		<initMethod name="addOutboundEndpoint" >
-			<arg>jms_in</arg>
+			<arg>jms_out</arg>
 		</initMethod>
 		<initMethod name="addOutboundEndpoint" >
 			<arg>"file:///C:/temp"</arg>

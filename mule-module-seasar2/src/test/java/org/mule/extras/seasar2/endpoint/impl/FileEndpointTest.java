@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) Osaka Gas Information System Research Institute Co., Ltd.
+ * All rights reserved.  http://www.ogis-ri.co.jp/
+ * 
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
 package org.mule.extras.seasar2.endpoint.impl;
 
 import org.mule.api.MuleContext;
@@ -9,19 +17,19 @@ import org.mule.transport.jms.filters.JmsPropertyFilter;
 import org.mule.transport.jms.transformers.JMSMessageToObject;
 import org.seasar.extension.unit.S2TestCase;
 
-public class EndpointImplTest extends S2TestCase {
+public class FileEndpointTest extends S2TestCase {
 	
 	private DefaultMuleContextFactory factory_;
 	private AbstractEndpoint endpointConfig_;
 	
-	public EndpointImplTest(String name) 
+	public FileEndpointTest(String name) 
 	{
 		super(name);
 	}
 	
 	public void setUp() throws Exception
 	{
-		include("EndpointImplTest.dicon");
+		include("FileEndpointTest.dicon");
 	}
 	
 	public void testBuildEndpointBuilder() throws Exception 
@@ -31,40 +39,12 @@ public class EndpointImplTest extends S2TestCase {
 		InboundEndpoint inboundEndpoint = builder.buildInboundEndpoint();
 		
 		assertEquals("EndpointURI isn't correct"
-				,"test"
+				,"/C:/test"
 				,inboundEndpoint.getEndpointURI().getAddress());
 		
 		assertEquals("UriScheme isn't correct"
 				,"file"
-				,endpointConfig_.getUriScheme());
-		
-		assertEquals("Connector isn't correct"
-					,org.mule.transport.file.FileConnector.class
-					,inboundEndpoint.getConnector().getClass());
-		
-		assertEquals("Filter isn't correct"
-				,JmsPropertyFilter.class
-				,inboundEndpoint.getFilter().getClass());
-		
-		assertEquals("Transfomer isn't correct"
-				,JMSMessageToObject.class
-				,inboundEndpoint.getTransformers().get(0).getClass());
-		
-		assertEquals("RemoteSync ins't correct"
-				,true
-				,inboundEndpoint.isRemoteSync());
-		
-		assertEquals("RemoteSyncTimeout isn't correct"
-				,1000
-				,inboundEndpoint.getRemoteSyncTimeout());
-		
-		String value 
-			= (String)inboundEndpoint.getProperties().get("testProperty");
-		
-		assertEquals("Property isn't correct"
-				,"test"
-				,value);
-		
+				,endpointConfig_.getUriScheme());		
 	}
 
 }

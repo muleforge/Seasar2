@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) Osaka Gas Information System Research Institute Co., Ltd.
+ * All rights reserved.  http://www.ogis-ri.co.jp/
+ * 
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
 package org.mule.extras.seasar2.endpoint.impl;
 
 import org.mule.api.MuleContext;
@@ -9,19 +17,19 @@ import org.mule.transport.jms.filters.JmsPropertyFilter;
 import org.mule.transport.jms.transformers.JMSMessageToObject;
 import org.seasar.extension.unit.S2TestCase;
 
-public class AxisEndpointImplTest extends S2TestCase {
+public class JMSEndpointTest extends S2TestCase {
 	
 	private DefaultMuleContextFactory factory_;
 	private AbstractEndpoint endpointConfig_;
 	
-	public AxisEndpointImplTest(String name) 
+	public JMSEndpointTest(String name) 
 	{
 		super(name);
 	}
 	
 	public void setUp() throws Exception
 	{
-		include("AxisEndpointImplTest.dicon");
+		include("JMSEndpointTest.dicon");
 	}
 	
 	public void testBuildEndpointBuilder() throws Exception 
@@ -31,27 +39,19 @@ public class AxisEndpointImplTest extends S2TestCase {
 		InboundEndpoint inboundEndpoint = builder.buildInboundEndpoint();
 		
 		assertEquals("EndpointURI isn't correct"
-				,"http://test.com"
+				,"Foo"
 				,inboundEndpoint.getEndpointURI().getAddress());
 		
 		assertEquals("UriScheme isn't correct"
-				,"axis"
+				,"jms"
 				,endpointConfig_.getUriScheme());
 		
 		String style 
-			= (String)inboundEndpoint.getProperties().get("style");
+			= (String)inboundEndpoint.getProperties().get("JMSReplyTo");
 		
 		assertEquals("Property isn't correct"
-				,"doc"
-				,style);
-		
-		String value
-			= (String)inboundEndpoint.getProperties().get("use");
-		
-		assertEquals("Property isn't correct"
-				,"use"
-				,value);
-		
+				,"Bar"
+				,style);		
 	}
 
 }

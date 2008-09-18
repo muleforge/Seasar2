@@ -8,11 +8,22 @@
  */
 package org.mule.extras.seasar2.receiver.common;
 
-public class EchoUMO implements Echo
+import org.seasar.extension.unit.S2TestCase;
+
+public class ReceiveMultiEndpointTest extends S2TestCase 
 {
-	public String echo(String str)
+	public ReceiveMultiEndpointTest(String name)
 	{
-		System.out.println("Message:" + str);
-		return str;
+		super(name);
+	}
+	
+	public void setUp() throws Exception
+	{
+		include("ReceiveMultiEndpointTest.dicon");
+	}
+	
+	public void testConfigure() throws Exception
+	{
+		Thread.sleep(TestProperty.THREAD_SLEEP_TIME);
 	}
 }
