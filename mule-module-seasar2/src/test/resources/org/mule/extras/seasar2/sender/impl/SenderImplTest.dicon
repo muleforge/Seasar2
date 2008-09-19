@@ -6,25 +6,12 @@
 -->
 <components>
 	<include path="s2mule-sender.dicon"/>
-		
-	
-	<component name="jms_out"
-		class="org.mule.extras.seasar2.endpoint.impl.JMSEndpoint" >
-		<property name="uri">"jms://Foo"</property>
-		<property name="connectorConfig">
-				<!-- JmsConnectorの設定-->
-				<component 
-					class="org.mule.extras.seasar2.connector.impl.ActiveMQJmsConnector" >
-					<property name="brokerURL">"tcp://localhost:61616"</property>
-				</component>
-		</property>
-	</component>
 
 	<!-- S2MuleSender の設定-->
 	<component class="org.mule.extras.seasar2.sender.impl.S2MuleSenderImpl" >
-		<initMethod name="addOutboundEndpoint">"file:///C:/temp"</initMethod>
-		<initMethod name="addOutboundEndpoint" >jms_out</initMethod>
-		<initMethod name="init"/>
+		<initMethod name="addOutboundEndpoint">
+			<arg>"file:///C:/temp"</arg>
+		</initMethod>
 	</component>
 
 </components>
