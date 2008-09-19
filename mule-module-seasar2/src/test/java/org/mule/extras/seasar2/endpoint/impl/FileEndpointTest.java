@@ -44,7 +44,8 @@ public class FileEndpointTest extends S2TestCase {
 		
 		assertEquals("UriScheme isn't correct"
 				,"file"
-				,endpointConfig_.getUriScheme());		
+				,endpointConfig_.getUriScheme());
+		muleContext.dispose();
 	}
 
 }

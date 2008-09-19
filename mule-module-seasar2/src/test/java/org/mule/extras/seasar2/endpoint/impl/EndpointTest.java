@@ -72,6 +72,7 @@ public class EndpointTest extends S2TestCase {
 		assertEquals("Property isn't correct"
 				,"test"
 				,value);
+		muleContext.dispose();
 		
 	}
 

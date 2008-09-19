@@ -59,7 +59,7 @@ public class AxisEndpointTest extends S2TestCase {
 		assertEquals("Property isn't correct"
 				,"literal"
 				,value);
-		
+		muleContext.dispose();
 	}
 
 }

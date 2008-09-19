@@ -51,7 +51,8 @@ public class JMSEndpointTest extends S2TestCase {
 		
 		assertEquals("Property isn't correct"
 				,"Bar"
-				,style);		
+				,style);
+		muleContext.dispose();
 	}
 
 }
