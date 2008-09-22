@@ -14,7 +14,6 @@
 		<artifactId>s2mule</artifactId>
 		<version>0.9.3</version>
 	</parent>
-	
 	<distributionManagement>
 		<repository>
 			<id>muleforge.webdav.releases</id>
@@ -22,8 +21,7 @@
 		</repository>
 		<snapshotRepository>
 			<id>muleforge.webdav.snapshots</id>
-			<url> dav:https://dav.muleforge.org/snapshots.repository/seasar2/ 
-			</url>
+			<url> dav:https://dav.muleforge.org/snapshots.repository/seasar2/</url>
 		</snapshotRepository>
 		<site>
 			<id>muleforge.webdav.sites</id>
@@ -81,16 +79,8 @@
 	<description> The Seasar2 framework is an open source framework similar
 		to the Spring Framework. </description>
 	<dependencies>
-		<dependency>
-			<groupId>org.apache.geronimo.specs</groupId>
-			<artifactId>geronimo-j2ee_1.4_spec</artifactId>
-			<version>1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.geronimo.specs</groupId>
-			<artifactId>geronimo-jta_1.1_spec</artifactId>
-			<version>1.0</version>
-		</dependency>
+		
+		<!-- seasar2 -->
 		<dependency>
 			<groupId>org.seasar.container</groupId>
 			<artifactId>s2-framework</artifactId>
@@ -102,10 +92,17 @@
 			<version>2.4.17</version>
 		</dependency>
 		<dependency>
-			<groupId>org.seasar.container</groupId>
-			<artifactId>s2-tiger</artifactId>
-			<version>2.4.17</version>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-j2ee_1.4_spec</artifactId>
+			<version>1.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-jta_1.1_spec</artifactId>
+			<version>1.0</version>
+		</dependency>
+		
+		<!-- mule -->
 		<dependency>
 			<groupId>org.mule</groupId>
 			<artifactId>mule-core</artifactId>
@@ -173,9 +170,9 @@
 			<version>${muleVersion}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.mule.examples</groupId>
-			<artifactId>mule-example-hello</artifactId>
-			<version>${muleVersion}</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>2.5.3</version>
 		</dependency>
 	</dependencies>
 	<repositories>
