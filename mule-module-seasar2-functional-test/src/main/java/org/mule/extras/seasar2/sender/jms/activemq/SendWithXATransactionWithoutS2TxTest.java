@@ -33,7 +33,7 @@ public class SendWithXATransactionWithoutS2TxTest extends S2TestCase {
         }
         catch(Exception e) 
         {
-            e.printStackTrace();
+            throw e;
         }
     }
 }

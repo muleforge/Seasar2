@@ -179,7 +179,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.mule.modules</groupId>
-			<artifactId>mule-module-seasar2<</artifactId>
+			<artifactId>mule-module-seasar2</artifactId>
 			<version>0.9.3</version>
 		</dependency>
 
