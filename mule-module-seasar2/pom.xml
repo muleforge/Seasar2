@@ -114,44 +114,8 @@
 			<version>${muleVersion}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.mule.modules</groupId>
-			<artifactId>mule-module-jbossts</artifactId>
-			<version>${muleVersion}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mule.tests</groupId>
-			<artifactId>mule-tests-functional</artifactId>
-			<version>${muleVersion}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.mule.transports</groupId>
-			<artifactId>mule-transport-vm</artifactId>
-			<version>${muleVersion}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mule.transports</groupId>
-			<artifactId>mule-transport-tcp</artifactId>
-			<version>${muleVersion}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.mule.transports</groupId>
 			<artifactId>mule-transport-file</artifactId>
-			<version>${muleVersion}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mule.transports</groupId>
-			<artifactId>mule-transport-stdio</artifactId>
-			<version>${muleVersion}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mule.transports</groupId>
-			<artifactId>mule-transport-http</artifactId>
-			<version>${muleVersion}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mule.transports</groupId>
-			<artifactId>mule-transport-soap</artifactId>
 			<version>${muleVersion}</version>
 		</dependency>
 		<dependency>
@@ -169,12 +133,37 @@
 			<artifactId>mule-transport-cxf</artifactId>
 			<version>${muleVersion}</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 			<version>2.5.3</version>
 		</dependency>
+		
+		<!-- 
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>2.5.3</version>
+		</dependency>
+		-->
+		
+		<!-- for test -->
+		<dependency>
+			<groupId>org.mule.tests</groupId>
+			<artifactId>mule-tests-functional</artifactId>
+			<version>${muleVersion}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.transports</groupId>
+			<artifactId>mule-transport-vm</artifactId>
+			<version>${muleVersion}</version>
+			<scope>test</scope>
+		</dependency>	
+
 	</dependencies>
+	
 	<repositories>
 		<repository>
 			<id>maven.seasar.org</id>

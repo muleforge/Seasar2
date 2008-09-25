@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.transaction.Status;
 import javax.transaction.TransactionManager;
 
 import org.apache.axis.transport.jms.JMSConnector;
@@ -184,14 +185,22 @@ public class S2MuleSenderImpl implements S2MuleSender
     		init();
     	}
     	
-        for(int i=0; i<outboundEndpoints.size();i++) 
-        {
-        	EndpointConfig outboundEndpoint = (EndpointConfig)outboundEndpoints.get(i);
-            try 
-            {
+    	boolean localTransacted = false;
+    	try
+    	{	
+	        for(int i=0; i<outboundEndpoints.size();i++) 
+	        {
+	        	EndpointConfig outboundEndpoint = (EndpointConfig)outboundEndpoints.get(i);
+            	
                 logger.debug("メッセージを" + outboundEndpoint.getUri() + "へ送信します");
-                if (transactionManager!=null && transactionManager.getTransaction()!=null) 
+                if (transactionManager!=null) 
                 {
+                	if (transactionManager.getTransaction()== null)
+                	{
+                		transactionManager.begin();
+                		localTransacted = true;
+                	}
+                	
                     logger.debug("トランザクション:" + transactionManager.getTransaction() );
                     if (TransactionCoordination.getInstance().getTransaction()==null) 
                     {
@@ -201,16 +210,48 @@ public class S2MuleSenderImpl implements S2MuleSender
                 }
                 muleClient.sendNoReceive(outboundEndpoint.getUri(), payload, outboundEndpoint.getProperties());
                 logger.debug("メッセージを" + outboundEndpoint.getUri() + "へ送信しました");
-            } 
-            catch ( MuleException e )
-            {
-                throw new S2MuleRuntimeException("ESML0000", new Object[]{e}, e);
             }
-            catch ( Exception e )
+	        if(transactionManager.getStatus() == Status.STATUS_ACTIVE)
+			{
+				transactionManager.commit();
+			}
+    	}
+        catch ( Exception e )
+        {
+        	if ( localTransacted )
             {
-                throw new S2MuleRuntimeException("ESML0000", new Object[]{e}, e);
+        		try
+        		{
+        			transactionManager.rollback();
+        		}
+        		catch( Exception ex )
+        		{
+        			throw new S2MuleRuntimeException("ESML0007", new Object[]{ex}, ex);
+        		}
             }
+            throw new S2MuleRuntimeException("ESML0000", new Object[]{e}, e);
         }
+//        finally
+//        {
+//        	if (localTransacted)
+//	        {
+//        		try
+//        		{
+//        			if(transactionManager.getStatus() == Status.STATUS_ACTIVE)
+//        			{
+//        				transactionManager.commit();
+//        			}
+//        			else
+//        			{
+//        				transactionManager.rollback();
+//        			}
+//        		}
+//        		catch( Exception e )
+//        		{
+//        			throw new S2MuleRuntimeException("ESML0007", new Object[]{e}, e);
+//        		}
+//	        }
+//        }
     }
     
     /**
