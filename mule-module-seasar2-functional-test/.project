@@ -1,7 +1,8 @@
 <projectDescription>
   <name>mule-module-seasar2-functional-test</name>
   <comment>The Seasar2 framework is an open source framework similar
-		to the Spring Framework.</comment>
+		to the Spring Framework. This module makes mule available from
+		seasar2.</comment>
   <projects/>
   <buildSpec>
     <buildCommand>

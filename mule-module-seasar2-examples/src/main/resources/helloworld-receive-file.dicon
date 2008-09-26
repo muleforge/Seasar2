@@ -17,7 +17,7 @@
     <!-- Endpointの設定 -->
     <component 
        name="file_in" class="org.mule.extras.seasar2.endpoint.impl.FileEndpoint" >
-      <property name="uri">"file:///C:/temp"</property>
+      <property name="uri">"file:///C:/temp/s2mule"</property>
        <!-- トランスフォーマの設定 -->
       <initMethod name="addTransformer" >
         <arg>

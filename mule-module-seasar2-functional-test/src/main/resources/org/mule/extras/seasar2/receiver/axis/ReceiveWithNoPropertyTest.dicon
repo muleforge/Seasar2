@@ -3,7 +3,7 @@
 	"http://www.seasar.org/dtd/components24.dtd">
 <components>
     <include path="s2mule-receiver.dicon"/>
-    <include path="j2ee.dicon"/>
+
     <!-- テスト用のメッセージ送信はS2MuleSenderを利用 -->
     <include path="org/mule/extras/seasar2/sender/axis/SendWithNoPropertyTest.dicon"/>
     
@@ -12,7 +12,7 @@
     
     <!-- MuleConfig -->
     <component class="org.mule.extras.seasar2.receiver.impl.S2MuleConfiguration" >
-        <initMethod name="addInbounEndpoint">
+        <initMethod name="addInboundEndpoint">
             <arg>"axis:http://localhost:65082/services"</arg>
         </initMethod>
         <property name="umoImpl">echoUMO</property>

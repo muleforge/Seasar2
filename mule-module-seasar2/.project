@@ -1,21 +1,15 @@
 <projectDescription>
   <name>mule-module-seasar2</name>
   <comment>The Seasar2 framework is an open source framework similar
-		to the Spring Framework.</comment>
+		to the Spring Framework. This module makes mule available from
+		seasar2.</comment>
   <projects/>
   <buildSpec>
     <buildCommand>
       <name>org.eclipse.jdt.core.javabuilder</name>
     </buildCommand>
-    <buildCommand>
-      <name>org.seasar.kijimuna.core.builder</name>
-    </buildCommand>
-    <buildCommand>
-      <name>org.seasar.kijimuna.core.validator</name>
-    </buildCommand>
   </buildSpec>
   <natures>
     <nature>org.eclipse.jdt.core.javanature</nature>
-    <nature>org.seasar.kijimuna.core.nature</nature>
   </natures>
 </projectDescription>

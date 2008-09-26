@@ -211,7 +211,8 @@ public class S2MuleSenderImpl implements S2MuleSender
                 muleClient.sendNoReceive(outboundEndpoint.getUri(), payload, outboundEndpoint.getProperties());
                 logger.debug("メッセージを" + outboundEndpoint.getUri() + "へ送信しました");
             }
-	        if(transactionManager.getStatus() == Status.STATUS_ACTIVE)
+	        if(transactionManager != null 
+	        		&& transactionManager.getStatus() == Status.STATUS_ACTIVE)
 			{
 				transactionManager.commit();
 			}
