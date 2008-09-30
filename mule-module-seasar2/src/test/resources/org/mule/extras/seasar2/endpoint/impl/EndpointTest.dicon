@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<components>
+	<component class="org.mule.context.DefaultMuleContextFactory" />
+	
+    <component class="org.mule.extras.seasar2.connector.impl.FileConnector" />
+	
+	<component class="org.mule.extras.seasar2.endpoint.impl.FileEndpoint" >
+	   <property name="uri">"file://test"</property>
+	   <property name="filter">
+	   		<component class="org.mule.transport.jms.filters.JmsPropertyFilter" />
+	   </property>
+	   <initMethod name="addTransformer" >
+	   		<arg>
+	   			<component 
+	   				class="org.mule.transport.jms.transformers.JMSMessageToObject" />
+	   		</arg>
+	   </initMethod>
+	   <property name="remoteSync">true</property>
+	   <property name="remoteSyncTimeout">1000</property>
+	   <initMethod name="setProperty" >
+	  		<arg>"testProperty"</arg>
+	  		<arg>"test"</arg>
+	   </initMethod>
+	</component>
+	
+</components>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<!--
+複数のEndpointにメッセージを送信する
+-->
+<components>
+	<include path="s2mule-sender.dicon"/>
+	
+	<component name="jms_out"
+		class="org.mule.extras.seasar2.endpoint.impl.JMSEndpoint" >
+		<property name="uri">"jms://Foo"</property>
+		<property name="connectorConfig">
+			<!-- ActiveMQ Jms connectorの設定 -->
+			<component class="org.mule.extras.seasar2.connector.impl.ActiveMQJmsConnector" >
+				<!-- brokerURLの設定 -->
+				<property name="brokerURL">"tcp://localhost:61616"</property>
+				<!-- その他のプロパティの設定 -->
+				<property name="maxRedelivery">5</property>
+			</component>
+		</property>
+	</component>
+	
+	<component 
+		class="org.mule.extras.seasar2.sender.impl.S2MuleSenderImpl" >
+		<initMethod name="addOutboundEndpoint" >
+			<arg>jms_out</arg>
+		</initMethod>
+		<initMethod name="addOutboundEndpoint" >
+			<arg>"file:///C:/temp"</arg>
+		</initMethod>
+	</component>
+	
+</components>

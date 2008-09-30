@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<components>
+	
+	<include path="s2mule-sender.dicon"/>
+
+	<!-- S2MuleSender の設定-->
+	<component name="sender_1"
+		class="org.mule.extras.seasar2.sender.impl.S2MuleSenderImpl" >
+		<initMethod name="init"/>
+	</component>
+	
+</components>
+

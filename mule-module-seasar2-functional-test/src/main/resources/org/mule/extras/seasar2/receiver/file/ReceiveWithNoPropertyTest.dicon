@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<components>
+    <include path="s2mule-receiver.dicon"/>
+    <include path="j2ee.dicon"/>
+    
+	 <component name="echoUMO" 
+                class="org.mule.extras.seasar2.receiver.common.EchoUMO" />
+    
+    <component 
+       name="file_in" class="org.mule.extras.seasar2.endpoint.impl.FileEndpoint" >
+      <property name="uri">"file:///C:/temp"</property>
+       <!-- トランスフォーマの設定 -->
+      <initMethod name="addTransformer" >
+        <arg>
+            <component class="org.mule.transport.file.transformers.FileToString" />
+        </arg>
+      </initMethod>
+    </component>
+    
+    <!-- MuleConfig -->
+    <component class="org.mule.extras.seasar2.receiver.impl.S2MuleConfiguration" >
+        <initMethod name="addInbounEndpoint">
+            <arg>file_in</arg>
+        </initMethod>
+        <property name="umoImpl">echoUMO</property>
+    </component>
+    
+</components>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.3//EN"
+	"http://www.seasar.org/dtd/components23.dtd">
+<components>
+    <include path="s2mule-core.dicon"/>
+	<component class="org.mule.module.client.MuleClient" >
+	   <arg>s2MuleContext.getMuleContext()</arg>
+	</component>
+</components>
