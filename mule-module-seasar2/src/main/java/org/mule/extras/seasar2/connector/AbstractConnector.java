@@ -25,15 +25,17 @@ import org.seasar.framework.beans.util.BeanUtil;
  */
 public abstract class AbstractConnector implements ConnectorConfig
 {
+    /** トランザクション設定を行っときのレシーバの数*/
+    protected volatile int numberOfConcurrentTransactedReceivers 
+        = org.mule.transport.AbstractConnector.DEFAULT_NUM_CONCURRENT_TX_RECEIVERS;
     
-	protected volatile int numberOfConcurrentTransactedReceivers 
-	 	= org.mule.transport.AbstractConnector.DEFAULT_NUM_CONCURRENT_TX_RECEIVERS;
-	
-	protected boolean transacted = false;
-	 
-    /** Connector�のプロパティ */
+    /** トランザクション */
+    protected boolean transacted = false;
+    
+    /** Connectorのプロパティ */
     protected Map properties = new HashMap();
     
+    /** 名前 */
     protected String name;
     
     
@@ -50,6 +52,7 @@ public abstract class AbstractConnector implements ConnectorConfig
     /**
      * プロパティの値を取得する
      * @param key プロパティの名前
+     * @return プロパティの値
      */
     public Object getProperty(String key)
     {
@@ -66,92 +69,34 @@ public abstract class AbstractConnector implements ConnectorConfig
     }
 
 	public int getNumberOfConcurrentTransactedReceivers() 
-	{
-		return numberOfConcurrentTransactedReceivers;
-	}
-
-	public void setNumberOfConcurrentTransactedReceivers(
-			int numberOfConcurrentTransactedReceivers) 
-	{
-		this.numberOfConcurrentTransactedReceivers = numberOfConcurrentTransactedReceivers;
-	}
-
-	public boolean isTransacted() 
-	{
-		return transacted;
-	}
-
-	public void setTransacted(boolean transacted) 
-	{
-		this.transacted = transacted;
-	}
-    
-	public void setName(String name)
-	{
-		this.name = name;
-	}
-	
-	public String getName()
-	{
-		return name;
-	}
-   
-    /**
-     * S2MuleのラッパークラスのプロパティをMuleのコンポーネントのプロパティ
-     * にコピーします。
-     * 
-     * 
-     * @param properties プロパティ
-     * @param src コピー元のbean
-     * @param bean プロパティを設定するオブジェクト
-     */
-    /*
-    protected void populate(Map properties,Object src, Object bean)
     {
-        if ((bean == null) || (properties == null)) {
-            return;
-        }
-        BeanUtil.copyProperties(src, bean);
-        BeanUtil.copyProperties(properties, bean);
-        
-        
-        BeanUtilsBean beanUtils = BeanUtilsBean.getInstance();
-        try
-        {
-            
-            for (Iterator names = properties.entrySet().iterator();names.hasNext();)
-            {
-
-            	Map.Entry entry = (Map.Entry) names.next();
-                String name = (String)entry.getKey();
-                if (name == null) 
-                {
-                    continue;
-                }
-                Object value = (Object)entry.getValue();
-                
-                //diconに記述されたプロパティが存在するかチェック
-                if (beanUtils.getPropertyUtils().getPropertyDescriptor(bean, name) != null)
-                {
-                    beanUtils.setProperty(bean, name, value);
-            
-                }
-                else
-                {
-                    throw new PropertyNotFoundRuntimeException(bean.getClass(), name);
-                }
-            }
-            
-        }
-        catch (PropertyNotFoundRuntimeException e)
-        {
-            throw e;
-        }
-        catch (Exception e)
-        {
-            throw new S2MuleConfigurationException("ESML0000", new Object[]{e}, e);
-        } 
+        return numberOfConcurrentTransactedReceivers;
     }
-    */
+
+    public void setNumberOfConcurrentTransactedReceivers(
+            int numberOfConcurrentTransactedReceivers) 
+    {
+        this.numberOfConcurrentTransactedReceivers = numberOfConcurrentTransactedReceivers;
+    }
+
+    public boolean isTransacted() 
+    {
+        return transacted;
+    }
+
+    public void setTransacted(boolean transacted) 
+    {
+        this.transacted = transacted;
+    }
     
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+    
+    public String getName()
+    {
+        return name;
+    }
+       
 }

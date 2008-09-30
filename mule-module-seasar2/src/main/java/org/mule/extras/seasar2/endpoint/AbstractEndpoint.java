@@ -45,113 +45,118 @@ import org.seasar.framework.log.Logger;
  *
  */
 public abstract class AbstractEndpoint implements EndpointConfig {
-	
-	/**  Endpointのuri */
-	protected String uri;
+    
+    /**  Endpointのuri */
+    protected String uri;
 
-	/** トランスフォーマ */
-	protected List transformers;
-	
-	/** コネクタ*/
-	protected ConnectorConfig connectorConfig;
-	
-	/** プロパティ */
-	protected Map properties = new HashMap();
-	
-	/** フィルター*/
-	protected Filter filter;
-	
-	protected Boolean remoteSync = false;
-	
+    /** トランスフォーマ */
+    protected List transformers;
+    
+    /** コネクタ*/
+    protected ConnectorConfig connectorConfig;
+    
+    /** プロパティ */
+    protected Map properties = new HashMap();
+    
+    /** フィルター*/
+    protected Filter filter;
+    
+    /** 非同期メッセージを同期的に扱う */
+    protected Boolean remoteSync = false;
+    
+    /** 非同期メッセージを同期的に扱う場合のタイムアウト*/
     protected Integer remoteSyncTimeout;
-	
-	/** logger*/
+    
+    /** logger*/
     private static final Logger logger = Logger
         .getLogger(AbstractEndpoint.class);
-	
+    
     /** デフォルトコンストラクタ*/
-	public AbstractEndpoint() 
-	{
-	}
-	
-	public AbstractEndpoint(String uri)
-	{
-		this.uri = uri;
-	}
-	
+    public AbstractEndpoint() 
+    {
+    }
+    
+    public AbstractEndpoint(String uri)
+    {
+        this.uri = uri;
+    }
+    
 
-	/**
-	 * @see org.mule.extras.seasar2.endpoint.EndpointConfig#buildEndpointBuilder() 
-	 */
-	public EndpointBuilder buildEndpointBuilder(MuleContext muleContext) {
-		try
-		{
-			 EndpointBuilder endpointBuilder = null;
-	         if (uri!=null) 
-	         {
-	             URIBuilder uriBuilder = new URIBuilder(uri);
-	             endpointBuilder = new EndpointURIEndpointBuilder(uriBuilder,muleContext);
-	         } 
-	         else
-	         {
-	             throw new S2MuleConfigurationException("ESML0002",new Object[]{"uri"});
-	         }
-	         
-	         if (connectorConfig != null) 
-	         {
-	             //Connector の設定
-	             Connector connector = (Connector)connectorConfig.buildConnector();
+    /**
+     * @see org.mule.extras.seasar2.endpoint.EndpointConfig#buildEndpointBuilder() 
+     */
+    public EndpointBuilder buildEndpointBuilder(MuleContext muleContext) 
+    {
+        try
+        {
+             EndpointBuilder endpointBuilder = null;
+             if (uri != null) 
+             {
+                 URIBuilder uriBuilder = new URIBuilder(uri);
+                 endpointBuilder = new EndpointURIEndpointBuilder(uriBuilder, muleContext);
+             } 
+             else
+             {
+                 throw new S2MuleConfigurationException("ESML0002", new Object[]{"uri"});
+             }
+             
+             if (connectorConfig != null) 
+             {
+                 //Connector の設定
+                 Connector connector = (Connector) connectorConfig.buildConnector();
 
-	             muleContext.getRegistry().registerConnector(connector);
-	             endpointBuilder.setConnector(connector);
-	             
-	             if(connectorConfig.isTransacted()) 
-	             {
-	            	TransactionConfig transactionConfig = new MuleTransactionConfig();
-	            	transactionConfig.setAction(TransactionConfig.ACTION_BEGIN_OR_JOIN);
-	            	transactionConfig.setFactory(new XaTransactionFactory());
-	            	endpointBuilder.setTransactionConfig(transactionConfig);
-	             }
-	             logger.debug("Connectorを作成しました:" + connector);
-	         }
-			
-	         if (filter != null)
-	         {
-	        	 endpointBuilder.setFilter(filter);
-	         }
-	         
-	         if (transformers != null) 
-	         {
-	             endpointBuilder.setTransformers(transformers);
-	         }
-	         
-	         if (properties != null)
-	         {
-	        	 endpointBuilder.setProperties(properties);
-	         }
-	         
-	         endpointBuilder.setRemoteSync(remoteSync);
-	         
-	         if (remoteSyncTimeout != null)
-	         {
-	        	 endpointBuilder.setRemoteSyncTimeout(remoteSyncTimeout);
-	         }
-	         
-			return endpointBuilder;
-		} catch(MuleException e) {
-			   throw new S2MuleRuntimeException("ESML0003", new Object[]{e}, e);
-		}
-	}
+                 muleContext.getRegistry().registerConnector(connector);
+                 endpointBuilder.setConnector(connector);
+                 
+                 if (connectorConfig.isTransacted()) 
+                 {
+                    TransactionConfig transactionConfig = new MuleTransactionConfig();
+                    transactionConfig.setAction(TransactionConfig.ACTION_BEGIN_OR_JOIN);
+                    transactionConfig.setFactory(new XaTransactionFactory());
+                    endpointBuilder.setTransactionConfig(transactionConfig);
+                 }
+                 logger.debug("Connectorを作成しました:" + connector);
+             }
+            
+             if (filter != null)
+             {
+                 endpointBuilder.setFilter(filter);
+             }
+             
+             if (transformers != null) 
+             {
+                 endpointBuilder.setTransformers(transformers);
+             }
+             
+             if (properties != null)
+             {
+                 endpointBuilder.setProperties(properties);
+             }
+             
+             endpointBuilder.setRemoteSync(remoteSync);
+             
+             if (remoteSyncTimeout != null)
+             {
+                 endpointBuilder.setRemoteSyncTimeout(remoteSyncTimeout);
+             }
+             
+            return endpointBuilder;
+        } 
+        catch (MuleException e) 
+        {
+               throw new S2MuleRuntimeException("ESML0003", new Object[]{e}, e);
+        }
+    }
 
-	
-	   /**
+    
+       /**
      * トランスフォーマを追加する
      * 
      * @param newTransformer
      */
     public void addTransformer(Transformer newTransformer) 
     {
-        if(transformers == null) 
+        if (transformers == null) 
         {
             transformers = new ArrayList();
         }
@@ -163,57 +168,57 @@ public abstract class AbstractEndpoint implements EndpointConfig {
      */
     public void setProperty(String key, Object value) 
     {
-		properties.put(key, value);
+        properties.put(key, value);
     }
     
     
-	public void setFilter(Filter filter) {
-		this.filter = filter;
-	}
+    public void setFilter(Filter filter) {
+        this.filter = filter;
+    }
 
-	public void setProperties(Map properties)
-	{
-		this.properties = properties;
-	}
+    public void setProperties(Map properties)
+    {
+        this.properties = properties;
+    }
 
-	public Map getProperties() 
-	{
-		return properties;
-	}
+    public Map getProperties() 
+    {
+        return properties;
+    }
 
-	public void setTransformers(List transformers) 
-	{
-		this.transformers = transformers;
-	}
+    public void setTransformers(List transformers) 
+    {
+        this.transformers = transformers;
+    }
 
-	public String getUri() 
-	{
-		return uri;
-	}
+    public String getUri() 
+    {
+        return uri;
+    }
 
-	public void setUri(String uri) 
-	{
-		this.uri = uri;
-	}
+    public void setUri(String uri) 
+    {
+        this.uri = uri;
+    }
 
-	public ConnectorConfig getConnectorConfig() 
-	{
-		return connectorConfig;
-	}
+    public ConnectorConfig getConnectorConfig() 
+    {
+        return connectorConfig;
+    }
 
-	public void setConnectorConfig(ConnectorConfig connectorConfig) 
-	{
-		this.connectorConfig = connectorConfig;
-	}
+    public void setConnectorConfig(ConnectorConfig connectorConfig) 
+    {
+        this.connectorConfig = connectorConfig;
+    }
 
-	public void setRemoteSync(Boolean remoteSync) 
-	{
-		this.remoteSync = remoteSync;
-	}
+    public void setRemoteSync(Boolean remoteSync) 
+    {
+        this.remoteSync = remoteSync;
+    }
 
-	public void setRemoteSyncTimeout(Integer remoteSyncTimeout) 
-	{
-		this.remoteSyncTimeout = remoteSyncTimeout;
-	}
-	
+    public void setRemoteSyncTimeout(Integer remoteSyncTimeout) 
+    {
+        this.remoteSyncTimeout = remoteSyncTimeout;
+    }
+    
 }

@@ -8,9 +8,14 @@
  */
 package org.mule.extras.seasar2.examples.common;
 
+/**
+ * Echo インタフェース
+ * @author Saito_Shinya@ogis-ri.co.jp
+ *
+ */
 public interface Echo
 {
-	
-	String echo(String echo);
-	
+    
+    String echo(String echo);
+    
 }

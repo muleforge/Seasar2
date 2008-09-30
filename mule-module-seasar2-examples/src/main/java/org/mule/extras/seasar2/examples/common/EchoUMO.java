@@ -8,12 +8,18 @@
  */
 package org.mule.extras.seasar2.examples.common;
 
+/**
+ * Echo UMOの実装
+ * 
+ * @author Saito_Shinya@ogis-ri.co.jp
+ *
+ */
 public class EchoUMO implements Echo
 {
-	public String echo(String str)
-	{
-		
-		System.out.println("Message:" + str);
-		return str;
-	}
+    public String echo(String str)
+    {
+        
+        System.out.println("Message:" + str);
+        return str;
+    }
 }

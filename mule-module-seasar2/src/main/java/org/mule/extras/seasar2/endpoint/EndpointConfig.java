@@ -25,41 +25,42 @@ import org.mule.extras.seasar2.connector.ConnectorConfig;
  * @author Saito_Shinya@ogis-ri.co.jp
  *
  */
-public interface EndpointConfig {
+public interface EndpointConfig 
+{
 
-	/**
-	 * EndpointBuilderを作成する
-	 * 
-	 * @return EndpointBuider EndpointBuilder
-	 */
-	EndpointBuilder buildEndpointBuilder(MuleContext muleContext);
-	
-	/**
-	 * EndpointUriを取得する
-	 * 
-	 * @return String EndpointUri
-	 */
-	String getUri();
-	
-	/**
-	 * ConnectorConfigを取得する
-	 * 
-	 * @return connectorConfig connectorConfig
-	 */
-	ConnectorConfig getConnectorConfig();
-	
-	/**
-	 * Propertiesを取得する
-	 * 
-	 * @return properties properties
-	 */
-	Map getProperties();
-	
-	/**
-	 * EndpointUriのスキームを取得する
-	 */
-	String getUriScheme();
-	
-	void setProperty(String key, Object value); 
-	
+    /**
+     * EndpointBuilderを作成する
+     * 
+     * @return EndpointBuider EndpointBuilder
+     */
+    EndpointBuilder buildEndpointBuilder(MuleContext muleContext);
+    
+    /**
+     * EndpointUriを取得する
+     * 
+     * @return String EndpointUri
+     */
+    String getUri();
+    
+    /**
+     * ConnectorConfigを取得する
+     * 
+     * @return connectorConfig connectorConfig
+     */
+    ConnectorConfig getConnectorConfig();
+    
+    /**
+     * Propertiesを取得する
+     * 
+     * @return properties properties
+     */
+    Map getProperties();
+    
+    /**
+     * EndpointUriのスキームを取得する
+     */
+    String getUriScheme();
+    
+    void setProperty(String key, Object value); 
+    
 }

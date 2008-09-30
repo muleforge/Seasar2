@@ -83,7 +83,7 @@ public class S2MuleReceiverImpl implements S2MuleReceiver
      * インスタンスの作成 
      * @throws MuleException MuleContext作成時の例外
      */
-    public S2MuleReceiverImpl() throws MuleException,Exception
+    public S2MuleReceiverImpl()
     {    
        
     }
@@ -96,8 +96,8 @@ public class S2MuleReceiverImpl implements S2MuleReceiver
      */
     public final void start() throws MuleException 
     {
-    	try
-    	{             
+        try
+        {             
             s2MuleConfigs = getS2MuleConfigs(container);
             
             if ( s2MuleConfigs != null )
@@ -114,14 +114,14 @@ public class S2MuleReceiverImpl implements S2MuleReceiver
             } 
             else
             {
-                throw new S2MuleConfigurationException("ESML0000",null,null);
+                throw new S2MuleConfigurationException("ESML0004");
             }
             muleContext.start();            
-    	} 
-    	catch (Exception e)
-    	{
-    		throw new S2MuleRuntimeException("ESML0000", new Object[]{e},e);
-    	}
+        } 
+        catch (Exception e)
+        {
+            throw new S2MuleRuntimeException("ESML0000", new Object[]{e}, e);
+        }
     }
     
     /**
@@ -147,47 +147,36 @@ public class S2MuleReceiverImpl implements S2MuleReceiver
         List endpoints = s2MuleConfig.getInboundEndpoints();
         for (int i = 0; i < endpoints.size(); i++)
         {
-        	//InboundEndpointの作成
-        	EndpointConfig endpointConfig = (EndpointConfig)endpoints.get(i);
-        	EndpointBuilder endpointBuilder = endpointConfig.buildEndpointBuilder(muleContext);
-        	DefaultInboundEndpoint endpoint = (DefaultInboundEndpoint) endpointBuilder.buildInboundEndpoint();
-        	
-        	if(transactionManager==null &&
-        			endpoint.getTransactionConfig().isTransacted())
-        	{
-        		 transactionManager = (TransactionManager)container.getRoot().getComponent(TransactionManager.class);
+            //InboundEndpointの作成
+            EndpointConfig endpointConfig = (EndpointConfig) endpoints.get(i);
+            EndpointBuilder endpointBuilder = endpointConfig.buildEndpointBuilder(muleContext);
+            DefaultInboundEndpoint endpoint = (DefaultInboundEndpoint) endpointBuilder.buildInboundEndpoint();
+            
+            if (transactionManager == null 
+                    && endpoint.getTransactionConfig().isTransacted())
+            {
+                 transactionManager = (TransactionManager) container.getRoot()
+                     .getComponent(TransactionManager.class);
                  muleContext.setTransactionManager(transactionManager);
-        	}
-        	
+            }
+            
             iRouterCollection.addEndpoint(endpoint);
         }
         service.setInboundRouter(iRouterCollection);
-        
-        //ServiceNameの作成
-//        String serviceName;
-//        if (s2MuleConfig.getName() != null)
-//        {
-//            serviceName = s2MuleConfig.getName();
-//        }
-//        else
-//        {
-//            serviceName = DEFAULT_SERVICE_NAME;
-//        }
-//        service.setName(serviceName);
                 
         //S2MuleObjectFactoryを設定
         if (s2MuleConfig.getUmoImpl() != null )
         {
-        	ObjectFactory factory 
-        		= new S2MuleObjectFactory(container,s2MuleConfig.getUmoImpl()); 
-        	service.setComponent(new DefaultJavaComponent(factory));
-        	
-        	//MuleのUMOの名前を設定
-        	service.setName(s2MuleConfig.getName());
+            ObjectFactory factory 
+                = new S2MuleObjectFactory(container, s2MuleConfig.getUmoImpl()); 
+            service.setComponent(new DefaultJavaComponent(factory));
+            
+            //MuleのUMOの名前を設定
+            service.setName(s2MuleConfig.getName());
         }
         else
         {
-        	 throw new S2MuleConfigurationException("ESML0002", new Object[]{"umoImpl"});
+             throw new S2MuleConfigurationException("ESML0002", new Object[]{"umoImpl"});
         }
         
         
@@ -199,7 +188,7 @@ public class S2MuleReceiverImpl implements S2MuleReceiver
      * @param container S2コンテナ
      * @return MuleConfig
      */
-    private List getS2MuleConfigs( S2Container container )
+    private List getS2MuleConfigs(S2Container container)
     {
         List configs = new ArrayList();
         createAllDiconComponents(container, null);
@@ -228,16 +217,15 @@ public class S2MuleReceiverImpl implements S2MuleReceiver
      * 
      * @param container S2Container
      * @param set S2Containerが格納される作業用
-     * @return
      */
-    private void createAllDiconComponents(S2Container container, Set set) {
-        
-        if (set == null)
-        {
-            set = new HashSet();
-        }
+    private void createAllDiconComponents(S2Container container, Set set) 
+    {
+         if (set == null)
+         {
+             set = new HashSet();
+         }
          //現在のS2コンテナとおなじS2コンテナがsetに登録されている場合
-        //再帰を終了させる
+         //再帰を終了させる
          if (set.contains(container)) {
              return;
          }
@@ -255,7 +243,7 @@ public class S2MuleReceiverImpl implements S2MuleReceiver
          }
     }
     
-	/**
+    /**
      * Muleを停止させる
      * Registryに登録されていたコンポーネントは全て破棄される
      *
@@ -268,8 +256,8 @@ public class S2MuleReceiverImpl implements S2MuleReceiver
     
     public void setMuleContext(MuleContext muleContext) 
     {
-		this.muleContext = muleContext;
-	}
+        this.muleContext = muleContext;
+    }
     
     public void setContainer(S2Container container)
     {

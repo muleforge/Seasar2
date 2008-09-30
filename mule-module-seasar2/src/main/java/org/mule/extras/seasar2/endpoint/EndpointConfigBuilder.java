@@ -8,12 +8,17 @@
  */
 package org.mule.extras.seasar2.endpoint;
 
+/**
+ * Endpointを作成するBuilder
+ * @author Saito_Shinya@ogis-ri.co.jp
+ *
+ */
 public interface EndpointConfigBuilder 
 {
 
-	/**
-	 * EndpointConfigを作成する
-	 */
-	EndpointConfig build();
-	
+    /**
+     * EndpointConfigを作成する
+     */
+    EndpointConfig build();
+    
 }

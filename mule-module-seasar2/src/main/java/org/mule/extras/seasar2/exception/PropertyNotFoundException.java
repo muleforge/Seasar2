@@ -15,7 +15,7 @@ package org.mule.extras.seasar2.exception;
  */
 public class PropertyNotFoundException extends S2MuleConfigurationException 
 {
-
+    /** UID */
     private static final long serialVersionUID = 7448310817447042432L;
 
     /**

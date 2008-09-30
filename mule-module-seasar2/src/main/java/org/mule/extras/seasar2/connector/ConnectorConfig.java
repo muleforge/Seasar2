@@ -53,11 +53,11 @@ public interface ConnectorConfig
     
     /**
      * トランザクションが有効なConnectorかどうか
-     * @return 
+     * @return transacted
      */
     boolean isTransacted();
     
-    public String getName();
+    String getName();
     
-    public void setName(String name);
+    void setName(String name);
 }

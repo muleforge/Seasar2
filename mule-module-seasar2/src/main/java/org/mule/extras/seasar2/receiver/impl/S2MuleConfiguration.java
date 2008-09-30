@@ -18,6 +18,7 @@ import org.mule.extras.seasar2.endpoint.EndpointConfigBuilder;
 import org.seasar.framework.util.ClassUtil;
 
 /**
+ * Muleの構成情報を保持するクラスです
  * 
  * @author Saito_Shinya@ogis-ri.co.jp
  *
@@ -29,8 +30,8 @@ public class S2MuleConfiguration
      * 複数のinboundのEndpoint
      */
     private List inboundEndpoints = new ArrayList();
-	
-	
+    
+    
     /**
      * Messageを受け取るクラス
      */
@@ -56,7 +57,7 @@ public class S2MuleConfiguration
      */
     public void addInbounEndpoint(EndpointConfig endpoint)
     {
-    	inboundEndpoints.add(endpoint);
+        inboundEndpoints.add(endpoint);
     }
     
     /**
@@ -65,9 +66,9 @@ public class S2MuleConfiguration
      */
     public void addInboudEndpoint(String endpointUri)
     {
-    	EndpointConfigBuilder builder 
-    		= new EndpointConfigBuilderImpl(endpointUri);
-    	inboundEndpoints.add(builder.build());
+        EndpointConfigBuilder builder 
+            = new EndpointConfigBuilderImpl(endpointUri);
+        inboundEndpoints.add(builder.build());
     }
     
     
@@ -83,14 +84,14 @@ public class S2MuleConfiguration
 
     public String getName() 
     {
-    	if (name == null && umoImpl != null) 
-    	{
-    		return ClassUtil.getShortClassName(umoImpl.getClass());
-    	} 
-    	else 
-    	{
-    		return name;
-    	} 
+        if (name == null && umoImpl != null) 
+        {
+            return ClassUtil.getShortClassName(umoImpl.getClass());
+        } 
+        else 
+        {
+            return name;
+        } 
     }
 
     public void setName(String name) 

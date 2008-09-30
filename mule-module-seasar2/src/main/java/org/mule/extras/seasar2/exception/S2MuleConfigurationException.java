@@ -16,8 +16,9 @@ import org.seasar.framework.message.MessageFormatter;
  * 
  * @author Saito_Shinya@ogis-ri.co.jp
  */
-public class S2MuleConfigurationException extends SRuntimeException {
-    
+public class S2MuleConfigurationException extends SRuntimeException 
+{
+    /** UID */
     private static final long serialVersionUID = -1235115149163252649L;
     
     /**

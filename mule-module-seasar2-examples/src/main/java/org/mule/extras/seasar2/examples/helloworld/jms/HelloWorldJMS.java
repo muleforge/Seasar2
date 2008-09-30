@@ -13,19 +13,25 @@ import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.S2ContainerFactory;
 import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
 
+/**
+ * JMSメッセージを送信するサンプル
+ * 
+ * @author Saito_Shinya@ogis-ri.co.jp
+ *
+ */
 public class HelloWorldJMS 
 {
 
-    // dicon ファイル
+    /** diconファイルのパス*/
     private static final String CONFIGURE_PATH = "helloworld-send-jms.dicon";
 
+    /** S2コンテナ*/
     private static S2Container container;
     
     public static void main(String[] args) 
     {
         try 
         {
-            
             // dicon ファイルを指定して S2 コンテナを生成する
             container = S2ContainerFactory.create(CONFIGURE_PATH);
             
@@ -40,8 +46,6 @@ public class HelloWorldJMS
             
             // 成功
             System.out.println("The message is sent successfully.");
-            
-            
         }
         catch (ResourceNotFoundRuntimeException e)
         {
@@ -49,7 +53,7 @@ public class HelloWorldJMS
         }
         finally
         {
-        	//コンテナの破棄
+            //コンテナの破棄
             container.destroy();
         }
     }

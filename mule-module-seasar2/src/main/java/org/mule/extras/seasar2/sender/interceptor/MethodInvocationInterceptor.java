@@ -24,7 +24,7 @@ import org.seasar.framework.util.MethodUtil;
  */
 public class MethodInvocationInterceptor extends AbstractInterceptor 
 {
-
+    /** UID */
     private static final long serialVersionUID = -9223020020060206825L;
     
     /** S2MuleSender */
@@ -40,18 +40,18 @@ public class MethodInvocationInterceptor extends AbstractInterceptor
      */
     public Object invoke(MethodInvocation methodInvocation) throws Throwable 
     {
-    	
-    	Method method = methodInvocation.getMethod();
+        
+        Method method = methodInvocation.getMethod();
         if (MethodUtil.isAbstract(method)) 
         {
             Object payload = methodInvocation.getArguments();
             String methodName = method.getName();
             Map properties = new HashMap();
             properties.put("method", methodName);
-            return sender.send(payload,properties);
+            return sender.send(payload, properties);
         }
         return methodInvocation.proceed();
-    	        
+                
     }
     
     /**

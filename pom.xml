@@ -5,7 +5,7 @@
 	<groupId>org.mule.modules</groupId>
 	<artifactId>s2mule</artifactId>
 	<packaging>pom</packaging>
-	<version>0.9.4</version>
+	<version>1.0.0</version>
 	<name>Mule Module Seasar2</name>
 	<description> The Seasar2 framework is an open source framework similar
 		to the Spring Framework. This module makes mule available from

@@ -21,15 +21,15 @@ import org.mule.util.ObjectNameHelper;
 public class CxfConnector extends AbstractConnector 
 {
 
-	/**
+    /**
      * @see org.mule.extras.seasar2.connector.ConnectorConfig#getConnector()
      */
-	public Connector buildConnector() 
-	{
-		org.mule.transport.cxf.CxfConnector connector
-			= new org.mule.transport.cxf.CxfConnector();
-		setName(ObjectNameHelper.getConnectorName(connector));
-		return connector;
-	}
+    public Connector buildConnector() 
+    {
+        org.mule.transport.cxf.CxfConnector connector
+            = new org.mule.transport.cxf.CxfConnector();
+        setName(ObjectNameHelper.getConnectorName(connector));
+        return connector;
+    }
 
 }

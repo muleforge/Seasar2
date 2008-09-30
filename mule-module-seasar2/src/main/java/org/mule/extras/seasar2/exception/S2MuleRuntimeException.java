@@ -17,7 +17,7 @@ import org.seasar.framework.exception.SRuntimeException;
  */
 public class S2MuleRuntimeException extends SRuntimeException 
 {
-    
+    /** UID */
     private static final long serialVersionUID = -331466760857177938L;
 
     /**

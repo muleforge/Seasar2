@@ -28,7 +28,8 @@ import org.seasar.framework.container.factory.S2ContainerFactory;
  * @author Saito_Shinya@ogis-ri.co.jp
  *
  */
-public class S2MuleServer {
+public class S2MuleServer 
+{
     /**
      * デフォルトのdiconファイル名
      */
@@ -181,7 +182,8 @@ public class S2MuleServer {
         return "";
     }
 
-    public void setContainer(S2Container container) {
+    public void setContainer(S2Container container) 
+    {
         this.container = container;
     }
 

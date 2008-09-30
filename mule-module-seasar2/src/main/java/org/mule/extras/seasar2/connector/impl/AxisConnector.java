@@ -41,10 +41,10 @@ public class AxisConnector extends AbstractConnector
      */
     public Connector buildConnector()
     {
-    	org.mule.transport.soap.axis.AxisConnector connector 
-    		= new org.mule.transport.soap.axis.AxisConnector();
+        org.mule.transport.soap.axis.AxisConnector connector 
+            = new org.mule.transport.soap.axis.AxisConnector();
         
-    	setName(ObjectNameHelper.getConnectorName(connector));
+        setName(ObjectNameHelper.getConnectorName(connector));
         BeanUtil.copyProperties(this, connector);
         return connector;
     }
@@ -63,13 +63,15 @@ public class AxisConnector extends AbstractConnector
         beanTypes.add(beanTypeName);
     }
     
-	public List getBeanTypes() {
-		return beanTypes;
-	}
+    public List getBeanTypes() 
+    {
+        return beanTypes;
+    }
 
 
-	public void setBeanTypes(List beanTypes) {
-		this.beanTypes = beanTypes;
-	}
+    public void setBeanTypes(List beanTypes) 
+    {
+        this.beanTypes = beanTypes;
+    }
     
 }

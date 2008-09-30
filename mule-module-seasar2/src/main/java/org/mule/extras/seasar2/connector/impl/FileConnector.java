@@ -24,28 +24,39 @@ import org.seasar.framework.beans.util.BeanUtil;
  */
 public class FileConnector extends AbstractConnector 
 {
-	private long pollingFrequency = 0;
+    /** ポーリングの間隔 Receiverのみ有効*/
+    private long pollingFrequency = 0;
 
+    /** 移動後の出力名のパターン Receiverのみ有効*/
     private String moveToPattern = null;
 
+    /** 移動先のディレクトリ Receiverのみ有効*/
     private String moveToDirectory = null;
 
+    /** 出力ファイル名のパターン Senderのみ有効*/
     private String outputPattern = null;
 
+    /** 同名のファイルが存在していたら最後に追加する Senderのみ有効*/
     private boolean outputAppend = false;
 
+    /** 読み込んだファイルを削除する Receiverのみ有効*/
     private boolean autoDelete = true;
 
+    /** FileAgeをチェックする*/
     private boolean checkFileAge = false;
 
+    /** ファイルの履歴番号*/
     private long fileAge = 0;
 
+    /** OutputStream Senderのみ有効*/
     private FileOutputStream outputStream = null;
-
+    
+    /** オブジェクトをシリアライズする Senderのみ有効*/
     private boolean serialiseObjects = false;
 
+    /** ストリーミングにする*/
     private boolean streaming = true;
-	
+    
     /**
      * インスタンスを生成する
      */
@@ -59,123 +70,123 @@ public class FileConnector extends AbstractConnector
      */
     public Connector buildConnector() 
     {
-    	org.mule.transport.file.FileConnector connector 
-    		= new org.mule.transport.file.FileConnector();
-    	setName(ObjectNameHelper.getConnectorName(connector));
-    	BeanUtil.copyProperties(this, connector);
+        org.mule.transport.file.FileConnector connector 
+            = new org.mule.transport.file.FileConnector();
+        setName(ObjectNameHelper.getConnectorName(connector));
+        BeanUtil.copyProperties(this, connector);
 
         return connector;
     }
 
-	public long getPollingFrequency() 
-	{
-		return pollingFrequency;
-	}
+    public long getPollingFrequency() 
+    {
+        return pollingFrequency;
+    }
 
-	public void setPollingFrequency(long pollingFrequency) 
-	{
-		this.pollingFrequency = pollingFrequency;
-	}
+    public void setPollingFrequency(long pollingFrequency) 
+    {
+        this.pollingFrequency = pollingFrequency;
+    }
 
-	public String getMoveToPattern() 
-	{
-		return moveToPattern;
-	}
+    public String getMoveToPattern() 
+    {
+        return moveToPattern;
+    }
 
-	public void setMoveToPattern(String moveToPattern) 
-	{
-		this.moveToPattern = moveToPattern;
-	}
+    public void setMoveToPattern(String moveToPattern) 
+    {
+        this.moveToPattern = moveToPattern;
+    }
 
-	public String getMoveToDirectory() 
-	{
-		return moveToDirectory;
-	}
+    public String getMoveToDirectory() 
+    {
+        return moveToDirectory;
+    }
 
-	public void setMoveToDirectory(String moveToDirectory) 
-	{
-		this.moveToDirectory = moveToDirectory;
-	}
+    public void setMoveToDirectory(String moveToDirectory) 
+    {
+        this.moveToDirectory = moveToDirectory;
+    }
 
-	public String getOutputPattern() 
-	{
-		return outputPattern;
-	}
+    public String getOutputPattern() 
+    {
+        return outputPattern;
+    }
 
-	public void setOutputPattern(String outputPattern) 
-	{
-		this.outputPattern = outputPattern;
-	}
+    public void setOutputPattern(String outputPattern) 
+    {
+        this.outputPattern = outputPattern;
+    }
 
-	public boolean isOutputAppend() 
-	{
-		return outputAppend;
-	}
+    public boolean isOutputAppend() 
+    {
+        return outputAppend;
+    }
 
-	public void setOutputAppend(boolean outputAppend) 
-	{
-		this.outputAppend = outputAppend;
-	}
+    public void setOutputAppend(boolean outputAppend) 
+    {
+        this.outputAppend = outputAppend;
+    }
 
-	public boolean isAutoDelete() 
-	{
-		return autoDelete;
-	}
+    public boolean isAutoDelete() 
+    {
+        return autoDelete;
+    }
 
-	public void setAutoDelete(boolean autoDelete) 
-	{
-		this.autoDelete = autoDelete;
-	}
+    public void setAutoDelete(boolean autoDelete) 
+    {
+        this.autoDelete = autoDelete;
+    }
 
-	public boolean isCheckFileAge() 
-	{
-		return checkFileAge;
-	}
+    public boolean isCheckFileAge() 
+    {
+        return checkFileAge;
+    }
 
-	public void setCheckFileAge(boolean checkFileAge) 
-	{
-		this.checkFileAge = checkFileAge;
-	}
+    public void setCheckFileAge(boolean checkFileAge) 
+    {
+        this.checkFileAge = checkFileAge;
+    }
 
-	public long getFileAge() 
-	{
-		return fileAge;
-	}
+    public long getFileAge() 
+    {
+        return fileAge;
+    }
 
-	public void setFileAge(long fileAge) 
-	{
-		this.fileAge = fileAge;
-	}
+    public void setFileAge(long fileAge) 
+    {
+        this.fileAge = fileAge;
+    }
 
-	public FileOutputStream getOutputStream() 
-	{
-		return outputStream;
-	}
+    public FileOutputStream getOutputStream() 
+    {
+        return outputStream;
+    }
 
-	public void setOutputStream(FileOutputStream outputStream) 
-	{
-		this.outputStream = outputStream;
-	}
+    public void setOutputStream(FileOutputStream outputStream) 
+    {
+        this.outputStream = outputStream;
+    }
 
-	public boolean isSerialiseObjects() 
-	{
-		return serialiseObjects;
-	}
+    public boolean isSerialiseObjects() 
+    {
+        return serialiseObjects;
+    }
 
-	public void setSerialiseObjects(boolean serialiseObjects) 
-	{
-		this.serialiseObjects = serialiseObjects;
-	}
+    public void setSerialiseObjects(boolean serialiseObjects) 
+    {
+        this.serialiseObjects = serialiseObjects;
+    }
 
-	public boolean isStreaming() 
-	{
-		return streaming;
-	}
+    public boolean isStreaming() 
+    {
+        return streaming;
+    }
 
-	public void setStreaming(boolean streaming) 
-	{
-		this.streaming = streaming;
-	}
+    public void setStreaming(boolean streaming) 
+    {
+        this.streaming = streaming;
+    }
 
     
     

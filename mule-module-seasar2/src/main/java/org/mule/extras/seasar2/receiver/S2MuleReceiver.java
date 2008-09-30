@@ -8,7 +8,6 @@
  */
 package org.mule.extras.seasar2.receiver;
 
-import org.mule.api.MuleContext;
 import org.mule.api.MuleException;
 
 /**

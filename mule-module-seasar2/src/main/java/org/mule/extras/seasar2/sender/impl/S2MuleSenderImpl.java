@@ -57,20 +57,8 @@ public class S2MuleSenderImpl implements S2MuleSender
     /** Connector の構成情報 */
     private ConnectorConfig connectorConfig;
     
-    /** Transformer */
-    //private List transformers;
-    
-    /** 送信先の Endpoint URI */
-    //private String outboundUri;
-    
-    /** 送信先 Endpointのプロパティ */
-    //private Map properties = new HashMap();
-    
-    /**
-     * 複数のoutboundのEndpoint
-     */
+    /** 複数のoutboundのEndpoint */
     private List outboundEndpoints = new ArrayList();
-    
     
     /** トランザクションマネージャ */
     private TransactionManager transactionManager;
@@ -81,6 +69,7 @@ public class S2MuleSenderImpl implements S2MuleSender
     /** S2コンテナ */
     private S2Container container;
 
+    /** 初期化処理*/
     private boolean intialized = false;
     
     /**
@@ -98,80 +87,49 @@ public class S2MuleSenderImpl implements S2MuleSender
     {
         try 
         {
-        	muleClient = (MuleClient)container.getComponent(MuleClient.class);
-                        
-            //SenderのプロパティにセットされたEndpointを作成する
-//            if (outboundUri!=null) 
-//            {
-//                URIBuilder uriBuilder = new URIBuilder(outboundUri);
-//                endpointBuilder = new EndpointURIEndpointBuilder(uriBuilder,muleClient.getMuleContext());
-//                muleClient.getMuleContext().getRegistry().registerEndpointBuilder(outboundUri, endpointBuilder);
-// 
-//                Endpoint endpoint = new Endpoint();
-//            	endpoint.setUri(outboundUri);
-//                if (connectorConfig != null) 
-//                {
-//                    //Connector の設定
-//                    Connector connector = (Connector)connectorConfig.buildConnector();
-//                    connector.setName(ObjectNameHelper.getConnectorName(connector));
-//                    muleClient.getMuleContext().getRegistry().registerConnector(connector);
-//                    endpointBuilder.setConnector(connector);
-//                    if (connectorConfig instanceof AxisConnector)
-//                    {
-//                        properties.putAll(connectorConfig.getProperties());
-//                    }
-//                    logger.debug("Connectorを作成しました:" + connector);
-//                 
-//                	endpoint.setConnectorConfig(connectorConfig);                	
-//                }
-//                if (transformers != null) 
-//                {
-//                    //endpointBuilder.setTransformers(transformers);
-//                	endpoint.setTransformers(transformers);
-//                }
-//                addOutboundEndpoint(endpoint);
-//            }
-            
-            if(outboundEndpoints != null)
+            muleClient = (MuleClient) container.getComponent(MuleClient.class);   
+            if (outboundEndpoints != null)
             {
-            	for(int i=0;i<outboundEndpoints.size();i++)
-            	{
-            		AbstractEndpoint outboundEndpoint 
-            			= (AbstractEndpoint)outboundEndpoints.get(i);
-            		if(outboundEndpoint.getConnectorConfig() == null)
-            		{
-            			outboundEndpoint.setConnectorConfig(connectorConfig);
-            		}
-            		EndpointBuilder endpointBuilder 
-            			= outboundEndpoint.buildEndpointBuilder(muleClient.getMuleContext());
-            		muleClient.getMuleContext().getRegistry()
-            			.registerEndpointBuilder(outboundEndpoint.getUri(), endpointBuilder);
-                    //TransactionManagerの設定
-            		ConnectorConfig connectorConfig = outboundEndpoint.getConnectorConfig();
-                    if ( connectorConfig !=null 
-                    		&& connectorConfig.isTransacted()) 
+                for (int i = 0; i < outboundEndpoints.size(); i++)
+                {
+                    //SenderのプロパティにセットされたEndpointを作成する         
+                    AbstractEndpoint outboundEndpoint 
+                        = (AbstractEndpoint) outboundEndpoints.get(i);
+                    if (outboundEndpoint.getConnectorConfig() == null)
                     {
-                        transactionManager = (TransactionManager)container.getRoot().getComponent(TransactionManager.class);
+                        outboundEndpoint.setConnectorConfig(connectorConfig);
+                    }
+                    EndpointBuilder endpointBuilder 
+                        = outboundEndpoint.buildEndpointBuilder(muleClient.getMuleContext());
+                    muleClient.getMuleContext().getRegistry()
+                        .registerEndpointBuilder(outboundEndpoint.getUri(), endpointBuilder);
+                    //TransactionManagerの設定
+                    ConnectorConfig connectorConfig = outboundEndpoint.getConnectorConfig();
+                    if ( connectorConfig != null 
+                            && connectorConfig.isTransacted()) 
+                    {
+                        transactionManager = (TransactionManager) container.getRoot()
+                            .getComponent(TransactionManager.class);
                         muleClient.getMuleContext().setTransactionManager(transactionManager);
                     }
-            		
-            	}
+                    
+                }
             }
             else
             {
-                throw new S2MuleConfigurationException("ESML0002",new Object[]{"outboundEndpoint"});
+                throw new S2MuleConfigurationException("ESML0002", new Object[]{"outboundEndpoint"});
             }
             
             
             intialized = true;
         } 
-        catch(SRuntimeException e) 
+        catch (SRuntimeException e) 
         {
             throw e;
         }
-        catch(Exception e) 
+        catch (Exception e) 
         {
-            throw new S2MuleRuntimeException("ESML0000", new Object[]{e},e);
+            throw new S2MuleRuntimeException("ESML0000", new Object[]{e}, e);
         }
     }
     
@@ -180,29 +138,29 @@ public class S2MuleSenderImpl implements S2MuleSender
      */
     public void dispatch(Object payload) 
     {
-    	if(!intialized)
-    	{
-    		init();
-    	}
-    	
-    	boolean localTransacted = false;
-    	try
-    	{	
-	        for(int i=0; i<outboundEndpoints.size();i++) 
-	        {
-	        	EndpointConfig outboundEndpoint = (EndpointConfig)outboundEndpoints.get(i);
-            	
+        if (!intialized)
+        {
+            init();
+        }
+        
+        boolean localTransacted = false;
+        try
+        {    
+            for (int i = 0; i < outboundEndpoints.size(); i++) 
+            {
+                EndpointConfig outboundEndpoint = (EndpointConfig) outboundEndpoints.get(i);
+                
                 logger.debug("メッセージを" + outboundEndpoint.getUri() + "へ送信します");
-                if (transactionManager!=null) 
+                if (transactionManager != null) 
                 {
-                	if (transactionManager.getTransaction()== null)
-                	{
-                		transactionManager.begin();
-                		localTransacted = true;
-                	}
-                	
+                    if (transactionManager.getTransaction() == null)
+                    {
+                        transactionManager.begin();
+                        localTransacted = true;
+                    }
+                    
                     logger.debug("トランザクション:" + transactionManager.getTransaction() );
-                    if (TransactionCoordination.getInstance().getTransaction()==null) 
+                    if (TransactionCoordination.getInstance().getTransaction() == null) 
                     {
                         XaTransaction xat = new XaTransaction(transactionManager);
                         TransactionCoordination.getInstance().bindTransaction(xat);
@@ -211,48 +169,27 @@ public class S2MuleSenderImpl implements S2MuleSender
                 muleClient.sendNoReceive(outboundEndpoint.getUri(), payload, outboundEndpoint.getProperties());
                 logger.debug("メッセージを" + outboundEndpoint.getUri() + "へ送信しました");
             }
-	        if(transactionManager != null 
-	        		&& transactionManager.getStatus() == Status.STATUS_ACTIVE)
-			{
-				transactionManager.commit();
-			}
-    	}
+            if (transactionManager != null 
+                    && transactionManager.getStatus() == Status.STATUS_ACTIVE)
+            {
+                transactionManager.commit();
+            }
+        }
         catch ( Exception e )
         {
-        	if ( localTransacted )
+            if ( localTransacted )
             {
-        		try
-        		{
-        			transactionManager.rollback();
-        		}
-        		catch( Exception ex )
-        		{
-        			throw new S2MuleRuntimeException("ESML0007", new Object[]{ex}, ex);
-        		}
+                try
+                {
+                    transactionManager.rollback();
+                }
+                catch (Exception ex)
+                {
+                    throw new S2MuleRuntimeException("ESML0007", new Object[]{ex}, ex);
+                }
             }
             throw new S2MuleRuntimeException("ESML0000", new Object[]{e}, e);
         }
-//        finally
-//        {
-//        	if (localTransacted)
-//	        {
-//        		try
-//        		{
-//        			if(transactionManager.getStatus() == Status.STATUS_ACTIVE)
-//        			{
-//        				transactionManager.commit();
-//        			}
-//        			else
-//        			{
-//        				transactionManager.rollback();
-//        			}
-//        		}
-//        		catch( Exception e )
-//        		{
-//        			throw new S2MuleRuntimeException("ESML0007", new Object[]{e}, e);
-//        		}
-//	        }
-//        }
     }
     
     /**
@@ -260,37 +197,37 @@ public class S2MuleSenderImpl implements S2MuleSender
      */
     public Object send(Object payload) 
     {
-    	if(!intialized)
-    	{
-    		init();
-    	}
-    	
+        if (!intialized)
+        {
+            init();
+        }
+        
         Object responseMessage = null;
         
-        if(outboundEndpoints.size() < 2) 
+        if (outboundEndpoints.size() < 2) 
         {
             try 
             {
-            	EndpointConfig outboundEndpoint = (EndpointConfig)outboundEndpoints.get(0);
-            	Connector connector = null;
-            	if(outboundEndpoint.getUriScheme().equals(JmsConnector.JMS))
-            	{
-            		//MULE-3654
-            		connector = (Connector)muleClient.getMuleContext().getRegistry()
-            			.lookupConnector(outboundEndpoint.getConnectorConfig().getName());
-            		connector.start();
-            	}
-            	
-            	MuleMessage umoResponseMessage 
-                   	= muleClient.send(outboundEndpoint.getUri(), payload, outboundEndpoint.getProperties());
-            	responseMessage = umoResponseMessage.getPayload();
-            	
-            	if(outboundEndpoint.getUriScheme().equals(JmsConnector.JMS))
-            	{
-            		//MULE-3654
-            		connector.stop();
-            	}
-            	
+                EndpointConfig outboundEndpoint = (EndpointConfig) outboundEndpoints.get(0);
+                Connector connector = null;
+                if (outboundEndpoint.getUriScheme().equals(JmsConnector.JMS))
+                {
+                    //MULE-3654
+                    connector = (Connector) muleClient.getMuleContext().getRegistry()
+                        .lookupConnector(outboundEndpoint.getConnectorConfig().getName());
+                    connector.start();
+                }
+                
+                MuleMessage umoResponseMessage 
+                       = muleClient.send(outboundEndpoint.getUri(), payload, outboundEndpoint.getProperties());
+                responseMessage = umoResponseMessage.getPayload();
+                
+                if (outboundEndpoint.getUriScheme().equals(JmsConnector.JMS))
+                {
+                    //MULE-3654
+                    connector.stop();
+                }
+                
             }
             catch ( MuleException e ) 
             {
@@ -313,13 +250,13 @@ public class S2MuleSenderImpl implements S2MuleSender
      */
     public Object send(Object payload, Map properties) 
     {
-    	EndpointConfig outboundEndpoint
-    		= (EndpointConfig)outboundEndpoints.get(0);
-    	if(properties != null)
-    	{
-    		outboundEndpoint.getProperties().putAll(properties);
-    	}
-    	return send(payload);
+        EndpointConfig outboundEndpoint
+            = (EndpointConfig) outboundEndpoints.get(0);
+        if (properties != null)
+        {
+            outboundEndpoint.getProperties().putAll(properties);
+        }
+        return send(payload);
     }
     
     /**
@@ -328,7 +265,7 @@ public class S2MuleSenderImpl implements S2MuleSender
      */
     public void addOutboundEndpoint (EndpointConfig endpoint)
     {
-    	outboundEndpoints.add(endpoint);
+        outboundEndpoints.add(endpoint);
     }
     
     /**
@@ -337,37 +274,14 @@ public class S2MuleSenderImpl implements S2MuleSender
      */
     public void addOutboundEndpoint (String endpointUri)
     {
-    	EndpointConfigBuilder builder 
-		= new EndpointConfigBuilderImpl(endpointUri);
-    	outboundEndpoints.add(builder.build());
+        EndpointConfigBuilder builder 
+        = new EndpointConfigBuilderImpl(endpointUri);
+        outboundEndpoints.add(builder.build());
     }
     
-    /**
-     * プロパティを追加する
+    /** 
+     * 終了処理
      */
-//    public void setProperty(String key, Object value) 
-//    {
-//        properties.put(key, value);
-//    }
-//    
-    /**
-     * トランスフォーマを追加する
-     * 
-     * @param newTransformer
-     */
-//    public void addTransformer(Transformer newTransformer) 
-//    {
-//        if(transformers == null) 
-//        {
-//            transformers = new ArrayList();
-//            transformers.add(newTransformer);
-//        }
-//        else
-//        {
-//            transformers.add(newTransformer);
-//        }
-//    }
-    
     public void dispose() 
     {
         muleClient.dispose();
@@ -378,16 +292,6 @@ public class S2MuleSenderImpl implements S2MuleSender
     {
         this.connectorConfig = connectorConfig;
     }
-
-//    public String getOutboundUri() 
-//    {
-//        return outboundUri;
-//    }
-//
-//    public void setOutboundUri(String outboundUri) 
-//    {
-//        this.outboundUri = outboundUri;
-//    }
     
     public S2Container getContainer() 
     {

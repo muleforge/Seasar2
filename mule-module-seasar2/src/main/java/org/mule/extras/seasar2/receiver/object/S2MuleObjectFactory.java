@@ -42,6 +42,9 @@ public class S2MuleObjectFactory implements ObjectFactory
         this.componentDef = container.getRoot().getComponentDef(object.getClass());
     }
     
+    /**
+     * インスタンスを取得する
+     */
     public Object getInstance() throws Exception 
     {
          return componentDef.getComponent();
@@ -53,6 +56,9 @@ public class S2MuleObjectFactory implements ObjectFactory
         
     }
     
+    /**
+     * クラスを取得する
+     */
     public Class getObjectClass() 
     {
         return componentDef.getComponentClass();
@@ -60,27 +66,27 @@ public class S2MuleObjectFactory implements ObjectFactory
     
     public void initialise() throws InitialisationException 
     {
-	// TODO Auto-generated method stub
-	
+    // TODO Auto-generated method stub
+    
     }
     
     public boolean isSingleton() 
     {
-        if(componentDef.getInstanceDef().getName().equals(InstanceDef.SINGLETON_NAME))
+        if (componentDef.getInstanceDef().getName().equals(InstanceDef.SINGLETON_NAME))
         {
-        	return true;
+            return true;
         } 
         else
         {
-        	return false;
+            return false;
         }
     }
     
 
     public Object getOrCreate() throws Exception 
     {
-    	// TODO Auto-generated method stub
-    	return null;
+        // TODO Auto-generated method stub
+        return null;
     }
     
     /**
