@@ -35,6 +35,7 @@ import org.mule.util.ObjectNameHelper;
 import org.mule.api.MuleException;
 import org.mule.api.MuleMessage;
 import org.mule.api.endpoint.EndpointBuilder;
+import org.mule.api.endpoint.ImmutableEndpoint;
 import org.mule.api.endpoint.OutboundEndpoint;
 import org.mule.api.transport.Connector;
 import org.mule.extras.seasar2.connector.ConnectorConfig;
@@ -210,6 +211,7 @@ public class S2MuleSenderImpl implements S2MuleSender
             {
                 EndpointConfig outboundEndpoint = (EndpointConfig) outboundEndpoints.get(0);
                 Connector connector = null;
+                String uri = outboundEndpoint.getUri();
                 if (outboundEndpoint.getUriScheme().equals(JmsConnector.JMS))
                 {
                     //MULE-3654
@@ -218,8 +220,16 @@ public class S2MuleSenderImpl implements S2MuleSender
                     connector.start();
                 }
                 
+                ImmutableEndpoint endpoint = (ImmutableEndpoint) muleClient.getMuleContext()
+                    .getRegistry().lookupEndpointFactory().getOutboundEndpoint(uri);
+                
+                if (endpoint != null)
+                {
+                    endpoint.getProperties().clear();
+                }
+                
                 MuleMessage umoResponseMessage 
-                       = muleClient.send(outboundEndpoint.getUri(), payload, outboundEndpoint.getProperties());
+                       = muleClient.send(uri, payload, outboundEndpoint.getProperties());
                 responseMessage = umoResponseMessage.getPayload();
                 
                 if (outboundEndpoint.getUriScheme().equals(JmsConnector.JMS))
