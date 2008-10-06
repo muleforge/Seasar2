@@ -55,7 +55,7 @@ public class S2MuleConfiguration
      * InboundEndpointを追加する
      * @param endpoint 
      */
-    public void addInbounEndpoint(EndpointConfig endpoint)
+    public void addInboundEndpoint(EndpointConfig endpoint)
     {
         inboundEndpoints.add(endpoint);
     }
@@ -64,7 +64,7 @@ public class S2MuleConfiguration
      * InboudEndpointを追加する
      * @return endpointUri
      */
-    public void addInboudEndpoint(String endpointUri)
+    public void addInboundEndpoint(String endpointUri)
     {
         EndpointConfigBuilder builder 
             = new EndpointConfigBuilderImpl(endpointUri);
