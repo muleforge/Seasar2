@@ -10,8 +10,10 @@ package org.mule.extras.seasar2.sender.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.transaction.Status;
 import javax.transaction.TransactionManager;
@@ -27,6 +29,7 @@ import org.mule.extras.seasar2.endpoint.impl.EndpointConfigBuilderImpl;
 import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
 import org.mule.extras.seasar2.exception.S2MuleRuntimeException;
 import org.mule.extras.seasar2.sender.S2MuleSender;
+import org.mule.extras.seasar2.util.S2MuleComponentUtil;
 import org.mule.transaction.TransactionCoordination;
 import org.mule.transaction.XaTransaction;
 import org.mule.transport.jms.JmsConnector;
@@ -72,7 +75,7 @@ public class S2MuleSenderImpl implements S2MuleSender
 
     /** 初期化処理*/
     private boolean intialized = false;
-    
+        
     /**
      * インスタンスを生成します
      */
@@ -88,7 +91,26 @@ public class S2MuleSenderImpl implements S2MuleSender
     {
         try 
         {
-            muleClient = (MuleClient) container.getComponent(MuleClient.class);   
+            muleClient = (MuleClient) container.getComponent(MuleClient.class);
+            
+            //Connectorをmuleのregistryに登録
+            List connectorConfigs = S2MuleComponentUtil.getConnectorConfigs(container);
+            if (connectorConfigs != null)
+            {
+                for ( int i = 0; i < connectorConfigs.size(); i++)
+                {
+                    ConnectorConfig connectorConfig
+                        = (ConnectorConfig) connectorConfigs.get(i);
+                    if (muleClient.getMuleContext()
+                            .getRegistry().lookupConnector(connectorConfig.getName()) == null)
+                    {
+                        muleClient.getMuleContext().getRegistry()
+                            .registerConnector(connectorConfig.buildConnector());
+                    }
+                }
+            }
+            
+            
             if (outboundEndpoints != null)
             {
                 for (int i = 0; i < outboundEndpoints.size(); i++)
@@ -150,9 +172,11 @@ public class S2MuleSenderImpl implements S2MuleSender
             for (int i = 0; i < outboundEndpoints.size(); i++) 
             {
                 EndpointConfig outboundEndpoint = (EndpointConfig) outboundEndpoints.get(i);
+                ConnectorConfig connectorConfig = outboundEndpoint.getConnectorConfig();
                 
                 logger.debug("メッセージを" + outboundEndpoint.getUri() + "へ送信します");
-                if (transactionManager != null) 
+                if (transactionManager != null && connectorConfig != null 
+                           && connectorConfig.isTransacted()) 
                 {
                     if (transactionManager.getTransaction() == null)
                     {
@@ -311,6 +335,11 @@ public class S2MuleSenderImpl implements S2MuleSender
     public void setContainer(S2Container container) 
     {
         this.container = container;
+    }
+
+    public void setTransactionManager(TransactionManager transactionManager)
+    {
+        this.transactionManager = transactionManager;
     }
     
 }

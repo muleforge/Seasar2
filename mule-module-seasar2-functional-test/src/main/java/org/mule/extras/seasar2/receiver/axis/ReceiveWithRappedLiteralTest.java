@@ -8,8 +8,8 @@
  */
 package org.mule.extras.seasar2.receiver.axis;
 
-import org.mule.extras.seasar2.sender.common.Customer;
-import org.mule.extras.seasar2.sender.common.CustomerService;
+import org.mule.extras.seasar2.test.component.Customer;
+import org.mule.extras.seasar2.test.component.CustomerService;
 import org.seasar.extension.unit.S2TestCase;
 
 public class ReceiveWithRappedLiteralTest extends S2TestCase 

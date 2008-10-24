@@ -36,12 +36,11 @@ public class ActiveMQXAJmsConnectorTest extends S2TestCase
         String brokerURL = 
         	((org.mule.transport.jms.activemq.ActiveMQXAJmsConnector) connector)
         	.getBrokerURL();
-        assertEquals("Property borkerURL isn't correct", brokerURL,
-                "tcp://localhost:61616");
+        assertEquals("Property borkerURL isn't correct", "tcp://localhost:61616",brokerURL);
 
         int maxRedelivery = 
         	((org.mule.transport.jms.activemq.ActiveMQXAJmsConnector) connector)
                 .getMaxRedelivery();
-        assertEquals("Property maxRedelivery isn't correct", maxRedelivery, 5);
+        assertEquals("Property maxRedelivery isn't correct", 5, maxRedelivery);
     }
 }

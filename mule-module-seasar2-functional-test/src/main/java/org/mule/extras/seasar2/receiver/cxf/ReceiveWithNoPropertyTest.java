@@ -8,7 +8,7 @@
  */
 package org.mule.extras.seasar2.receiver.cxf;
 
-import org.mule.extras.seasar2.sender.common.Echo;
+import org.mule.extras.seasar2.test.component.Echo;
 import org.seasar.extension.unit.S2TestCase;
 
 public class ReceiveWithNoPropertyTest extends S2TestCase 

@@ -13,7 +13,7 @@
 
     <model name="CustomerSample">
         
-        <service name="CustomerUMO">
+        <service name="CustomerServiceImpl">
             <inbound>
                 <inbound-endpoint address="axis:http://localhost:65082/services"/>
             </inbound>

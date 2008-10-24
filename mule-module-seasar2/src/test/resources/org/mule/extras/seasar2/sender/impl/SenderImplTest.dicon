@@ -5,6 +5,7 @@
   Fileを使ったユニットテスト
 -->
 <components>
+	<include path="j2ee.dicon"/>
 	<include path="s2mule-sender.dicon"/>
 
 	<!-- S2MuleSender の設定-->

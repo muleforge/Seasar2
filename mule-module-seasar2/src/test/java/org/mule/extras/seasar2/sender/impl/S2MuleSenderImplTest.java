@@ -33,6 +33,7 @@ public class S2MuleSenderImplTest extends S2TestCase
     
     public void testDispatch() throws Exception 
     {
+        
         sender_.dispatch("Hello World Test!");
     }
     

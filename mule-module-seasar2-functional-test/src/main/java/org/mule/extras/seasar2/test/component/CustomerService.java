@@ -6,14 +6,10 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-package org.mule.extras.seasar2.sender.common;
+package org.mule.extras.seasar2.test.component;
 
-public class CustomerServiceImpl implements CustomerService 
+
+public interface CustomerService 
 {
-    
-    public Customer changeCustomer(Customer before) 
-    {
-        before.address="どこか";
-        return before;
-    }
+    Customer changeCustomer(Customer before);
 }

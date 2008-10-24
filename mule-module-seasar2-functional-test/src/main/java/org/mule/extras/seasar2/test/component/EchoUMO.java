@@ -6,10 +6,15 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-package org.mule.extras.seasar2.sender.common;
+package org.mule.extras.seasar2.test.component;
 
+import org.mule.extras.seasar2.test.component.Echo;
 
-public interface CustomerService 
+public class EchoUMO implements Echo
 {
-    Customer changeCustomer(Customer before);
+	public String echo(String str)
+	{
+		System.out.println("Message:" + str);
+		return str;
+	}
 }

@@ -17,7 +17,7 @@ import org.mule.util.ObjectNameHelper;
 import org.seasar.framework.beans.util.BeanUtil;
 
 /**
- * FileConnectorの構成情報を保持するクラスです。
+ * org.mule.transport.file.FileConnectorの構成情報を保持するクラスです。
  * 
  * @author Saito_Shinya@ogis-ri.co.jp
  *

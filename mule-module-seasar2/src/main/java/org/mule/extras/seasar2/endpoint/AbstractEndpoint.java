@@ -40,11 +40,8 @@ import org.seasar.framework.log.Logger;
  * @author Saito_Shinya@ogis-ri.co.jp
  *
  */
-/**
- * @author Administrator
- *
- */
-public abstract class AbstractEndpoint implements EndpointConfig {
+public abstract class AbstractEndpoint implements EndpointConfig 
+{
     
     /**  Endpointのuri */
     protected String uri;
@@ -87,8 +84,8 @@ public abstract class AbstractEndpoint implements EndpointConfig {
      */
     public EndpointBuilder buildEndpointBuilder(MuleContext muleContext) 
     {
-        try
-        {
+//        try
+//        {
              EndpointBuilder endpointBuilder = null;
              if (uri != null) 
              {
@@ -102,10 +99,14 @@ public abstract class AbstractEndpoint implements EndpointConfig {
              
              if (connectorConfig != null) 
              {
-                 //Connector の設定
-                 Connector connector = (Connector) connectorConfig.buildConnector();
+                 //Connector の設定 TODO
+                 //Connector connector = (Connector) connectorConfig.buildConnector();
+                 //Connector connector = (Connector) connectorConfig.getConnector(muleContext);
 
-                 muleContext.getRegistry().registerConnector(connector);
+                 //TODO registryの登録の削除
+                 //muleContext.getRegistry().registerConnector(connector);
+                 
+                 Connector connector = muleContext.getRegistry().lookupConnector(connectorConfig.getName());
                  endpointBuilder.setConnector(connector);
                  
                  if (connectorConfig.isTransacted()) 
@@ -115,7 +116,7 @@ public abstract class AbstractEndpoint implements EndpointConfig {
                     transactionConfig.setFactory(new XaTransactionFactory());
                     endpointBuilder.setTransactionConfig(transactionConfig);
                  }
-                 logger.debug("Connectorを作成しました:" + connector);
+                 logger.debug("Connectorを設定しました:" + connector);
              }
             
              if (filter != null)
@@ -141,11 +142,11 @@ public abstract class AbstractEndpoint implements EndpointConfig {
              }
              
             return endpointBuilder;
-        } 
-        catch (MuleException e) 
-        {
-               throw new S2MuleRuntimeException("ESML0003", new Object[]{e}, e);
-        }
+//        } 
+//        catch (MuleException e) 
+//        {
+//               throw new S2MuleRuntimeException("ESML0003", new Object[]{e}, e);
+//        }
     }
 
     

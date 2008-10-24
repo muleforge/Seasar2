@@ -10,7 +10,7 @@
 	
 	<!-- UMOとEndpointの関連付けの設定 -->
 	<component class="org.mule.extras.seasar2.receiver.impl.S2MuleConfiguration" >
-		<initMethod name="addInboudEndpoint">
+		<initMethod name="addInboundEndpoint">
 			<arg>"file:///C:/temp"</arg>
 		</initMethod>
         <!-- メッセージを受け取るPOJO -->

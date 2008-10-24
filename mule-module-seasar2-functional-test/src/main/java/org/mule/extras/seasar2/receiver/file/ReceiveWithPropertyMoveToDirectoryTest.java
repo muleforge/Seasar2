@@ -8,8 +8,8 @@
  */
 package org.mule.extras.seasar2.receiver.file;
 
-import org.mule.extras.seasar2.receiver.common.TestProperty;
 import org.mule.extras.seasar2.sender.S2MuleSender;
+import org.mule.extras.seasar2.test.component.TestProperty;
 import org.seasar.extension.unit.S2TestCase;
 
 public class ReceiveWithPropertyMoveToDirectoryTest extends S2TestCase 

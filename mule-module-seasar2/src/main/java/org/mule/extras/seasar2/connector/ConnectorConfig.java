@@ -10,6 +10,7 @@ package org.mule.extras.seasar2.connector;
 
 import java.util.Map;
 
+import org.mule.api.MuleContext;
 import org.mule.api.transport.Connector;
 
 /**
@@ -22,11 +23,13 @@ public interface ConnectorConfig
 {
     
     /**
-     * Connectorを返す
+     * Connectorを取得する
      * 
-     * @return Object MuleConnector
+     * @return Connector
+     * 
      */
     Connector buildConnector();
+    
     
     /**
      * 全てのプロパティを取得する

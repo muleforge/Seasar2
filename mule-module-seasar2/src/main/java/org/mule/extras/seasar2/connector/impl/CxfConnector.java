@@ -13,7 +13,7 @@ import org.mule.extras.seasar2.connector.AbstractConnector;
 import org.mule.util.ObjectNameHelper;
 
 /**
- * CxfConnectorの構成情報を保持するクラスです。
+ * org.mule.transport.cxf.CxfConnectorの構成情報を保持するクラスです。
  * 
  * @author Saito_Shinya@ogis-ri.co.jp
  *

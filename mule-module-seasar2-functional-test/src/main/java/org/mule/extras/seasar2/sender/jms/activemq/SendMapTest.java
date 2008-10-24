@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.mule.extras.seasar2.sender.S2MuleSender;
-import org.mule.extras.seasar2.sender.common.Customer;
+import org.mule.extras.seasar2.test.component.Customer;
 import org.seasar.extension.unit.S2TestCase;
 
 /**

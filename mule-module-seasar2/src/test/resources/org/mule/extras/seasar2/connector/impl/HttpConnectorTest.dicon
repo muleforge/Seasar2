@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<!--
+ Http コネクタの単体テスト
+-->
+<components>
+	<include path="s2mule-sender.dicon"/>
+
+	<!-- Http Connectorの設定-->
+	<component class="org.mule.extras.seasar2.connector.impl.HttpConnector">
+	   <property name="proxyHostname">"proxy.test.org"</property>
+	   <property name="proxyPort">8080</property>
+	   <property name="proxyUsername">"user"</property>
+	   <property name="proxyPassword">"password"</property>
+	   <property name="cookieSpec">"netscape"</property>
+	   <property name="enableCookies">true</property>
+	</component>
+
+</components>

@@ -36,10 +36,10 @@ public class ActiveMQJmsConnectorTest extends S2TestCase
         
         String brokerURL = 
         	((org.mule.transport.jms.activemq.ActiveMQJmsConnector) connector).getBrokerURL();
-        assertEquals("Property borkerURL isn't correct", brokerURL, "tcp://localhost:61616");
+        assertEquals("Property borkerURL isn't correct", "tcp://localhost:61616", brokerURL);
         
         int maxRedelivery = ((org.mule.transport.jms.activemq.ActiveMQJmsConnector) connector).getMaxRedelivery();
-        assertEquals("Property borkerURL isn't correct", maxRedelivery, 5);
+        assertEquals("Property borkerURL isn't correct", 5, maxRedelivery);
         
         config_.setBrokerURL(null);
         try

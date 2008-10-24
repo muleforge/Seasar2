@@ -28,7 +28,7 @@
     
     <!-- MuleConfigの設定 -->
     <component class="org.mule.extras.seasar2.receiver.impl.S2MuleConfiguration" >
-        <initMethod name="addInbounEndpoint">
+        <initMethod name="addInboundEndpoint">
             <arg>file_in</arg>
         </initMethod>
         <!-- メッセージを受け取るクラス -->

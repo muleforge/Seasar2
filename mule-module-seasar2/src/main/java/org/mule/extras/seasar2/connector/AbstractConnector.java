@@ -13,7 +13,11 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
+import org.mule.api.MuleContext;
+import org.mule.api.MuleException;
+import org.mule.api.transport.Connector;
 import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
+import org.mule.extras.seasar2.exception.S2MuleRuntimeException;
 import org.seasar.framework.beans.PropertyNotFoundRuntimeException;
 import org.seasar.framework.beans.util.BeanUtil;
 
@@ -59,6 +63,7 @@ public abstract class AbstractConnector implements ConnectorConfig
         return properties.get(key);
     }
     
+    
     /**
      * プロパティを取得する
      * @return プロパティのMap
@@ -68,6 +73,31 @@ public abstract class AbstractConnector implements ConnectorConfig
         return properties;
     }
 
+    /**
+     * 
+     */
+//    public Connector getConnector(MuleContext muleContext)
+//    {
+//        try
+//        {
+//            Connector connector = buildConnector();
+//            muleContext.getRegistry().registerConnector(connector);
+//            return connector;
+//        }
+//        catch (MuleException e)
+//        {
+//            //TODO Exception
+//            throw new S2MuleRuntimeException("", new Object[]{e}, e);
+//        }
+//    }
+    
+//    /**
+//     * onnectorを作成する
+//     * 
+//     * @return
+//     */
+//    public abstract Connector buildConnector();
+    
 	public int getNumberOfConcurrentTransactedReceivers() 
     {
         return numberOfConcurrentTransactedReceivers;

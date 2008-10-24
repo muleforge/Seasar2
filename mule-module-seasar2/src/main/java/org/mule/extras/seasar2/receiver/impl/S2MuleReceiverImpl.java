@@ -20,11 +20,13 @@ import org.mule.api.MuleException;
 import org.mule.endpoint.EndpointURIEndpointBuilder;
 import org.mule.endpoint.DefaultInboundEndpoint;
 import org.mule.endpoint.URIBuilder;
+import org.mule.extras.seasar2.connector.ConnectorConfig;
 import org.mule.extras.seasar2.endpoint.EndpointConfig;
 import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
 import org.mule.extras.seasar2.exception.S2MuleRuntimeException;
 import org.mule.extras.seasar2.receiver.S2MuleReceiver;
 import org.mule.extras.seasar2.receiver.object.S2MuleObjectFactory;
+import org.mule.extras.seasar2.util.S2MuleComponentUtil;
 import org.mule.api.service.Service;
 import org.mule.api.endpoint.EndpointBuilder;
 import org.mule.api.model.Model;
@@ -62,7 +64,7 @@ public class S2MuleReceiverImpl implements S2MuleReceiver
     /**
      * diconに記述されていたMuleインスタンスの情報
      */
-    private List s2MuleConfigs;
+    //private List s2MuleConfigs;
     
     /**
      * MuleContext
@@ -97,9 +99,24 @@ public class S2MuleReceiverImpl implements S2MuleReceiver
     public final void start() throws MuleException 
     {
         try
-        {             
-            s2MuleConfigs = getS2MuleConfigs(container);
+        {   
+            //Connectorをmuleのregistryに登録
+            List connectorConfigs = S2MuleComponentUtil.getConnectorConfigs(container);
+            if (connectorConfigs != null)
+            {
+                for ( int i = 0; i < connectorConfigs.size(); i++)
+                {
+                    ConnectorConfig connectorConfig
+                        = (ConnectorConfig) connectorConfigs.get(i);
+                    if(muleContext.getRegistry().lookupConnector(connectorConfig.getName())==null)
+                    {
+                        muleContext.getRegistry().registerConnector(connectorConfig.buildConnector());
+                    }
+                }
+            }
             
+            //S2MuleConfig の登録
+            List s2MuleConfigs = S2MuleComponentUtil.getS2MuleConfigs(container);//TODO 削除　getS2MuleConfigs(container)
             if ( s2MuleConfigs != null )
             {
                 for ( int i = 0; i < s2MuleConfigs.size(); i++) 
@@ -226,7 +243,8 @@ public class S2MuleReceiverImpl implements S2MuleReceiver
          }
          //現在のS2コンテナとおなじS2コンテナがsetに登録されている場合
          //再帰を終了させる
-         if (set.contains(container)) {
+         if (set.contains(container)) 
+         {
              return;
          }
          set.add(container);

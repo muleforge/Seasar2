@@ -8,6 +8,7 @@
  */
 package org.mule.extras.seasar2.receiver.common;
 
+import org.mule.extras.seasar2.test.component.TestProperty;
 import org.seasar.extension.unit.S2TestCase;
 
 public class ReceiveMultiEndpointTest extends S2TestCase 

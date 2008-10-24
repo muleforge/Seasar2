@@ -12,7 +12,7 @@
     
     <!-- MuleConfig -->
     <component class="org.mule.extras.seasar2.receiver.impl.S2MuleConfiguration" >
-        <initMethod name="addInboudEndpoint">
+        <initMethod name="addInboundEndpoint">
             <arg>"axis:http://localhost:65082/services"</arg>
         </initMethod>
         <property name="umoImpl">CustomerUMO</property>

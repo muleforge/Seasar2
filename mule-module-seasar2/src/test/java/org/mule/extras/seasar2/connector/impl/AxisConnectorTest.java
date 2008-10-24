@@ -35,8 +35,9 @@ public class AxisConnectorTest extends S2TestCase
         String beanType = 
         		(String) ((org.mule.transport.soap.axis.AxisConnector) connector)
         			.getBeanTypes().get(0);
-        assertEquals("Property beanType isn't correct",
-                    "org.mule.extras.seasar2.config.impl.MyClass", beanType);
+        assertEquals("Property beanType isn't correct", 
+                    beanType,
+                    "org.mule.extras.seasar2.config.impl.MyClass");
         
     }
 }

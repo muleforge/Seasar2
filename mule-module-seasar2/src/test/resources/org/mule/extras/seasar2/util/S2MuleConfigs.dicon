@@ -2,24 +2,13 @@
 <!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
 	"http://www.seasar.org/dtd/components24.dtd">
 <components>
-	<include path="j2ee.dicon"/>
-	<include path="s2mule-sender.dicon"/>
-	
+    
 	<!-- ActiveMQ Jms connectorの設定 -->
 	<component class="org.mule.extras.seasar2.connector.impl.ActiveMQJmsConnector" >
 		<!-- brokerURLの設定 -->
 		<property name="brokerURL">"tcp://localhost:61616"</property>
-		<!-- トランザクションを有効 -->
-		<property name="transacted">true</property>
+		<!-- その他のプロパティの設定 -->
 		<property name="maxRedelivery">5</property>
 	</component>
-
-	<!-- S2MuleSender の設定-->
-	<component
-		class="org.mule.extras.seasar2.sender.impl.S2MuleSenderImpl" >
-		<initMethod name="addOutboundEndpoint" >
-			<arg>"jms://Foo"</arg>
-		</initMethod>
-	</component>
-
+    
 </components>

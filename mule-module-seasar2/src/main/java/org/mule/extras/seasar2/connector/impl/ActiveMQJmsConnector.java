@@ -9,7 +9,6 @@
 package org.mule.extras.seasar2.connector.impl;
 
 import org.mule.api.transport.Connector;
-import org.mule.extras.seasar2.connector.ConnectorConfig;
 import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
 import org.mule.transport.jms.JmsConstants;
 import org.mule.util.ObjectNameHelper;
@@ -17,7 +16,7 @@ import org.seasar.framework.beans.util.BeanUtil;
 
 
 /**
- * ActiveMQJmsConnectorの構成情報を保持するクラスです。
+ * org.mule.transport.jms.activemq.ActiveMQXAJmsConnectorの構成情報を保持するクラスです。
  * 
  * @author Saito_Shinya@ogis-ri.co.jp
  *

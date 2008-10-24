@@ -6,13 +6,14 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-package org.mule.extras.seasar2.receiver.common;
+package org.mule.extras.seasar2.test.component;
 
-public class EchoUMO implements Echo
+/**
+ * テスト用の設定プロパティ
+ * 
+ * @author Saito_Shinya@ogis-ri.co.jp
+ */
+public class TestProperty 
 {
-	public String echo(String str)
-	{
-		System.out.println("Message:" + str);
-		return str;
-	}
+	public static final long THREAD_SLEEP_TIME = 5000;
 }

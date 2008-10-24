@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<components>
+ 
+ 	<include path="org/mule/extras/seasar2/util/S2MuleConfigs.dicon"/>
+ 	<include path="org/mule/extras/seasar2/util/ConnectorConfigs.dicon"/>
+ 
+ 	<!-- File Connectorの設定-->
+    <component class="org.mule.extras.seasar2.connector.impl.FileConnector">
+        <property name="moveToPattern">"${ORIGINALNAME}-処理済み"</property>
+        <property name="moveToDirectory">"C:/temp/afterFile"</property>
+        <property name="streaming">false</property>
+    </component>
+        
+    <!-- MuleConfig -->
+    <component name="EchoUMO"
+    	class="org.mule.extras.seasar2.receiver.impl.S2MuleConfiguration" >
+        <initMethod name="addInboundEndpoint">
+        	<arg>"jms://Foo"</arg>
+        </initMethod>
+    </component>
+    
+</components>

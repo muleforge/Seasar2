@@ -8,14 +8,14 @@
  */
 package org.mule.extras.seasar2.sender.axis;
 
-import org.mule.extras.seasar2.sender.common.Customer;
-import org.mule.extras.seasar2.sender.common.CustomerService;
+import org.mule.extras.seasar2.test.component.Customer;
+import org.mule.extras.seasar2.test.component.CustomerService;
 import org.seasar.extension.unit.S2TestCase;
 
 /**
- * ID:AXIS-O-001
+ * ID:S-AXIS-002
  * 
- * プロパティをなにも設定せず、メッセージを送信する。
+ * Beanメッセージを送信する。
  *
  */
 public class SendBeanTest extends S2TestCase {
