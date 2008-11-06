@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<components>
+    <include path="s2mule-receiver.dicon"/>
+
+    <!-- テスト用のメッセージ送信はS2MuleSenderを利用 -->
+    <include path="org/mule/extras/seasar2/sender/axis/SendWithRappedLiteralTest.dicon"/>
+    
+	 <component name="CustomerUMO" 
+                class="org.mule.extras.seasar2.sender.common.CustomerServiceImpl" />
+    
+    <component name="axis_in" 
+    	class="org.mule.extras.seasar2.endpoint.impl.AxisEndpoint" >
+    	<property name="uri">"axis:http://localhost:65082/services"</property>
+		<!-- SOAPのスタイルをwrapped/literalに設定-->
+		<property name="style">"wrapped"</property>
+		<property name="use">"literal"</property>
+    </component>
+    
+    <!-- MuleConfig -->
+    <component 
+    	class="org.mule.extras.seasar2.receiver.impl.S2MuleConfiguration" >
+        <initMethod name="addInbounEndpoint">
+            <arg>axis_in</arg>
+        </initMethod>
+        <property name="umoImpl">CustomerUMO</property>
+    </component>
+    
+</components>
