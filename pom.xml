@@ -16,7 +16,6 @@
 		<seasarVersion>2.4.17</seasarVersion>
 	</properties>
 	<modules>
-		<module>mule-module-seasar2</module>
 		<module>mule-module-seasar2-examples</module>
 		<module>mule-module-seasar2-functional-test</module>
 	</modules>
