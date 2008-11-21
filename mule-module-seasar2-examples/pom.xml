@@ -22,7 +22,7 @@
 		<repository>
 			<id>maven.muleforge.org</id>
 			<name>The MuleForge Maven2 Repository</name>
-			<url>http://repository.muleforge.org/</url>
+			<url>http://dav.muleforge.org/</url>
 		</repository>
 	</repositories>
 	
