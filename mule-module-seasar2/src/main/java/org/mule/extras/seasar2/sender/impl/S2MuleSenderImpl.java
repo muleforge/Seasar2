@@ -24,8 +24,8 @@ import org.mule.endpoint.URIBuilder;
 import org.mule.module.client.MuleClient;
 import org.mule.extras.seasar2.endpoint.AbstractEndpoint;
 import org.mule.extras.seasar2.endpoint.EndpointConfig;
-import org.mule.extras.seasar2.endpoint.EndpointConfigBuilder;
-import org.mule.extras.seasar2.endpoint.impl.EndpointConfigBuilderImpl;
+import org.mule.extras.seasar2.endpoint.EndpointConfigFactory;
+import org.mule.extras.seasar2.endpoint.impl.EndpointConfigFactoryImpl;
 import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
 import org.mule.extras.seasar2.exception.S2MuleRuntimeException;
 import org.mule.extras.seasar2.sender.S2MuleSender;
@@ -91,6 +91,7 @@ public class S2MuleSenderImpl implements S2MuleSender
     {
         try 
         {
+        	//TODO DIを使おう
             muleClient = (MuleClient) container.getComponent(MuleClient.class);
             
             //Connectorをmuleのregistryに登録
@@ -131,6 +132,7 @@ public class S2MuleSenderImpl implements S2MuleSender
                     if ( connectorConfig != null 
                             && connectorConfig.isTransacted()) 
                     {
+                    	//TODO DIを使おう
                         transactionManager = (TransactionManager) container.getRoot()
                             .getComponent(TransactionManager.class);
                         muleClient.getMuleContext().setTransactionManager(transactionManager);
@@ -238,7 +240,7 @@ public class S2MuleSenderImpl implements S2MuleSender
                 String uri = outboundEndpoint.getUri();
                 if (outboundEndpoint.getUriScheme().equals(JmsConnector.JMS))
                 {
-                    //MULE-3654
+                    //TODO JMSへの依存を回避
                     connector = (Connector) muleClient.getMuleContext().getRegistry()
                         .lookupConnector(outboundEndpoint.getConnectorConfig().getName());
                     connector.start();
@@ -247,9 +249,10 @@ public class S2MuleSenderImpl implements S2MuleSender
                 ImmutableEndpoint endpoint = (ImmutableEndpoint) muleClient.getMuleContext()
                     .getRegistry().lookupEndpointFactory().getOutboundEndpoint(uri);
                 
+                //TODO なんのためにあるのか?→Axisのため？
                 if (endpoint != null)
                 {
-                    endpoint.getProperties().clear();
+                    //endpoint.getProperties().clear();
                 }
                 
                 MuleMessage umoResponseMessage 
@@ -258,7 +261,7 @@ public class S2MuleSenderImpl implements S2MuleSender
                 
                 if (outboundEndpoint.getUriScheme().equals(JmsConnector.JMS))
                 {
-                    //MULE-3654
+                    //TODO JMSへの依存を回避
                     connector.stop();
                 }
                 
@@ -308,9 +311,9 @@ public class S2MuleSenderImpl implements S2MuleSender
      */
     public void addOutboundEndpoint (String endpointUri)
     {
-        EndpointConfigBuilder builder 
-        = new EndpointConfigBuilderImpl(endpointUri);
-        outboundEndpoints.add(builder.build());
+        EndpointConfigFactory factory
+        = new EndpointConfigFactoryImpl(endpointUri);
+        outboundEndpoints.add(factory.createEndpoint());
     }
     
     /** 

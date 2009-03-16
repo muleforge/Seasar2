@@ -15,7 +15,8 @@ import org.mule.api.transport.Connector;
 
 /**
  * Mule Connectorの構成情報を保持するクラスのインタフェース
- *  
+ * builderの働きをする
+ * 
  * @author Saito_Shinya@ogis-ri.co.jp
  *
  */
@@ -23,7 +24,7 @@ public interface ConnectorConfig
 {
     
     /**
-     * Connectorを取得する
+     * Connectorを作成する
      * 
      * @return Connector
      * 
@@ -59,6 +60,13 @@ public interface ConnectorConfig
      * @return transacted
      */
     boolean isTransacted();
+    
+    /**
+     * dispatcherを取得する
+     * 
+     * @return
+     */
+    MessageDispatcher getMessageDispatcher();
     
     String getName();
     

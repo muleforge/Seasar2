@@ -22,7 +22,7 @@ import org.seasar.framework.beans.PropertyNotFoundRuntimeException;
 import org.seasar.framework.beans.util.BeanUtil;
 
 /**
- * Configの抽象クラスです
+ * ConnectorConfigの抽象クラス
  * 
  * @author Shinya_Saito@ogis-ri.co.jp
  *
@@ -41,6 +41,9 @@ public abstract class AbstractConnector implements ConnectorConfig
     
     /** 名前 */
     protected String name;
+    
+    /** 送信用のディスパッチャ*/
+    protected MessageDispatcher messageDispatcher;
     
     
     /**
@@ -72,31 +75,6 @@ public abstract class AbstractConnector implements ConnectorConfig
     {
         return properties;
     }
-
-    /**
-     * 
-     */
-//    public Connector getConnector(MuleContext muleContext)
-//    {
-//        try
-//        {
-//            Connector connector = buildConnector();
-//            muleContext.getRegistry().registerConnector(connector);
-//            return connector;
-//        }
-//        catch (MuleException e)
-//        {
-//            //TODO Exception
-//            throw new S2MuleRuntimeException("", new Object[]{e}, e);
-//        }
-//    }
-    
-//    /**
-//     * onnectorを作成する
-//     * 
-//     * @return
-//     */
-//    public abstract Connector buildConnector();
     
 	public int getNumberOfConcurrentTransactedReceivers() 
     {

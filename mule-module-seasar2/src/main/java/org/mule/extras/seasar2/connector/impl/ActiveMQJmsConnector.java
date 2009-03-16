@@ -9,6 +9,7 @@
 package org.mule.extras.seasar2.connector.impl;
 
 import org.mule.api.transport.Connector;
+import org.mule.extras.seasar2.connector.MessageDispatcher;
 import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
 import org.mule.transport.jms.JmsConstants;
 import org.mule.util.ObjectNameHelper;
@@ -21,7 +22,7 @@ import org.seasar.framework.beans.util.BeanUtil;
  * @author Saito_Shinya@ogis-ri.co.jp
  *
  */
-public class ActiveMQJmsConnector extends JMSConnectorConfig 
+public class ActiveMQJmsConnector extends JMSConnector 
 {
     /** ブローカーURL*/
     private String brokerURL;
@@ -31,6 +32,7 @@ public class ActiveMQJmsConnector extends JMSConnectorConfig
      */
     public ActiveMQJmsConnector() 
     {
+    	
     }
     
     /**
@@ -65,6 +67,7 @@ public class ActiveMQJmsConnector extends JMSConnectorConfig
         BeanUtil.copyProperties(this, connector);
         return connector;
     }
+    
 
     public String getBrokerURL()
     {

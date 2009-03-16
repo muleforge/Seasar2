@@ -12,7 +12,7 @@ import java.io.FileOutputStream;
 
 import org.mule.api.transport.Connector;
 import org.mule.extras.seasar2.connector.AbstractConnector;
-import org.mule.extras.seasar2.connector.ConnectorConfig;
+import org.mule.extras.seasar2.connector.MessageDispatcher;
 import org.mule.util.ObjectNameHelper;
 import org.seasar.framework.beans.util.BeanUtil;
 
@@ -62,7 +62,7 @@ public class FileConnector extends AbstractConnector
      */
     public FileConnector() 
     {
-        
+        //blank
     }
     
     /**
@@ -76,6 +76,15 @@ public class FileConnector extends AbstractConnector
         BeanUtil.copyProperties(this, connector);
 
         return connector;
+    }
+    
+    public MessageDispatcher getMessageDispatcher() 
+    {
+    	if (messageDispatcher == null)
+    	{
+    		messageDispatcher = new FileMessageDispatcherImpl();
+    	}
+    	return messageDispatcher;
     }
 
     public long getPollingFrequency() 

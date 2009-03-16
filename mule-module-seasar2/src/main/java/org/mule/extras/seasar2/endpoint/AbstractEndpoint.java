@@ -13,10 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.transaction.TransactionManager;
-
 import org.mule.api.MuleContext;
-import org.mule.api.MuleException;
 import org.mule.api.endpoint.EndpointBuilder;
 import org.mule.api.routing.filter.Filter;
 import org.mule.api.transaction.TransactionConfig;
@@ -24,13 +21,10 @@ import org.mule.api.transformer.Transformer;
 import org.mule.api.transport.Connector;
 import org.mule.transaction.MuleTransactionConfig;
 import org.mule.transaction.XaTransactionFactory;
-import org.mule.util.ObjectNameHelper;
 import org.mule.endpoint.EndpointURIEndpointBuilder;
 import org.mule.endpoint.URIBuilder;
-import org.mule.extras.seasar2.connector.AbstractConnector;
 import org.mule.extras.seasar2.connector.ConnectorConfig;
 import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
-import org.mule.extras.seasar2.exception.S2MuleRuntimeException;
 import org.seasar.framework.log.Logger;
 
 
@@ -47,7 +41,7 @@ public abstract class AbstractEndpoint implements EndpointConfig
     protected String uri;
 
     /** トランスフォーマ */
-    protected List transformers;
+    protected List<Transformer> transformers;
     
     /** コネクタ*/
     protected ConnectorConfig connectorConfig;
@@ -69,10 +63,12 @@ public abstract class AbstractEndpoint implements EndpointConfig
         .getLogger(AbstractEndpoint.class);
     
     /** デフォルトコンストラクタ*/
+    //TODO 不要かも
     public AbstractEndpoint() 
     {
     }
     
+    //TODO 不要かも
     public AbstractEndpoint(String uri)
     {
         this.uri = uri;
@@ -84,73 +80,59 @@ public abstract class AbstractEndpoint implements EndpointConfig
      */
     public EndpointBuilder buildEndpointBuilder(MuleContext muleContext) 
     {
-//        try
-//        {
-             EndpointBuilder endpointBuilder = null;
-             if (uri != null) 
-             {
-                 URIBuilder uriBuilder = new URIBuilder(uri);
-                 endpointBuilder = new EndpointURIEndpointBuilder(uriBuilder, muleContext);
-             } 
-             else
-             {
-                 throw new S2MuleConfigurationException("ESML0002", new Object[]{"uri"});
-             }
+         EndpointBuilder endpointBuilder = null;
+         if (uri != null) 
+         {
+             URIBuilder uriBuilder = new URIBuilder(uri);
+             endpointBuilder = new EndpointURIEndpointBuilder(uriBuilder, muleContext);
+         } 
+         else
+         {
+             throw new S2MuleConfigurationException("ESML0002", new Object[]{"uri"});
+         }
+         
+         if (connectorConfig != null) 
+         {             
+             Connector connector = muleContext.getRegistry().lookupConnector(connectorConfig.getName());
+             endpointBuilder.setConnector(connector);
              
-             if (connectorConfig != null) 
+             if (connectorConfig.isTransacted()) 
              {
-                 //Connector の設定 TODO
-                 //Connector connector = (Connector) connectorConfig.buildConnector();
-                 //Connector connector = (Connector) connectorConfig.getConnector(muleContext);
-
-                 //TODO registryの登録の削除
-                 //muleContext.getRegistry().registerConnector(connector);
-                 
-                 Connector connector = muleContext.getRegistry().lookupConnector(connectorConfig.getName());
-                 endpointBuilder.setConnector(connector);
-                 
-                 if (connectorConfig.isTransacted()) 
-                 {
-                    TransactionConfig transactionConfig = new MuleTransactionConfig();
-                    transactionConfig.setAction(TransactionConfig.ACTION_BEGIN_OR_JOIN);
-                    transactionConfig.setFactory(new XaTransactionFactory());
-                    endpointBuilder.setTransactionConfig(transactionConfig);
-                 }
-                 logger.debug("Connectorを設定しました:" + connector);
+                TransactionConfig transactionConfig = new MuleTransactionConfig();
+                transactionConfig.setAction(TransactionConfig.ACTION_BEGIN_OR_JOIN);
+                transactionConfig.setFactory(new XaTransactionFactory());
+                endpointBuilder.setTransactionConfig(transactionConfig);
              }
-            
-             if (filter != null)
-             {
-                 endpointBuilder.setFilter(filter);
-             }
-             
-             if (transformers != null) 
-             {
-                 endpointBuilder.setTransformers(transformers);
-             }
-             
-             if (properties != null)
-             {
-                 endpointBuilder.setProperties(properties);
-             }
-             
-             endpointBuilder.setRemoteSync(remoteSync);
-             
-             if (remoteSyncTimeout != null)
-             {
-                 endpointBuilder.setRemoteSyncTimeout(remoteSyncTimeout);
-             }
-             
-            return endpointBuilder;
-//        } 
-//        catch (MuleException e) 
-//        {
-//               throw new S2MuleRuntimeException("ESML0003", new Object[]{e}, e);
-//        }
+             logger.debug("Connectorを設定しました:" + connector);
+         }
+        
+         if (filter != null)
+         {
+             endpointBuilder.setFilter(filter);
+         }
+         
+         if (transformers != null) 
+         {
+             endpointBuilder.setTransformers(transformers);
+         }
+         
+         if (properties != null)
+         {
+             endpointBuilder.setProperties(properties);
+         }
+         
+         endpointBuilder.setRemoteSync(remoteSync);
+         
+         if (remoteSyncTimeout != null)
+         {
+             endpointBuilder.setRemoteSyncTimeout(remoteSyncTimeout);
+         }
+         
+        return endpointBuilder;
     }
 
     
-       /**
+    /**
      * トランスフォーマを追加する
      * 
      * @param newTransformer
@@ -159,7 +141,7 @@ public abstract class AbstractEndpoint implements EndpointConfig
     {
         if (transformers == null) 
         {
-            transformers = new ArrayList();
+            transformers = new ArrayList<Transformer>();
         }
         transformers.add(newTransformer);
     }
@@ -187,7 +169,7 @@ public abstract class AbstractEndpoint implements EndpointConfig
         return properties;
     }
 
-    public void setTransformers(List transformers) 
+    public void setTransformers(List<Transformer> transformers) 
     {
         this.transformers = transformers;
     }

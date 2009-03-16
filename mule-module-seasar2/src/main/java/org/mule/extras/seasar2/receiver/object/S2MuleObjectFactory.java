@@ -10,7 +10,6 @@ package org.mule.extras.seasar2.receiver.object;
 
 import org.mule.api.lifecycle.InitialisationCallback;
 import org.mule.api.lifecycle.InitialisationException;
-import org.mule.api.lifecycle.LifecycleTransitionResult;
 import org.mule.api.object.ObjectFactory;
 import org.seasar.framework.container.ComponentDef;
 import org.seasar.framework.container.InstanceDef;
@@ -35,7 +34,7 @@ public class S2MuleObjectFactory implements ObjectFactory
      * コンストラクタ
      * 
      * @param container
-     * @param objectClassName
+     * @param object
      */
     public S2MuleObjectFactory( S2Container container, Object object )
     {
@@ -43,43 +42,39 @@ public class S2MuleObjectFactory implements ObjectFactory
     }
     
     /**
-     * インスタンスを取得する
+     * S2Containerからコンポーネントを取得する
+     * 
+     * @return コンポーネント
      */
-    public Object getInstance() throws Exception 
+    public final Object getInstance() 
     {
          return componentDef.getComponent();
     }
     
     public void addObjectInitialisationCallback(InitialisationCallback callback) 
     {
-        // TODO Auto-generated method stub
-        
+        //TODO 
     }
     
     /**
      * クラスを取得する
+     * 
+     * @return class
      */
-    public Class getObjectClass() 
+    public final Class getObjectClass() 
     {
         return componentDef.getComponentClass();
     }
     
     public void initialise() throws InitialisationException 
     {
-    // TODO Auto-generated method stub
-    
+        // TODO
     }
     
     public boolean isSingleton() 
     {
-        if (componentDef.getInstanceDef().getName().equals(InstanceDef.SINGLETON_NAME))
-        {
-            return true;
-        } 
-        else
-        {
-            return false;
-        }
+        return componentDef.getInstanceDef().getName()
+        .equals(InstanceDef.SINGLETON_NAME);
     }
     
 
@@ -102,7 +97,7 @@ public class S2MuleObjectFactory implements ObjectFactory
      */
     public void release(Object object) throws Exception 
     {
-        
+    	//blank
     }
     
     /**
@@ -110,7 +105,7 @@ public class S2MuleObjectFactory implements ObjectFactory
      */
     public void dispose() 
     {
-        
+        //blank
     }
 
 }

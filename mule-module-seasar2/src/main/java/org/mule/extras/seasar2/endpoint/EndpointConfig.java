@@ -21,6 +21,7 @@ import org.mule.extras.seasar2.connector.ConnectorConfig;
 
 /**
  * Mule Endpointの構成情報を保持するクラスのインターフェース
+ * builderの働きをする
  * 
  * @author Saito_Shinya@ogis-ri.co.jp
  *

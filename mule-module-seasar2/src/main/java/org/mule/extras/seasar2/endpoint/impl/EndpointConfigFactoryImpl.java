@@ -9,23 +9,23 @@
 package org.mule.extras.seasar2.endpoint.impl;
 
 import org.mule.extras.seasar2.endpoint.EndpointConfig;
-import org.mule.extras.seasar2.endpoint.EndpointConfigBuilder;
+import org.mule.extras.seasar2.endpoint.EndpointConfigFactory;
 import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
 
-public class EndpointConfigBuilderImpl implements EndpointConfigBuilder 
+public class EndpointConfigFactoryImpl implements EndpointConfigFactory 
 {
     /** EndpointのURI*/
     private String uri;
 
-    public EndpointConfigBuilderImpl(String uri)
+    public EndpointConfigFactoryImpl(String uri)
     {
         this.uri=uri;
     }
     
     /**
-     * @see org.mule.extras.seasar2.endpoint.EndpointConfigBuilder#build(String)
+     * @see org.mule.extras.seasar2.endpoint.EndpointConfigFactory#createEndpoint()
      */
-    public EndpointConfig build()
+    public EndpointConfig createEndpoint()
     {
         String scheme = getUriScheme(uri);
         

@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.mule.extras.seasar2.endpoint.EndpointConfig;
-import org.mule.extras.seasar2.endpoint.impl.EndpointConfigBuilderImpl;
+import org.mule.extras.seasar2.endpoint.impl.EndpointConfigFactoryImpl;
 import org.mule.api.MuleException;
-import org.mule.extras.seasar2.endpoint.EndpointConfigBuilder;
+import org.mule.extras.seasar2.endpoint.EndpointConfigFactory;
 import org.seasar.framework.util.ClassUtil;
 
 /**
@@ -66,9 +66,9 @@ public class S2MuleConfiguration
      */
     public void addInboundEndpoint(String endpointUri)
     {
-        EndpointConfigBuilder builder 
-            = new EndpointConfigBuilderImpl(endpointUri);
-        inboundEndpoints.add(builder.build());
+        EndpointConfigFactory factory
+            = new EndpointConfigFactoryImpl(endpointUri);
+        inboundEndpoints.add(factory.createEndpoint());
     }
     
     

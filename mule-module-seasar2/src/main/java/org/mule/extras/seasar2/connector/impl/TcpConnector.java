@@ -10,7 +10,9 @@ package org.mule.extras.seasar2.connector.impl;
 
 import org.mule.api.transport.Connector;
 import org.mule.extras.seasar2.connector.AbstractConnector;
+import org.mule.extras.seasar2.connector.MessageDispatcher;
 import org.mule.util.ObjectNameHelper;
+import org.omg.CosTransactions.otid_t;
 import org.seasar.framework.beans.util.BeanUtil;
 
 /**
@@ -58,7 +60,7 @@ public class TcpConnector extends AbstractConnector
     private int keepAliveTimeout = 0;
     
     /**
-     * @see org.mule.extras.seasar2.connector.ConnectorConfig#getConnector()
+     * @see org.mule.extras.seasar2.connector.ConnectorConfig#buildConnector()
      */
     public Connector buildConnector()
     {
@@ -70,6 +72,19 @@ public class TcpConnector extends AbstractConnector
         return connector;
     }
 
+    /**
+     * @see org.mule.extras.seasar2.connector.ConnectorConfig#getMessageDispatcher()
+     */
+    public MessageDispatcher getMessageDispatcher() 
+    {
+    	if(messageDispatcher == null)
+    	{
+    		messageDispatcher = new DefaultMessageDispatcherImpl();
+    	}
+    	return messageDispatcher;
+    }
+    
+    
     public int getClientSoTimeout()
     {
         return clientSoTimeout;

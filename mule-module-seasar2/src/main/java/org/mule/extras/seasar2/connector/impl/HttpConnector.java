@@ -9,7 +9,6 @@
 package org.mule.extras.seasar2.connector.impl;
 
 import org.mule.api.transport.Connector;
-import org.mule.extras.seasar2.connector.AbstractConnector;
 import org.mule.transport.http.HttpConstants;
 import org.mule.util.ObjectNameHelper;
 import org.seasar.framework.beans.util.BeanUtil;

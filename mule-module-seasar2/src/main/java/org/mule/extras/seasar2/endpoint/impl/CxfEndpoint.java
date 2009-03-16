@@ -14,7 +14,7 @@ import org.mule.transport.cxf.CxfConstants;
 /**
  * CxfEndpointの構成情報を保持するクラス
  * 
- * @author 
+ * @author Saito_Shinya@ogis-ri.co.jp
  *
  */
 public class CxfEndpoint extends AbstractEndpoint 

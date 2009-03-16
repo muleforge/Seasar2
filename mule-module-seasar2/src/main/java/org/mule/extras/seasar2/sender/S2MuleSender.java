@@ -10,7 +10,6 @@ package org.mule.extras.seasar2.sender;
 
 import java.util.Map;
 
-import org.mule.extras.seasar2.connector.ConnectorConfig;
 
 /**
  * Muleを利用してメッセージを送信するコンポーネントのインタフェースです。

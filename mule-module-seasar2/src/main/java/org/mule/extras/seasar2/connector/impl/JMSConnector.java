@@ -19,7 +19,7 @@ import org.mule.transport.jms.JmsConstants;
  * @author Saito_Shinya@ogis-ri.co.jp
  *
  */
-public abstract class JMSConnectorConfig extends AbstractConnector
+public abstract class JMSConnector extends AbstractConnector
 {
     /** 受け取り通知のモード*/
     private int acknowledgementMode = Session.AUTO_ACKNOWLEDGE;
@@ -50,7 +50,7 @@ public abstract class JMSConnectorConfig extends AbstractConnector
 
     /** JMSの仕様*/
     private String specification = JmsConstants.JMS_SPECIFICATION_102B;
-
+    
     public int getAcknowledgementMode() 
     {
         return acknowledgementMode;

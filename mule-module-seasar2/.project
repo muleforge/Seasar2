@@ -1,26 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-  <name>mule-module-seasar2</name>
-  <comment>The Seasar2 framework is an open source framework similar
-		to the Spring Framework. This module makes mule available from
-		seasar2.</comment>
-  <projects/>
-  <buildSpec>
-    <buildCommand>
-      <name>org.eclipse.jdt.core.javabuilder</name>
-    </buildCommand>
-    <buildCommand>
-      <name>net.sf.eclipsecs.core.CheckstyleBuilder</name>
-    </buildCommand>
-    <buildCommand>
-      <name>org.seasar.kijimuna.core.builder</name>
-    </buildCommand>
-    <buildCommand>
-      <name>org.seasar.kijimuna.core.validator</name>
-    </buildCommand>
-  </buildSpec>
-  <natures>
-    <nature>org.eclipse.jdt.core.javanature</nature>
-    <nature>net.sf.eclipsecs.core.CheckstyleNature</nature>
-    <nature>org.seasar.kijimuna.core.nature</nature>
-  </natures>
+	<name>mule-module-seasar2</name>
+	<comment>S2Mule helps Java developers to use Mule&apos;s very significant functionalities from Seasar2 applications easily. 
+		Java developers are able to configure S2Mule by dicon file only.
+		So, They don&apos;t need to learn XML configuration syntax any more.</comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>net.sf.eclipsecs.core.CheckstyleBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.seasar.kijimuna.core.builder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.seasar.kijimuna.core.validator</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>edu.umd.cs.findbugs.plugin.eclipse.findbugsBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>com.atlassw.tools.eclipse.checkstyle.CheckstyleBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>net.sf.eclipsecs.core.CheckstyleNature</nature>
+		<nature>org.seasar.kijimuna.core.nature</nature>
+		<nature>edu.umd.cs.findbugs.plugin.eclipse.findbugsNature</nature>
+		<nature>com.atlassw.tools.eclipse.checkstyle.CheckstyleNature</nature>
+	</natures>
 </projectDescription>

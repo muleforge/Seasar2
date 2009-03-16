@@ -44,6 +44,7 @@ public class MethodInvocationInterceptor extends AbstractInterceptor
         Method method = methodInvocation.getMethod();
         if (MethodUtil.isAbstract(method)) 
         {
+        	//TODO
             Object payload = methodInvocation.getArguments();
             String methodName = method.getName();
             Map properties = new HashMap();
