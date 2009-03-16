@@ -3,6 +3,7 @@ package org.mule.example.echo;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import javax.jws.WebResult;
 import javax.jws.WebParam.Mode;
 import javax.jws.WebService;
 import javax.xml.ws.RequestWrapper;
@@ -22,8 +23,9 @@ public interface Echo {
     @ResponseWrapper(localName = "echoResponse", targetNamespace = "http://echo.example.mule.org/", className = "org.mule.example.echo.EchoResponse")
     @RequestWrapper(localName = "echo", targetNamespace = "http://echo.example.mule.org/", className = "org.mule.example.echo.Echo_Type")
     @WebMethod
-    public void echo(
-        @WebParam(mode = WebParam.Mode.INOUT, name = "text", targetNamespace = "")
-        javax.xml.ws.Holder<java.lang.String> text
+    @WebResult(name="return",targetNamespace="")
+    public String echo(
+        @WebParam(name = "text", targetNamespace = "")
+        java.lang.String text
     );
 }

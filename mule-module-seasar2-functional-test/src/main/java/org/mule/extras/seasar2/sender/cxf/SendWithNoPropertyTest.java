@@ -12,7 +12,7 @@ import org.mule.extras.seasar2.test.component.Echo;
 import org.seasar.extension.unit.S2TestCase;
 
 /**
- * ID:AXIS-O-001
+ * ID:CXF-O-001
  * 
  * プロパティをなにも設定せず、メッセージを送信する。
  * 
