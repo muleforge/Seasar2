@@ -13,23 +13,38 @@ import java.util.Map;
 import org.mule.api.MuleException;
 import org.mule.api.transport.Connector;
 import org.mule.extras.seasar2.connector.MessageDispatcher;
+import org.mule.extras.seasar2.endpoint.EndpointConfig;
 import org.mule.module.client.MuleClient;
 
-public class JMSMessageDispatcherImpl implements MessageDispatcher {
-
-	public void dispache(String uri, Object payload, Map properties,
-			MuleClient client) throws MuleException {
-			// TODO Auto-generated method stub
-
-	}
-
-	public Object send(String uri, Object payload, Map properties,
-			MuleClient client) throws MuleException {
-		Connector connector = (Connector) client.getMuleContext().getRegistry()
-        	.lookupConnector(outboundEndpoint.getConnectorConfig().getName());
-		connector.start();
-		
-		return null;
-	}
-
+public class JMSMessageDispatcherImpl implements MessageDispatcher 
+{
+    /**
+     * @see org.mule.extras.seasar2.connector.MessageDispatcher#dispache(org.mule.extras.seasar2.endpoint.EndpointConfig, java.lang.Object, java.util.Map, org.mule.module.client.MuleClient)
+     */
+    public void dispache(EndpointConfig outboundEndpoint,
+                         Object payload,
+                         Map properties,
+                         MuleClient muleClient) throws MuleException
+    {
+        muleClient.dispatch(outboundEndpoint.getUri(), payload, properties);
+    }
+    
+    /** 
+     * @see org.mule.extras.seasar2.connector.MessageDispatcher#send(org.mule.extras.seasar2.endpoint.EndpointConfig, java.lang.Object, java.util.Map, org.mule.module.client.MuleClient)
+     */
+    public Object send(EndpointConfig outboundEndpoint, Object payload, Map properties, MuleClient muleClient)
+        throws MuleException
+    {
+        //replyTo を有効にするためにconnectorを起動する
+        String connectorName = outboundEndpoint.getConnectorConfig().getName();
+        Connector connector = muleClient.getMuleContext()
+            .getRegistry().lookupConnector(connectorName);
+        connector.start();
+        
+        Object response = muleClient.send(outboundEndpoint.getUri(), payload, properties);
+        
+        connector.stop();
+        
+        return response;
+    }
 }

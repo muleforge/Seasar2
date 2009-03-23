@@ -10,13 +10,8 @@ package org.mule.extras.seasar2.endpoint;
 
 import java.util.Map;
 
-import javax.transaction.TransactionManager;
-
 import org.mule.api.MuleContext;
 import org.mule.api.endpoint.EndpointBuilder;
-import org.mule.api.endpoint.ImmutableEndpoint;
-import org.mule.api.endpoint.InboundEndpoint;
-import org.mule.api.endpoint.OutboundEndpoint;
 import org.mule.extras.seasar2.connector.ConnectorConfig;
 
 /**

@@ -13,7 +13,7 @@
 		So, They don't need to learn XML configuration syntax any more.  
 	</description>
 	<properties>
-		<muleVersion>2.1.2</muleVersion>
+		<muleVersion>2.0.2</muleVersion>
 		<seasarVersion>2.4.17</seasarVersion>
 	</properties>
 	

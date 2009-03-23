@@ -14,7 +14,7 @@ import org.mule.api.MuleContext;
 import org.mule.api.transport.Connector;
 
 /**
- * Mule Connectorの構成情報を保持するクラスのインタフェース
+ * Mule Connectorの構成情報を保持するためのインタフェース
  * builderの働きをする
  * 
  * @author Saito_Shinya@ogis-ri.co.jp

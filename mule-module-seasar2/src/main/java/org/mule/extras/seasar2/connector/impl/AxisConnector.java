@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.mule.api.transport.Connector;
 import org.mule.extras.seasar2.connector.AbstractConnector;
+import org.mule.extras.seasar2.connector.MessageDispatcher;
 import org.mule.util.ObjectNameHelper;
 import org.seasar.framework.beans.util.BeanUtil;
 
@@ -47,6 +48,18 @@ public class AxisConnector extends AbstractConnector
         setName(ObjectNameHelper.getConnectorName(connector));
         BeanUtil.copyProperties(this, connector);
         return connector;
+    }
+    
+    /**
+     * @see org.mule.extras.seasar2.connector.ConnectorConfig#getMessageDispatcher()
+     */
+    public MessageDispatcher getMessageDispatcher()
+    {
+        if (messageDispatcher == null)
+        {
+            messageDispatcher = new 
+        }
+        return null;
     }
     
     /**

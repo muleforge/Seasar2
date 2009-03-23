@@ -17,7 +17,8 @@ import org.mule.transport.jms.filters.JmsPropertyFilter;
 import org.mule.transport.jms.transformers.JMSMessageToObject;
 import org.seasar.extension.unit.S2TestCase;
 
-public class EndpointTest extends S2TestCase {
+public class EndpointTest extends S2TestCase 
+{
 	
 	private DefaultMuleContextFactory factory_;
 	private AbstractEndpoint endpointConfig_;

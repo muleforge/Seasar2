@@ -12,22 +12,32 @@ import java.util.Map;
 
 import org.mule.api.MuleException;
 import org.mule.extras.seasar2.connector.MessageDispatcher;
+import org.mule.extras.seasar2.endpoint.EndpointConfig;
 import org.mule.extras.seasar2.exception.S2MuleRuntimeException;
 import org.mule.module.client.MuleClient;
 
 public class FileMessageDispatcherImpl implements MessageDispatcher 
 {
 
-	public void dispache(String uri, Object payload, Map properties,
-			MuleClient client) throws MuleException 
+    /** 
+     * @see org.mule.extras.seasar2.connector.MessageDispatcher#dispache(org.mule.extras.seasar2.endpoint.EndpointConfig, java.lang.Object, java.util.Map, org.mule.module.client.MuleClient)
+     */
+    public void dispache(EndpointConfig outboundEndpoint,
+                         Object payload,
+                         Map properties,
+                         MuleClient muleClient) throws MuleException
+    {
+        muleClient.dispatch(outboundEndpoint.getUri(),payload,properties);  
+    }
+    
+	/**
+	 * @see org.mule.extras.seasar2.connector.MessageDispatcher#send(org.mule.extras.seasar2.endpoint.EndpointConfig, java.lang.Object, java.util.Map, org.mule.module.client.MuleClient)
+	 */
+	public Object send(EndpointConfig outboundEndpoint, Object payload, Map properties, MuleClient muleClient)
+	    throws MuleException
 	{
-		client.dispatch(uri,payload,properties);
-	}
-
-	public Object send(String uri, Object payload, Map properties,
-			MuleClient client) throws MuleException {
-		//同期メッセージ送信はサポートしていません。
-		throw new S2MuleRuntimeException(new UnsupportedOperationException());
+	  //同期メッセージ送信はサポートしていません。
+        throw new S2MuleRuntimeException(new UnsupportedOperationException());
 	}
 
 }

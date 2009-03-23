@@ -11,46 +11,48 @@ package org.mule.extras.seasar2.connector;
 import java.util.Map;
 
 import org.mule.api.MuleException;
+import org.mule.extras.seasar2.endpoint.EndpointConfig;
 import org.mule.module.client.MuleClient;
 
 /**
- * メッセージを送信するインタフェース
+ * メッセージを送信するためのインタフェース
  * 
  * @author Saito_Shinya@ogis-ri.co.jp
  */
-public interface MessageDispatcher {
+public interface MessageDispatcher 
+{
 
 	 /**
      * 非同期メッセージを送信します。
      * 
-     * @param uri メッセージの宛先
+     * @param uri メッセージの宛先のエンドポイント
      * @param payload メッセージの本文
      * @param properties　プロパティ
-     * @param client MuleClient
+     * @param muleClient MuleClient
      * 
      * @exception Muleの例外
      */
-    void dispache(String uri,
+    void dispache(EndpointConfig outboundEndpoint,
     			Object payload, 
     			Map properties, 
-    			MuleClient client) throws MuleException;
+    			MuleClient muleClient) throws MuleException;
     
  
     /**
      * 同期メッセージを送信します。
      * 
-     * @param uri メッセージの宛先
+     * @param outboundEndpoint メッセージの宛先のエンドポイント
      * @param payload メッセージの本文
      * @param properties　プロパティ
-     * @param client MuleClient
+     * @param muleClient MuleClient
      * 
      * @exception Muleの例外
      * 
      * @return レスポンスメッセージ
      */
-    Object send(String uri,
+    Object send(EndpointConfig outboundEndpoint,
     		Object payload,
     		Map properties,
-    		MuleClient client) throws MuleException;
+    		MuleClient muleClient) throws MuleException;
 	
 }
