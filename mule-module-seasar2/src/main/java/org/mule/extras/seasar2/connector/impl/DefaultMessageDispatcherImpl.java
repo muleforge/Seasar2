@@ -35,7 +35,7 @@ public class DefaultMessageDispatcherImpl implements MessageDispatcher
                          Object payload,
                          MuleClient muleClient) throws MuleException
     {
-        muleClient.dispatch(outboundEndpoint.getUri(),payload,outboundEndpoint.getProperties());
+        muleClient.sendAsync(outboundEndpoint.getUri(),payload,outboundEndpoint.getProperties());
     }
 
     /**

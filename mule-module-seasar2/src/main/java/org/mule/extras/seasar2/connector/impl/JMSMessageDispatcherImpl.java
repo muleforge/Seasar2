@@ -31,7 +31,7 @@ public class JMSMessageDispatcherImpl implements MessageDispatcher
                          MuleClient muleClient) throws MuleException
     {
         //メッセージの送信
-        muleClient.dispatch(outboundEndpoint.getUri(), payload, outboundEndpoint.getProperties());
+        muleClient.sendAsync(outboundEndpoint.getUri(), payload, outboundEndpoint.getProperties());
     }
     
     /** 
