@@ -42,10 +42,6 @@ public abstract class AbstractConnector implements ConnectorConfig
     /** 名前 */
     protected String name;
     
-    /** 送信用のディスパッチャ*/
-    protected MessageDispatcher messageDispatcher;
-    
-    
     /**
      * プロパティを設定する
      * @param key プロパティの名前

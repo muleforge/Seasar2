@@ -10,8 +10,8 @@ package org.mule.extras.seasar2.endpoint;
 
 /**
  * Endpointを作成するFactory
+ * 
  * @author Saito_Shinya@ogis-ri.co.jp
- *
  */
 public interface EndpointConfigFactory 
 {

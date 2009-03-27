@@ -16,7 +16,7 @@
 		<property name="uri">"jms://Foo"</property>
 				<initMethod name="addTransformer" >
 			<arg>
-				<component class="org.mule.extras.seasar2.sender.common.AddStringTransformer" />
+				<component class="org.mule.extras.seasar2.test.component.AddStringTransformer" />
 			</arg>
 		</initMethod>
 		<initMethod name="addTransformer" >

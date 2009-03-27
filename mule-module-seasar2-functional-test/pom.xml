@@ -5,18 +5,20 @@
 	<groupId>org.mule.modules</groupId>
 	<artifactId>mule-module-seasar2-functional-test</artifactId>
 	<packaging>jar</packaging>
-	<parent>
-		<groupId>org.mule.modules</groupId>
-		<artifactId>s2mule</artifactId>
-		<version>1.0.1</version>
-	</parent>
-
+	<version>1.0.1</version>
+	<properties>
+		<muleVersion>2.0.2</muleVersion>
+		<seasarVersion>2.4.17</seasarVersion>
+	</properties>
+	
 	<dependencies>
+		<!--  
 		<dependency>
 			<groupId>org.mule.modules</groupId>
 			<artifactId>mule-module-seasar2</artifactId>
 			<version>${version}</version>
 		</dependency>
+		-->
 		<dependency>
 			<groupId>org.seasar.container</groupId>
 			<artifactId>s2-tiger</artifactId>
@@ -40,6 +42,11 @@
 			<id>maven.muleforge.org</id>
 			<name>The MuleForge Maven2 Repository</name>
 			<url>http://repository.muleforge.org/</url>
+		</repository>
+		<repository>
+			<id>maven.seasar.org</id>
+			<name>The Seasar Foundation Maven2 Repository</name>
+			<url>http://maven.seasar.org/maven2</url>
 		</repository>
 	</repositories>
 	

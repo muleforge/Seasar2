@@ -24,7 +24,7 @@ public interface ConnectorConfig
 {
     
     /**
-     * Connectorを作成する
+     * コネクタを作成する
      * 
      * @return Connector
      * 
@@ -43,7 +43,7 @@ public interface ConnectorConfig
      * プロパティを取得する
      * 
      * @param key キー
-     * @return プロパティ
+     * @return Object プロパティの値
      */
     Object getProperty(String key);
     
@@ -56,19 +56,23 @@ public interface ConnectorConfig
     void setProperty(String key, Object value);
     
     /**
-     * トランザクションが有効なConnectorかどうか
+     * トランザクションが有効なコネクタかどうか
+     * 
      * @return transacted
      */
     boolean isTransacted();
     
     /**
-     * dispatcherを取得する
+     * コネクタ名を取得する
      * 
-     * @return
+     * @return name コネクタ名
      */
-    MessageDispatcher getMessageDispatcher();
-    
     String getName();
     
+    /**
+     * コネクタ名を設定する
+     * 
+     * @param name　コネクタ名
+     */
     void setName(String name);
 }

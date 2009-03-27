@@ -8,7 +8,7 @@
     <include path="org/mule/extras/seasar2/sender/axis/SendWithRappedLiteralTest.dicon"/>
     
 	 <component name="CustomerUMO" 
-                class="org.mule.extras.seasar2.sender.common.CustomerServiceImpl" />
+                class="org.mule.extras.seasar2.test.component.CustomerServiceImpl" />
     
     <component name="axis_in" 
     	class="org.mule.extras.seasar2.endpoint.impl.AxisEndpoint" >
@@ -21,7 +21,7 @@
     <!-- MuleConfig -->
     <component 
     	class="org.mule.extras.seasar2.receiver.impl.S2MuleConfiguration" >
-        <initMethod name="addInbounEndpoint">
+        <initMethod name="addInboundEndpoint">
             <arg>axis_in</arg>
         </initMethod>
         <property name="umoImpl">CustomerUMO</property>

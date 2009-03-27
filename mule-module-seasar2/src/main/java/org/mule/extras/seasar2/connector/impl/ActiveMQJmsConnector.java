@@ -32,7 +32,7 @@ public class ActiveMQJmsConnector extends JMSConnector
      */
     public ActiveMQJmsConnector() 
     {
-    	
+    	//blank
     }
     
     /**
@@ -62,8 +62,8 @@ public class ActiveMQJmsConnector extends JMSConnector
          }
         
          setName(ObjectNameHelper.getConnectorName(connector));
+         
         //nameとvalueのMap型であるpropertiesをbeanに反映させる
-        //populate(connector, properties);
         BeanUtil.copyProperties(this, connector);
         return connector;
     }

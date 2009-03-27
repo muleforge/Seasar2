@@ -15,26 +15,32 @@ import org.mule.extras.seasar2.connector.MessageDispatcher;
 import org.mule.extras.seasar2.endpoint.EndpointConfig;
 import org.mule.extras.seasar2.exception.S2MuleRuntimeException;
 import org.mule.module.client.MuleClient;
+import org.seasar.framework.log.Logger;
 
+/**
+ * Fileにメッセージを書き出すディスパッチャ
+ * 
+ * @auther Saito_Shinya@ogis-ri.co.jp
+ */
 public class FileMessageDispatcherImpl implements MessageDispatcher 
 {
-
+    
     /** 
-     * @see org.mule.extras.seasar2.connector.MessageDispatcher#dispache(org.mule.extras.seasar2.endpoint.EndpointConfig, java.lang.Object, java.util.Map, org.mule.module.client.MuleClient)
+     * @see org.mule.extras.seasar2.connector.MessageDispatcher#dispache(EndpointConfig, Object, Map, MuleClient)
      */
     public void dispache(EndpointConfig outboundEndpoint,
                          Object payload,
-                         Map properties,
                          MuleClient muleClient) throws MuleException
     {
-        muleClient.dispatch(outboundEndpoint.getUri(),payload,properties);  
+        muleClient.dispatch(outboundEndpoint.getUri(),payload,outboundEndpoint.getProperties());  
     }
     
 	/**
-	 * @see org.mule.extras.seasar2.connector.MessageDispatcher#send(org.mule.extras.seasar2.endpoint.EndpointConfig, java.lang.Object, java.util.Map, org.mule.module.client.MuleClient)
+	 * @see org.mule.extras.seasar2.connector.MessageDispatcher#send(EndpointConfig, Object, Map, MuleClient)
 	 */
-	public Object send(EndpointConfig outboundEndpoint, Object payload, Map properties, MuleClient muleClient)
-	    throws MuleException
+	public Object send(EndpointConfig outboundEndpoint,
+	                   Object payload,
+	                   MuleClient muleClient)
 	{
 	  //同期メッセージ送信はサポートしていません。
         throw new S2MuleRuntimeException(new UnsupportedOperationException());

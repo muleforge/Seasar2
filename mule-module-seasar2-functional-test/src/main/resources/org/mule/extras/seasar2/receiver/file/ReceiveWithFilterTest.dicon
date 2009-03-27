@@ -5,7 +5,7 @@
     <include path="s2mule-receiver.dicon"/>
     
 	 <component name="echoUMO" 
-                class="org.mule.extras.seasar2.receiver.common.EchoUMO" />
+                class="org.mule.extras.seasar2.test.component.EchoUMO" />
     
     <component 
        name="file_in" class="org.mule.extras.seasar2.endpoint.impl.FileEndpoint" >
@@ -25,7 +25,7 @@
     
     <!-- MuleConfig -->
     <component class="org.mule.extras.seasar2.receiver.impl.S2MuleConfiguration" >
-        <initMethod name="addInbounEndpoint">
+        <initMethod name="addInboundEndpoint">
             <arg>file_in</arg>
         </initMethod>
         <property name="umoImpl">echoUMO</property>

@@ -7,7 +7,7 @@
     
     <!-- UMO -->
 	<component name="echoUMO" 
-         class="org.mule.extras.seasar2.receiver.common.EchoUMO" />
+         class="org.mule.extras.seasar2.test.component.EchoUMO" />
     
     <!-- ActiveMQ Jms connectorの設定 -->
     <component 
@@ -27,7 +27,7 @@
     <!-- MuleConfig -->
     <component 
     	class="org.mule.extras.seasar2.receiver.impl.S2MuleConfiguration" >
-        <initMethod name="addInbounEndpoint">
+        <initMethod name="addInboundEndpoint">
             <arg>jms_in</arg>
         </initMethod>
         <property name="umoImpl">echoUMO</property>

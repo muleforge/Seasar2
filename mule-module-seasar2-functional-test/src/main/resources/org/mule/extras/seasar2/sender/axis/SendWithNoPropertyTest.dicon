@@ -21,7 +21,7 @@
 	</component>
 	
 	<!-- interceptorを適応するインタフェースの設定-->
-	<component class="org.mule.extras.seasar2.sender.common.Echo" >
+	<component class="org.mule.extras.seasar2.test.component.Echo" >
 		<aspect>interceptor</aspect>
 	</component>
 </components>

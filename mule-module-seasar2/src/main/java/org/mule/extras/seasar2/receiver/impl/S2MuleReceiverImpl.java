@@ -62,11 +62,6 @@ public class S2MuleReceiverImpl implements S2MuleReceiver
     private S2Container container;
     
     /**
-     * diconに記述されていたMuleインスタンスの情報
-     */
-    //private List s2MuleConfigs;
-    
-    /**
      * MuleContext
      */
     private MuleContext muleContext;
@@ -91,7 +86,7 @@ public class S2MuleReceiverImpl implements S2MuleReceiver
     }
     
     /**
-     * 
+     * diconファイルからmuleを設定し起動する
      * 
      * @return managementContext
      * @throws MuleException Muleの例外
@@ -115,8 +110,7 @@ public class S2MuleReceiverImpl implements S2MuleReceiver
                 }
             }
             
-            //S2MuleConfig の登録
-            List s2MuleConfigs = S2MuleComponentUtil.getS2MuleConfigs(container);//TODO 削除　getS2MuleConfigs(container)
+            List s2MuleConfigs = S2MuleComponentUtil.getS2MuleConfigs(container);
             if ( s2MuleConfigs != null )
             {
                 for ( int i = 0; i < s2MuleConfigs.size(); i++) 
@@ -166,7 +160,8 @@ public class S2MuleReceiverImpl implements S2MuleReceiver
         {
             //InboundEndpointの作成
             EndpointConfig endpointConfig = (EndpointConfig) endpoints.get(i);
-            EndpointBuilder endpointBuilder = endpointConfig.buildEndpointBuilder(muleContext);
+            endpointConfig.init(muleContext, EndpointConfig.INBOUND_ENDPOINT);
+            EndpointBuilder endpointBuilder = endpointConfig.getEndpointBuilder();
             DefaultInboundEndpoint endpoint = (DefaultInboundEndpoint) endpointBuilder.buildInboundEndpoint();
             
             if (transactionManager == null 

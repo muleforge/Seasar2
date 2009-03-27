@@ -8,6 +8,8 @@
  */
 package org.mule.extras.seasar2.endpoint.impl;
 
+import org.mule.extras.seasar2.connector.MessageDispatcher;
+import org.mule.extras.seasar2.connector.impl.JMSMessageDispatcherImpl;
 import org.mule.extras.seasar2.endpoint.AbstractEndpoint;
 import org.mule.transport.jms.JmsConstants;
 
@@ -21,14 +23,23 @@ public class JMSEndpoint extends AbstractEndpoint
     /** JMSEndpointのスキーム*/
     public static final String SCHEME = "jms";
     
+    /**
+     * インスタンスを生成する
+     */
     public JMSEndpoint()
     {
-        
+        //blank
     }
     
     public JMSEndpoint(String uri)
     {
         super(uri);
+    }
+    
+    @Override
+    protected MessageDispatcher createMessageDispatcher()
+    {
+        return new JMSMessageDispatcherImpl();
     }
     
     public String getUriScheme() 

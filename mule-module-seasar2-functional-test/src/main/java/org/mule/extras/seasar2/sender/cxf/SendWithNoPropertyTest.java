@@ -8,6 +8,7 @@
  */
 package org.mule.extras.seasar2.sender.cxf;
 
+import org.mule.example.client.HelloWorld;
 import org.mule.extras.seasar2.test.component.Echo;
 import org.seasar.extension.unit.S2TestCase;
 
@@ -19,18 +20,17 @@ import org.seasar.extension.unit.S2TestCase;
  */
 public class SendWithNoPropertyTest extends S2TestCase {
 
-    private Echo echo_;
+    private HelloWorld hello_;
 
     public void setUp() throws Exception 
     {
         include("SendWithNoPropertyTest.dicon");
-        echo_ = (Echo) getComponent(Echo.class);
+        //echo_ = (HelloWorld)getComponent(HelloWorld.class);
     }
 
     public void testDispatch() throws Exception 
     {
-        assertEquals("SendWithNoPropertyTest : OK", echo_
-                .echo("SendWithNoPropertyTest : OK"));
+        assertEquals("Hello SendWithNoPropertyTest : OK", hello_.hello("SendWithNoPropertyTest : OK"));
     }
 
 }

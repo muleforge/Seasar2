@@ -10,41 +10,55 @@ package org.mule.extras.seasar2.connector.impl;
 
 import java.util.Map;
 
+
 import org.mule.api.MuleException;
 import org.mule.api.transport.Connector;
 import org.mule.extras.seasar2.connector.MessageDispatcher;
 import org.mule.extras.seasar2.endpoint.EndpointConfig;
+import org.mule.extras.seasar2.exception.S2MuleRuntimeException;
 import org.mule.module.client.MuleClient;
 
+
+
 public class JMSMessageDispatcherImpl implements MessageDispatcher 
-{
+{    
+    
     /**
-     * @see org.mule.extras.seasar2.connector.MessageDispatcher#dispache(org.mule.extras.seasar2.endpoint.EndpointConfig, java.lang.Object, java.util.Map, org.mule.module.client.MuleClient)
+     * @see org.mule.extras.seasar2.connector.MessageDispatcher#dispache(EndpointConfig, Object, Map, MuleClient)
      */
     public void dispache(EndpointConfig outboundEndpoint,
                          Object payload,
-                         Map properties,
                          MuleClient muleClient) throws MuleException
     {
-        muleClient.dispatch(outboundEndpoint.getUri(), payload, properties);
+        //メッセージの送信
+        muleClient.dispatch(outboundEndpoint.getUri(), payload, outboundEndpoint.getProperties());
     }
     
     /** 
-     * @see org.mule.extras.seasar2.connector.MessageDispatcher#send(org.mule.extras.seasar2.endpoint.EndpointConfig, java.lang.Object, java.util.Map, org.mule.module.client.MuleClient)
+     * @see org.mule.extras.seasar2.connector.MessageDispatcher#send(EndpointConfig, Object, Map, MuleClient)
      */
-    public Object send(EndpointConfig outboundEndpoint, Object payload, Map properties, MuleClient muleClient)
-        throws MuleException
+    public Object send(EndpointConfig outboundEndpoint, 
+                       Object payload, 
+                       MuleClient muleClient)
     {
-        //replyTo を有効にするためにconnectorを起動する
-        String connectorName = outboundEndpoint.getConnectorConfig().getName();
-        Connector connector = muleClient.getMuleContext()
-            .getRegistry().lookupConnector(connectorName);
-        connector.start();
+        try
+        {
+            //replyTo を有効にするためにconnectorを起動する
+            String connectorName = outboundEndpoint.getConnectorConfig().getName();
+            Connector connector = muleClient.getMuleContext()
+                .getRegistry().lookupConnector(connectorName);
+            connector.start();
         
-        Object response = muleClient.send(outboundEndpoint.getUri(), payload, properties);
+            Object response = muleClient
+                .send(outboundEndpoint.getUri(), payload, outboundEndpoint.getProperties());
         
-        connector.stop();
+            connector.stop();
         
-        return response;
+            return response;
+        }
+        catch (Exception e)
+        {
+            throw new S2MuleRuntimeException("ESML0000", new Object[]{e}, e);
+        }
     }
 }

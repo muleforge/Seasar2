@@ -8,6 +8,8 @@
  */
 package org.mule.extras.seasar2.endpoint.impl;
 
+import org.mule.extras.seasar2.connector.MessageDispatcher;
+import org.mule.extras.seasar2.connector.impl.CXFMessageDispatcherImpl;
 import org.mule.extras.seasar2.endpoint.AbstractEndpoint;
 import org.mule.transport.cxf.CxfConstants;
 
@@ -22,16 +24,31 @@ public class CxfEndpoint extends AbstractEndpoint
     /** CxfEndpointのスキーム*/
     public static final String SCHEME = "cxf";
     
+    /**
+     * インスタンスを作成する
+     */
     public CxfEndpoint()
     {
-        
+        //blank
     }
     
+    /**
+     * インスタンスを作成する
+     * 
+     * @param uri
+     */
     public CxfEndpoint(String uri)
     {
         super(uri);
     }
 
+    @Override
+    protected MessageDispatcher createMessageDispatcher()
+    {
+        return new CXFMessageDispatcherImpl();
+    }
+   
+    
     public String getUriScheme() 
     {
         return SCHEME;
@@ -56,6 +73,5 @@ public class CxfEndpoint extends AbstractEndpoint
     {
         setProperty(CxfConstants.OPERATION, operation);
     }
-    
 
 }

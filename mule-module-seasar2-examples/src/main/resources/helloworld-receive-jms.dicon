@@ -14,7 +14,7 @@
     </component>
     
     <component name="jms_in"
-    	class="org.mule.extras.seasar2.endpoint.impl.FileEndpoint" >
+    	class="org.mule.extras.seasar2.endpoint.impl.JMSEndpoint" >
     	<property name="uri">"jms://Foo"</property>
     	<property name="connectorConfig">
     		jms_connector

@@ -44,7 +44,6 @@ public class HttpsConnector extends HttpConnector
     /** キーストアのタイプ*/
     private String keyStoreType;
     
-    
     /** トラストストアのパス*/
     private String trustStore;
     

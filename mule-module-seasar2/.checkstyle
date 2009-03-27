@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <fileset-config file-format-version="1.2.0" simple-config="true">
-    <local-check-config name="mule" location="C:\Documents and Settings\p0775825\デスクトップ\checkstyle.xml" type="external" description="">
-        <additional-data name="protect-config-file" value="false"/>
-    </local-check-config>
-    <fileset name="all" enabled="true" check-config-name="mule" local="true">
-        <file-match-pattern match-pattern="." include-pattern="true"/>
-    </fileset>
+  <fileset name="すべて" enabled="true" check-config-name="Mule" local="false">
+    <file-match-pattern match-pattern="." include-pattern="true"/>
+  </fileset>
 </fileset-config>

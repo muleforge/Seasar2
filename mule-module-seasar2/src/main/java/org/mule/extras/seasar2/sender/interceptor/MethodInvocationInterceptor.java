@@ -24,6 +24,9 @@ import org.seasar.framework.util.MethodUtil;
  */
 public class MethodInvocationInterceptor extends AbstractInterceptor 
 {
+    /** 元のメソッドを表す定数 */
+    public static final String ORIGINAL_METHOD = "orijinalMethod";
+    
     /** UID */
     private static final long serialVersionUID = -9223020020060206825L;
     
@@ -44,11 +47,9 @@ public class MethodInvocationInterceptor extends AbstractInterceptor
         Method method = methodInvocation.getMethod();
         if (MethodUtil.isAbstract(method)) 
         {
-        	//TODO
             Object payload = methodInvocation.getArguments();
-            String methodName = method.getName();
             Map properties = new HashMap();
-            properties.put("method", methodName);
+            properties.put(ORIGINAL_METHOD, method);
             return sender.send(payload, properties);
         }
         return methodInvocation.proceed();

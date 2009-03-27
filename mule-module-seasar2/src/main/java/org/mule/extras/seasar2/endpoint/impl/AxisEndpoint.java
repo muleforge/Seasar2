@@ -8,6 +8,8 @@
  */
 package org.mule.extras.seasar2.endpoint.impl;
 
+import org.mule.extras.seasar2.connector.MessageDispatcher;
+import org.mule.extras.seasar2.connector.impl.AxisMessageDispatcherImpl;
 import org.mule.extras.seasar2.endpoint.AbstractEndpoint;
 import org.mule.transport.soap.axis.AxisConnector;
 
@@ -22,14 +24,26 @@ public class AxisEndpoint extends AbstractEndpoint
     /** AxisEndpointのスキーム*/
     public static final String SCHEME = "axis";
     
+    /**
+     * インスタンスを生成する
+     */
     public AxisEndpoint()
     {
-        
+       //blank 
     }
     
+    /**
+     * インスタンスを生成する
+     */
     public AxisEndpoint(String uri)
     {
         super(uri);
+    }
+    
+    @Override
+    protected MessageDispatcher createMessageDispatcher()
+    {    
+        return new AxisMessageDispatcherImpl();
     }
     
     public String getUriScheme() 

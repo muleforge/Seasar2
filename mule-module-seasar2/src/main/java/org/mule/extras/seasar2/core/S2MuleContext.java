@@ -29,6 +29,7 @@ public class S2MuleContext
     /** MuleContext */
     private MuleContext muleContext;
     
+    /** コンテナ */
     private S2Container container;
     
     /**

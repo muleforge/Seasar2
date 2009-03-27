@@ -13,7 +13,7 @@
 		So, They don't need to learn XML configuration syntax any more.  
 	</description>
 	<properties>
-		<muleVersion>2.0.2</muleVersion>
+		<muleVersion>2.2.0</muleVersion>
 		<seasarVersion>2.4.17</seasarVersion>
 	</properties>
 	
@@ -136,7 +136,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
-			<version>2.5.3</version>
+			<version>2.5.6</version>
 		</dependency>
 		
 		<!-- for test -->

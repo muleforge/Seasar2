@@ -13,6 +13,7 @@ import java.util.Map;
 import org.mule.api.MuleContext;
 import org.mule.api.endpoint.EndpointBuilder;
 import org.mule.extras.seasar2.connector.ConnectorConfig;
+import org.mule.extras.seasar2.connector.MessageDispatcher;
 
 /**
  * Mule Endpointの構成情報を保持するクラスのインターフェース
@@ -23,13 +24,26 @@ import org.mule.extras.seasar2.connector.ConnectorConfig;
  */
 public interface EndpointConfig 
 {
+    /** InboundEndpointを表す定数 */
+    static int INBOUND_ENDPOINT = 1;
+    
+    /** OutboundEndpointを表す定数 */
+    static int OUTBOUND_ENDPOINT = 2;
+    
+    /**
+     * 初期化処理
+     * 
+     * @param muleContext
+     * @param endpointType Endpointの種類
+     */
+    void init(MuleContext muleContext, int endpointType);
 
     /**
-     * EndpointBuilderを作成する
+     * EndpointBuilderを取得する
      * 
      * @return EndpointBuider EndpointBuilder
      */
-    EndpointBuilder buildEndpointBuilder(MuleContext muleContext);
+    EndpointBuilder getEndpointBuilder();
     
     /**
      * EndpointUriを取得する
@@ -57,6 +71,24 @@ public interface EndpointConfig
      */
     String getUriScheme();
     
+    /**
+     * MessageDispatcherを取得する
+     * 
+     * @return
+     */
+    MessageDispatcher getMessageDispatcher();
+    
+    /**
+     * Propertyを設定する
+     * 
+     * @param key
+     * @param value
+     */
     void setProperty(String key, Object value); 
     
+    /**
+     * ConnectorConfigを設定する
+     * @param connectorConfig
+     */
+    void setConnectorConfig(ConnectorConfig connectorConfig);
 }

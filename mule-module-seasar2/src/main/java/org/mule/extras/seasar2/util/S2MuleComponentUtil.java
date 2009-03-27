@@ -61,7 +61,6 @@ public class S2MuleComponentUtil
          }
          set.add(container);
 
-         // 子コンテナ
          for (int i = 0; i <  container.getChildSize(); i++)
          {
              createAllDiconComponents(container.getChild(i), set);
@@ -90,7 +89,7 @@ public class S2MuleComponentUtil
             ComponentDef cd = (ComponentDef) allDiconComponentDefs.get(i);
             
             //S2MuleConfigurationクラスの場合、リストに追加する
-            if ( cd.getComponent() instanceof S2MuleConfiguration)//TODO 削除cd.getComponentClass().equals(S2MuleConfiguration.class) ) 
+            if ( cd.getComponent() instanceof S2MuleConfiguration)
             {
                 S2MuleConfiguration s2mConfig 
                     = (S2MuleConfiguration) cd.getComponent();

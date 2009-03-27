@@ -9,7 +9,7 @@
     <include path="org/mule/extras/seasar2/sender/file/SendWithNoPropertyTest.dicon"/>
     
 	 <component name="echoUMO" 
-                class="org.mule.extras.seasar2.receiver.common.EchoUMO" />
+                class="org.mule.extras.seasar2.test.component.EchoUMO" />
     
     <!-- File Connectorの設定-->
     <component class="org.mule.extras.seasar2.connector.impl.FileConnector">
@@ -32,7 +32,7 @@
     
     <!-- MuleConfig -->
     <component class="org.mule.extras.seasar2.receiver.impl.S2MuleConfiguration" >
-        <initMethod name="addInbounEndpoint">
+        <initMethod name="addInboundEndpoint">
             <arg>file_in</arg>
         </initMethod>
         <property name="umoImpl">echoUMO</property>

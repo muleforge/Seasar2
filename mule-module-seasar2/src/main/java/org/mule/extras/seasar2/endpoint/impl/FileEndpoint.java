@@ -8,6 +8,8 @@
  */
 package org.mule.extras.seasar2.endpoint.impl;
 
+import org.mule.extras.seasar2.connector.MessageDispatcher;
+import org.mule.extras.seasar2.connector.impl.FileMessageDispatcherImpl;
 import org.mule.extras.seasar2.endpoint.AbstractEndpoint;
 
 /**
@@ -20,9 +22,18 @@ public class FileEndpoint extends AbstractEndpoint
     /** FileEndpointのスキーム */
     public static final String SCHEME = "file";
     
+    /**
+     * インスタンスを生成する
+     */
     public FileEndpoint()
     {
-        
+        //blank
+    }
+    
+    @Override
+    protected MessageDispatcher createMessageDispatcher()
+    {
+        return new FileMessageDispatcherImpl();
     }
     
     public FileEndpoint(String uri)
@@ -34,5 +45,4 @@ public class FileEndpoint extends AbstractEndpoint
     {
         return SCHEME;
     }
-
 }

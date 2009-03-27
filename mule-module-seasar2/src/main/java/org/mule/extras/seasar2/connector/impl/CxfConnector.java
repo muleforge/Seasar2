@@ -21,6 +21,13 @@ import org.mule.util.ObjectNameHelper;
  */
 public class CxfConnector extends AbstractConnector 
 {
+    /**
+     * インスタンスを生成する
+     */
+    public CxfConnector()
+    {
+        //blank
+    }
 
     /**
      * @see org.mule.extras.seasar2.connector.ConnectorConfig#getConnector()
@@ -32,18 +39,4 @@ public class CxfConnector extends AbstractConnector
         setName(ObjectNameHelper.getConnectorName(connector));
         return connector;
     }
-    
-    /*
-     * @see org.mule.extras.seasar2.connector.ConnectorConfig#getMessageDispatcher()
-     */
-    public MessageDispatcher getMessageDispatcher()
-    {
-        if (messageDispatcher == null)
-        {
-            messageDispatcher = new DefaultMessageDispatcherImpl();
-        }
-        
-        return messageDispatcher;
-    }
-
 }

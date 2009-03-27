@@ -70,20 +70,7 @@ public class TcpConnector extends AbstractConnector
         BeanUtil.copyProperties(this, connector);
         
         return connector;
-    }
-
-    /**
-     * @see org.mule.extras.seasar2.connector.ConnectorConfig#getMessageDispatcher()
-     */
-    public MessageDispatcher getMessageDispatcher() 
-    {
-    	if(messageDispatcher == null)
-    	{
-    		messageDispatcher = new DefaultMessageDispatcherImpl();
-    	}
-    	return messageDispatcher;
-    }
-    
+    }    
     
     public int getClientSoTimeout()
     {

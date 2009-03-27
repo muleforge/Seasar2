@@ -51,9 +51,10 @@ public class S2MuleObjectFactory implements ObjectFactory
          return componentDef.getComponent();
     }
     
-    public void addObjectInitialisationCallback(InitialisationCallback callback) 
+    public void addObjectInitialisationCallback(InitialisationCallback callback)
     {
-        //TODO 
+        // TODO Auto-generated method stub
+        
     }
     
     /**
@@ -108,4 +109,9 @@ public class S2MuleObjectFactory implements ObjectFactory
         //blank
     }
 
+    public boolean isExternallyManagedLifecycle()
+    {
+        // TODO Auto-generated method stub
+        return false;
+    }
 }

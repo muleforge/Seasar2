@@ -12,6 +12,7 @@ import javax.jws.WebService;
 
 
 @WebService(endpointInterface = "org.mule.extras.seasar2.receiver.cxf.HelloWorld",
+        portName="HelloWorldPort",
 		serviceName = "HelloWorld")
 public class HelloWorldImpl implements HelloWorld 
 {

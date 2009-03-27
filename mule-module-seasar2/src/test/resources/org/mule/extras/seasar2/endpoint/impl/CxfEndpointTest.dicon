@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<components>
+	<component class="org.mule.context.DefaultMuleContextFactory" />
+	
+	<component 
+		class="org.mule.extras.seasar2.endpoint.impl.CxfEndpoint" >
+	   <property name="uri">"cxf:http://test.com"</property>
+	   <property name="clientClass">"testClient"</property>
+	   <property name="wsdlPort">"testPort"</property>
+	   <property name="wsdlLocation">"http://test.wsdl"</property>
+	   <property name="operation">"test"</property>
+	</component>
+	
+</components>

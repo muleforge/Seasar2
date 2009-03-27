@@ -24,6 +24,7 @@ import org.mule.transaction.XaTransactionFactory;
 import org.mule.endpoint.EndpointURIEndpointBuilder;
 import org.mule.endpoint.URIBuilder;
 import org.mule.extras.seasar2.connector.ConnectorConfig;
+import org.mule.extras.seasar2.connector.MessageDispatcher;
 import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
 import org.seasar.framework.log.Logger;
 
@@ -36,8 +37,10 @@ import org.seasar.framework.log.Logger;
  */
 public abstract class AbstractEndpoint implements EndpointConfig 
 {
+    /** MuleのEndpointBuilder */
+    protected EndpointBuilder endpointBuilder;
     
-    /**  Endpointのuri */
+    /**  エンドポイントのuri */
     protected String uri;
 
     /** トランスフォーマ */
@@ -49,7 +52,7 @@ public abstract class AbstractEndpoint implements EndpointConfig
     /** プロパティ */
     protected Map properties = new HashMap();
     
-    /** フィルター*/
+    /** フィルタ */
     protected Filter filter;
     
     /** 非同期メッセージを同期的に扱う */
@@ -58,27 +61,51 @@ public abstract class AbstractEndpoint implements EndpointConfig
     /** 非同期メッセージを同期的に扱う場合のタイムアウト*/
     protected Integer remoteSyncTimeout;
     
+    /** メッセージディスパッチャ */
+    protected MessageDispatcher messageDispatcher;
+    
     /** logger*/
     private static final Logger logger = Logger
         .getLogger(AbstractEndpoint.class);
     
-    /** デフォルトコンストラクタ*/
-    //TODO 不要かも
+    /**
+     *  インスタンスを生成する
+     */
     public AbstractEndpoint() 
     {
+        //blank
     }
     
-    //TODO 不要かも
     public AbstractEndpoint(String uri)
     {
         this.uri = uri;
     }
     
+    /**
+     * 初期化処理
+     */
+    public void init(MuleContext muleContext, int endpointType)
+    {
+        endpointBuilder = createEndpointBuilder(muleContext);
+        if (endpointType == EndpointConfig.OUTBOUND_ENDPOINT)
+        {
+            messageDispatcher = createMessageDispatcher();
+        }
+    }
+    
+    /**
+     * MessageDispatcherを作成する
+     * 
+     * @return messageDispatcher
+     */
+    protected abstract MessageDispatcher createMessageDispatcher();
 
     /**
-     * @see org.mule.extras.seasar2.endpoint.EndpointConfig#buildEndpointBuilder() 
+     * EndpointBuilderを作成する
+     * 
+     * @return endpointBuilder
      */
-    public EndpointBuilder buildEndpointBuilder(MuleContext muleContext) 
+    private EndpointBuilder createEndpointBuilder(MuleContext muleContext) 
     {
          EndpointBuilder endpointBuilder = null;
          if (uri != null) 
@@ -121,16 +148,15 @@ public abstract class AbstractEndpoint implements EndpointConfig
              endpointBuilder.setProperties(properties);
          }
          
-         endpointBuilder.setRemoteSync(remoteSync);
-         
-         if (remoteSyncTimeout != null)
-         {
-             endpointBuilder.setRemoteSyncTimeout(remoteSyncTimeout);
-         }
+//         endpointBuilder.setRemoteSync(remoteSync);
+//         
+//         if (remoteSyncTimeout != null)
+//         {
+//             endpointBuilder.setRemoteSyncTimeout(remoteSyncTimeout);
+//         }
          
         return endpointBuilder;
     }
-
     
     /**
      * トランスフォーマを追加する
@@ -154,6 +180,20 @@ public abstract class AbstractEndpoint implements EndpointConfig
         properties.put(key, value);
     }
     
+    /**
+     * メッセージディスパッチャを取得する
+     * 
+     */
+    public MessageDispatcher getMessageDispatcher()
+    {
+        return messageDispatcher;
+    }
+
+    
+    public EndpointBuilder getEndpointBuilder()
+    {
+        return endpointBuilder;
+    }
     
     public void setFilter(Filter filter) {
         this.filter = filter;

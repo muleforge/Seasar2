@@ -15,7 +15,7 @@ import javax.jws.WebService;
 @WebService
 public interface HelloWorld
 {
-    @WebResult(name="src")
+    @WebResult(name="response")
     public String hello(@WebParam(name="src") String str);
 }
 

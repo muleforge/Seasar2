@@ -11,5 +11,7 @@ package org.mule.extras.seasar2.test.component;
 
 public interface CustomerService 
 {
+    Customer getCustomer(int id);
+    
     Customer changeCustomer(Customer before);
 }

@@ -27,14 +27,12 @@ public interface MessageDispatcher
      * 
      * @param uri メッセージの宛先のエンドポイント
      * @param payload メッセージの本文
-     * @param properties　プロパティ
      * @param muleClient MuleClient
      * 
      * @exception Muleの例外
      */
     void dispache(EndpointConfig outboundEndpoint,
-    			Object payload, 
-    			Map properties, 
+    			Object payload,  
     			MuleClient muleClient) throws MuleException;
     
  
@@ -43,16 +41,13 @@ public interface MessageDispatcher
      * 
      * @param outboundEndpoint メッセージの宛先のエンドポイント
      * @param payload メッセージの本文
-     * @param properties　プロパティ
      * @param muleClient MuleClient
      * 
-     * @exception Muleの例外
      * 
      * @return レスポンスメッセージ
      */
     Object send(EndpointConfig outboundEndpoint,
     		Object payload,
-    		Map properties,
-    		MuleClient muleClient) throws MuleException;
+    		MuleClient muleClient);
 	
 }

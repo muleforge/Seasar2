@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<!--
+ Https コネクタの単体テスト
+-->
+<components>
+	<include path="s2mule-sender.dicon"/>
+
+	<!-- Https Connectorの設定-->
+	<component class="org.mule.extras.seasar2.connector.impl.HttpsConnector">
+	   <property name="clientKeyStore">"src/test/resources/.keystore"</property>
+	   <property name="clientKeyStorePassword">"password"</property>
+	   <property name="clientKeyStoreType">"jks"</property>
+	   <property name="keyManagerAlgorithm">"SunX509"</property>
+	</component>
+
+</components>

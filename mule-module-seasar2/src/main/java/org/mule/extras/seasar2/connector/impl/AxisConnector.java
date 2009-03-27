@@ -51,18 +51,6 @@ public class AxisConnector extends AbstractConnector
     }
     
     /**
-     * @see org.mule.extras.seasar2.connector.ConnectorConfig#getMessageDispatcher()
-     */
-    public MessageDispatcher getMessageDispatcher()
-    {
-        if (messageDispatcher == null)
-        {
-            messageDispatcher = new 
-        }
-        return null;
-    }
-    
-    /**
      * Axis TypeMappingRegistryに登録する
      * 
      * @param beanType 登録するクラス名

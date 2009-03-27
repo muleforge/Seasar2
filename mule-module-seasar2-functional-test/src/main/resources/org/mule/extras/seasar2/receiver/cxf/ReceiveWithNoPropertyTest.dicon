@@ -9,7 +9,7 @@
     
     <!-- MuleConfig -->
     <component class="org.mule.extras.seasar2.receiver.impl.S2MuleConfiguration" >
-        <initMethod name="addInboudEndpoint">
+        <initMethod name="addInboundEndpoint">
             <arg>"cxf:http://localhost:65082/services/hello"</arg>
         </initMethod>
         <property name="umoImpl">helloUMO</property>

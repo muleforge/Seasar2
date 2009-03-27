@@ -77,15 +77,6 @@ public class FileConnector extends AbstractConnector
 
         return connector;
     }
-    
-    public MessageDispatcher getMessageDispatcher() 
-    {
-    	if (messageDispatcher == null)
-    	{
-    		messageDispatcher = new FileMessageDispatcherImpl();
-    	}
-    	return messageDispatcher;
-    }
 
     public long getPollingFrequency() 
     {

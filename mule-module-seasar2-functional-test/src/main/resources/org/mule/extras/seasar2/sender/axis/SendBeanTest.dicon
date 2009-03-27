@@ -21,7 +21,7 @@
 	</component>
 	
 	<!-- interceptorを適応するインタフェースの設定-->
-	<component class="org.mule.extras.seasar2.sender.common.CustomerService" >
+	<component class="org.mule.extras.seasar2.test.component.CustomerService" >
 		<aspect>interceptor</aspect>
 	</component>
 </components>

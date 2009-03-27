@@ -2,10 +2,10 @@
 <!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
 	"http://www.seasar.org/dtd/components24.dtd">
 <!--
-  Fileを使ったユニットテスト
+  Fileを使った単体テスト
 -->
 <components>
-	<include path="j2ee.dicon"/>
+	<include path="jta.dicon"/>
 	<include path="s2mule-sender.dicon"/>
 
 	<!-- S2MuleSender の設定-->

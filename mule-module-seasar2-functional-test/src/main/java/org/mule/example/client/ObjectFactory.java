@@ -24,8 +24,8 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _Echo_QNAME = new QName("http://echo.example.mule.org/", "echo");
-    private final static QName _EchoResponse_QNAME = new QName("http://echo.example.mule.org/", "echoResponse");
+    private final static QName _HelloResponse_QNAME = new QName("http://cxf.receiver.seasar2.extras.mule.org/", "helloResponse");
+    private final static QName _Hello_QNAME = new QName("http://cxf.receiver.seasar2.extras.mule.org/", "hello");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.mule.example.client
@@ -35,37 +35,37 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link EchoResponse }
+     * Create an instance of {@link HelloResponse }
      * 
      */
-    public EchoResponse createEchoResponse() {
-        return new EchoResponse();
+    public HelloResponse createHelloResponse() {
+        return new HelloResponse();
     }
 
     /**
-     * Create an instance of {@link Echo_Type }
+     * Create an instance of {@link Hello }
      * 
      */
-    public Echo_Type createEcho_Type() {
-        return new Echo_Type();
+    public Hello createHello() {
+        return new Hello();
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Echo_Type }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link HelloResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://echo.example.mule.org/", name = "echo")
-    public JAXBElement<Echo_Type> createEcho(Echo_Type value) {
-        return new JAXBElement<Echo_Type>(_Echo_QNAME, Echo_Type.class, null, value);
+    @XmlElementDecl(namespace = "http://cxf.receiver.seasar2.extras.mule.org/", name = "helloResponse")
+    public JAXBElement<HelloResponse> createHelloResponse(HelloResponse value) {
+        return new JAXBElement<HelloResponse>(_HelloResponse_QNAME, HelloResponse.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link EchoResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link Hello }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://echo.example.mule.org/", name = "echoResponse")
-    public JAXBElement<EchoResponse> createEchoResponse(EchoResponse value) {
-        return new JAXBElement<EchoResponse>(_EchoResponse_QNAME, EchoResponse.class, null, value);
+    @XmlElementDecl(namespace = "http://cxf.receiver.seasar2.extras.mule.org/", name = "hello")
+    public JAXBElement<Hello> createHello(Hello value) {
+        return new JAXBElement<Hello>(_Hello_QNAME, Hello.class, null, value);
     }
 
 }
