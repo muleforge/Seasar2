@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<!--
+ TCP コネクタの単体テスト
+-->
+<components>
+	<include path="s2mule-sender.dicon"/>
+
+	<!-- Tcp Connectorの設定-->
+	<component class="org.mule.extras.seasar2.connector.impl.TcpConnector">
+	   <property name="clientSoTimeout">10</property>
+	   <property name="serverSoTimeout">10</property>
+	   <property name="sendBufferSize">10</property>
+	   <property name="keepAlive">true</property>
+	   <property name="keepAliveTimeout">10</property>
+	</component>
+
+</components>

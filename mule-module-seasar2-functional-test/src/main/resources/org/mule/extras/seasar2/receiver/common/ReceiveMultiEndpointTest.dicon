@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<components>
+    <include path="s2mule-receiver.dicon"/>
+    <include path="j2ee.dicon"/>
+    
+	 <component name="echoUMO" 
+                class="org.mule.extras.seasar2.test.component.EchoUMO" />
+    
+    <component 
+       name="file_in" class="org.mule.extras.seasar2.endpoint.impl.FileEndpoint" >
+      <property name="uri">"file:///C:/temp"</property>
+       <!-- トランスフォーマの設定 -->
+      <initMethod name="addTransformer" >
+        <arg>
+            <component class="org.mule.transport.file.transformers.FileToString" />
+        </arg>
+      </initMethod>
+    </component>
+    
+    <component name="jms_in"
+		class="org.mule.extras.seasar2.endpoint.impl.JMSEndpoint" >
+		<property name="uri">"jms://Foo"</property>
+		<property name="connectorConfig">
+			<!-- ActiveMQ Jms connectorの設定 -->
+			<component class="org.mule.extras.seasar2.connector.impl.ActiveMQJmsConnector" >
+				<!-- brokerURLの設定 -->
+				<property name="brokerURL">"tcp://localhost:61616"</property>
+				<!-- その他のプロパティの設定 -->
+				<property name="maxRedelivery">5</property>
+			</component>
+		</property>
+	</component>
+    
+    <!-- MuleConfig -->
+    <component 
+    	class="org.mule.extras.seasar2.receiver.impl.S2MuleConfiguration" >
+        <initMethod name="addInboundEndpoint">
+            <arg>file_in</arg>
+        </initMethod>
+        <initMethod name="addInboundEndpoint">
+        	<arg>jms_in</arg>
+        </initMethod>
+        <property name="umoImpl">echoUMO</property>
+    </component>
+    
+</components>

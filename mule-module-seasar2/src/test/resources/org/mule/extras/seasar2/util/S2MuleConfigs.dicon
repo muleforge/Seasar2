@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<components>
+    
+	<!-- ActiveMQ Jms connectorの設定 -->
+	<component class="org.mule.extras.seasar2.connector.impl.ActiveMQJmsConnector" >
+		<!-- brokerURLの設定 -->
+		<property name="brokerURL">"tcp://localhost:61616"</property>
+		<!-- その他のプロパティの設定 -->
+		<property name="maxRedelivery">5</property>
+	</component>
+    
+</components>
