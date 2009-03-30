@@ -8,8 +8,6 @@
  */
 package org.mule.extras.seasar2.connector;
 
-import java.util.Map;
-
 import org.mule.api.MuleException;
 import org.mule.extras.seasar2.endpoint.EndpointConfig;
 import org.mule.module.client.MuleClient;

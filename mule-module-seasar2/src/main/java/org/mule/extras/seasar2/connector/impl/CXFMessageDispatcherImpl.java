@@ -32,7 +32,7 @@ public class CXFMessageDispatcherImpl implements MessageDispatcher
                          Object payload,
                          MuleClient muleClient) throws MuleException
     {
-        muleClient.dispatch(outboundEndpoint.getUri(),payload,outboundEndpoint.getProperties());
+        muleClient.dispatch(outboundEndpoint.getUri(), payload, outboundEndpoint.getProperties());
     }
 
     /**
@@ -46,7 +46,7 @@ public class CXFMessageDispatcherImpl implements MessageDispatcher
         {
             Map s2muleProperties = outboundEndpoint.getProperties();
             
-            ImmutableEndpoint muleEndpoint = (ImmutableEndpoint) muleClient.getMuleContext()
+            ImmutableEndpoint muleEndpoint = muleClient.getMuleContext()
                 .getRegistry().lookupEndpointFactory().getOutboundEndpoint(outboundEndpoint.getUri());
             Map muleProperties = muleEndpoint.getProperties();
             

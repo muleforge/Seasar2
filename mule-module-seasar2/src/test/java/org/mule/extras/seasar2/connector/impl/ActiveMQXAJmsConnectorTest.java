@@ -21,6 +21,7 @@ public class ActiveMQXAJmsConnectorTest extends S2TestCase
         super(name);
     }
 
+    @Override
     public void setUp() throws Exception 
     {
         include("ActiveMQXAJmsConnectorTest.dicon");

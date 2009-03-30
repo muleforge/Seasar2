@@ -29,6 +29,7 @@ public class CxfEndpointTest extends S2TestCase
         super(name);
     }
     
+    @Override
     public void setUp() throws Exception
     {
         include("CxfEndpointTest.dicon");

@@ -9,17 +9,7 @@
 package org.mule.extras.seasar2.connector;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-
-import org.apache.commons.beanutils.BeanUtilsBean;
-import org.mule.api.MuleContext;
-import org.mule.api.MuleException;
-import org.mule.api.transport.Connector;
-import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
-import org.mule.extras.seasar2.exception.S2MuleRuntimeException;
-import org.seasar.framework.beans.PropertyNotFoundRuntimeException;
-import org.seasar.framework.beans.util.BeanUtil;
 
 /**
  * ConnectorConfigの抽象クラス

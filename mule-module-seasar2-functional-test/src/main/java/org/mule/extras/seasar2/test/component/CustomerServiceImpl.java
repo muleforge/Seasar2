@@ -8,6 +8,11 @@
  */
 package org.mule.extras.seasar2.test.component;
 
+import javax.jws.WebService;
+
+@WebService(endpointInterface="org.mule.extras.seasar2.test.component.CustomerService",
+        portName="CustomerServicePort",
+        serviceName="HelloWorld")
 public class CustomerServiceImpl implements CustomerService 
 {
     private static Customer[] customers = new Customer[2];

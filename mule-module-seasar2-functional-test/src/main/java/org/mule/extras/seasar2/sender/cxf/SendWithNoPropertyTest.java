@@ -8,8 +8,7 @@
  */
 package org.mule.extras.seasar2.sender.cxf;
 
-import org.mule.example.client.HelloWorld;
-import org.mule.extras.seasar2.test.component.Echo;
+import org.mule.extras.seasar2.ws.hello.HelloWorld;
 import org.seasar.extension.unit.S2TestCase;
 
 /**

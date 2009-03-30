@@ -5,24 +5,12 @@
 	<groupId>org.mule.modules</groupId>
 	<artifactId>mule-module-seasar2-functional-test</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.1</version>
-	<properties>
-		<muleVersion>2.0.2</muleVersion>
-		<seasarVersion>2.4.17</seasarVersion>
-	</properties>
-	
+	<version>1.1.0</version>
 	<dependencies>
-		<!--  
 		<dependency>
 			<groupId>org.mule.modules</groupId>
 			<artifactId>mule-module-seasar2</artifactId>
 			<version>${version}</version>
-		</dependency>
-		-->
-		<dependency>
-			<groupId>org.seasar.container</groupId>
-			<artifactId>s2-tiger</artifactId>
-			<version>${seasarVersion}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
@@ -34,7 +22,12 @@
 					<artifactId>activeio-core</artifactId>
 				</exclusion>
 			</exclusions>
-			
+		</dependency>
+		<dependency>
+			<groupId>org.mule.tests</groupId>
+			<artifactId>mule-tests-functional</artifactId>
+			<version>2.2.0</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 	<repositories>
@@ -49,5 +42,32 @@
 			<url>http://maven.seasar.org/maven2</url>
 		</repository>
 	</repositories>
-	
+	<!--  
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-codegen-plugin</artifactId>
+				<version>2.1.2</version>
+				<executions>
+					<execution>
+						<id>generate-sources</id>
+						<phase>generate-sources</phase>
+						<configuration>
+							<sourceRoot>./src/main/java</sourceRoot>
+							<wsdlOptions>
+								<wsdlOption>
+									<wsdl></wsdl>
+								</wsdlOption>
+							</wsdlOptions>
+						</configuration>
+						<goals>
+							<goal>wsdl2java</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	-->
 </project>

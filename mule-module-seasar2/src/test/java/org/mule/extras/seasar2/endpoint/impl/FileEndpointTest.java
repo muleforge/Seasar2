@@ -10,16 +10,11 @@ package org.mule.extras.seasar2.endpoint.impl;
 
 import org.mule.api.MuleContext;
 import org.mule.api.endpoint.EndpointBuilder;
-import org.mule.api.endpoint.InboundEndpoint;
 import org.mule.api.endpoint.OutboundEndpoint;
 import org.mule.context.DefaultMuleContextFactory;
 import org.mule.extras.seasar2.connector.MessageDispatcher;
-import org.mule.extras.seasar2.connector.impl.AxisMessageDispatcherImpl;
 import org.mule.extras.seasar2.connector.impl.FileMessageDispatcherImpl;
-import org.mule.extras.seasar2.endpoint.AbstractEndpoint;
 import org.mule.extras.seasar2.endpoint.EndpointConfig;
-import org.mule.transport.jms.filters.JmsPropertyFilter;
-import org.mule.transport.jms.transformers.JMSMessageToObject;
 import org.seasar.extension.unit.S2TestCase;
 
 public class FileEndpointTest extends S2TestCase {
@@ -32,7 +27,8 @@ public class FileEndpointTest extends S2TestCase {
 		super(name);
 	}
 	
-	public void setUp() throws Exception
+	@Override
+    public void setUp() throws Exception
 	{
 		include("FileEndpointTest.dicon");
 	}

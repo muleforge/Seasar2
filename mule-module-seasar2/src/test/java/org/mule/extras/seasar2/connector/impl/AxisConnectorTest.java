@@ -21,6 +21,7 @@ public class AxisConnectorTest extends S2TestCase
         super(name);
     }
     
+    @Override
     public void setUp() throws Exception 
     {
         include("AxisConnectorTest.dicon");

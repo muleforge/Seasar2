@@ -98,7 +98,7 @@ public class S2MuleObjectFactory implements ObjectFactory
      */
     public void release(Object object) throws Exception 
     {
-    	//blank
+        //blank
     }
     
     /**

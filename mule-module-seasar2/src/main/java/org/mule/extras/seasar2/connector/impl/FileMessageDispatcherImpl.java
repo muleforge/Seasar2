@@ -15,7 +15,6 @@ import org.mule.extras.seasar2.connector.MessageDispatcher;
 import org.mule.extras.seasar2.endpoint.EndpointConfig;
 import org.mule.extras.seasar2.exception.S2MuleRuntimeException;
 import org.mule.module.client.MuleClient;
-import org.seasar.framework.log.Logger;
 
 /**
  * Fileにメッセージを書き出すディスパッチャ
@@ -32,7 +31,7 @@ public class FileMessageDispatcherImpl implements MessageDispatcher
                          Object payload,
                          MuleClient muleClient) throws MuleException
     {
-        muleClient.sendAsync(outboundEndpoint.getUri(),payload,outboundEndpoint.getProperties());  
+        muleClient.sendAsync(outboundEndpoint.getUri(), payload, outboundEndpoint.getProperties());  
     }
     
 	/**

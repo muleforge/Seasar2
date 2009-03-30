@@ -21,6 +21,7 @@ public class S2MuleSenderImplTest extends S2TestCase
         super(name);
     }
     
+    @Override
     public void setUp() throws Exception 
     {
         include("SenderImplTest.dicon");

@@ -12,7 +12,6 @@ import java.io.FileOutputStream;
 
 import org.mule.api.transport.Connector;
 import org.mule.extras.seasar2.connector.AbstractConnector;
-import org.mule.extras.seasar2.connector.MessageDispatcher;
 import org.mule.util.ObjectNameHelper;
 import org.seasar.framework.beans.util.BeanUtil;
 

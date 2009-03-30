@@ -17,9 +17,7 @@ import javax.transaction.TransactionManager;
 
 import org.mule.api.MuleContext;
 import org.mule.api.MuleException;
-import org.mule.endpoint.EndpointURIEndpointBuilder;
 import org.mule.endpoint.DefaultInboundEndpoint;
-import org.mule.endpoint.URIBuilder;
 import org.mule.extras.seasar2.connector.ConnectorConfig;
 import org.mule.extras.seasar2.endpoint.EndpointConfig;
 import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
@@ -32,7 +30,6 @@ import org.mule.api.endpoint.EndpointBuilder;
 import org.mule.api.model.Model;
 import org.mule.api.routing.InboundRouterCollection;
 import org.mule.component.DefaultJavaComponent;
-import org.mule.context.DefaultMuleContextFactory;
 import org.mule.model.seda.SedaModel;
 import org.mule.model.seda.SedaService;
 import org.mule.routing.inbound.DefaultInboundRouterCollection;
@@ -103,7 +100,7 @@ public class S2MuleReceiverImpl implements S2MuleReceiver
                 {
                     ConnectorConfig connectorConfig
                         = (ConnectorConfig) connectorConfigs.get(i);
-                    if(muleContext.getRegistry().lookupConnector(connectorConfig.getName())==null)
+                    if(muleContext.getRegistry().lookupConnector(connectorConfig.getName()) == null)
                     {
                         muleContext.getRegistry().registerConnector(connectorConfig.buildConnector());
                     }
@@ -142,7 +139,7 @@ public class S2MuleReceiverImpl implements S2MuleReceiver
      * @return Muleにおけるサービス
      * @throws MuleException Muleの例外
      */
-    private Service createService(S2MuleConfiguration s2MuleConfig) throws MuleException,Exception
+    private Service createService(S2MuleConfiguration s2MuleConfig) throws MuleException, Exception
     {
         
         //MuleのDefaultであるSedaServiceを作成

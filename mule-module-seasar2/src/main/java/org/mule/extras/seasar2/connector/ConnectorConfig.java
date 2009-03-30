@@ -10,7 +10,6 @@ package org.mule.extras.seasar2.connector;
 
 import java.util.Map;
 
-import org.mule.api.MuleContext;
 import org.mule.api.transport.Connector;
 
 /**

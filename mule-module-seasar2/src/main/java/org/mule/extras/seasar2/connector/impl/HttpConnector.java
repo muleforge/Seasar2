@@ -42,6 +42,7 @@ public class HttpConnector extends TcpConnector
     /**
      * @see org.mule.extras.seasar2.connector.ConnectorConfig#getConnector()
      */
+    @Override
     public Connector buildConnector()
     {
        org.mule.transport.http.HttpConnector connector

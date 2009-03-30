@@ -17,7 +17,6 @@ import org.mule.extras.seasar2.connector.ConnectorConfig;
 import org.mule.extras.seasar2.exception.S2MuleRuntimeException;
 import org.mule.extras.seasar2.util.S2MuleComponentUtil;
 import org.seasar.framework.container.S2Container;
-import org.springframework.jmx.support.ConnectorServerFactoryBean;
 
 /**
  * MuleContextの保持を行うクラス

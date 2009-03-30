@@ -19,7 +19,8 @@ public class S2MuleConfigurationTest extends S2TestCase
 		super(name);
 	}
 	
-	public void setUp() throws Exception
+	@Override
+    public void setUp() throws Exception
 	{
 		include("S2MuleConfigurationTest.dicon");
 	}

@@ -8,10 +8,16 @@
  */
 package org.mule.extras.seasar2.test.component;
 
+import javax.jws.WebParam;
+import javax.jws.WebResult;
+import javax.jws.WebService;
 
+@WebService
 public interface CustomerService 
 {
-    Customer getCustomer(int id);
+    @WebResult(name="customer")
+    Customer getCustomer(@WebParam(name="id")int id);
     
-    Customer changeCustomer(Customer before);
+    @WebResult(name="changedCustomer")
+    Customer changeCustomer(@WebParam(name="before")Customer before);
 }

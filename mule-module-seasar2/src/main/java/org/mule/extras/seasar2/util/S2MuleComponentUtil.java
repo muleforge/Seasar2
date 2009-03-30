@@ -13,7 +13,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.httpclient.ProxyClient.ConnectResponse;
 import org.mule.extras.seasar2.connector.ConnectorConfig;
 import org.mule.extras.seasar2.receiver.impl.S2MuleConfiguration;
 import org.seasar.framework.container.ComponentDef;
@@ -27,12 +26,16 @@ import org.seasar.framework.container.S2Container;
  */
 public class S2MuleComponentUtil
 {
+    /**
+     * インスタンスを生成する
+     */
     private S2MuleComponentUtil()
     {
+        //blank
     }
     
     /** diconファイルに記述されている全てのコンポーネント　*/
-    private static List allDiconComponentDefs;
+    private static List < ComponentDef > allDiconComponentDefs;
     
     /**
      * diconファイルに記述されている全てのコンポーネントを取得する
@@ -43,14 +46,14 @@ public class S2MuleComponentUtil
      */
     private static void createAllDiconComponents(S2Container container, Set set) 
     {
-         if(allDiconComponentDefs == null)
+         if (allDiconComponentDefs == null)
          {
-             allDiconComponentDefs = new ArrayList();
+             allDiconComponentDefs = new ArrayList < ComponentDef > ();
          }
         
          if (set == null)
          {
-             set = new HashSet();
+             set = new HashSet < S2Container > ();
          }
          
          //現在のS2コンテナとおなじS2コンテナがsetに登録されている場合
@@ -77,16 +80,17 @@ public class S2MuleComponentUtil
      * @param container S2コンテナ
      * @return configs MuleConfigのリスト
      */
-    public static List getS2MuleConfigs(S2Container container)
+    public static List < S2MuleConfiguration > getS2MuleConfigs(S2Container container)
     {
-        List configs = new ArrayList();
+        List < S2MuleConfiguration > configs 
+            = new ArrayList < S2MuleConfiguration > ();
         if (allDiconComponentDefs == null)
         {
             createAllDiconComponents(container, null);
         }
         for (int i = 0; i < allDiconComponentDefs.size(); i++ )
         {
-            ComponentDef cd = (ComponentDef) allDiconComponentDefs.get(i);
+            ComponentDef cd = allDiconComponentDefs.get(i);
             
             //S2MuleConfigurationクラスの場合、リストに追加する
             if ( cd.getComponent() instanceof S2MuleConfiguration)
@@ -117,7 +121,7 @@ public class S2MuleComponentUtil
         }
         for (int i = 0; i < allDiconComponentDefs.size(); i++)
         {
-            ComponentDef cd = (ComponentDef) allDiconComponentDefs.get(i);
+            ComponentDef cd = allDiconComponentDefs.get(i);
             
             if ( cd.getComponent() instanceof ConnectorConfig)
             {

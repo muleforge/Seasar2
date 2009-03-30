@@ -20,7 +20,6 @@ import org.mule.extras.seasar2.endpoint.EndpointConfig;
 import org.mule.extras.seasar2.exception.S2MuleRuntimeException;
 import org.mule.extras.seasar2.sender.interceptor.MethodInvocationInterceptor;
 import org.mule.module.client.MuleClient;
-import org.seasar.framework.log.Logger;
 
 /**
  * Axisを使ったSOAPメッセージのディスパッチャ
@@ -43,7 +42,7 @@ public class AxisMessageDispatcherImpl implements MessageDispatcher
     {
         try
         {
-            ImmutableEndpoint endpoint = (ImmutableEndpoint) muleClient.getMuleContext()
+            ImmutableEndpoint endpoint = muleClient.getMuleContext()
                 .getRegistry().lookupEndpointFactory().getOutboundEndpoint(outboundEndpoint.getUri());
         
             if (endpoint.getProperties().containsKey("method"))

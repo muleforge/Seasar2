@@ -5,7 +5,7 @@
 	<groupId>org.mule.modules</groupId>
 	<artifactId>mule-module-seasar2</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.1</version>
+	<version>1.1.0</version>
 	<name>Mule Module Seasar2</name>
 	<description> 
 		S2Mule helps Java developers to use Mule's very significant functionalities from Seasar2 applications easily. 
@@ -14,7 +14,7 @@
 	</description>
 	<properties>
 		<muleVersion>2.2.0</muleVersion>
-		<seasarVersion>2.4.17</seasarVersion>
+		<seasarVersion>2.4.34</seasarVersion>
 	</properties>
 	
 	<distributionManagement>
@@ -89,6 +89,11 @@
 		<dependency>
 			<groupId>org.seasar.container</groupId>
 			<artifactId>s2-extension</artifactId>
+			<version>${seasarVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.seasar.container</groupId>
+			<artifactId>s2-tiger</artifactId>
 			<version>${seasarVersion}</version>
 		</dependency>
 		<dependency>

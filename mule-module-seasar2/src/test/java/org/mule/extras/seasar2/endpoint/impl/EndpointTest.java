@@ -28,7 +28,8 @@ public class EndpointTest extends S2TestCase
 		super(name);
 	}
 	
-	public void setUp() throws Exception
+	@Override
+    public void setUp() throws Exception
 	{
 		include("EndpointTest.dicon");
 	}

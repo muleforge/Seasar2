@@ -8,18 +8,13 @@
  */
 package org.mule.extras.seasar2.connector.impl;
 
-import java.lang.reflect.Method;
 import java.util.Map;
 
 import org.mule.api.MuleException;
-import org.mule.api.endpoint.ImmutableEndpoint;
 import org.mule.extras.seasar2.connector.MessageDispatcher;
 import org.mule.extras.seasar2.endpoint.EndpointConfig;
 import org.mule.extras.seasar2.exception.S2MuleRuntimeException;
-import org.mule.extras.seasar2.sender.interceptor.MethodInvocationInterceptor;
 import org.mule.module.client.MuleClient;
-import org.mule.transport.cxf.CxfConnector;
-import org.mule.transport.cxf.CxfConstants;
 
 /**
  * デフォルトのMessageDisptcher
@@ -35,7 +30,7 @@ public class DefaultMessageDispatcherImpl implements MessageDispatcher
                          Object payload,
                          MuleClient muleClient) throws MuleException
     {
-        muleClient.sendAsync(outboundEndpoint.getUri(),payload,outboundEndpoint.getProperties());
+        muleClient.sendAsync(outboundEndpoint.getUri(), payload, outboundEndpoint.getProperties()); 
     }
 
     /**

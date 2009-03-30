@@ -16,10 +16,10 @@
 	<!-- Endpointの設定 -->
 	<component name="cxf_out"
 		class="org.mule.extras.seasar2.endpoint.impl.CxfEndpoint" >
-		<property name="uri">"cxf:http://localhost:65080/services/hello"</property>
-		<property name="clientClass">"org.mule.example.client.HelloWorld_Service"</property>
+		<property name="uri">"cxf:http://localhost:65082/services/hello"</property>
+		<property name="clientClass">"org.mule.extras.seasar2.ws.hello.HelloWorld_Service"</property>
 		<property name="wsdlPort">"HelloWorldPort"</property>
-		<property name="wsdlLocation">"http://localhost:65080/services/hello?wsdl"</property>
+		<property name="wsdlLocation">"http://localhost:65082/services/hello?wsdl"</property>
 	</component>
 
 	<!-- Senderの設定-->
@@ -31,7 +31,7 @@
 	</component>
 	
 	<!-- interceptorを適応するインタフェースの設定-->
-	<component class="org.mule.example.client.HelloWorld" >
+	<component class="org.mule.extras.seasar2.ws.hello.HelloWorld" >
 		<aspect>interceptor</aspect>
 	</component>
 </components>

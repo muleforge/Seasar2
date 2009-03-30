@@ -19,6 +19,7 @@ public class HttpsConnectorTest extends S2TestCase
         super(name);
     }
     
+    @Override
     public void setUp() throws Exception
     {
         include("HttpsConnectorTest.dicon");
