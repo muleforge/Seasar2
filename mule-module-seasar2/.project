@@ -1,25 +1,19 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>mule-module-seasar2</name>
-	<comment>The Seasar2 framework is an open source framework similar
+  <name>mule-module-seasar2</name>
+  <comment>The Seasar2 framework is an open source framework similar
 		to the Spring Framework. This module makes mule available from
 		seasar2.</comment>
-	<projects>
-	</projects>
-	<buildSpec>
-		<buildCommand>
-			<name>org.eclipse.jdt.core.javabuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
-			<name>net.sf.eclipsecs.core.CheckstyleBuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-	</buildSpec>
-	<natures>
-		<nature>org.eclipse.jdt.core.javanature</nature>
-		<nature>net.sf.eclipsecs.core.CheckstyleNature</nature>
-	</natures>
+  <projects/>
+  <buildSpec>
+    <buildCommand>
+      <name>org.eclipse.jdt.core.javabuilder</name>
+    </buildCommand>
+    <buildCommand>
+      <name>net.sf.eclipsecs.core.CheckstyleBuilder</name>
+    </buildCommand>
+  </buildSpec>
+  <natures>
+    <nature>org.eclipse.jdt.core.javanature</nature>
+    <nature>net.sf.eclipsecs.core.CheckstyleNature</nature>
+  </natures>
 </projectDescription>
