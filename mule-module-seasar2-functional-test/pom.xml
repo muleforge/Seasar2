@@ -6,6 +6,10 @@
 	<artifactId>mule-module-seasar2-functional-test</artifactId>
 	<packaging>jar</packaging>
 	<version>1.1.0</version>
+	<properties>
+		<cxfVersion>2.1.2</cxfVersion>
+	</properties>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.mule.modules</groupId>
@@ -42,22 +46,28 @@
 			<url>http://maven.seasar.org/maven2</url>
 		</repository>
 	</repositories>
-	<!--  
 	<build>
 		<plugins>
 			<plugin>
+				<!-- 
+				cxf WSDL2Java を利用したコード生成プラグインの設定
+				-->
 				<groupId>org.apache.cxf</groupId>
 				<artifactId>cxf-codegen-plugin</artifactId>
-				<version>2.1.2</version>
+				<version>${cxfVersion}</version>
 				<executions>
 					<execution>
 						<id>generate-sources</id>
 						<phase>generate-sources</phase>
 						<configuration>
-							<sourceRoot>./src/main/java</sourceRoot>
+							<sourceRoot>/src/main/java</sourceRoot>
 							<wsdlOptions>
 								<wsdlOption>
-									<wsdl></wsdl>
+									<wsdl>http://localhost:65082/services/hello?wsdl</wsdl>
+									<extraargs>
+										<extraarg>-p</extraarg>
+										<extraarg>org.mule.extras.seasar2.ws.hello</extraarg>
+									</extraargs>
 								</wsdlOption>
 							</wsdlOptions>
 						</configuration>
@@ -69,5 +79,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	-->
 </project>
