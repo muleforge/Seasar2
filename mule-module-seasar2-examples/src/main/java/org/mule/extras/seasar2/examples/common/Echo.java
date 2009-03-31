@@ -8,14 +8,19 @@
  */
 package org.mule.extras.seasar2.examples.common;
 
+import javax.jws.WebParam;
+import javax.jws.WebResult;
+import javax.jws.WebService;
+
 /**
  * Echo インタフェース
  * @author Saito_Shinya@ogis-ri.co.jp
  *
  */
+@WebService
 public interface Echo
 {
-    
-    String echo(String echo);
+    @WebResult(name="response")
+    String echo(@WebParam(name="request")String echo);
     
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<!--
+ SOAP-Axisを利用したテスト
+-->
+<components>
+
+	<include path="s2mule-sender.dicon"/>
+
+	<!-- インターセプタコンポーネントの定義-->
+	<component name="interceptor" 
+		class="org.mule.extras.seasar2.sender.interceptor.MethodInvocationInterceptor" />
+
+	<component name="cxf_sender_endpoint"
+		class="org.mule.extras.seasar2.endpoint.impl.CxfEndpoint">
+		<property name="uri">"cxf:http://localhost:65082/services/EchoService"</property>
+		<property name="wsdlLocation">"http://localhost:65082/services/EchoService?wsdl"</property>
+		<property name="wsdlPort">"EchoPort"</property>
+		<property name="clientClass">"org.mule.extras.seasar2.sample.ws.cxf.EchoService"</property>
+	</component>
+
+	<!-- Senderの設定-->
+	<component class="org.mule.extras.seasar2.sender.impl.S2MuleSenderImpl" >
+		<!-- Serviceのuri-->
+		<initMethod name="addOutboundEndpoint" >
+			<arg>cxf_sender_endpoint</arg>
+		</initMethod>
+	</component>
+	
+	<!-- interceptorを適応するインタフェースの設定-->
+	<component class="org.mule.extras.seasar2.examples.common.Echo" >
+		<aspect>interceptor</aspect>
+	</component>
+	
+</components>

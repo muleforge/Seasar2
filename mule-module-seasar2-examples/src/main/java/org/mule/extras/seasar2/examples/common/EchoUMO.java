@@ -8,12 +8,17 @@
  */
 package org.mule.extras.seasar2.examples.common;
 
+import javax.jws.WebService;
+
 /**
  * Echo UMOの実装
  * 
  * @author Saito_Shinya@ogis-ri.co.jp
  *
  */
+@WebService(endpointInterface="org.mule.extras.seasar2.examples.common.Echo",
+        portName="EchoPort",
+        serviceName="EchoService")
 public class EchoUMO implements Echo
 {
     public String echo(String str)

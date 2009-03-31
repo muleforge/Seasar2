@@ -6,6 +6,43 @@
 	<artifactId>mule-module-seasar2-example</artifactId>
 	<packaging>jar</packaging>
 	<version>1.1.0</version>
+	<properties>
+		<cxfVersion>2.1.2</cxfVersion>
+	</properties>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<!-- 
+				cxf WSDL2Java を利用したコード生成プラグインの設定
+				-->
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-codegen-plugin</artifactId>
+				<version>${cxfVersion}</version>
+				<executions>
+					<execution>
+						<id>generate-sources</id>
+						<phase>generate-sources</phase>
+						<configuration>
+							<sourceRoot>/src/main/java</sourceRoot>
+							<wsdlOptions>
+								<wsdlOption>
+									<wsdl>http://localhost:65082/services/EchoService?wsdl</wsdl>
+									<extraargs>
+										<extraarg>-p</extraarg>
+										<extraarg>org.mule.extras.seasar2.sample.ws.cxf</extraarg>
+									</extraargs>
+								</wsdlOption>
+							</wsdlOptions>
+						</configuration>
+						<goals>
+							<goal>wsdl2java</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 	<dependencies>
 		<dependency>
 			<groupId>org.mule.modules</groupId>
@@ -29,11 +66,6 @@
 			<id>maven.muleforge.org</id>
 			<name>The MuleForge Maven2 Repository</name>
 			<url>http://repository.muleforge.org/</url>
-		</repository>
-		<repository>
-			<id>maven.muleforge.org</id>
-			<name>The MuleForge Maven2 Repository</name>
-			<url>http://dav.muleforge.org/</url>
 		</repository>
 	</repositories>
 </project>

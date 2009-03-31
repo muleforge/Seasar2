@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<components>
+    <include path="s2mule-receiver.dicon"/>
+    
+	 <component name="echoUMO" 
+                class="org.mule.extras.seasar2.examples.common.EchoUMO" />
+        
+    <!-- MuleConfigの設定 -->
+    <component class="org.mule.extras.seasar2.receiver.impl.S2MuleConfiguration" >
+        <initMethod name="addInboundEndpoint">
+            <arg>"cxf:http://localhost:65082/services/EchoService"</arg>
+        </initMethod>
+        <!-- メッセージを受け取るクラス -->
+        <property name="umoImpl">
+        	echoUMO
+        </property>
+    </component>
+    
+</components>

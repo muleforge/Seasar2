@@ -6,7 +6,7 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-package org.mule.extras.seasar2.examples.helloworld.soap.axis;
+package org.mule.extras.seasar2.examples.helloworld.soap.cxf;
 
 import org.mule.extras.seasar2.examples.common.Echo;
 import org.seasar.framework.container.S2Container;
@@ -14,15 +14,15 @@ import org.seasar.framework.container.factory.S2ContainerFactory;
 import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
 
 /**
- * SOAPメッセージを送信するサンプル
+ * SOAPメッセージをCXFを使って送信するサンプル
  * 
  * @author Saito_Shinya@ogis-ri.co.jp
  *
  */
-public class HelloWorldSOAP 
+public class HelloWorldCXF 
 {
     /** diconファイルのパス*/
-    private static final String CONFIGURE_PATH = "helloworld-send-soap-axis.dicon";
+    private static final String CONFIGURE_PATH = "helloworld-send-cxf.dicon";
 
     /** S2コンテナ */
     private static S2Container container;
