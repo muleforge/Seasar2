@@ -5,12 +5,7 @@
 	<groupId>org.mule.modules</groupId>
 	<artifactId>mule-module-seasar2-example</artifactId>
 	<packaging>jar</packaging>
-	<parent>
-		<groupId>org.mule.modules</groupId>
-		<artifactId>s2mule</artifactId>
-		<version>1.0.0</version>
-	</parent>
-
+	<version>1.0.0</version>
 	<dependencies>
 		<dependency>
 			<groupId>org.mule.modules</groupId>
