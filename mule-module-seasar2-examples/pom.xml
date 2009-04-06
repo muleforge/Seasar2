@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.mule.modules</groupId>
+	<artifactId>mule-module-seasar2-example</artifactId>
+	<packaging>jar</packaging>
+	<parent>
+		<groupId>org.mule.modules</groupId>
+		<artifactId>s2mule</artifactId>
+		<version>0.9.4</version>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.mule.modules</groupId>
+			<artifactId>mule-module-seasar2</artifactId>
+			<version>${version}</version>
+		</dependency>
+	</dependencies>
+	<repositories>
+		<repository>
+			<id>maven.muleforge.org</id>
+			<name>The MuleForge Maven2 Repository</name>
+			<url>http://repository.muleforge.org/</url>
+		</repository>
+	</repositories>
+	
+</project>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR//DTD S2Container 2.4//EN"
+	"http://www.seasar.org/dtd/components24.dtd">
+<components>
+    <include path="s2mule-receiver.dicon"/>
+    
+    <component name="echoUMO" 
+                class="org.mule.extras.seasar2.examples.common.EchoUMO" />
+    
+    <!-- JMS Connectorの設定-->
+    <component name="jms_connector"
+    	class="org.mule.extras.seasar2.connector.impl.ActiveMQJmsConnector" >
+    	<property name="brokerURL">"tcp://localhost:61616"</property>
+    </component>
+    
+    <component name="jms_in"
+    	class="org.mule.extras.seasar2.endpoint.impl.FileEndpoint" >
+    	<property name="uri">"jms://Foo"</property>
+    	<property name="connectorConfig">
+    		jms_connector
+    	</property>
+    </component>
+    
+    
+    <!-- MuleConfigの設定 -->
+    <component 
+    	class="org.mule.extras.seasar2.receiver.impl.S2MuleConfiguration" >
+    	<!-- Endpointの設定 -->
+        <initMethod name="addInbounEndpoint">
+            <arg>jms_in</arg>
+        </initMethod>
+        <!-- メッセージを受け取るクラス -->
+        <property name="umoImpl">
+        	 echoUMO
+        </property>
+    </component>
+    
+</components>
