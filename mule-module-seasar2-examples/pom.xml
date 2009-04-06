@@ -13,9 +13,16 @@
 	<build>
 		<plugins>
 			<plugin>
-				<!-- 
-				cxf WSDL2Java を利用したコード生成プラグインの設定
-				-->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<configuration>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>true</downloadJavadocs>
+				</configuration>
+			</plugin>
+			<!-- 
+			cxf WSDL2Java を利用したコード生成プラグインの設定
+			<plugin>
 				<groupId>org.apache.cxf</groupId>
 				<artifactId>cxf-codegen-plugin</artifactId>
 				<version>${cxfVersion}</version>
@@ -41,6 +48,7 @@
 					</execution>
 				</executions>
 			</plugin>
+			-->
 		</plugins>
 	</build>
 	<dependencies>
@@ -48,6 +56,7 @@
 			<groupId>org.mule.modules</groupId>
 			<artifactId>mule-module-seasar2</artifactId>
 			<version>${version}</version>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
