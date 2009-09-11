@@ -26,6 +26,8 @@ import org.mule.endpoint.URIBuilder;
 import org.mule.extras.seasar2.connector.ConnectorConfig;
 import org.mule.extras.seasar2.connector.MessageDispatcher;
 import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
+import org.mule.extras.seasar2.util.S2MuleEndpointUtil;
+
 import org.seasar.framework.log.Logger;
 
 
@@ -219,9 +221,18 @@ public abstract class AbstractEndpoint implements EndpointConfig
         return uri;
     }
 
+    
     public void setUri(String uri) 
     {
-        this.uri = uri;
+        if (isValidUriScheme(uri))
+        {
+            this.uri = uri;
+        } 
+        else
+        {
+            throw new S2MuleConfigurationException("ESML0008", 
+                new Object[]{S2MuleEndpointUtil.getUriScheme(uri),getUriScheme()});
+        }
     }
 
     public ConnectorConfig getConnectorConfig() 
@@ -244,4 +255,15 @@ public abstract class AbstractEndpoint implements EndpointConfig
         this.remoteSyncTimeout = remoteSyncTimeout;
     }
     
+    /**
+     * Uriスキームをチェックする
+     * 
+     * @param uri
+     * @return
+     */
+    private boolean isValidUriScheme(String uri)
+    {
+        String uriScheme = S2MuleEndpointUtil.getUriScheme(uri);
+        return this.getUriScheme().equals(uriScheme);
+    }
 }

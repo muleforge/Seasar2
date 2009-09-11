@@ -5,7 +5,7 @@
 	<groupId>org.mule.modules</groupId>
 	<artifactId>mule-module-seasar2</artifactId>
 	<packaging>jar</packaging>
-	<version>1.1.0</version>
+	<version>1.1.1</version>
 	<name>Mule Module Seasar2</name>
 	<description> 
 		S2Mule helps Java developers to use Mule's very significant functionalities from Seasar2 applications easily. 
@@ -13,7 +13,7 @@
 		So, They don't need to learn XML configuration syntax any more.  
 	</description>
 	<properties>
-		<muleVersion>2.2.0</muleVersion>
+		<muleVersion>2.2.1</muleVersion>
 		<seasarVersion>2.4.34</seasarVersion>
 	</properties>
 	
@@ -138,6 +138,14 @@
 			<artifactId>mule-transport-cxf</artifactId>
 			<version>${muleVersion}</version>
 		</dependency>
+		<!-- とりあえずのバージョン -->
+		<dependency>
+			<groupId>org.mule.modules</groupId>
+			<artifactId>mule-module-acegi</artifactId>
+			<version>${muleVersion}</version>
+		</dependency>
+		
+		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>

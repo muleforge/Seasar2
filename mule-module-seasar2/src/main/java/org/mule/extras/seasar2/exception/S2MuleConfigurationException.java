@@ -20,16 +20,6 @@ public class S2MuleConfigurationException extends SRuntimeException
 {
     /** UID */
     private static final long serialVersionUID = -1235115149163252649L;
-    
-    /**
-     * メッセージコード
-     */
-    protected String messageCode;
-    
-    /**
-     * メッセージに埋め込まれる引数
-     */
-    protected Object[] args;
 
     /**
      * インスタンスを生成します。
@@ -62,8 +52,6 @@ public class S2MuleConfigurationException extends SRuntimeException
      */
     public S2MuleConfigurationException(String messageCode, Object[] args, Throwable cause) 
     {
-        super(MessageFormatter.getMessage(messageCode, args));
-        this.messageCode = messageCode;
-        this.args = args;
+        super(messageCode, args, cause);
     }
 }

@@ -13,6 +13,7 @@ import org.mule.api.endpoint.EndpointBuilder;
 import org.mule.api.endpoint.InboundEndpoint;
 import org.mule.context.DefaultMuleContextFactory;
 import org.mule.extras.seasar2.endpoint.EndpointConfig;
+import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
 import org.mule.transport.jms.filters.JmsPropertyFilter;
 import org.mule.transport.jms.transformers.JMSMessageToObject;
 import org.seasar.extension.unit.S2TestCase;
@@ -78,6 +79,21 @@ public class EndpointTest extends S2TestCase
 				,value);
 		muleContext.dispose();
 		
+	}
+	
+	public void testEndpointConfigException()
+	{
+	    try
+	    {
+	        FileEndpoint endpoint = new FileEndpoint();
+	        endpoint.setUri("test://endpoint");
+	        fail("例外が発生するはず");
+	    } 
+	    catch (S2MuleConfigurationException e)
+	    {
+	        assertEquals("EndpointUriのスキームが間違っています。Uriスキーム=test,期待されるUriスキーム=file",
+	                e.getSimpleMessage());
+	    }
 	}
 
 }

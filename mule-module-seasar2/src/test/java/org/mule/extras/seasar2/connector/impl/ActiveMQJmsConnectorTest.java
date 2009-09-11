@@ -46,7 +46,7 @@ public class ActiveMQJmsConnectorTest extends S2TestCase
         try
         {
         	config_.buildConnector();
-        	fail("brokerURL is null");
+        	fail("brokerURL is'not null");
         }
         catch(S2MuleConfigurationException ex)
         {

@@ -10,7 +10,7 @@ package org.mule.extras.seasar2.endpoint.impl;
 
 import org.mule.extras.seasar2.endpoint.EndpointConfig;
 import org.mule.extras.seasar2.endpoint.EndpointConfigFactory;
-import org.mule.extras.seasar2.exception.S2MuleConfigurationException;
+import org.mule.extras.seasar2.util.S2MuleEndpointUtil;
 
 public class EndpointConfigFactoryImpl implements EndpointConfigFactory 
 {
@@ -27,7 +27,7 @@ public class EndpointConfigFactoryImpl implements EndpointConfigFactory
      */
     public EndpointConfig createEndpoint()
     {
-        String scheme = getUriScheme(uri);
+        String scheme = S2MuleEndpointUtil.getUriScheme(uri);
         
         if (scheme.equals(FileEndpoint.SCHEME))
         {
@@ -46,16 +46,6 @@ public class EndpointConfigFactoryImpl implements EndpointConfigFactory
             return new CxfEndpoint(uri);
         }
         return null;
-    }
-    
-    private String getUriScheme(String uri)
-    {
-        int index = uri.indexOf(":");
-        if (index == -1 )
-        {
-            throw new S2MuleConfigurationException("EMSL0006" , new Object[]{uri});
-        }
-        return uri.substring(0, index);
     }
 
 }
