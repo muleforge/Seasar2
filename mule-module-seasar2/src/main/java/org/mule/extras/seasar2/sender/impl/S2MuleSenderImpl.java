@@ -173,7 +173,7 @@ public class S2MuleSenderImpl implements S2MuleSender
                         TransactionCoordination.getInstance().bindTransaction(xat);
                     } 
                 }
-                messageDispacher.dispache(outboundEndpoint, payload, muleClient);
+                messageDispacher.dispatche(outboundEndpoint, payload, muleClient);
                 logger.debug("メッセージを" + outboundEndpoint.getUri() + "へ送信しました");
             }
             if (transactionManager != null 

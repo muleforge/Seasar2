@@ -28,7 +28,7 @@ import org.mule.module.client.MuleClient;
  */
 public class AxisMessageDispatcherImpl implements MessageDispatcher
 {
-    public void dispache(EndpointConfig outboundEndpoint,
+    public void dispatche(EndpointConfig outboundEndpoint,
                          Object payload,
                          MuleClient muleClient) throws MuleException
     {

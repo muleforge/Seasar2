@@ -27,7 +27,7 @@ public class FileMessageDispatcherImpl implements MessageDispatcher
     /** 
      * @see org.mule.extras.seasar2.connector.MessageDispatcher#dispache(EndpointConfig, Object, Map, MuleClient)
      */
-    public void dispache(EndpointConfig outboundEndpoint,
+    public void dispatche(EndpointConfig outboundEndpoint,
                          Object payload,
                          MuleClient muleClient) throws MuleException
     {

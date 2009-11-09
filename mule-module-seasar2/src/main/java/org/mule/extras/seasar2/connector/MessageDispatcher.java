@@ -29,7 +29,7 @@ public interface MessageDispatcher
      * 
      * @exception Muleの例外
      */
-    void dispache(EndpointConfig outboundEndpoint,
+    void dispatche(EndpointConfig outboundEndpoint,
     			Object payload,  
     			MuleClient muleClient) throws MuleException;
     

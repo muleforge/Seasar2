@@ -56,6 +56,12 @@ public class HttpsConnector extends HttpConnector
     /** トラストストアが利用するアルゴリズム*/
     private String trustManagerAlgorithm;
     
+    /** trustStoreが明示的に設定されていない場合にclientKeyStoreをtrustStoreに利用する */
+    private boolean explicitTrustStoreOnly;
+    
+    /** クライアント認証を必須にする */
+    private boolean requireClientAuthentication;
+    
     /**
      * @see org.mule.extras.seasar2.connector.ConnectorConfig#getConnector()
      */
@@ -188,6 +194,38 @@ public class HttpsConnector extends HttpConnector
     public void setTrustManagerAlgorithm(String trustManagerAlgorithm)
     {
         this.trustManagerAlgorithm = trustManagerAlgorithm;
+    }
+
+    /**
+     * @return the explicitTrustStoreOnly
+     */
+    public boolean isExplicitTrustStoreOnly()
+    {
+        return explicitTrustStoreOnly;
+    }
+
+    /**
+     * @param explicitTrustStoreOnly the explicitTrustStoreOnly to set
+     */
+    public void setExplicitTrustStoreOnly(boolean explicitTrustStoreOnly)
+    {
+        this.explicitTrustStoreOnly = explicitTrustStoreOnly;
+    }
+
+    /**
+     * @return the requireClientAuthentication
+     */
+    public boolean isRequireClientAuthentication()
+    {
+        return requireClientAuthentication;
+    }
+
+    /**
+     * @param requireClientAuthentication the requireClientAuthentication to set
+     */
+    public void setRequireClientAuthentication(boolean requireClientAuthentication)
+    {
+        this.requireClientAuthentication = requireClientAuthentication;
     }
     
     

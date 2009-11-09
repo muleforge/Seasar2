@@ -25,7 +25,7 @@ import org.seasar.framework.util.MethodUtil;
 public class MethodInvocationInterceptor extends AbstractInterceptor 
 {
     /** 元のメソッドを表す定数 */
-    public static final String ORIGINAL_METHOD = "orijinalMethod";
+    public static final String ORIGINAL_METHOD = "originalMethod";
     
     /** UID */
     private static final long serialVersionUID = -9223020020060206825L;
